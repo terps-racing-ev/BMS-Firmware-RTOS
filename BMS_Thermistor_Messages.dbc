@@ -1,0 +1,136 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: BMS_Controller CAN_Monitor
+
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN";
+
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
+
+BO_ 419430400 THERMISTOR_TEMP_01_04: 8 BMS_Controller
+ SG_ TEMP_01 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_02 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_03 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_04 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430401 THERMISTOR_TEMP_05_08: 8 BMS_Controller
+ SG_ TEMP_05 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_06 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_07 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_08 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430402 THERMISTOR_TEMP_09_12: 8 BMS_Controller
+ SG_ TEMP_09 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_10 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_11 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_12 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430403 THERMISTOR_TEMP_13_16: 8 BMS_Controller
+ SG_ TEMP_13 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_14 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_15 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_16 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430404 THERMISTOR_TEMP_17_20: 8 BMS_Controller
+ SG_ TEMP_17 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_18 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_19 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_20 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430405 THERMISTOR_TEMP_21_24: 8 BMS_Controller
+ SG_ TEMP_21 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_22 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_23 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_24 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430406 THERMISTOR_TEMP_25_28: 8 BMS_Controller
+ SG_ TEMP_25 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_26 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_27 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_28 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430407 THERMISTOR_TEMP_29_32: 8 BMS_Controller
+ SG_ TEMP_29 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_30 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_31 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_32 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430408 THERMISTOR_TEMP_33_36: 8 BMS_Controller
+ SG_ TEMP_33 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_34 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_35 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_36 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430409 THERMISTOR_TEMP_37_40: 8 BMS_Controller
+ SG_ TEMP_37 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_38 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_39 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_40 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430410 THERMISTOR_TEMP_41_44: 8 BMS_Controller
+ SG_ TEMP_41 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_42 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_43 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_44 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430411 THERMISTOR_TEMP_45_48: 8 BMS_Controller
+ SG_ TEMP_45 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_46 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_47 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_48 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430412 THERMISTOR_TEMP_49_52: 8 BMS_Controller
+ SG_ TEMP_49 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_50 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_51 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_52 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BO_ 419430413 THERMISTOR_TEMP_53_56: 8 BMS_Controller
+ SG_ TEMP_53 : 0|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_54 : 16|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_55 : 32|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+ SG_ TEMP_56 : 48|16@1- (0.1,-273) [-273|500] "degC" CAN_Monitor
+
+BA_ "VFrameFormat" BO_ 419430400 1;
+BA_ "VFrameFormat" BO_ 419430401 1;
+BA_ "VFrameFormat" BO_ 419430402 1;
+BA_ "VFrameFormat" BO_ 419430403 1;
+BA_ "VFrameFormat" BO_ 419430404 1;
+BA_ "VFrameFormat" BO_ 419430405 1;
+BA_ "VFrameFormat" BO_ 419430406 1;
+BA_ "VFrameFormat" BO_ 419430407 1;
+BA_ "VFrameFormat" BO_ 419430408 1;
+BA_ "VFrameFormat" BO_ 419430409 1;
+BA_ "VFrameFormat" BO_ 419430410 1;
+BA_ "VFrameFormat" BO_ 419430411 1;
+BA_ "VFrameFormat" BO_ 419430412 1;
+BA_ "VFrameFormat" BO_ 419430413 1;

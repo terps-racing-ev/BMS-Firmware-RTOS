@@ -196,6 +196,25 @@
 
 void SystemInit(void)
 {
+  /* Reset RCC clock configuration to default state (coming from bootloader) */
+  /* Set MSION bit */
+  RCC->CR |= RCC_CR_MSION;
+
+  /* Reset CFGR register (switch to MSI as system clock) */
+  RCC->CFGR = 0x00000000U;
+
+  /* Reset HSEON, CSSON, HSION, and PLLON bits */
+  RCC->CR &= 0xEAF6FFFFU;
+
+  /* Reset PLLCFGR register to default */
+  RCC->PLLCFGR = 0x00001000U;
+
+  /* Reset HSEBYP bit */
+  RCC->CR &= 0xFFFBFFFFU;
+
+  /* Disable all interrupts */
+  RCC->CIER = 0x00000000U;
+
 #if defined(USER_VECT_TAB_ADDRESS)
   /* Configure the Vector Table location -------------------------------------*/
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;

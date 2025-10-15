@@ -1,17 +1,24 @@
 {
   "configurations": [
     {
-      "name": "windows-gcc-x64",
+      "name": "windows-gcc-arm64",
       "includePath": [
-        "${workspaceFolder}/**"
+        "${workspaceFolder}/**",
+        "Bootloader/Inc",
+        "Core/Inc",
+        "Drivers/CMSIS/Device/ST/STM32L4xx/Include",
+        "Drivers/CMSIS/Include",
+        "Drivers/STM32L4xx_HAL_Driver/Inc",
+        "Drivers/STM32L4xx_HAL_Driver/Inc/Legacy"
       ],
-      "compilerPath": "gcc",
+      "defines": [
+        "STM32L432xx",
+        "USE_HAL_DRIVER"
+      ],
+      "compilerPath": "c:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/14.2.1-1.1.1/.content/bin/arm-none-eabi-gcc.EXE",
       "cStandard": "${default}",
       "cppStandard": "${default}",
-      "intelliSenseMode": "windows-gcc-x64",
-      "compilerArgs": [
-        ""
-      ]
+      "intelliSenseMode": "windows-gcc-arm64"
     },
     {
       "name": "STM32",

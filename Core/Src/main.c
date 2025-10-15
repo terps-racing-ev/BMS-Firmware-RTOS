@@ -22,7 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "cell_temp_handler.h"
+#include "can_manager.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -69,6 +70,13 @@ osThreadId_t CellTemperatureHandle;
 const osThreadAttr_t CellTemperature_attributes = {
   .name = "CellTemperature",
   .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
+};
+/* Definitions for CANManager */
+osThreadId_t CANManagerHandle;
+const osThreadAttr_t CANManager_attributes = {
+  .name = "CANManager",
+  .stack_size = 256 * 4,
   .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for I2C1 */
@@ -119,6 +127,13 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+  // When coming from bootloader, disable all interrupts first
+  __disable_irq();
+
+  // Disable SysTick (bootloader might have enabled it)
+  SysTick->CTRL = 0;
+  SysTick->LOAD = 0;
+  SysTick->VAL = 0;
 
   /* USER CODE END 1 */
 
@@ -146,6 +161,18 @@ int main(void)
   MX_I2C1_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
+  
+  // Calibrate ADC
+  if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  
+  // Start CAN peripheral
+  if (HAL_CAN_Start(&hcan1) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
   /* USER CODE END 2 */
 
@@ -174,7 +201,11 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
-  /* add queues, ... */
+  // Initialize CAN Manager (creates TX and RX message queues)
+  if (CAN_Manager_Init() != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
@@ -188,7 +219,8 @@ int main(void)
   CellTemperatureHandle = osThreadNew(ReadCellTemps, NULL, &CellTemperature_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
+  /* creation of CANManager */
+  CANManagerHandle = osThreadNew(CAN_ManagerTask, NULL, &CANManager_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -302,9 +334,9 @@ static void MX_ADC1_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_5;
+  sConfig.Channel = ADC_CHANNEL_5;  // ADC1 (PA0) - first thermistor channel
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_2CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;  // Longer sampling for high impedance thermistors
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
@@ -531,6 +563,22 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 
+/**
+  * @brief  Application malloc failed hook (FreeRTOS)
+  * @retval None
+  */
+void vApplicationMallocFailedHook(void)
+{
+  /* Called if a call to pvPortMalloc() fails because there is insufficient
+     free memory available in the FreeRTOS heap. This usually means the heap
+     size is too small. Blink MUX_SIG1 rapidly to indicate heap failure. */
+  taskDISABLE_INTERRUPTS();
+  for(;;) {
+    HAL_GPIO_TogglePin(GPIOB, MUX_SIG1_Pin);
+    for(volatile uint32_t i = 0; i < 100000; i++);  // Busy wait
+  }
+}
+
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -579,11 +627,8 @@ void ReadCellVoltage(void *argument)
 void ReadCellTemps(void *argument)
 {
   /* USER CODE BEGIN ReadCellTemps */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
+  /* Call the cell temperature monitoring task */
+  CellTemp_MonitorTask(argument);
   /* USER CODE END ReadCellTemps */
 }
 
