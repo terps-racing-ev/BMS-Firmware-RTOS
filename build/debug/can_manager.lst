@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
   28:Core/Src/can_manager.c **** static CAN_Statistics_t can_stats = {0};
   29:Core/Src/can_manager.c **** 
   30:Core/Src/can_manager.c **** /* Private function prototypes -----------------------------------------------*/
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 2
 
 
   31:Core/Src/can_manager.c **** static void CAN_ProcessTxQueue(void);
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
   85:Core/Src/can_manager.c ****     filterConfig.FilterIdHigh = 0x0000;
   86:Core/Src/can_manager.c ****     filterConfig.FilterIdLow = 0x0004;  // Set IDE bit for extended IDs
   87:Core/Src/can_manager.c ****     filterConfig.FilterMaskIdHigh = 0x0000;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 3
 
 
   88:Core/Src/can_manager.c ****     filterConfig.FilterMaskIdLow = 0x0004;  // Mask only IDE bit
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  142:Core/Src/can_manager.c **** HAL_StatusTypeDef CAN_SendMessageExt(uint32_t id, uint8_t *data, uint8_t length, uint8_t priority)
  143:Core/Src/can_manager.c **** {
  144:Core/Src/can_manager.c ****     // Simply call CAN_SendMessage since all IDs are extended
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 4
 
 
  145:Core/Src/can_manager.c ****     return CAN_SendMessage(id, data, length, priority);
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  199:Core/Src/can_manager.c ****     while (osMessageQueueGet(CANTxQueueHandle, &msg, NULL, 0) == osOK) {
  200:Core/Src/can_manager.c ****         // Transmit the message
  201:Core/Src/can_manager.c ****         if (CAN_TransmitMessage(&msg) != HAL_OK) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 5
 
 
  202:Core/Src/can_manager.c ****             // If transmission failed, could re-queue message here if desired
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  230:Core/Src/can_manager.c ****             
  231:Core/Src/can_manager.c ****         case 0x200:
  232:Core/Src/can_manager.c ****             // Handle message ID 0x200
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 6
 
 
  233:Core/Src/can_manager.c ****             // TODO: Add your message handling logic
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
   95 000c 0792     		str	r2, [sp, #28]
   85:Core/Src/can_manager.c ****     filterConfig.FilterIdLow = 0x0004;  // Set IDE bit for extended IDs
   96              		.loc 1 85 5 is_stmt 1 view .LVU20
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 7
 
 
   85:Core/Src/can_manager.c ****     filterConfig.FilterIdLow = 0x0004;  // Set IDE bit for extended IDs
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  137              		.align	1
  138              		.syntax unified
  139              		.thumb
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 8
 
 
  140              		.thumb_func
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  179              		.loc 1 165 5 is_stmt 1 view .LVU51
  165:Core/Src/can_manager.c ****     TxHeader.TransmitGlobalTime = DISABLE;
  180              		.loc 1 165 23 is_stmt 0 view .LVU52
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 9
 
 
  181 0014 037B     		ldrb	r3, [r0, #12]	@ zero_extendqisi2
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  219              		.loc 1 181 13 is_stmt 0 view .LVU68
  220 003a FFF7FEFF 		bl	osDelay
  221              	.LVL10:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 10
 
 
  181:Core/Src/can_manager.c ****         }
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  263              	.LFE296:
  265              		.section	.text.CAN_ProcessTxQueue,"ax",%progbits
  266              		.align	1
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 11
 
 
  267              		.syntax unified
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  312              	.L25:
  313 0024 00000000 		.word	CANTxQueueHandle
  314              		.cfi_endproc
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 12
 
 
  315              	.LFE297:
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  363              		.cfi_restore_state
  114:Core/Src/can_manager.c ****     msg.length = length;
  364              		.loc 1 114 5 is_stmt 1 view .LVU100
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 13
 
 
  114:Core/Src/can_manager.c ****     msg.length = length;
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  403 0046 02A8     		add	r0, sp, #8
  404 0048 FFF7FEFF 		bl	memcpy
  405              	.LVL21:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 14
 
 
  406 004c EFE7     		b	.L29
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  453              		.loc 1 143 1 is_stmt 0 view .LVU125
  454 0000 08B5     		push	{r3, lr}
  455              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 15
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 15
 
 
  456              		.cfi_offset 3, -8
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  253:Core/Src/can_manager.c ****     
  254:Core/Src/can_manager.c ****     /* Infinite loop */
  255:Core/Src/can_manager.c ****     for(;;)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 16
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 16
 
 
  256:Core/Src/can_manager.c ****     {
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  535              		.thumb
  536              		.thumb_func
  538              	CAN_RegisterRxCallback:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 17
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 17
 
 
  539              	.LVL33:
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  574              		.loc 1 288 5 view .LVU147
  575              		.loc 1 288 8 is_stmt 0 view .LVU148
  576 0000 98B1     		cbz	r0, .L57
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 18
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 18
 
 
  287:Core/Src/can_manager.c ****     if (stats != NULL) {
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  622              		@ frame_needed = 0, uses_anonymous_args = 0
  623              		@ link register save eliminated.
  299:Core/Src/can_manager.c ****     memset(&can_stats, 0, sizeof(CAN_Statistics_t));
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 19
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 19
 
 
  624              		.loc 1 299 5 view .LVU155
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  672              		.loc 1 51 5 is_stmt 1 view .LVU163
   51:Core/Src/can_manager.c ****     if (CANRxQueueHandle == NULL) {
  673              		.loc 1 51 24 is_stmt 0 view .LVU164
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 20
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 20
 
 
  674 0012 0022     		movs	r2, #0
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
   53:Core/Src/can_manager.c ****     }
  715              		.loc 1 53 16 view .LVU178
  716 0044 0124     		movs	r4, #1
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 21
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 21
 
 
  717 0046 FBE7     		b	.L66
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  766              	CAN_GetRxQueueCount:
  767              	.LFB304:
  310:Core/Src/can_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 22
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 22
 
 
  311:Core/Src/can_manager.c **** /**
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  809              		.cfi_def_cfa_offset 32
  326:Core/Src/can_manager.c ****     CAN_Message_t dummy_msg;
  810              		.loc 1 326 5 view .LVU188
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 23
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 23
 
 
  327:Core/Src/can_manager.c ****     uint32_t count = 0;
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  854              		.align	1
  855              		.global	HAL_CAN_RxFifo0MsgPendingCallback
  856              		.syntax unified
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 24
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 24
 
 
  857              		.thumb
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  361:Core/Src/can_manager.c **** }
  886              		.loc 1 361 1 view .LVU208
  887 0010 0CB0     		add	sp, sp, #48
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 25
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 25
 
 
  888              		.cfi_remember_state
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  358:Core/Src/can_manager.c ****         }
  927              		.loc 1 358 22 is_stmt 0 view .LVU224
  928 003c 034A     		ldr	r2, .L92+4
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 26
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 26
 
 
  929 003e 1369     		ldr	r3, [r2, #16]
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  971 000a FFF7FEFF 		bl	HAL_CAN_GetRxMessage
  972              	.LVL54:
  973              		.loc 1 374 8 discriminator 1 view .LVU233
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 27
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 27
 
 
  974 000e 08B1     		cbz	r0, .L97
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  1004              		.loc 1 382 9 is_stmt 1 view .LVU246
  382:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
  1005              		.loc 1 382 13 is_stmt 0 view .LVU247
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 28
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 28
 
 
  1006 002a 2346     		mov	r3, r4
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  1050              		.cfi_offset 3, -8
  1051              		.cfi_offset 14, -4
  395:Core/Src/can_manager.c ****     uint32_t error = HAL_CAN_GetError(hcan);
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 29
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 29
 
 
  1052              		.loc 1 395 5 is_stmt 1 view .LVU255
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  1098              		.align	2
  1101              	CANTxQueueHandle:
  1102 0000 00000000 		.space	4
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 30
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 30
 
 
  1103              		.text
@@ -1753,72 +1753,72 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 1
  1112              		.file 9 "Core/Inc/can_manager.h"
  1113              		.file 10 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
  1114              		.file 11 "<built-in>"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 31
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 31
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 can_manager.c
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:21     .text.CAN_ProcessRxMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:26     .text.CAN_ProcessRxMessage:00000000 CAN_ProcessRxMessage
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:62     .text.CAN_ProcessRxMessage:00000014 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1081   .bss.can_stats:00000000 can_stats
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1087   .bss.rx_callback:00000000 rx_callback
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:68     .text.CAN_ConfigureFilters:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:73     .text.CAN_ConfigureFilters:00000000 CAN_ConfigureFilters
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:132    .text.CAN_ConfigureFilters:00000030 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:137    .text.CAN_TransmitMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:142    .text.CAN_TransmitMessage:00000000 CAN_TransmitMessage
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:260    .text.CAN_TransmitMessage:0000005c $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:266    .text.CAN_ProcessTxQueue:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:271    .text.CAN_ProcessTxQueue:00000000 CAN_ProcessTxQueue
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:313    .text.CAN_ProcessTxQueue:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1101   .bss.CANTxQueueHandle:00000000 CANTxQueueHandle
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:318    .text.CAN_SendMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:324    .text.CAN_SendMessage:00000000 CAN_SendMessage
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:434    .text.CAN_SendMessage:00000060 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:440    .text.CAN_SendMessageExt:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:446    .text.CAN_SendMessageExt:00000000 CAN_SendMessageExt
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:468    .text.CAN_ManagerTask:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:474    .text.CAN_ManagerTask:00000000 CAN_ManagerTask
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:527    .text.CAN_ManagerTask:00000030 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1094   .bss.CANRxQueueHandle:00000000 CANRxQueueHandle
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:532    .text.CAN_RegisterRxCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:538    .text.CAN_RegisterRxCallback:00000000 CAN_RegisterRxCallback
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:555    .text.CAN_RegisterRxCallback:00000008 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:560    .text.CAN_GetStatistics:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:566    .text.CAN_GetStatistics:00000000 CAN_GetStatistics
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:606    .text.CAN_GetStatistics:0000002c $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:611    .text.CAN_ResetStatistics:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:617    .text.CAN_ResetStatistics:00000000 CAN_ResetStatistics
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:638    .text.CAN_ResetStatistics:00000014 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:643    .text.CAN_Manager_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:649    .text.CAN_Manager_Init:00000000 CAN_Manager_Init
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:721    .text.CAN_Manager_Init:00000048 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:728    .text.CAN_GetTxQueueCount:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:734    .text.CAN_GetTxQueueCount:00000000 CAN_GetTxQueueCount
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:755    .text.CAN_GetTxQueueCount:0000000c $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:760    .text.CAN_GetRxQueueCount:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:766    .text.CAN_GetRxQueueCount:00000000 CAN_GetRxQueueCount
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:787    .text.CAN_GetRxQueueCount:0000000c $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:792    .text.CAN_FlushTxQueue:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:798    .text.CAN_FlushTxQueue:00000000 CAN_FlushTxQueue
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:849    .text.CAN_FlushTxQueue:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:854    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:860    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 HAL_CAN_RxFifo0MsgPendingCallback
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:938    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000048 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:944    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:950    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 HAL_CAN_RxFifo1MsgPendingCallback
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1028   .text.HAL_CAN_RxFifo1MsgPendingCallback:00000048 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1034   .text.HAL_CAN_ErrorCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1040   .text.HAL_CAN_ErrorCallback:00000000 HAL_CAN_ErrorCallback
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1073   .text.HAL_CAN_ErrorCallback:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1078   .bss.can_stats:00000000 $d
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s 			page 32
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:21     .text.CAN_ProcessRxMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:26     .text.CAN_ProcessRxMessage:00000000 CAN_ProcessRxMessage
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:62     .text.CAN_ProcessRxMessage:00000014 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1081   .bss.can_stats:00000000 can_stats
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1087   .bss.rx_callback:00000000 rx_callback
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:68     .text.CAN_ConfigureFilters:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:73     .text.CAN_ConfigureFilters:00000000 CAN_ConfigureFilters
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:132    .text.CAN_ConfigureFilters:00000030 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:137    .text.CAN_TransmitMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:142    .text.CAN_TransmitMessage:00000000 CAN_TransmitMessage
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:260    .text.CAN_TransmitMessage:0000005c $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:266    .text.CAN_ProcessTxQueue:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:271    .text.CAN_ProcessTxQueue:00000000 CAN_ProcessTxQueue
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:313    .text.CAN_ProcessTxQueue:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1101   .bss.CANTxQueueHandle:00000000 CANTxQueueHandle
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:318    .text.CAN_SendMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:324    .text.CAN_SendMessage:00000000 CAN_SendMessage
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:434    .text.CAN_SendMessage:00000060 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:440    .text.CAN_SendMessageExt:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:446    .text.CAN_SendMessageExt:00000000 CAN_SendMessageExt
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:468    .text.CAN_ManagerTask:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:474    .text.CAN_ManagerTask:00000000 CAN_ManagerTask
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:527    .text.CAN_ManagerTask:00000030 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1094   .bss.CANRxQueueHandle:00000000 CANRxQueueHandle
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:532    .text.CAN_RegisterRxCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:538    .text.CAN_RegisterRxCallback:00000000 CAN_RegisterRxCallback
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:555    .text.CAN_RegisterRxCallback:00000008 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:560    .text.CAN_GetStatistics:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:566    .text.CAN_GetStatistics:00000000 CAN_GetStatistics
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:606    .text.CAN_GetStatistics:0000002c $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:611    .text.CAN_ResetStatistics:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:617    .text.CAN_ResetStatistics:00000000 CAN_ResetStatistics
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:638    .text.CAN_ResetStatistics:00000014 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:643    .text.CAN_Manager_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:649    .text.CAN_Manager_Init:00000000 CAN_Manager_Init
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:721    .text.CAN_Manager_Init:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:728    .text.CAN_GetTxQueueCount:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:734    .text.CAN_GetTxQueueCount:00000000 CAN_GetTxQueueCount
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:755    .text.CAN_GetTxQueueCount:0000000c $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:760    .text.CAN_GetRxQueueCount:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:766    .text.CAN_GetRxQueueCount:00000000 CAN_GetRxQueueCount
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:787    .text.CAN_GetRxQueueCount:0000000c $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:792    .text.CAN_FlushTxQueue:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:798    .text.CAN_FlushTxQueue:00000000 CAN_FlushTxQueue
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:849    .text.CAN_FlushTxQueue:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:854    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:860    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 HAL_CAN_RxFifo0MsgPendingCallback
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:938    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:944    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:950    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 HAL_CAN_RxFifo1MsgPendingCallback
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1028   .text.HAL_CAN_RxFifo1MsgPendingCallback:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1034   .text.HAL_CAN_ErrorCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1040   .text.HAL_CAN_ErrorCallback:00000000 HAL_CAN_ErrorCallback
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1073   .text.HAL_CAN_ErrorCallback:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1078   .bss.can_stats:00000000 $d
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s 			page 32
 
 
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1084   .bss.rx_callback:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1091   .bss.CANRxQueueHandle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccLIyU1H.s:1098   .bss.CANTxQueueHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1084   .bss.rx_callback:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1091   .bss.CANRxQueueHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccrSAr9C.s:1098   .bss.CANTxQueueHandle:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_CAN_ConfigFilter

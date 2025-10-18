@@ -1,11 +1,11 @@
 {
 	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../CAN-Application-TEST - Copy"
-		}
-	],
+        {
+            "path": "."
+        },
+        {
+            "path": "../STM32-CAN-Bootloader"
+        }
+    ],
     "settings": {}
 }

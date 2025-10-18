@@ -188,7 +188,7 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
  8008256:	d808      	bhi.n	800826a <CAN_TransmitMessage+0x4a>
             osDelay(1);
  8008258:	2001      	movs	r0, #1
- 800825a:	f000 fb5d 	bl	8008918 <osDelay>
+ 800825a:	f000 fb5f 	bl	800891c <osDelay>
  800825e:	e7ed      	b.n	800823c <CAN_TransmitMessage+0x1c>
             can_stats.tx_success_count++;
  8008260:	4907      	ldr	r1, [pc, #28]	@ (8008280 <CAN_TransmitMessage+0x60>)
@@ -222,7 +222,7 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
  800828c:	a901      	add	r1, sp, #4
  800828e:	4806      	ldr	r0, [pc, #24]	@ (80082a8 <CAN_ProcessTxQueue+0x24>)
  8008290:	6800      	ldr	r0, [r0, #0]
- 8008292:	f000 fc27 	bl	8008ae4 <osMessageQueueGet>
+ 8008292:	f000 fc29 	bl	8008ae8 <osMessageQueueGet>
  8008296:	b920      	cbnz	r0, 80082a2 <CAN_ProcessTxQueue+0x1e>
         if (CAN_TransmitMessage(&msg) != HAL_OK) {
  8008298:	a801      	add	r0, sp, #4
@@ -259,7 +259,7 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
     msg.priority = priority;
  80082cc:	f88d 3011 	strb.w	r3, [sp, #17]
     msg.timestamp = osKernelGetTickCount();
- 80082d0:	f000 fabe 	bl	8008850 <osKernelGetTickCount>
+ 80082d0:	f000 fac0 	bl	8008854 <osKernelGetTickCount>
  80082d4:	9005      	str	r0, [sp, #20]
     if (data != NULL && length > 0) {
  80082d6:	b106      	cbz	r6, 80082da <CAN_SendMessage+0x2e>
@@ -270,7 +270,7 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
  80082de:	a901      	add	r1, sp, #4
  80082e0:	480a      	ldr	r0, [pc, #40]	@ (800830c <CAN_SendMessage+0x60>)
  80082e2:	6800      	ldr	r0, [r0, #0]
- 80082e4:	f000 fbbc 	bl	8008a60 <osMessageQueuePut>
+ 80082e4:	f000 fbbe 	bl	8008a64 <osMessageQueuePut>
  80082e8:	b938      	cbnz	r0, 80082fa <CAN_SendMessage+0x4e>
     return HAL_OK;
  80082ea:	2000      	movs	r0, #0
@@ -311,7 +311,7 @@ void CAN_ManagerTask(void *argument)
     // Wait 100ms for system to stabilize
     osDelay(100);
  8008318:	2064      	movs	r0, #100	@ 0x64
- 800831a:	f000 fafd 	bl	8008918 <osDelay>
+ 800831a:	f000 faff 	bl	800891c <osDelay>
  800831e:	e002      	b.n	8008326 <CAN_ManagerTask+0x12>
     /* Infinite loop */
     for(;;)
@@ -327,7 +327,7 @@ void CAN_ManagerTask(void *argument)
  800832a:	a901      	add	r1, sp, #4
  800832c:	4805      	ldr	r0, [pc, #20]	@ (8008344 <CAN_ManagerTask+0x30>)
  800832e:	6800      	ldr	r0, [r0, #0]
- 8008330:	f000 fbd8 	bl	8008ae4 <osMessageQueueGet>
+ 8008330:	f000 fbda 	bl	8008ae8 <osMessageQueueGet>
  8008334:	2800      	cmp	r0, #0
  8008336:	d0f3      	beq.n	8008320 <CAN_ManagerTask+0xc>
         }
@@ -340,7 +340,7 @@ void CAN_ManagerTask(void *argument)
         // The task will wake up on new messages or periodically
         osDelay(10);
  800833c:	200a      	movs	r0, #10
- 800833e:	f000 faeb 	bl	8008918 <osDelay>
+ 800833e:	f000 faed 	bl	800891c <osDelay>
         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
  8008342:	e7f0      	b.n	8008326 <CAN_ManagerTask+0x12>
  8008344:	20000098 	.word	0x20000098
@@ -372,7 +372,7 @@ void CAN_ResetStatistics(void)
  8008362:	2200      	movs	r2, #0
  8008364:	2114      	movs	r1, #20
  8008366:	2040      	movs	r0, #64	@ 0x40
- 8008368:	f000 fb2f 	bl	80089ca <osMessageQueueNew>
+ 8008368:	f000 fb31 	bl	80089ce <osMessageQueueNew>
  800836c:	4b0e      	ldr	r3, [pc, #56]	@ (80083a8 <CAN_Manager_Init+0x48>)
  800836e:	6018      	str	r0, [r3, #0]
     if (CANTxQueueHandle == NULL) {
@@ -381,7 +381,7 @@ void CAN_ResetStatistics(void)
  8008372:	2200      	movs	r2, #0
  8008374:	2114      	movs	r1, #20
  8008376:	2020      	movs	r0, #32
- 8008378:	f000 fb27 	bl	80089ca <osMessageQueueNew>
+ 8008378:	f000 fb29 	bl	80089ce <osMessageQueueNew>
  800837c:	4b0b      	ldr	r3, [pc, #44]	@ (80083ac <CAN_Manager_Init+0x4c>)
  800837e:	6018      	str	r0, [r3, #0]
     if (CANRxQueueHandle == NULL) {
@@ -729,7 +729,7 @@ static HAL_StatusTypeDef CellTemp_SendTemperatureMessage(uint8_t msg_index, uint
  80085a8:	f002 fd5c 	bl	800b064 <HAL_GPIO_WritePin>
     osDelay(2);
  80085ac:	2002      	movs	r0, #2
- 80085ae:	f000 f9b3 	bl	8008918 <osDelay>
+ 80085ae:	f000 f9b5 	bl	800891c <osDelay>
 }
  80085b2:	bd10      	pop	{r4, pc}
         HAL_GPIO_WritePin(MUX_SIG1_PORT, MUX_SIG1_PIN, GPIO_PIN_RESET);
@@ -760,20 +760,20 @@ static HAL_StatusTypeDef CellTemp_SendTemperatureMessage(uint8_t msg_index, uint
  80085e8:	eef8 6a67 	vcvt.f32.u32	s13, s15
  80085ec:	ed9f 7a29 	vldr	s14, [pc, #164]	@ 8008694 <CellTemp_CalculateTemperature+0xb0>
  80085f0:	eec6 7a87 	vdiv.f32	s15, s13, s14
- 80085f4:	eeb1 7a04 	vmov.f32	s14, #20	@ 0x40a00000  5.0
+ 80085f4:	ed9f 7a28 	vldr	s14, [pc, #160]	@ 8008698 <CellTemp_CalculateTemperature+0xb4>
  80085f8:	ee67 7a87 	vmul.f32	s15, s15, s14
     if (adc_value < 10) {  // Less than ~8mV indicates disconnected sensor
  80085fc:	2809      	cmp	r0, #9
  80085fe:	d940      	bls.n	8008682 <CellTemp_CalculateTemperature+0x9e>
     if (voltage >= 3.29f) {  // Close to 3.3V limit, very high resistance (cold)
- 8008600:	ed9f 7a25 	vldr	s14, [pc, #148]	@ 8008698 <CellTemp_CalculateTemperature+0xb4>
+ 8008600:	ed9f 7a26 	vldr	s14, [pc, #152]	@ 800869c <CellTemp_CalculateTemperature+0xb8>
  8008604:	eef4 7ac7 	vcmpe.f32	s15, s14
  8008608:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  800860c:	da36      	bge.n	800867c <CellTemp_CalculateTemperature+0x98>
         r_thermistor = (voltage * PULLUP_RESISTOR) / (ADC_VREF - voltage);
- 800860e:	eddf 6a23 	vldr	s13, [pc, #140]	@ 800869c <CellTemp_CalculateTemperature+0xb8>
+ 800860e:	eddf 6a24 	vldr	s13, [pc, #144]	@ 80086a0 <CellTemp_CalculateTemperature+0xbc>
  8008612:	ee67 6aa6 	vmul.f32	s13, s15, s13
- 8008616:	eeb1 7a04 	vmov.f32	s14, #20	@ 0x40a00000  5.0
+ 8008616:	ed9f 7a20 	vldr	s14, [pc, #128]	@ 8008698 <CellTemp_CalculateTemperature+0xb4>
  800861a:	ee77 7a67 	vsub.f32	s15, s14, s15
  800861e:	ee86 7aa7 	vdiv.f32	s14, s13, s15
     if (r_thermistor <= 0) {
@@ -783,2431 +783,2432 @@ static HAL_StatusTypeDef CellTemp_SendTemperatureMessage(uint8_t msg_index, uint
 {
  800862c:	b508      	push	{r3, lr}
     float ln_ratio = logf(r_thermistor / THERMISTOR_R25);
- 800862e:	ed9f 0a1b 	vldr	s0, [pc, #108]	@ 800869c <CellTemp_CalculateTemperature+0xb8>
+ 800862e:	ed9f 0a1c 	vldr	s0, [pc, #112]	@ 80086a0 <CellTemp_CalculateTemperature+0xbc>
  8008632:	ee87 0a00 	vdiv.f32	s0, s14, s0
  8008636:	f005 f80f 	bl	800d658 <logf>
     float temp_kelvin = 1.0f / ((1.0f / REFERENCE_TEMP_K) + (ln_ratio / THERMISTOR_B_VALUE));
- 800863a:	ed9f 7a19 	vldr	s14, [pc, #100]	@ 80086a0 <CellTemp_CalculateTemperature+0xbc>
+ 800863a:	ed9f 7a1a 	vldr	s14, [pc, #104]	@ 80086a4 <CellTemp_CalculateTemperature+0xc0>
  800863e:	eec0 7a07 	vdiv.f32	s15, s0, s14
- 8008642:	ed9f 7a18 	vldr	s14, [pc, #96]	@ 80086a4 <CellTemp_CalculateTemperature+0xc0>
+ 8008642:	ed9f 7a19 	vldr	s14, [pc, #100]	@ 80086a8 <CellTemp_CalculateTemperature+0xc4>
  8008646:	ee77 7a87 	vadd.f32	s15, s15, s14
  800864a:	eeb7 7a00 	vmov.f32	s14, #112	@ 0x3f800000  1.0
  800864e:	ee87 0a27 	vdiv.f32	s0, s14, s15
     float temp_celsius = temp_kelvin - 273.15f;
- 8008652:	eddf 7a15 	vldr	s15, [pc, #84]	@ 80086a8 <CellTemp_CalculateTemperature+0xc4>
+ 8008652:	eddf 7a16 	vldr	s15, [pc, #88]	@ 80086ac <CellTemp_CalculateTemperature+0xc8>
  8008656:	ee30 0a67 	vsub.f32	s0, s0, s15
     if (temp_celsius < -40.0f) {
- 800865a:	eddf 7a14 	vldr	s15, [pc, #80]	@ 80086ac <CellTemp_CalculateTemperature+0xc8>
+ 800865a:	eddf 7a15 	vldr	s15, [pc, #84]	@ 80086b0 <CellTemp_CalculateTemperature+0xcc>
  800865e:	eeb4 0ae7 	vcmpe.f32	s0, s15
  8008662:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  8008666:	d412      	bmi.n	800868e <CellTemp_CalculateTemperature+0xaa>
     } else if (temp_celsius > 125.0f) {
- 8008668:	eddf 7a11 	vldr	s15, [pc, #68]	@ 80086b0 <CellTemp_CalculateTemperature+0xcc>
+ 8008668:	eddf 7a12 	vldr	s15, [pc, #72]	@ 80086b4 <CellTemp_CalculateTemperature+0xd0>
  800866c:	eeb4 0ae7 	vcmpe.f32	s0, s15
  8008670:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  8008674:	dd0d      	ble.n	8008692 <CellTemp_CalculateTemperature+0xae>
         temp_celsius = 125.0f;
- 8008676:	ed9f 0a0e 	vldr	s0, [pc, #56]	@ 80086b0 <CellTemp_CalculateTemperature+0xcc>
+ 8008676:	ed9f 0a0f 	vldr	s0, [pc, #60]	@ 80086b4 <CellTemp_CalculateTemperature+0xd0>
  800867a:	e00a      	b.n	8008692 <CellTemp_CalculateTemperature+0xae>
         r_thermistor = PULLUP_RESISTOR * 100.0f;  // Assume very high resistance
- 800867c:	ed9f 7a0d 	vldr	s14, [pc, #52]	@ 80086b4 <CellTemp_CalculateTemperature+0xd0>
+ 800867c:	ed9f 7a0e 	vldr	s14, [pc, #56]	@ 80086b8 <CellTemp_CalculateTemperature+0xd4>
  8008680:	e7d4      	b.n	800862c <CellTemp_CalculateTemperature+0x48>
         return -127.0f;  // Return obvious error value
- 8008682:	ed9f 0a0d 	vldr	s0, [pc, #52]	@ 80086b8 <CellTemp_CalculateTemperature+0xd4>
+ 8008682:	ed9f 0a0e 	vldr	s0, [pc, #56]	@ 80086bc <CellTemp_CalculateTemperature+0xd8>
  8008686:	4770      	bx	lr
         return 125.0f; // Return maximum temperature for very low resistance
- 8008688:	ed9f 0a09 	vldr	s0, [pc, #36]	@ 80086b0 <CellTemp_CalculateTemperature+0xcc>
+ 8008688:	ed9f 0a0a 	vldr	s0, [pc, #40]	@ 80086b4 <CellTemp_CalculateTemperature+0xd0>
 }
  800868c:	4770      	bx	lr
         temp_celsius = -40.0f;
- 800868e:	ed9f 0a07 	vldr	s0, [pc, #28]	@ 80086ac <CellTemp_CalculateTemperature+0xc8>
+ 800868e:	ed9f 0a08 	vldr	s0, [pc, #32]	@ 80086b0 <CellTemp_CalculateTemperature+0xcc>
 }
  8008692:	bd08      	pop	{r3, pc}
  8008694:	457ff000 	.word	0x457ff000
- 8008698:	40528f5c 	.word	0x40528f5c
- 800869c:	461c4000 	.word	0x461c4000
- 80086a0:	45866000 	.word	0x45866000
- 80086a4:	3b5bcf0f 	.word	0x3b5bcf0f
- 80086a8:	43889333 	.word	0x43889333
- 80086ac:	c2200000 	.word	0xc2200000
- 80086b0:	42fa0000 	.word	0x42fa0000
- 80086b4:	49742400 	.word	0x49742400
- 80086b8:	c2fe0000 	.word	0xc2fe0000
+ 8008698:	40533333 	.word	0x40533333
+ 800869c:	40528f5c 	.word	0x40528f5c
+ 80086a0:	461c4000 	.word	0x461c4000
+ 80086a4:	45866000 	.word	0x45866000
+ 80086a8:	3b5bcf0f 	.word	0x3b5bcf0f
+ 80086ac:	43889333 	.word	0x43889333
+ 80086b0:	c2200000 	.word	0xc2200000
+ 80086b4:	42fa0000 	.word	0x42fa0000
+ 80086b8:	49742400 	.word	0x49742400
+ 80086bc:	c2fe0000 	.word	0xc2fe0000
 
-080086bc <CellTemp_MonitorTask>:
+080086c0 <CellTemp_MonitorTask>:
 {
- 80086bc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 80086c0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
     if (CellTemp_Init() != HAL_OK) {
- 80086be:	f7ff feff 	bl	80084c0 <CellTemp_Init>
- 80086c2:	4606      	mov	r6, r0
- 80086c4:	b390      	cbz	r0, 800872c <CellTemp_MonitorTask+0x70>
+ 80086c2:	f7ff fefd 	bl	80084c0 <CellTemp_Init>
+ 80086c6:	4606      	mov	r6, r0
+ 80086c8:	b390      	cbz	r0, 8008730 <CellTemp_MonitorTask+0x70>
             osDelay(1000);  // Wait 1 second (1000 ticks at 1ms tick rate)
- 80086c6:	f44f 707a 	mov.w	r0, #1000	@ 0x3e8
- 80086ca:	f000 f925 	bl	8008918 <osDelay>
+ 80086ca:	f44f 707a 	mov.w	r0, #1000	@ 0x3e8
+ 80086ce:	f000 f925 	bl	800891c <osDelay>
         while(1) {
- 80086ce:	e7fa      	b.n	80086c6 <CellTemp_MonitorTask+0xa>
+ 80086d2:	e7fa      	b.n	80086ca <CellTemp_MonitorTask+0xa>
             thermistor_data_t *current_therm = &temp_state.thermistors[temp_state.current_index];
- 80086d0:	4c3f      	ldr	r4, [pc, #252]	@ (80087d0 <CellTemp_MonitorTask+0x114>)
- 80086d2:	f894 7382 	ldrb.w	r7, [r4, #898]	@ 0x382
+ 80086d4:	4c3f      	ldr	r4, [pc, #252]	@ (80087d4 <CellTemp_MonitorTask+0x114>)
+ 80086d6:	f894 7382 	ldrb.w	r7, [r4, #898]	@ 0x382
             CellTemp_SetMuxChannel(temp_state.current_mux);
- 80086d6:	f894 0381 	ldrb.w	r0, [r4, #897]	@ 0x381
- 80086da:	f7ff ff49 	bl	8008570 <CellTemp_SetMuxChannel>
+ 80086da:	f894 0381 	ldrb.w	r0, [r4, #897]	@ 0x381
+ 80086de:	f7ff ff47 	bl	8008570 <CellTemp_SetMuxChannel>
             current_therm->raw_adc = CellTemp_ReadADC(adc_channels[temp_state.current_adc]);
- 80086de:	f894 2380 	ldrb.w	r2, [r4, #896]	@ 0x380
- 80086e2:	4b3c      	ldr	r3, [pc, #240]	@ (80087d4 <CellTemp_MonitorTask+0x118>)
- 80086e4:	f853 0022 	ldr.w	r0, [r3, r2, lsl #2]
- 80086e8:	f7ff ff22 	bl	8008530 <CellTemp_ReadADC>
- 80086ec:	eb04 1407 	add.w	r4, r4, r7, lsl #4
- 80086f0:	8120      	strh	r0, [r4, #8]
+ 80086e2:	f894 2380 	ldrb.w	r2, [r4, #896]	@ 0x380
+ 80086e6:	4b3c      	ldr	r3, [pc, #240]	@ (80087d8 <CellTemp_MonitorTask+0x118>)
+ 80086e8:	f853 0022 	ldr.w	r0, [r3, r2, lsl #2]
+ 80086ec:	f7ff ff20 	bl	8008530 <CellTemp_ReadADC>
+ 80086f0:	eb04 1407 	add.w	r4, r4, r7, lsl #4
+ 80086f4:	8120      	strh	r0, [r4, #8]
             current_therm->temperature = CellTemp_CalculateTemperature(current_therm->raw_adc);
- 80086f2:	f7ff ff77 	bl	80085e4 <CellTemp_CalculateTemperature>
- 80086f6:	ed84 0a01 	vstr	s0, [r4, #4]
+ 80086f6:	f7ff ff75 	bl	80085e4 <CellTemp_CalculateTemperature>
+ 80086fa:	ed84 0a01 	vstr	s0, [r4, #4]
             current_therm->last_read_time = current_time;
- 80086fa:	60e5      	str	r5, [r4, #12]
+ 80086fe:	60e5      	str	r5, [r4, #12]
         temp_state.current_index++;
- 80086fc:	4a34      	ldr	r2, [pc, #208]	@ (80087d0 <CellTemp_MonitorTask+0x114>)
- 80086fe:	f892 3382 	ldrb.w	r3, [r2, #898]	@ 0x382
- 8008702:	3301      	adds	r3, #1
- 8008704:	f882 3382 	strb.w	r3, [r2, #898]	@ 0x382
+ 8008700:	4a34      	ldr	r2, [pc, #208]	@ (80087d4 <CellTemp_MonitorTask+0x114>)
+ 8008702:	f892 3382 	ldrb.w	r3, [r2, #898]	@ 0x382
+ 8008706:	3301      	adds	r3, #1
+ 8008708:	f882 3382 	strb.w	r3, [r2, #898]	@ 0x382
         temp_state.current_mux++;
- 8008708:	f892 3381 	ldrb.w	r3, [r2, #897]	@ 0x381
- 800870c:	3301      	adds	r3, #1
- 800870e:	b2db      	uxtb	r3, r3
- 8008710:	f882 3381 	strb.w	r3, [r2, #897]	@ 0x381
+ 800870c:	f892 3381 	ldrb.w	r3, [r2, #897]	@ 0x381
+ 8008710:	3301      	adds	r3, #1
+ 8008712:	b2db      	uxtb	r3, r3
+ 8008714:	f882 3381 	strb.w	r3, [r2, #897]	@ 0x381
         if (temp_state.current_mux >= MUX_CHANNELS) {
- 8008714:	2b07      	cmp	r3, #7
- 8008716:	d83c      	bhi.n	8008792 <CellTemp_MonitorTask+0xd6>
+ 8008718:	2b07      	cmp	r3, #7
+ 800871a:	d83c      	bhi.n	8008796 <CellTemp_MonitorTask+0xd6>
         if (CellTemp_IsADCEnabled(temp_state.current_adc)) {
- 8008718:	4b2d      	ldr	r3, [pc, #180]	@ (80087d0 <CellTemp_MonitorTask+0x114>)
- 800871a:	f893 0380 	ldrb.w	r0, [r3, #896]	@ 0x380
- 800871e:	f7ff fe49 	bl	80083b4 <CellTemp_IsADCEnabled>
- 8008722:	2800      	cmp	r0, #0
- 8008724:	d04f      	beq.n	80087c6 <CellTemp_MonitorTask+0x10a>
+ 800871c:	4b2d      	ldr	r3, [pc, #180]	@ (80087d4 <CellTemp_MonitorTask+0x114>)
+ 800871e:	f893 0380 	ldrb.w	r0, [r3, #896]	@ 0x380
+ 8008722:	f7ff fe47 	bl	80083b4 <CellTemp_IsADCEnabled>
+ 8008726:	2800      	cmp	r0, #0
+ 8008728:	d04f      	beq.n	80087ca <CellTemp_MonitorTask+0x10a>
             osDelay(TEMP_READ_DELAY_MS);
- 8008726:	207d      	movs	r0, #125	@ 0x7d
- 8008728:	f000 f8f6 	bl	8008918 <osDelay>
+ 800872a:	207d      	movs	r0, #125	@ 0x7d
+ 800872c:	f000 f8f6 	bl	800891c <osDelay>
         uint32_t current_time = osKernelGetTickCount();
- 800872c:	f000 f890 	bl	8008850 <osKernelGetTickCount>
- 8008730:	4605      	mov	r5, r0
+ 8008730:	f000 f890 	bl	8008854 <osKernelGetTickCount>
+ 8008734:	4605      	mov	r5, r0
         if (CellTemp_IsADCEnabled(temp_state.current_adc)) {
- 8008732:	4b27      	ldr	r3, [pc, #156]	@ (80087d0 <CellTemp_MonitorTask+0x114>)
- 8008734:	f893 0380 	ldrb.w	r0, [r3, #896]	@ 0x380
- 8008738:	f7ff fe3c 	bl	80083b4 <CellTemp_IsADCEnabled>
- 800873c:	2800      	cmp	r0, #0
- 800873e:	d1c7      	bne.n	80086d0 <CellTemp_MonitorTask+0x14>
+ 8008736:	4b27      	ldr	r3, [pc, #156]	@ (80087d4 <CellTemp_MonitorTask+0x114>)
+ 8008738:	f893 0380 	ldrb.w	r0, [r3, #896]	@ 0x380
+ 800873c:	f7ff fe3a 	bl	80083b4 <CellTemp_IsADCEnabled>
+ 8008740:	2800      	cmp	r0, #0
+ 8008742:	d1c7      	bne.n	80086d4 <CellTemp_MonitorTask+0x14>
             temp_state.thermistors[temp_state.current_index].temperature = -127.0f;
- 8008740:	4b23      	ldr	r3, [pc, #140]	@ (80087d0 <CellTemp_MonitorTask+0x114>)
- 8008742:	f893 2382 	ldrb.w	r2, [r3, #898]	@ 0x382
- 8008746:	eb03 1302 	add.w	r3, r3, r2, lsl #4
- 800874a:	4a23      	ldr	r2, [pc, #140]	@ (80087d8 <CellTemp_MonitorTask+0x11c>)
- 800874c:	605a      	str	r2, [r3, #4]
+ 8008744:	4b23      	ldr	r3, [pc, #140]	@ (80087d4 <CellTemp_MonitorTask+0x114>)
+ 8008746:	f893 2382 	ldrb.w	r2, [r3, #898]	@ 0x382
+ 800874a:	eb03 1302 	add.w	r3, r3, r2, lsl #4
+ 800874e:	4a23      	ldr	r2, [pc, #140]	@ (80087dc <CellTemp_MonitorTask+0x11c>)
+ 8008750:	605a      	str	r2, [r3, #4]
             temp_state.thermistors[temp_state.current_index].raw_adc = 0;
- 800874e:	2200      	movs	r2, #0
- 8008750:	811a      	strh	r2, [r3, #8]
- 8008752:	e7d3      	b.n	80086fc <CellTemp_MonitorTask+0x40>
+ 8008752:	2200      	movs	r2, #0
+ 8008754:	811a      	strh	r2, [r3, #8]
+ 8008756:	e7d3      	b.n	8008700 <CellTemp_MonitorTask+0x40>
             for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
- 8008754:	3401      	adds	r4, #1
- 8008756:	b2e4      	uxtb	r4, r4
- 8008758:	2c06      	cmp	r4, #6
- 800875a:	d81c      	bhi.n	8008796 <CellTemp_MonitorTask+0xda>
+ 8008758:	3401      	adds	r4, #1
+ 800875a:	b2e4      	uxtb	r4, r4
+ 800875c:	2c06      	cmp	r4, #6
+ 800875e:	d81c      	bhi.n	800879a <CellTemp_MonitorTask+0xda>
                 if (CellTemp_IsADCEnabled(adc)) {
- 800875c:	4620      	mov	r0, r4
- 800875e:	f7ff fe29 	bl	80083b4 <CellTemp_IsADCEnabled>
- 8008762:	2800      	cmp	r0, #0
- 8008764:	d0f6      	beq.n	8008754 <CellTemp_MonitorTask+0x98>
+ 8008760:	4620      	mov	r0, r4
+ 8008762:	f7ff fe27 	bl	80083b4 <CellTemp_IsADCEnabled>
+ 8008766:	2800      	cmp	r0, #0
+ 8008768:	d0f6      	beq.n	8008758 <CellTemp_MonitorTask+0x98>
                     uint8_t start_msg_idx = adc * 2;
- 8008766:	0065      	lsls	r5, r4, #1
- 8008768:	b2ed      	uxtb	r5, r5
+ 800876a:	0065      	lsls	r5, r4, #1
+ 800876c:	b2ed      	uxtb	r5, r5
                     uint8_t start_therm_idx = adc * MUX_CHANNELS;
- 800876a:	00e7      	lsls	r7, r4, #3
- 800876c:	b2ff      	uxtb	r7, r7
+ 800876e:	00e7      	lsls	r7, r4, #3
+ 8008770:	b2ff      	uxtb	r7, r7
                     CellTemp_SendTemperatureMessage(start_msg_idx, start_therm_idx);
- 800876e:	4639      	mov	r1, r7
- 8008770:	4628      	mov	r0, r5
- 8008772:	f7ff fe45 	bl	8008400 <CellTemp_SendTemperatureMessage>
+ 8008772:	4639      	mov	r1, r7
+ 8008774:	4628      	mov	r0, r5
+ 8008776:	f7ff fe43 	bl	8008400 <CellTemp_SendTemperatureMessage>
                     osDelay(5); // Small delay between messages
- 8008776:	2005      	movs	r0, #5
- 8008778:	f000 f8ce 	bl	8008918 <osDelay>
+ 800877a:	2005      	movs	r0, #5
+ 800877c:	f000 f8ce 	bl	800891c <osDelay>
                     CellTemp_SendTemperatureMessage(start_msg_idx + 1, start_therm_idx + 4);
- 800877c:	1d39      	adds	r1, r7, #4
- 800877e:	1c68      	adds	r0, r5, #1
- 8008780:	f001 01fc 	and.w	r1, r1, #252	@ 0xfc
- 8008784:	b2c0      	uxtb	r0, r0
- 8008786:	f7ff fe3b 	bl	8008400 <CellTemp_SendTemperatureMessage>
+ 8008780:	1d39      	adds	r1, r7, #4
+ 8008782:	1c68      	adds	r0, r5, #1
+ 8008784:	f001 01fc 	and.w	r1, r1, #252	@ 0xfc
+ 8008788:	b2c0      	uxtb	r0, r0
+ 800878a:	f7ff fe39 	bl	8008400 <CellTemp_SendTemperatureMessage>
                     osDelay(5); // Small delay before next ADC's messages
- 800878a:	2005      	movs	r0, #5
- 800878c:	f000 f8c4 	bl	8008918 <osDelay>
- 8008790:	e7e0      	b.n	8008754 <CellTemp_MonitorTask+0x98>
+ 800878e:	2005      	movs	r0, #5
+ 8008790:	f000 f8c4 	bl	800891c <osDelay>
+ 8008794:	e7e0      	b.n	8008758 <CellTemp_MonitorTask+0x98>
             for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
- 8008792:	4634      	mov	r4, r6
- 8008794:	e7e0      	b.n	8008758 <CellTemp_MonitorTask+0x9c>
+ 8008796:	4634      	mov	r4, r6
+ 8008798:	e7e0      	b.n	800875c <CellTemp_MonitorTask+0x9c>
             temp_state.current_mux = 0;
- 8008796:	4a0e      	ldr	r2, [pc, #56]	@ (80087d0 <CellTemp_MonitorTask+0x114>)
- 8008798:	2300      	movs	r3, #0
- 800879a:	f882 3381 	strb.w	r3, [r2, #897]	@ 0x381
+ 800879a:	4a0e      	ldr	r2, [pc, #56]	@ (80087d4 <CellTemp_MonitorTask+0x114>)
+ 800879c:	2300      	movs	r3, #0
+ 800879e:	f882 3381 	strb.w	r3, [r2, #897]	@ 0x381
             temp_state.current_adc++;
- 800879e:	f892 3380 	ldrb.w	r3, [r2, #896]	@ 0x380
- 80087a2:	3301      	adds	r3, #1
- 80087a4:	b2db      	uxtb	r3, r3
- 80087a6:	f882 3380 	strb.w	r3, [r2, #896]	@ 0x380
+ 80087a2:	f892 3380 	ldrb.w	r3, [r2, #896]	@ 0x380
+ 80087a6:	3301      	adds	r3, #1
+ 80087a8:	b2db      	uxtb	r3, r3
+ 80087aa:	f882 3380 	strb.w	r3, [r2, #896]	@ 0x380
             if (temp_state.current_adc >= NUM_ADC_CHANNELS) {
- 80087aa:	2b06      	cmp	r3, #6
- 80087ac:	d9b4      	bls.n	8008718 <CellTemp_MonitorTask+0x5c>
+ 80087ae:	2b06      	cmp	r3, #6
+ 80087b0:	d9b4      	bls.n	800871c <CellTemp_MonitorTask+0x5c>
                 temp_state.current_adc = 0;
- 80087ae:	4613      	mov	r3, r2
- 80087b0:	2200      	movs	r2, #0
- 80087b2:	f883 2380 	strb.w	r2, [r3, #896]	@ 0x380
+ 80087b2:	4613      	mov	r3, r2
+ 80087b4:	2200      	movs	r2, #0
+ 80087b6:	f883 2380 	strb.w	r2, [r3, #896]	@ 0x380
                 temp_state.current_index = 0;
- 80087b6:	f883 2382 	strb.w	r2, [r3, #898]	@ 0x382
+ 80087ba:	f883 2382 	strb.w	r2, [r3, #898]	@ 0x382
                 temp_state.cycle_count++;
- 80087ba:	f8d3 2384 	ldr.w	r2, [r3, #900]	@ 0x384
- 80087be:	3201      	adds	r2, #1
- 80087c0:	f8c3 2384 	str.w	r2, [r3, #900]	@ 0x384
- 80087c4:	e7a8      	b.n	8008718 <CellTemp_MonitorTask+0x5c>
+ 80087be:	f8d3 2384 	ldr.w	r2, [r3, #900]	@ 0x384
+ 80087c2:	3201      	adds	r2, #1
+ 80087c4:	f8c3 2384 	str.w	r2, [r3, #900]	@ 0x384
+ 80087c8:	e7a8      	b.n	800871c <CellTemp_MonitorTask+0x5c>
             osDelay(1); // 1ms delay for disabled channels to quickly skip
- 80087c6:	2001      	movs	r0, #1
- 80087c8:	f000 f8a6 	bl	8008918 <osDelay>
- 80087cc:	e7ae      	b.n	800872c <CellTemp_MonitorTask+0x70>
- 80087ce:	bf00      	nop
- 80087d0:	200000a0 	.word	0x200000a0
- 80087d4:	0800d8d8 	.word	0x0800d8d8
- 80087d8:	c2fe0000 	.word	0xc2fe0000
+ 80087ca:	2001      	movs	r0, #1
+ 80087cc:	f000 f8a6 	bl	800891c <osDelay>
+ 80087d0:	e7ae      	b.n	8008730 <CellTemp_MonitorTask+0x70>
+ 80087d2:	bf00      	nop
+ 80087d4:	200000a0 	.word	0x200000a0
+ 80087d8:	0800d8d8 	.word	0x0800d8d8
+ 80087dc:	c2fe0000 	.word	0xc2fe0000
 
-080087dc <SysTick_Handler>:
+080087e0 <SysTick_Handler>:
 
 /*
   SysTick handler implementation that also clears overflow flag.
 */
 #if (USE_CUSTOM_SYSTICK_HANDLER_IMPLEMENTATION == 0)
 void SysTick_Handler (void) {
- 80087dc:	b508      	push	{r3, lr}
+ 80087e0:	b508      	push	{r3, lr}
   /* Clear overflow flag */
   SysTick->CTRL;
- 80087de:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
- 80087e2:	691b      	ldr	r3, [r3, #16]
+ 80087e2:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
+ 80087e6:	691b      	ldr	r3, [r3, #16]
 
   if (xTaskGetSchedulerState() != taskSCHEDULER_NOT_STARTED) {
- 80087e4:	f004 fc4c 	bl	800d080 <xTaskGetSchedulerState>
- 80087e8:	2801      	cmp	r0, #1
- 80087ea:	d100      	bne.n	80087ee <SysTick_Handler+0x12>
+ 80087e8:	f004 fc4a 	bl	800d080 <xTaskGetSchedulerState>
+ 80087ec:	2801      	cmp	r0, #1
+ 80087ee:	d100      	bne.n	80087f2 <SysTick_Handler+0x12>
     /* Call tick handler */
     xPortSysTickHandler();
   }
 }
- 80087ec:	bd08      	pop	{r3, pc}
+ 80087f0:	bd08      	pop	{r3, pc}
     xPortSysTickHandler();
- 80087ee:	f000 fe31 	bl	8009454 <xPortSysTickHandler>
+ 80087f2:	f000 fe2f 	bl	8009454 <xPortSysTickHandler>
 }
- 80087f2:	e7fb      	b.n	80087ec <SysTick_Handler+0x10>
+ 80087f6:	e7fb      	b.n	80087f0 <SysTick_Handler+0x10>
 
-080087f4 <osKernelInitialize>:
+080087f8 <osKernelInitialize>:
  */
 __STATIC_FORCEINLINE uint32_t __get_IPSR(void)
 {
   uint32_t result;
 
   __ASM volatile ("MRS %0, ipsr" : "=r" (result) );
- 80087f4:	f3ef 8305 	mrs	r3, IPSR
+ 80087f8:	f3ef 8305 	mrs	r3, IPSR
 /*---------------------------------------------------------------------------*/
 
 osStatus_t osKernelInitialize (void) {
   osStatus_t stat;
 
   if (IS_IRQ()) {
- 80087f8:	b92b      	cbnz	r3, 8008806 <osKernelInitialize+0x12>
+ 80087fc:	b92b      	cbnz	r3, 800880a <osKernelInitialize+0x12>
     stat = osErrorISR;
   }
   else {
     if (KernelState == osKernelInactive) {
- 80087fa:	4b06      	ldr	r3, [pc, #24]	@ (8008814 <osKernelInitialize+0x20>)
- 80087fc:	6818      	ldr	r0, [r3, #0]
- 80087fe:	b928      	cbnz	r0, 800880c <osKernelInitialize+0x18>
+ 80087fe:	4b06      	ldr	r3, [pc, #24]	@ (8008818 <osKernelInitialize+0x20>)
+ 8008800:	6818      	ldr	r0, [r3, #0]
+ 8008802:	b928      	cbnz	r0, 8008810 <osKernelInitialize+0x18>
         EvrFreeRTOSSetup(0U);
       #endif
       #if defined(USE_FreeRTOS_HEAP_5) && (HEAP_5_REGION_SETUP == 1)
         vPortDefineHeapRegions (configHEAP_5_REGIONS);
       #endif
       KernelState = osKernelReady;
- 8008800:	2201      	movs	r2, #1
- 8008802:	601a      	str	r2, [r3, #0]
+ 8008804:	2201      	movs	r2, #1
+ 8008806:	601a      	str	r2, [r3, #0]
       stat = osOK;
- 8008804:	4770      	bx	lr
+ 8008808:	4770      	bx	lr
     stat = osErrorISR;
- 8008806:	f06f 0005 	mvn.w	r0, #5
- 800880a:	4770      	bx	lr
+ 800880a:	f06f 0005 	mvn.w	r0, #5
+ 800880e:	4770      	bx	lr
     } else {
       stat = osError;
- 800880c:	f04f 30ff 	mov.w	r0, #4294967295
+ 8008810:	f04f 30ff 	mov.w	r0, #4294967295
     }
   }
 
   return (stat);
 }
- 8008810:	4770      	bx	lr
- 8008812:	bf00      	nop
- 8008814:	20000ae0 	.word	0x20000ae0
+ 8008814:	4770      	bx	lr
+ 8008816:	bf00      	nop
+ 8008818:	20000ae0 	.word	0x20000ae0
 
-08008818 <osKernelStart>:
- 8008818:	f3ef 8305 	mrs	r3, IPSR
+0800881c <osKernelStart>:
+ 800881c:	f3ef 8305 	mrs	r3, IPSR
 }
 
 osStatus_t osKernelStart (void) {
   osStatus_t stat;
 
   if (IS_IRQ()) {
- 800881c:	b973      	cbnz	r3, 800883c <osKernelStart+0x24>
+ 8008820:	b973      	cbnz	r3, 8008840 <osKernelStart+0x24>
     stat = osErrorISR;
   }
   else {
     if (KernelState == osKernelReady) {
- 800881e:	4b0a      	ldr	r3, [pc, #40]	@ (8008848 <osKernelStart+0x30>)
- 8008820:	681b      	ldr	r3, [r3, #0]
- 8008822:	2b01      	cmp	r3, #1
- 8008824:	d10d      	bne.n	8008842 <osKernelStart+0x2a>
+ 8008822:	4b0a      	ldr	r3, [pc, #40]	@ (800884c <osKernelStart+0x30>)
+ 8008824:	681b      	ldr	r3, [r3, #0]
+ 8008826:	2b01      	cmp	r3, #1
+ 8008828:	d10d      	bne.n	8008846 <osKernelStart+0x2a>
 osStatus_t osKernelStart (void) {
- 8008826:	b510      	push	{r4, lr}
+ 800882a:	b510      	push	{r4, lr}
   {
     NVIC->IP[((uint32_t)IRQn)]               = (uint8_t)((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL);
   }
   else
   {
     SCB->SHP[(((uint32_t)IRQn) & 0xFUL)-4UL] = (uint8_t)((priority << (8U - __NVIC_PRIO_BITS)) & (uint32_t)0xFFUL);
- 8008828:	2400      	movs	r4, #0
- 800882a:	4b08      	ldr	r3, [pc, #32]	@ (800884c <osKernelStart+0x34>)
- 800882c:	77dc      	strb	r4, [r3, #31]
+ 800882c:	2400      	movs	r4, #0
+ 800882e:	4b08      	ldr	r3, [pc, #32]	@ (8008850 <osKernelStart+0x34>)
+ 8008830:	77dc      	strb	r4, [r3, #31]
       /* Ensure SVC priority is at the reset value */
       SVC_Setup();
       /* Change state to enable IRQ masking check */
       KernelState = osKernelRunning;
- 800882e:	4b06      	ldr	r3, [pc, #24]	@ (8008848 <osKernelStart+0x30>)
- 8008830:	2202      	movs	r2, #2
- 8008832:	601a      	str	r2, [r3, #0]
+ 8008832:	4b06      	ldr	r3, [pc, #24]	@ (800884c <osKernelStart+0x30>)
+ 8008834:	2202      	movs	r2, #2
+ 8008836:	601a      	str	r2, [r3, #0]
       /* Start the kernel scheduler */
       vTaskStartScheduler();
- 8008834:	f004 f978 	bl	800cb28 <vTaskStartScheduler>
+ 8008838:	f004 f976 	bl	800cb28 <vTaskStartScheduler>
       stat = osOK;
- 8008838:	4620      	mov	r0, r4
+ 800883c:	4620      	mov	r0, r4
       stat = osError;
     }
   }
 
   return (stat);
 }
- 800883a:	bd10      	pop	{r4, pc}
+ 800883e:	bd10      	pop	{r4, pc}
     stat = osErrorISR;
- 800883c:	f06f 0005 	mvn.w	r0, #5
- 8008840:	4770      	bx	lr
+ 8008840:	f06f 0005 	mvn.w	r0, #5
+ 8008844:	4770      	bx	lr
       stat = osError;
- 8008842:	f04f 30ff 	mov.w	r0, #4294967295
+ 8008846:	f04f 30ff 	mov.w	r0, #4294967295
 }
- 8008846:	4770      	bx	lr
- 8008848:	20000ae0 	.word	0x20000ae0
- 800884c:	e000ed00 	.word	0xe000ed00
+ 800884a:	4770      	bx	lr
+ 800884c:	20000ae0 	.word	0x20000ae0
+ 8008850:	e000ed00 	.word	0xe000ed00
 
-08008850 <osKernelGetTickCount>:
+08008854 <osKernelGetTickCount>:
   }
 
   return (lock);
 }
 
 uint32_t osKernelGetTickCount (void) {
- 8008850:	b508      	push	{r3, lr}
- 8008852:	f3ef 8305 	mrs	r3, IPSR
+ 8008854:	b508      	push	{r3, lr}
+ 8008856:	f3ef 8305 	mrs	r3, IPSR
   TickType_t ticks;
 
   if (IS_IRQ()) {
- 8008856:	b113      	cbz	r3, 800885e <osKernelGetTickCount+0xe>
+ 800885a:	b113      	cbz	r3, 8008862 <osKernelGetTickCount+0xe>
     ticks = xTaskGetTickCountFromISR();
- 8008858:	f004 f9c0 	bl	800cbdc <xTaskGetTickCountFromISR>
+ 800885c:	f004 f9be 	bl	800cbdc <xTaskGetTickCountFromISR>
   } else {
     ticks = xTaskGetTickCount();
   }
 
   return (ticks);
 }
- 800885c:	bd08      	pop	{r3, pc}
+ 8008860:	bd08      	pop	{r3, pc}
     ticks = xTaskGetTickCount();
- 800885e:	f004 f9b7 	bl	800cbd0 <xTaskGetTickCount>
+ 8008862:	f004 f9b5 	bl	800cbd0 <xTaskGetTickCount>
   return (ticks);
- 8008862:	e7fb      	b.n	800885c <osKernelGetTickCount+0xc>
+ 8008866:	e7fb      	b.n	8008860 <osKernelGetTickCount+0xc>
 
-08008864 <osThreadNew>:
+08008868 <osThreadNew>:
   return (configCPU_CLOCK_HZ);
 }
 
 /*---------------------------------------------------------------------------*/
 
 osThreadId_t osThreadNew (osThreadFunc_t func, void *argument, const osThreadAttr_t *attr) {
- 8008864:	b5f0      	push	{r4, r5, r6, r7, lr}
- 8008866:	b087      	sub	sp, #28
+ 8008868:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 800886a:	b087      	sub	sp, #28
   uint32_t stack;
   TaskHandle_t hTask;
   UBaseType_t prio;
   int32_t mem;
 
   hTask = NULL;
- 8008868:	2400      	movs	r4, #0
- 800886a:	9405      	str	r4, [sp, #20]
- 800886c:	f3ef 8405 	mrs	r4, IPSR
+ 800886c:	2400      	movs	r4, #0
+ 800886e:	9405      	str	r4, [sp, #20]
+ 8008870:	f3ef 8405 	mrs	r4, IPSR
 
   if (!IS_IRQ() && (func != NULL)) {
- 8008870:	bb04      	cbnz	r4, 80088b4 <osThreadNew+0x50>
- 8008872:	b1f8      	cbz	r0, 80088b4 <osThreadNew+0x50>
+ 8008874:	bb04      	cbnz	r4, 80088b8 <osThreadNew+0x50>
+ 8008876:	b1f8      	cbz	r0, 80088b8 <osThreadNew+0x50>
     prio  = (UBaseType_t)osPriorityNormal;
 
     name = NULL;
     mem  = -1;
 
     if (attr != NULL) {
- 8008874:	2a00      	cmp	r2, #0
- 8008876:	d034      	beq.n	80088e2 <osThreadNew+0x7e>
+ 8008878:	2a00      	cmp	r2, #0
+ 800887a:	d034      	beq.n	80088e6 <osThreadNew+0x7e>
       if (attr->name != NULL) {
- 8008878:	6815      	ldr	r5, [r2, #0]
+ 800887c:	6815      	ldr	r5, [r2, #0]
         name = attr->name;
       }
       if (attr->priority != osPriorityNone) {
- 800887a:	6993      	ldr	r3, [r2, #24]
- 800887c:	b12b      	cbz	r3, 800888a <osThreadNew+0x26>
+ 800887e:	6993      	ldr	r3, [r2, #24]
+ 8008880:	b12b      	cbz	r3, 800888e <osThreadNew+0x26>
         prio = (UBaseType_t)attr->priority;
- 800887e:	461e      	mov	r6, r3
+ 8008882:	461e      	mov	r6, r3
       }
 
       if ((prio < osPriorityIdle) || (prio > osPriorityISR) || ((attr->attr_bits & osThreadJoinable) == osThreadJoinable)) {
- 8008880:	3b01      	subs	r3, #1
- 8008882:	2b37      	cmp	r3, #55	@ 0x37
- 8008884:	d902      	bls.n	800888c <osThreadNew+0x28>
+ 8008884:	3b01      	subs	r3, #1
+ 8008886:	2b37      	cmp	r3, #55	@ 0x37
+ 8008888:	d902      	bls.n	8008890 <osThreadNew+0x28>
         return (NULL);
- 8008886:	2000      	movs	r0, #0
- 8008888:	e015      	b.n	80088b6 <osThreadNew+0x52>
+ 800888a:	2000      	movs	r0, #0
+ 800888c:	e015      	b.n	80088ba <osThreadNew+0x52>
     prio  = (UBaseType_t)osPriorityNormal;
- 800888a:	2618      	movs	r6, #24
+ 800888e:	2618      	movs	r6, #24
       if ((prio < osPriorityIdle) || (prio > osPriorityISR) || ((attr->attr_bits & osThreadJoinable) == osThreadJoinable)) {
- 800888c:	6853      	ldr	r3, [r2, #4]
- 800888e:	f013 0f01 	tst.w	r3, #1
- 8008892:	d13f      	bne.n	8008914 <osThreadNew+0xb0>
+ 8008890:	6853      	ldr	r3, [r2, #4]
+ 8008892:	f013 0f01 	tst.w	r3, #1
+ 8008896:	d13f      	bne.n	8008918 <osThreadNew+0xb0>
       }
 
       if (attr->stack_size > 0U) {
- 8008894:	6954      	ldr	r4, [r2, #20]
- 8008896:	b184      	cbz	r4, 80088ba <osThreadNew+0x56>
+ 8008898:	6954      	ldr	r4, [r2, #20]
+ 800889a:	b184      	cbz	r4, 80088be <osThreadNew+0x56>
         /* In FreeRTOS stack is not in bytes, but in sizeof(StackType_t) which is 4 on ARM ports.       */
         /* Stack size should be therefore 4 byte aligned in order to avoid division caused side effects */
         stack = attr->stack_size / sizeof(StackType_t);
- 8008898:	ea4f 0c94 	mov.w	ip, r4, lsr #2
+ 800889c:	ea4f 0c94 	mov.w	ip, r4, lsr #2
       }
 
       if ((attr->cb_mem    != NULL) && (attr->cb_size    >= sizeof(StaticTask_t)) &&
- 800889c:	6893      	ldr	r3, [r2, #8]
- 800889e:	b12b      	cbz	r3, 80088ac <osThreadNew+0x48>
- 80088a0:	68d7      	ldr	r7, [r2, #12]
- 80088a2:	2f5b      	cmp	r7, #91	@ 0x5b
- 80088a4:	d902      	bls.n	80088ac <osThreadNew+0x48>
+ 80088a0:	6893      	ldr	r3, [r2, #8]
+ 80088a2:	b12b      	cbz	r3, 80088b0 <osThreadNew+0x48>
+ 80088a4:	68d7      	ldr	r7, [r2, #12]
+ 80088a6:	2f5b      	cmp	r7, #91	@ 0x5b
+ 80088a8:	d902      	bls.n	80088b0 <osThreadNew+0x48>
           (attr->stack_mem != NULL) && (attr->stack_size >  0U)) {
- 80088a6:	6917      	ldr	r7, [r2, #16]
+ 80088aa:	6917      	ldr	r7, [r2, #16]
       if ((attr->cb_mem    != NULL) && (attr->cb_size    >= sizeof(StaticTask_t)) &&
- 80088a8:	b107      	cbz	r7, 80088ac <osThreadNew+0x48>
+ 80088ac:	b107      	cbz	r7, 80088b0 <osThreadNew+0x48>
           (attr->stack_mem != NULL) && (attr->stack_size >  0U)) {
- 80088aa:	b984      	cbnz	r4, 80088ce <osThreadNew+0x6a>
+ 80088ae:	b984      	cbnz	r4, 80088d2 <osThreadNew+0x6a>
         mem = 1;
       }
       else {
         if ((attr->cb_mem == NULL) && (attr->cb_size == 0U) && (attr->stack_mem == NULL)) {
- 80088ac:	b143      	cbz	r3, 80088c0 <osThreadNew+0x5c>
+ 80088b0:	b143      	cbz	r3, 80088c4 <osThreadNew+0x5c>
     mem  = -1;
- 80088ae:	f04f 33ff 	mov.w	r3, #4294967295
+ 80088b2:	f04f 33ff 	mov.w	r3, #4294967295
         hTask = xTaskCreateStatic ((TaskFunction_t)func, name, stack, argument, prio, (StackType_t  *)attr->stack_mem,
                                                                                       (StaticTask_t *)attr->cb_mem);
       #endif
     }
     else {
       if (mem == 0) {
- 80088b2:	b30b      	cbz	r3, 80088f8 <osThreadNew+0x94>
+ 80088b6:	b30b      	cbz	r3, 80088fc <osThreadNew+0x94>
         #endif
       }
     }
   }
 
   return ((osThreadId_t)hTask);
- 80088b4:	9805      	ldr	r0, [sp, #20]
+ 80088b8:	9805      	ldr	r0, [sp, #20]
 }
- 80088b6:	b007      	add	sp, #28
- 80088b8:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 80088ba:	b007      	add	sp, #28
+ 80088bc:	bdf0      	pop	{r4, r5, r6, r7, pc}
     stack = configMINIMAL_STACK_SIZE;
- 80088ba:	f04f 0c80 	mov.w	ip, #128	@ 0x80
- 80088be:	e7ed      	b.n	800889c <osThreadNew+0x38>
+ 80088be:	f04f 0c80 	mov.w	ip, #128	@ 0x80
+ 80088c2:	e7ed      	b.n	80088a0 <osThreadNew+0x38>
         if ((attr->cb_mem == NULL) && (attr->cb_size == 0U) && (attr->stack_mem == NULL)) {
- 80088c0:	68d3      	ldr	r3, [r2, #12]
- 80088c2:	b9a3      	cbnz	r3, 80088ee <osThreadNew+0x8a>
- 80088c4:	6913      	ldr	r3, [r2, #16]
- 80088c6:	b1ab      	cbz	r3, 80088f4 <osThreadNew+0x90>
+ 80088c4:	68d3      	ldr	r3, [r2, #12]
+ 80088c6:	b9a3      	cbnz	r3, 80088f2 <osThreadNew+0x8a>
+ 80088c8:	6913      	ldr	r3, [r2, #16]
+ 80088ca:	b1ab      	cbz	r3, 80088f8 <osThreadNew+0x90>
     mem  = -1;
- 80088c8:	f04f 33ff 	mov.w	r3, #4294967295
- 80088cc:	e7f1      	b.n	80088b2 <osThreadNew+0x4e>
+ 80088cc:	f04f 33ff 	mov.w	r3, #4294967295
+ 80088d0:	e7f1      	b.n	80088b6 <osThreadNew+0x4e>
         hTask = xTaskCreateStatic ((TaskFunction_t)func, name, stack, argument, prio, (StackType_t  *)attr->stack_mem,
- 80088ce:	9302      	str	r3, [sp, #8]
- 80088d0:	9701      	str	r7, [sp, #4]
- 80088d2:	9600      	str	r6, [sp, #0]
- 80088d4:	460b      	mov	r3, r1
- 80088d6:	4662      	mov	r2, ip
- 80088d8:	4629      	mov	r1, r5
- 80088da:	f004 f8b7 	bl	800ca4c <xTaskCreateStatic>
- 80088de:	9005      	str	r0, [sp, #20]
- 80088e0:	e7e8      	b.n	80088b4 <osThreadNew+0x50>
+ 80088d2:	9302      	str	r3, [sp, #8]
+ 80088d4:	9701      	str	r7, [sp, #4]
+ 80088d6:	9600      	str	r6, [sp, #0]
+ 80088d8:	460b      	mov	r3, r1
+ 80088da:	4662      	mov	r2, ip
+ 80088dc:	4629      	mov	r1, r5
+ 80088de:	f004 f8b5 	bl	800ca4c <xTaskCreateStatic>
+ 80088e2:	9005      	str	r0, [sp, #20]
+ 80088e4:	e7e8      	b.n	80088b8 <osThreadNew+0x50>
     name = NULL;
- 80088e2:	4615      	mov	r5, r2
+ 80088e6:	4615      	mov	r5, r2
       mem = 0;
- 80088e4:	2300      	movs	r3, #0
+ 80088e8:	2300      	movs	r3, #0
     prio  = (UBaseType_t)osPriorityNormal;
- 80088e6:	2618      	movs	r6, #24
+ 80088ea:	2618      	movs	r6, #24
     stack = configMINIMAL_STACK_SIZE;
- 80088e8:	f04f 0c80 	mov.w	ip, #128	@ 0x80
- 80088ec:	e7e1      	b.n	80088b2 <osThreadNew+0x4e>
+ 80088ec:	f04f 0c80 	mov.w	ip, #128	@ 0x80
+ 80088f0:	e7e1      	b.n	80088b6 <osThreadNew+0x4e>
     mem  = -1;
- 80088ee:	f04f 33ff 	mov.w	r3, #4294967295
- 80088f2:	e7de      	b.n	80088b2 <osThreadNew+0x4e>
+ 80088f2:	f04f 33ff 	mov.w	r3, #4294967295
+ 80088f6:	e7de      	b.n	80088b6 <osThreadNew+0x4e>
           mem = 0;
- 80088f4:	2300      	movs	r3, #0
- 80088f6:	e7dc      	b.n	80088b2 <osThreadNew+0x4e>
+ 80088f8:	2300      	movs	r3, #0
+ 80088fa:	e7dc      	b.n	80088b6 <osThreadNew+0x4e>
           if (xTaskCreate ((TaskFunction_t)func, name, (uint16_t)stack, argument, prio, &hTask) != pdPASS) {
- 80088f8:	ab05      	add	r3, sp, #20
- 80088fa:	9301      	str	r3, [sp, #4]
- 80088fc:	9600      	str	r6, [sp, #0]
- 80088fe:	460b      	mov	r3, r1
- 8008900:	fa1f f28c 	uxth.w	r2, ip
- 8008904:	4629      	mov	r1, r5
- 8008906:	f004 f8dc 	bl	800cac2 <xTaskCreate>
- 800890a:	2801      	cmp	r0, #1
- 800890c:	d0d2      	beq.n	80088b4 <osThreadNew+0x50>
+ 80088fc:	ab05      	add	r3, sp, #20
+ 80088fe:	9301      	str	r3, [sp, #4]
+ 8008900:	9600      	str	r6, [sp, #0]
+ 8008902:	460b      	mov	r3, r1
+ 8008904:	fa1f f28c 	uxth.w	r2, ip
+ 8008908:	4629      	mov	r1, r5
+ 800890a:	f004 f8da 	bl	800cac2 <xTaskCreate>
+ 800890e:	2801      	cmp	r0, #1
+ 8008910:	d0d2      	beq.n	80088b8 <osThreadNew+0x50>
             hTask = NULL;
- 800890e:	2300      	movs	r3, #0
- 8008910:	9305      	str	r3, [sp, #20]
- 8008912:	e7cf      	b.n	80088b4 <osThreadNew+0x50>
+ 8008912:	2300      	movs	r3, #0
+ 8008914:	9305      	str	r3, [sp, #20]
+ 8008916:	e7cf      	b.n	80088b8 <osThreadNew+0x50>
         return (NULL);
- 8008914:	2000      	movs	r0, #0
- 8008916:	e7ce      	b.n	80088b6 <osThreadNew+0x52>
+ 8008918:	2000      	movs	r0, #0
+ 800891a:	e7ce      	b.n	80088ba <osThreadNew+0x52>
 
-08008918 <osDelay>:
+0800891c <osDelay>:
   /* Return flags before clearing */
   return (rflags);
 }
 #endif /* (configUSE_OS2_THREAD_FLAGS == 1) */
 
 osStatus_t osDelay (uint32_t ticks) {
- 8008918:	b508      	push	{r3, lr}
- 800891a:	f3ef 8305 	mrs	r3, IPSR
+ 800891c:	b508      	push	{r3, lr}
+ 800891e:	f3ef 8305 	mrs	r3, IPSR
   osStatus_t stat;
 
   if (IS_IRQ()) {
- 800891e:	b933      	cbnz	r3, 800892e <osDelay+0x16>
+ 8008922:	b933      	cbnz	r3, 8008932 <osDelay+0x16>
     stat = osErrorISR;
   }
   else {
     stat = osOK;
 
     if (ticks != 0U) {
- 8008920:	b908      	cbnz	r0, 8008926 <osDelay+0xe>
+ 8008924:	b908      	cbnz	r0, 800892a <osDelay+0xe>
     stat = osOK;
- 8008922:	2000      	movs	r0, #0
+ 8008926:	2000      	movs	r0, #0
       vTaskDelay(ticks);
     }
   }
 
   return (stat);
 }
- 8008924:	bd08      	pop	{r3, pc}
+ 8008928:	bd08      	pop	{r3, pc}
       vTaskDelay(ticks);
- 8008926:	f004 fa69 	bl	800cdfc <vTaskDelay>
+ 800892a:	f004 fa67 	bl	800cdfc <vTaskDelay>
     stat = osOK;
- 800892a:	2000      	movs	r0, #0
- 800892c:	e7fa      	b.n	8008924 <osDelay+0xc>
+ 800892e:	2000      	movs	r0, #0
+ 8008930:	e7fa      	b.n	8008928 <osDelay+0xc>
     stat = osErrorISR;
- 800892e:	f06f 0005 	mvn.w	r0, #5
- 8008932:	e7f7      	b.n	8008924 <osDelay+0xc>
+ 8008932:	f06f 0005 	mvn.w	r0, #5
+ 8008936:	e7f7      	b.n	8008928 <osDelay+0xc>
 
-08008934 <osMutexNew>:
+08008938 <osMutexNew>:
 }
 
 /*---------------------------------------------------------------------------*/
 #if (configUSE_OS2_MUTEX == 1)
 
 osMutexId_t osMutexNew (const osMutexAttr_t *attr) {
- 8008934:	b570      	push	{r4, r5, r6, lr}
- 8008936:	f3ef 8605 	mrs	r6, IPSR
+ 8008938:	b570      	push	{r4, r5, r6, lr}
+ 800893a:	f3ef 8605 	mrs	r6, IPSR
   const char *name;
   #endif
 
   hMutex = NULL;
 
   if (!IS_IRQ()) {
- 800893a:	2e00      	cmp	r6, #0
- 800893c:	d13e      	bne.n	80089bc <osMutexNew+0x88>
- 800893e:	4604      	mov	r4, r0
+ 800893e:	2e00      	cmp	r6, #0
+ 8008940:	d13e      	bne.n	80089c0 <osMutexNew+0x88>
+ 8008942:	4604      	mov	r4, r0
     if (attr != NULL) {
- 8008940:	b308      	cbz	r0, 8008986 <osMutexNew+0x52>
+ 8008944:	b308      	cbz	r0, 800898a <osMutexNew+0x52>
       type = attr->attr_bits;
- 8008942:	6843      	ldr	r3, [r0, #4]
+ 8008946:	6843      	ldr	r3, [r0, #4]
     } else {
       type = 0U;
     }
 
     if ((type & osMutexRecursive) == osMutexRecursive) {
- 8008944:	f013 0601 	ands.w	r6, r3, #1
- 8008948:	d000      	beq.n	800894c <osMutexNew+0x18>
+ 8008948:	f013 0601 	ands.w	r6, r3, #1
+ 800894c:	d000      	beq.n	8008950 <osMutexNew+0x18>
       rmtx = 1U;
- 800894a:	2601      	movs	r6, #1
+ 800894e:	2601      	movs	r6, #1
     } else {
       rmtx = 0U;
     }
 
     if ((type & osMutexRobust) != osMutexRobust) {
- 800894c:	f013 0f08 	tst.w	r3, #8
- 8008950:	d137      	bne.n	80089c2 <osMutexNew+0x8e>
+ 8008950:	f013 0f08 	tst.w	r3, #8
+ 8008954:	d137      	bne.n	80089c6 <osMutexNew+0x8e>
       mem = -1;
 
       if (attr != NULL) {
- 8008952:	b354      	cbz	r4, 80089aa <osMutexNew+0x76>
+ 8008956:	b354      	cbz	r4, 80089ae <osMutexNew+0x76>
         if ((attr->cb_mem != NULL) && (attr->cb_size >= sizeof(StaticSemaphore_t))) {
- 8008954:	68a1      	ldr	r1, [r4, #8]
- 8008956:	b111      	cbz	r1, 800895e <osMutexNew+0x2a>
- 8008958:	68e3      	ldr	r3, [r4, #12]
- 800895a:	2b4f      	cmp	r3, #79	@ 0x4f
- 800895c:	d81a      	bhi.n	8008994 <osMutexNew+0x60>
+ 8008958:	68a1      	ldr	r1, [r4, #8]
+ 800895a:	b111      	cbz	r1, 8008962 <osMutexNew+0x2a>
+ 800895c:	68e3      	ldr	r3, [r4, #12]
+ 800895e:	2b4f      	cmp	r3, #79	@ 0x4f
+ 8008960:	d81a      	bhi.n	8008998 <osMutexNew+0x60>
           mem = 1;
         }
         else {
           if ((attr->cb_mem == NULL) && (attr->cb_size == 0U)) {
- 800895e:	b1a1      	cbz	r1, 800898a <osMutexNew+0x56>
+ 8008962:	b1a1      	cbz	r1, 800898e <osMutexNew+0x56>
       mem = -1;
- 8008960:	f04f 33ff 	mov.w	r3, #4294967295
+ 8008964:	f04f 33ff 	mov.w	r3, #4294967295
             hMutex = xSemaphoreCreateMutexStatic (attr->cb_mem);
           }
         #endif
       }
       else {
         if (mem == 0) {
- 8008964:	bb7b      	cbnz	r3, 80089c6 <osMutexNew+0x92>
+ 8008968:	bb7b      	cbnz	r3, 80089ca <osMutexNew+0x92>
           #if (configSUPPORT_DYNAMIC_ALLOCATION == 1)
             if (rmtx != 0U) {
- 8008966:	b326      	cbz	r6, 80089b2 <osMutexNew+0x7e>
+ 800896a:	b326      	cbz	r6, 80089b6 <osMutexNew+0x7e>
               #if (configUSE_RECURSIVE_MUTEXES == 1)
               hMutex = xSemaphoreCreateRecursiveMutex ();
- 8008968:	2004      	movs	r0, #4
- 800896a:	f001 f888 	bl	8009a7e <xQueueCreateMutex>
- 800896e:	4605      	mov	r5, r0
+ 800896c:	2004      	movs	r0, #4
+ 800896e:	f001 f886 	bl	8009a7e <xQueueCreateMutex>
+ 8008972:	4605      	mov	r5, r0
           #endif
         }
       }
 
       #if (configQUEUE_REGISTRY_SIZE > 0)
       if (hMutex != NULL) {
- 8008970:	b32d      	cbz	r5, 80089be <osMutexNew+0x8a>
+ 8008974:	b32d      	cbz	r5, 80089c2 <osMutexNew+0x8a>
         if (attr != NULL) {
- 8008972:	b104      	cbz	r4, 8008976 <osMutexNew+0x42>
+ 8008976:	b104      	cbz	r4, 800897a <osMutexNew+0x42>
           name = attr->name;
- 8008974:	6824      	ldr	r4, [r4, #0]
+ 8008978:	6824      	ldr	r4, [r4, #0]
         } else {
           name = NULL;
         }
         vQueueAddToRegistry (hMutex, name);
- 8008976:	4621      	mov	r1, r4
- 8008978:	4628      	mov	r0, r5
- 800897a:	f001 fa07 	bl	8009d8c <vQueueAddToRegistry>
+ 800897a:	4621      	mov	r1, r4
+ 800897c:	4628      	mov	r0, r5
+ 800897e:	f001 fa05 	bl	8009d8c <vQueueAddToRegistry>
       }
       #endif
 
       if ((hMutex != NULL) && (rmtx != 0U)) {
- 800897e:	b1f6      	cbz	r6, 80089be <osMutexNew+0x8a>
+ 8008982:	b1f6      	cbz	r6, 80089c2 <osMutexNew+0x8a>
         hMutex = (SemaphoreHandle_t)((uint32_t)hMutex | 1U);
- 8008980:	f045 0501 	orr.w	r5, r5, #1
- 8008984:	e01b      	b.n	80089be <osMutexNew+0x8a>
+ 8008984:	f045 0501 	orr.w	r5, r5, #1
+ 8008988:	e01b      	b.n	80089c2 <osMutexNew+0x8a>
       type = 0U;
- 8008986:	4633      	mov	r3, r6
- 8008988:	e7e0      	b.n	800894c <osMutexNew+0x18>
+ 800898a:	4633      	mov	r3, r6
+ 800898c:	e7e0      	b.n	8008950 <osMutexNew+0x18>
           if ((attr->cb_mem == NULL) && (attr->cb_size == 0U)) {
- 800898a:	68e3      	ldr	r3, [r4, #12]
- 800898c:	b17b      	cbz	r3, 80089ae <osMutexNew+0x7a>
+ 800898e:	68e3      	ldr	r3, [r4, #12]
+ 8008990:	b17b      	cbz	r3, 80089b2 <osMutexNew+0x7a>
       mem = -1;
- 800898e:	f04f 33ff 	mov.w	r3, #4294967295
- 8008992:	e7e7      	b.n	8008964 <osMutexNew+0x30>
+ 8008992:	f04f 33ff 	mov.w	r3, #4294967295
+ 8008996:	e7e7      	b.n	8008968 <osMutexNew+0x30>
           if (rmtx != 0U) {
- 8008994:	b126      	cbz	r6, 80089a0 <osMutexNew+0x6c>
+ 8008998:	b126      	cbz	r6, 80089a4 <osMutexNew+0x6c>
             hMutex = xSemaphoreCreateRecursiveMutexStatic (attr->cb_mem);
- 8008996:	2004      	movs	r0, #4
- 8008998:	f001 f87c 	bl	8009a94 <xQueueCreateMutexStatic>
- 800899c:	4605      	mov	r5, r0
- 800899e:	e7e7      	b.n	8008970 <osMutexNew+0x3c>
+ 800899a:	2004      	movs	r0, #4
+ 800899c:	f001 f87a 	bl	8009a94 <xQueueCreateMutexStatic>
+ 80089a0:	4605      	mov	r5, r0
+ 80089a2:	e7e7      	b.n	8008974 <osMutexNew+0x3c>
             hMutex = xSemaphoreCreateMutexStatic (attr->cb_mem);
- 80089a0:	2001      	movs	r0, #1
- 80089a2:	f001 f877 	bl	8009a94 <xQueueCreateMutexStatic>
- 80089a6:	4605      	mov	r5, r0
- 80089a8:	e7e2      	b.n	8008970 <osMutexNew+0x3c>
+ 80089a4:	2001      	movs	r0, #1
+ 80089a6:	f001 f875 	bl	8009a94 <xQueueCreateMutexStatic>
+ 80089aa:	4605      	mov	r5, r0
+ 80089ac:	e7e2      	b.n	8008974 <osMutexNew+0x3c>
         mem = 0;
- 80089aa:	2300      	movs	r3, #0
- 80089ac:	e7da      	b.n	8008964 <osMutexNew+0x30>
-            mem = 0;
  80089ae:	2300      	movs	r3, #0
- 80089b0:	e7d8      	b.n	8008964 <osMutexNew+0x30>
+ 80089b0:	e7da      	b.n	8008968 <osMutexNew+0x30>
+            mem = 0;
+ 80089b2:	2300      	movs	r3, #0
+ 80089b4:	e7d8      	b.n	8008968 <osMutexNew+0x30>
               hMutex = xSemaphoreCreateMutex ();
- 80089b2:	2001      	movs	r0, #1
- 80089b4:	f001 f863 	bl	8009a7e <xQueueCreateMutex>
- 80089b8:	4605      	mov	r5, r0
- 80089ba:	e7d9      	b.n	8008970 <osMutexNew+0x3c>
+ 80089b6:	2001      	movs	r0, #1
+ 80089b8:	f001 f861 	bl	8009a7e <xQueueCreateMutex>
+ 80089bc:	4605      	mov	r5, r0
+ 80089be:	e7d9      	b.n	8008974 <osMutexNew+0x3c>
   hMutex = NULL;
- 80089bc:	2500      	movs	r5, #0
+ 80089c0:	2500      	movs	r5, #0
       }
     }
   }
 
   return ((osMutexId_t)hMutex);
 }
- 80089be:	4628      	mov	r0, r5
- 80089c0:	bd70      	pop	{r4, r5, r6, pc}
+ 80089c2:	4628      	mov	r0, r5
+ 80089c4:	bd70      	pop	{r4, r5, r6, pc}
   hMutex = NULL;
- 80089c2:	2500      	movs	r5, #0
- 80089c4:	e7fb      	b.n	80089be <osMutexNew+0x8a>
  80089c6:	2500      	movs	r5, #0
+ 80089c8:	e7fb      	b.n	80089c2 <osMutexNew+0x8a>
+ 80089ca:	2500      	movs	r5, #0
   return ((osMutexId_t)hMutex);
- 80089c8:	e7f9      	b.n	80089be <osMutexNew+0x8a>
+ 80089cc:	e7f9      	b.n	80089c2 <osMutexNew+0x8a>
 
-080089ca <osMessageQueueNew>:
+080089ce <osMessageQueueNew>:
   return (stat);
 }
 
 /*---------------------------------------------------------------------------*/
 
 osMessageQueueId_t osMessageQueueNew (uint32_t msg_count, uint32_t msg_size, const osMessageQueueAttr_t *attr) {
- 80089ca:	b570      	push	{r4, r5, r6, lr}
- 80089cc:	b082      	sub	sp, #8
- 80089ce:	f3ef 8305 	mrs	r3, IPSR
+ 80089ce:	b570      	push	{r4, r5, r6, lr}
+ 80089d0:	b082      	sub	sp, #8
+ 80089d2:	f3ef 8305 	mrs	r3, IPSR
   const char *name;
   #endif
 
   hQueue = NULL;
 
   if (!IS_IRQ() && (msg_count > 0U) && (msg_size > 0U)) {
- 80089d2:	2b00      	cmp	r3, #0
- 80089d4:	d13a      	bne.n	8008a4c <osMessageQueueNew+0x82>
- 80089d6:	4614      	mov	r4, r2
- 80089d8:	2800      	cmp	r0, #0
- 80089da:	d03b      	beq.n	8008a54 <osMessageQueueNew+0x8a>
- 80089dc:	2900      	cmp	r1, #0
- 80089de:	d03b      	beq.n	8008a58 <osMessageQueueNew+0x8e>
+ 80089d6:	2b00      	cmp	r3, #0
+ 80089d8:	d13a      	bne.n	8008a50 <osMessageQueueNew+0x82>
+ 80089da:	4614      	mov	r4, r2
+ 80089dc:	2800      	cmp	r0, #0
+ 80089de:	d03b      	beq.n	8008a58 <osMessageQueueNew+0x8a>
+ 80089e0:	2900      	cmp	r1, #0
+ 80089e2:	d03b      	beq.n	8008a5c <osMessageQueueNew+0x8e>
     mem = -1;
 
     if (attr != NULL) {
- 80089e0:	b36a      	cbz	r2, 8008a3e <osMessageQueueNew+0x74>
+ 80089e4:	b36a      	cbz	r2, 8008a42 <osMessageQueueNew+0x74>
       if ((attr->cb_mem != NULL) && (attr->cb_size >= sizeof(StaticQueue_t)) &&
- 80089e2:	6893      	ldr	r3, [r2, #8]
- 80089e4:	b14b      	cbz	r3, 80089fa <osMessageQueueNew+0x30>
- 80089e6:	68d2      	ldr	r2, [r2, #12]
- 80089e8:	2a4f      	cmp	r2, #79	@ 0x4f
- 80089ea:	d906      	bls.n	80089fa <osMessageQueueNew+0x30>
+ 80089e6:	6893      	ldr	r3, [r2, #8]
+ 80089e8:	b14b      	cbz	r3, 80089fe <osMessageQueueNew+0x30>
+ 80089ea:	68d2      	ldr	r2, [r2, #12]
+ 80089ec:	2a4f      	cmp	r2, #79	@ 0x4f
+ 80089ee:	d906      	bls.n	80089fe <osMessageQueueNew+0x30>
           (attr->mq_mem != NULL) && (attr->mq_size >= (msg_count * msg_size))) {
- 80089ec:	6922      	ldr	r2, [r4, #16]
+ 80089f0:	6922      	ldr	r2, [r4, #16]
       if ((attr->cb_mem != NULL) && (attr->cb_size >= sizeof(StaticQueue_t)) &&
- 80089ee:	b122      	cbz	r2, 80089fa <osMessageQueueNew+0x30>
+ 80089f2:	b122      	cbz	r2, 80089fe <osMessageQueueNew+0x30>
           (attr->mq_mem != NULL) && (attr->mq_size >= (msg_count * msg_size))) {
- 80089f0:	fb01 f500 	mul.w	r5, r1, r0
- 80089f4:	6966      	ldr	r6, [r4, #20]
- 80089f6:	42ae      	cmp	r6, r5
- 80089f8:	d21b      	bcs.n	8008a32 <osMessageQueueNew+0x68>
+ 80089f4:	fb01 f500 	mul.w	r5, r1, r0
+ 80089f8:	6966      	ldr	r6, [r4, #20]
+ 80089fa:	42ae      	cmp	r6, r5
+ 80089fc:	d21b      	bcs.n	8008a36 <osMessageQueueNew+0x68>
         mem = 1;
       }
       else {
         if ((attr->cb_mem == NULL) && (attr->cb_size == 0U) &&
- 80089fa:	b173      	cbz	r3, 8008a1a <osMessageQueueNew+0x50>
+ 80089fe:	b173      	cbz	r3, 8008a1e <osMessageQueueNew+0x50>
     mem = -1;
- 80089fc:	f04f 33ff 	mov.w	r3, #4294967295
+ 8008a00:	f04f 33ff 	mov.w	r3, #4294967295
       #if (configSUPPORT_STATIC_ALLOCATION == 1)
         hQueue = xQueueCreateStatic (msg_count, msg_size, attr->mq_mem, attr->cb_mem);
       #endif
     }
     else {
       if (mem == 0) {
- 8008a00:	bb63      	cbnz	r3, 8008a5c <osMessageQueueNew+0x92>
+ 8008a04:	bb63      	cbnz	r3, 8008a60 <osMessageQueueNew+0x92>
         #if (configSUPPORT_DYNAMIC_ALLOCATION == 1)
           hQueue = xQueueCreate (msg_count, msg_size);
- 8008a02:	2200      	movs	r2, #0
- 8008a04:	f000 ff47 	bl	8009896 <xQueueGenericCreate>
- 8008a08:	4605      	mov	r5, r0
+ 8008a06:	2200      	movs	r2, #0
+ 8008a08:	f000 ff45 	bl	8009896 <xQueueGenericCreate>
+ 8008a0c:	4605      	mov	r5, r0
         #endif
       }
     }
 
     #if (configQUEUE_REGISTRY_SIZE > 0)
     if (hQueue != NULL) {
- 8008a0a:	b305      	cbz	r5, 8008a4e <osMessageQueueNew+0x84>
+ 8008a0e:	b305      	cbz	r5, 8008a52 <osMessageQueueNew+0x84>
       if (attr != NULL) {
- 8008a0c:	b104      	cbz	r4, 8008a10 <osMessageQueueNew+0x46>
+ 8008a10:	b104      	cbz	r4, 8008a14 <osMessageQueueNew+0x46>
         name = attr->name;
- 8008a0e:	6824      	ldr	r4, [r4, #0]
+ 8008a12:	6824      	ldr	r4, [r4, #0]
       } else {
         name = NULL;
       }
       vQueueAddToRegistry (hQueue, name);
- 8008a10:	4621      	mov	r1, r4
- 8008a12:	4628      	mov	r0, r5
- 8008a14:	f001 f9ba 	bl	8009d8c <vQueueAddToRegistry>
- 8008a18:	e019      	b.n	8008a4e <osMessageQueueNew+0x84>
+ 8008a14:	4621      	mov	r1, r4
+ 8008a16:	4628      	mov	r0, r5
+ 8008a18:	f001 f9b8 	bl	8009d8c <vQueueAddToRegistry>
+ 8008a1c:	e019      	b.n	8008a52 <osMessageQueueNew+0x84>
         if ((attr->cb_mem == NULL) && (attr->cb_size == 0U) &&
- 8008a1a:	68e3      	ldr	r3, [r4, #12]
- 8008a1c:	b98b      	cbnz	r3, 8008a42 <osMessageQueueNew+0x78>
+ 8008a1e:	68e3      	ldr	r3, [r4, #12]
+ 8008a20:	b98b      	cbnz	r3, 8008a46 <osMessageQueueNew+0x78>
             (attr->mq_mem == NULL) && (attr->mq_size == 0U)) {
- 8008a1e:	6923      	ldr	r3, [r4, #16]
+ 8008a22:	6923      	ldr	r3, [r4, #16]
         if ((attr->cb_mem == NULL) && (attr->cb_size == 0U) &&
- 8008a20:	b113      	cbz	r3, 8008a28 <osMessageQueueNew+0x5e>
+ 8008a24:	b113      	cbz	r3, 8008a2c <osMessageQueueNew+0x5e>
     mem = -1;
- 8008a22:	f04f 33ff 	mov.w	r3, #4294967295
- 8008a26:	e7eb      	b.n	8008a00 <osMessageQueueNew+0x36>
+ 8008a26:	f04f 33ff 	mov.w	r3, #4294967295
+ 8008a2a:	e7eb      	b.n	8008a04 <osMessageQueueNew+0x36>
             (attr->mq_mem == NULL) && (attr->mq_size == 0U)) {
- 8008a28:	6963      	ldr	r3, [r4, #20]
- 8008a2a:	b16b      	cbz	r3, 8008a48 <osMessageQueueNew+0x7e>
+ 8008a2c:	6963      	ldr	r3, [r4, #20]
+ 8008a2e:	b16b      	cbz	r3, 8008a4c <osMessageQueueNew+0x7e>
     mem = -1;
- 8008a2c:	f04f 33ff 	mov.w	r3, #4294967295
- 8008a30:	e7e6      	b.n	8008a00 <osMessageQueueNew+0x36>
+ 8008a30:	f04f 33ff 	mov.w	r3, #4294967295
+ 8008a34:	e7e6      	b.n	8008a04 <osMessageQueueNew+0x36>
         hQueue = xQueueCreateStatic (msg_count, msg_size, attr->mq_mem, attr->cb_mem);
- 8008a32:	2500      	movs	r5, #0
- 8008a34:	9500      	str	r5, [sp, #0]
- 8008a36:	f000 fee4 	bl	8009802 <xQueueGenericCreateStatic>
- 8008a3a:	4605      	mov	r5, r0
- 8008a3c:	e7e5      	b.n	8008a0a <osMessageQueueNew+0x40>
+ 8008a36:	2500      	movs	r5, #0
+ 8008a38:	9500      	str	r5, [sp, #0]
+ 8008a3a:	f000 fee2 	bl	8009802 <xQueueGenericCreateStatic>
+ 8008a3e:	4605      	mov	r5, r0
+ 8008a40:	e7e5      	b.n	8008a0e <osMessageQueueNew+0x40>
       mem = 0;
- 8008a3e:	2300      	movs	r3, #0
- 8008a40:	e7de      	b.n	8008a00 <osMessageQueueNew+0x36>
+ 8008a42:	2300      	movs	r3, #0
+ 8008a44:	e7de      	b.n	8008a04 <osMessageQueueNew+0x36>
     mem = -1;
- 8008a42:	f04f 33ff 	mov.w	r3, #4294967295
- 8008a46:	e7db      	b.n	8008a00 <osMessageQueueNew+0x36>
+ 8008a46:	f04f 33ff 	mov.w	r3, #4294967295
+ 8008a4a:	e7db      	b.n	8008a04 <osMessageQueueNew+0x36>
           mem = 0;
- 8008a48:	2300      	movs	r3, #0
- 8008a4a:	e7d9      	b.n	8008a00 <osMessageQueueNew+0x36>
+ 8008a4c:	2300      	movs	r3, #0
+ 8008a4e:	e7d9      	b.n	8008a04 <osMessageQueueNew+0x36>
   hQueue = NULL;
- 8008a4c:	2500      	movs	r5, #0
+ 8008a50:	2500      	movs	r5, #0
     #endif
 
   }
 
   return ((osMessageQueueId_t)hQueue);
 }
- 8008a4e:	4628      	mov	r0, r5
- 8008a50:	b002      	add	sp, #8
- 8008a52:	bd70      	pop	{r4, r5, r6, pc}
+ 8008a52:	4628      	mov	r0, r5
+ 8008a54:	b002      	add	sp, #8
+ 8008a56:	bd70      	pop	{r4, r5, r6, pc}
   hQueue = NULL;
- 8008a54:	2500      	movs	r5, #0
- 8008a56:	e7fa      	b.n	8008a4e <osMessageQueueNew+0x84>
  8008a58:	2500      	movs	r5, #0
- 8008a5a:	e7f8      	b.n	8008a4e <osMessageQueueNew+0x84>
+ 8008a5a:	e7fa      	b.n	8008a52 <osMessageQueueNew+0x84>
  8008a5c:	2500      	movs	r5, #0
+ 8008a5e:	e7f8      	b.n	8008a52 <osMessageQueueNew+0x84>
+ 8008a60:	2500      	movs	r5, #0
   return ((osMessageQueueId_t)hQueue);
- 8008a5e:	e7f6      	b.n	8008a4e <osMessageQueueNew+0x84>
+ 8008a62:	e7f6      	b.n	8008a52 <osMessageQueueNew+0x84>
 
-08008a60 <osMessageQueuePut>:
+08008a64 <osMessageQueuePut>:
 
 osStatus_t osMessageQueuePut (osMessageQueueId_t mq_id, const void *msg_ptr, uint8_t msg_prio, uint32_t timeout) {
- 8008a60:	b510      	push	{r4, lr}
- 8008a62:	b082      	sub	sp, #8
- 8008a64:	461c      	mov	r4, r3
- 8008a66:	f3ef 8305 	mrs	r3, IPSR
+ 8008a64:	b510      	push	{r4, lr}
+ 8008a66:	b082      	sub	sp, #8
+ 8008a68:	461c      	mov	r4, r3
+ 8008a6a:	f3ef 8305 	mrs	r3, IPSR
 
   (void)msg_prio; /* Message priority is ignored */
 
   stat = osOK;
 
   if (IS_IRQ()) {
- 8008a6a:	b1c3      	cbz	r3, 8008a9e <osMessageQueuePut+0x3e>
+ 8008a6e:	b1c3      	cbz	r3, 8008aa2 <osMessageQueuePut+0x3e>
     if ((hQueue == NULL) || (msg_ptr == NULL) || (timeout != 0U)) {
- 8008a6c:	b318      	cbz	r0, 8008ab6 <osMessageQueuePut+0x56>
- 8008a6e:	b329      	cbz	r1, 8008abc <osMessageQueuePut+0x5c>
- 8008a70:	bb3c      	cbnz	r4, 8008ac2 <osMessageQueuePut+0x62>
+ 8008a70:	b318      	cbz	r0, 8008aba <osMessageQueuePut+0x56>
+ 8008a72:	b329      	cbz	r1, 8008ac0 <osMessageQueuePut+0x5c>
+ 8008a74:	bb3c      	cbnz	r4, 8008ac6 <osMessageQueuePut+0x62>
       stat = osErrorParameter;
     }
     else {
       yield = pdFALSE;
- 8008a72:	2300      	movs	r3, #0
- 8008a74:	9301      	str	r3, [sp, #4]
+ 8008a76:	2300      	movs	r3, #0
+ 8008a78:	9301      	str	r3, [sp, #4]
 
       if (xQueueSendToBackFromISR (hQueue, msg_ptr, &yield) != pdTRUE) {
- 8008a76:	aa01      	add	r2, sp, #4
- 8008a78:	f001 f81b 	bl	8009ab2 <xQueueGenericSendFromISR>
- 8008a7c:	2801      	cmp	r0, #1
- 8008a7e:	d123      	bne.n	8008ac8 <osMessageQueuePut+0x68>
+ 8008a7a:	aa01      	add	r2, sp, #4
+ 8008a7c:	f001 f819 	bl	8009ab2 <xQueueGenericSendFromISR>
+ 8008a80:	2801      	cmp	r0, #1
+ 8008a82:	d123      	bne.n	8008acc <osMessageQueuePut+0x68>
         stat = osErrorResource;
       } else {
         portYIELD_FROM_ISR (yield);
- 8008a80:	9801      	ldr	r0, [sp, #4]
- 8008a82:	b150      	cbz	r0, 8008a9a <osMessageQueuePut+0x3a>
- 8008a84:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
- 8008a88:	f04f 5280 	mov.w	r2, #268435456	@ 0x10000000
- 8008a8c:	f8c3 2d04 	str.w	r2, [r3, #3332]	@ 0xd04
- 8008a90:	f3bf 8f4f 	dsb	sy
- 8008a94:	f3bf 8f6f 	isb	sy
+ 8008a84:	9801      	ldr	r0, [sp, #4]
+ 8008a86:	b150      	cbz	r0, 8008a9e <osMessageQueuePut+0x3a>
+ 8008a88:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
+ 8008a8c:	f04f 5280 	mov.w	r2, #268435456	@ 0x10000000
+ 8008a90:	f8c3 2d04 	str.w	r2, [r3, #3332]	@ 0xd04
+ 8008a94:	f3bf 8f4f 	dsb	sy
+ 8008a98:	f3bf 8f6f 	isb	sy
   stat = osOK;
- 8008a98:	2000      	movs	r0, #0
+ 8008a9c:	2000      	movs	r0, #0
       }
     }
   }
 
   return (stat);
 }
- 8008a9a:	b002      	add	sp, #8
- 8008a9c:	bd10      	pop	{r4, pc}
+ 8008a9e:	b002      	add	sp, #8
+ 8008aa0:	bd10      	pop	{r4, pc}
     if ((hQueue == NULL) || (msg_ptr == NULL)) {
- 8008a9e:	b1b0      	cbz	r0, 8008ace <osMessageQueuePut+0x6e>
- 8008aa0:	b1c1      	cbz	r1, 8008ad4 <osMessageQueuePut+0x74>
+ 8008aa2:	b1b0      	cbz	r0, 8008ad2 <osMessageQueuePut+0x6e>
+ 8008aa4:	b1c1      	cbz	r1, 8008ad8 <osMessageQueuePut+0x74>
       if (xQueueSendToBack (hQueue, msg_ptr, (TickType_t)timeout) != pdPASS) {
- 8008aa2:	2300      	movs	r3, #0
- 8008aa4:	4622      	mov	r2, r4
- 8008aa6:	f000 ff1a 	bl	80098de <xQueueGenericSend>
- 8008aaa:	2801      	cmp	r0, #1
- 8008aac:	d015      	beq.n	8008ada <osMessageQueuePut+0x7a>
+ 8008aa6:	2300      	movs	r3, #0
+ 8008aa8:	4622      	mov	r2, r4
+ 8008aaa:	f000 ff18 	bl	80098de <xQueueGenericSend>
+ 8008aae:	2801      	cmp	r0, #1
+ 8008ab0:	d015      	beq.n	8008ade <osMessageQueuePut+0x7a>
         if (timeout != 0U) {
- 8008aae:	b1b4      	cbz	r4, 8008ade <osMessageQueuePut+0x7e>
+ 8008ab2:	b1b4      	cbz	r4, 8008ae2 <osMessageQueuePut+0x7e>
           stat = osErrorTimeout;
- 8008ab0:	f06f 0001 	mvn.w	r0, #1
- 8008ab4:	e7f1      	b.n	8008a9a <osMessageQueuePut+0x3a>
+ 8008ab4:	f06f 0001 	mvn.w	r0, #1
+ 8008ab8:	e7f1      	b.n	8008a9e <osMessageQueuePut+0x3a>
       stat = osErrorParameter;
- 8008ab6:	f06f 0003 	mvn.w	r0, #3
- 8008aba:	e7ee      	b.n	8008a9a <osMessageQueuePut+0x3a>
- 8008abc:	f06f 0003 	mvn.w	r0, #3
- 8008ac0:	e7eb      	b.n	8008a9a <osMessageQueuePut+0x3a>
- 8008ac2:	f06f 0003 	mvn.w	r0, #3
- 8008ac6:	e7e8      	b.n	8008a9a <osMessageQueuePut+0x3a>
+ 8008aba:	f06f 0003 	mvn.w	r0, #3
+ 8008abe:	e7ee      	b.n	8008a9e <osMessageQueuePut+0x3a>
+ 8008ac0:	f06f 0003 	mvn.w	r0, #3
+ 8008ac4:	e7eb      	b.n	8008a9e <osMessageQueuePut+0x3a>
+ 8008ac6:	f06f 0003 	mvn.w	r0, #3
+ 8008aca:	e7e8      	b.n	8008a9e <osMessageQueuePut+0x3a>
         stat = osErrorResource;
- 8008ac8:	f06f 0002 	mvn.w	r0, #2
- 8008acc:	e7e5      	b.n	8008a9a <osMessageQueuePut+0x3a>
+ 8008acc:	f06f 0002 	mvn.w	r0, #2
+ 8008ad0:	e7e5      	b.n	8008a9e <osMessageQueuePut+0x3a>
       stat = osErrorParameter;
- 8008ace:	f06f 0003 	mvn.w	r0, #3
- 8008ad2:	e7e2      	b.n	8008a9a <osMessageQueuePut+0x3a>
- 8008ad4:	f06f 0003 	mvn.w	r0, #3
- 8008ad8:	e7df      	b.n	8008a9a <osMessageQueuePut+0x3a>
+ 8008ad2:	f06f 0003 	mvn.w	r0, #3
+ 8008ad6:	e7e2      	b.n	8008a9e <osMessageQueuePut+0x3a>
+ 8008ad8:	f06f 0003 	mvn.w	r0, #3
+ 8008adc:	e7df      	b.n	8008a9e <osMessageQueuePut+0x3a>
   stat = osOK;
- 8008ada:	2000      	movs	r0, #0
- 8008adc:	e7dd      	b.n	8008a9a <osMessageQueuePut+0x3a>
+ 8008ade:	2000      	movs	r0, #0
+ 8008ae0:	e7dd      	b.n	8008a9e <osMessageQueuePut+0x3a>
           stat = osErrorResource;
- 8008ade:	f06f 0002 	mvn.w	r0, #2
+ 8008ae2:	f06f 0002 	mvn.w	r0, #2
   return (stat);
- 8008ae2:	e7da      	b.n	8008a9a <osMessageQueuePut+0x3a>
+ 8008ae6:	e7da      	b.n	8008a9e <osMessageQueuePut+0x3a>
 
-08008ae4 <osMessageQueueGet>:
+08008ae8 <osMessageQueueGet>:
 
 osStatus_t osMessageQueueGet (osMessageQueueId_t mq_id, void *msg_ptr, uint8_t *msg_prio, uint32_t timeout) {
- 8008ae4:	b510      	push	{r4, lr}
- 8008ae6:	b082      	sub	sp, #8
- 8008ae8:	461c      	mov	r4, r3
- 8008aea:	f3ef 8305 	mrs	r3, IPSR
+ 8008ae8:	b510      	push	{r4, lr}
+ 8008aea:	b082      	sub	sp, #8
+ 8008aec:	461c      	mov	r4, r3
+ 8008aee:	f3ef 8305 	mrs	r3, IPSR
 
   (void)msg_prio; /* Message priority is ignored */
 
   stat = osOK;
 
   if (IS_IRQ()) {
- 8008aee:	b1c3      	cbz	r3, 8008b22 <osMessageQueueGet+0x3e>
+ 8008af2:	b1c3      	cbz	r3, 8008b26 <osMessageQueueGet+0x3e>
     if ((hQueue == NULL) || (msg_ptr == NULL) || (timeout != 0U)) {
- 8008af0:	b310      	cbz	r0, 8008b38 <osMessageQueueGet+0x54>
- 8008af2:	b321      	cbz	r1, 8008b3e <osMessageQueueGet+0x5a>
- 8008af4:	bb34      	cbnz	r4, 8008b44 <osMessageQueueGet+0x60>
+ 8008af4:	b310      	cbz	r0, 8008b3c <osMessageQueueGet+0x54>
+ 8008af6:	b321      	cbz	r1, 8008b42 <osMessageQueueGet+0x5a>
+ 8008af8:	bb34      	cbnz	r4, 8008b48 <osMessageQueueGet+0x60>
       stat = osErrorParameter;
     }
     else {
       yield = pdFALSE;
- 8008af6:	2300      	movs	r3, #0
- 8008af8:	9301      	str	r3, [sp, #4]
+ 8008afa:	2300      	movs	r3, #0
+ 8008afc:	9301      	str	r3, [sp, #4]
 
       if (xQueueReceiveFromISR (hQueue, msg_ptr, &yield) != pdPASS) {
- 8008afa:	aa01      	add	r2, sp, #4
- 8008afc:	f001 f8ef 	bl	8009cde <xQueueReceiveFromISR>
- 8008b00:	2801      	cmp	r0, #1
- 8008b02:	d122      	bne.n	8008b4a <osMessageQueueGet+0x66>
+ 8008afe:	aa01      	add	r2, sp, #4
+ 8008b00:	f001 f8ed 	bl	8009cde <xQueueReceiveFromISR>
+ 8008b04:	2801      	cmp	r0, #1
+ 8008b06:	d122      	bne.n	8008b4e <osMessageQueueGet+0x66>
         stat = osErrorResource;
       } else {
         portYIELD_FROM_ISR (yield);
- 8008b04:	9801      	ldr	r0, [sp, #4]
- 8008b06:	b150      	cbz	r0, 8008b1e <osMessageQueueGet+0x3a>
- 8008b08:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
- 8008b0c:	f04f 5280 	mov.w	r2, #268435456	@ 0x10000000
- 8008b10:	f8c3 2d04 	str.w	r2, [r3, #3332]	@ 0xd04
- 8008b14:	f3bf 8f4f 	dsb	sy
- 8008b18:	f3bf 8f6f 	isb	sy
+ 8008b08:	9801      	ldr	r0, [sp, #4]
+ 8008b0a:	b150      	cbz	r0, 8008b22 <osMessageQueueGet+0x3a>
+ 8008b0c:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
+ 8008b10:	f04f 5280 	mov.w	r2, #268435456	@ 0x10000000
+ 8008b14:	f8c3 2d04 	str.w	r2, [r3, #3332]	@ 0xd04
+ 8008b18:	f3bf 8f4f 	dsb	sy
+ 8008b1c:	f3bf 8f6f 	isb	sy
   stat = osOK;
- 8008b1c:	2000      	movs	r0, #0
+ 8008b20:	2000      	movs	r0, #0
       }
     }
   }
 
   return (stat);
 }
- 8008b1e:	b002      	add	sp, #8
- 8008b20:	bd10      	pop	{r4, pc}
+ 8008b22:	b002      	add	sp, #8
+ 8008b24:	bd10      	pop	{r4, pc}
     if ((hQueue == NULL) || (msg_ptr == NULL)) {
- 8008b22:	b1a8      	cbz	r0, 8008b50 <osMessageQueueGet+0x6c>
- 8008b24:	b1b9      	cbz	r1, 8008b56 <osMessageQueueGet+0x72>
+ 8008b26:	b1a8      	cbz	r0, 8008b54 <osMessageQueueGet+0x6c>
+ 8008b28:	b1b9      	cbz	r1, 8008b5a <osMessageQueueGet+0x72>
       if (xQueueReceive (hQueue, msg_ptr, (TickType_t)timeout) != pdPASS) {
- 8008b26:	4622      	mov	r2, r4
- 8008b28:	f001 f82a 	bl	8009b80 <xQueueReceive>
- 8008b2c:	2801      	cmp	r0, #1
- 8008b2e:	d015      	beq.n	8008b5c <osMessageQueueGet+0x78>
+ 8008b2a:	4622      	mov	r2, r4
+ 8008b2c:	f001 f828 	bl	8009b80 <xQueueReceive>
+ 8008b30:	2801      	cmp	r0, #1
+ 8008b32:	d015      	beq.n	8008b60 <osMessageQueueGet+0x78>
         if (timeout != 0U) {
- 8008b30:	b1b4      	cbz	r4, 8008b60 <osMessageQueueGet+0x7c>
+ 8008b34:	b1b4      	cbz	r4, 8008b64 <osMessageQueueGet+0x7c>
           stat = osErrorTimeout;
- 8008b32:	f06f 0001 	mvn.w	r0, #1
- 8008b36:	e7f2      	b.n	8008b1e <osMessageQueueGet+0x3a>
+ 8008b36:	f06f 0001 	mvn.w	r0, #1
+ 8008b3a:	e7f2      	b.n	8008b22 <osMessageQueueGet+0x3a>
       stat = osErrorParameter;
- 8008b38:	f06f 0003 	mvn.w	r0, #3
- 8008b3c:	e7ef      	b.n	8008b1e <osMessageQueueGet+0x3a>
- 8008b3e:	f06f 0003 	mvn.w	r0, #3
- 8008b42:	e7ec      	b.n	8008b1e <osMessageQueueGet+0x3a>
- 8008b44:	f06f 0003 	mvn.w	r0, #3
- 8008b48:	e7e9      	b.n	8008b1e <osMessageQueueGet+0x3a>
+ 8008b3c:	f06f 0003 	mvn.w	r0, #3
+ 8008b40:	e7ef      	b.n	8008b22 <osMessageQueueGet+0x3a>
+ 8008b42:	f06f 0003 	mvn.w	r0, #3
+ 8008b46:	e7ec      	b.n	8008b22 <osMessageQueueGet+0x3a>
+ 8008b48:	f06f 0003 	mvn.w	r0, #3
+ 8008b4c:	e7e9      	b.n	8008b22 <osMessageQueueGet+0x3a>
         stat = osErrorResource;
- 8008b4a:	f06f 0002 	mvn.w	r0, #2
- 8008b4e:	e7e6      	b.n	8008b1e <osMessageQueueGet+0x3a>
+ 8008b4e:	f06f 0002 	mvn.w	r0, #2
+ 8008b52:	e7e6      	b.n	8008b22 <osMessageQueueGet+0x3a>
       stat = osErrorParameter;
- 8008b50:	f06f 0003 	mvn.w	r0, #3
- 8008b54:	e7e3      	b.n	8008b1e <osMessageQueueGet+0x3a>
- 8008b56:	f06f 0003 	mvn.w	r0, #3
- 8008b5a:	e7e0      	b.n	8008b1e <osMessageQueueGet+0x3a>
+ 8008b54:	f06f 0003 	mvn.w	r0, #3
+ 8008b58:	e7e3      	b.n	8008b22 <osMessageQueueGet+0x3a>
+ 8008b5a:	f06f 0003 	mvn.w	r0, #3
+ 8008b5e:	e7e0      	b.n	8008b22 <osMessageQueueGet+0x3a>
   stat = osOK;
- 8008b5c:	2000      	movs	r0, #0
- 8008b5e:	e7de      	b.n	8008b1e <osMessageQueueGet+0x3a>
+ 8008b60:	2000      	movs	r0, #0
+ 8008b62:	e7de      	b.n	8008b22 <osMessageQueueGet+0x3a>
           stat = osErrorResource;
- 8008b60:	f06f 0002 	mvn.w	r0, #2
+ 8008b64:	f06f 0002 	mvn.w	r0, #2
   return (stat);
- 8008b64:	e7db      	b.n	8008b1e <osMessageQueueGet+0x3a>
+ 8008b68:	e7db      	b.n	8008b22 <osMessageQueueGet+0x3a>
 	...
 
-08008b68 <vApplicationGetIdleTaskMemory>:
+08008b6c <vApplicationGetIdleTaskMemory>:
 __WEAK void vApplicationGetIdleTaskMemory (StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize) {
   /* Idle task control block and stack */
   static StaticTask_t Idle_TCB;
   static StackType_t  Idle_Stack[configMINIMAL_STACK_SIZE];
 
   *ppxIdleTaskTCBBuffer   = &Idle_TCB;
- 8008b68:	4b03      	ldr	r3, [pc, #12]	@ (8008b78 <vApplicationGetIdleTaskMemory+0x10>)
- 8008b6a:	6003      	str	r3, [r0, #0]
+ 8008b6c:	4b03      	ldr	r3, [pc, #12]	@ (8008b7c <vApplicationGetIdleTaskMemory+0x10>)
+ 8008b6e:	6003      	str	r3, [r0, #0]
   *ppxIdleTaskStackBuffer = &Idle_Stack[0];
- 8008b6c:	4b03      	ldr	r3, [pc, #12]	@ (8008b7c <vApplicationGetIdleTaskMemory+0x14>)
- 8008b6e:	600b      	str	r3, [r1, #0]
+ 8008b70:	4b03      	ldr	r3, [pc, #12]	@ (8008b80 <vApplicationGetIdleTaskMemory+0x14>)
+ 8008b72:	600b      	str	r3, [r1, #0]
   *pulIdleTaskStackSize   = (uint32_t)configMINIMAL_STACK_SIZE;
- 8008b70:	2380      	movs	r3, #128	@ 0x80
- 8008b72:	6013      	str	r3, [r2, #0]
+ 8008b74:	2380      	movs	r3, #128	@ 0x80
+ 8008b76:	6013      	str	r3, [r2, #0]
 }
- 8008b74:	4770      	bx	lr
- 8008b76:	bf00      	nop
- 8008b78:	20000a84 	.word	0x20000a84
- 8008b7c:	20000884 	.word	0x20000884
+ 8008b78:	4770      	bx	lr
+ 8008b7a:	bf00      	nop
+ 8008b7c:	20000a84 	.word	0x20000a84
+ 8008b80:	20000884 	.word	0x20000884
 
-08008b80 <vApplicationGetTimerTaskMemory>:
+08008b84 <vApplicationGetTimerTaskMemory>:
 __WEAK void vApplicationGetTimerTaskMemory (StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer, uint32_t *pulTimerTaskStackSize) {
   /* Timer task control block and stack */
   static StaticTask_t Timer_TCB;
   static StackType_t  Timer_Stack[configTIMER_TASK_STACK_DEPTH];
 
   *ppxTimerTaskTCBBuffer   = &Timer_TCB;
- 8008b80:	4b03      	ldr	r3, [pc, #12]	@ (8008b90 <vApplicationGetTimerTaskMemory+0x10>)
- 8008b82:	6003      	str	r3, [r0, #0]
+ 8008b84:	4b03      	ldr	r3, [pc, #12]	@ (8008b94 <vApplicationGetTimerTaskMemory+0x10>)
+ 8008b86:	6003      	str	r3, [r0, #0]
   *ppxTimerTaskStackBuffer = &Timer_Stack[0];
- 8008b84:	4b03      	ldr	r3, [pc, #12]	@ (8008b94 <vApplicationGetTimerTaskMemory+0x14>)
- 8008b86:	600b      	str	r3, [r1, #0]
+ 8008b88:	4b03      	ldr	r3, [pc, #12]	@ (8008b98 <vApplicationGetTimerTaskMemory+0x14>)
+ 8008b8a:	600b      	str	r3, [r1, #0]
   *pulTimerTaskStackSize   = (uint32_t)configTIMER_TASK_STACK_DEPTH;
- 8008b88:	f44f 7380 	mov.w	r3, #256	@ 0x100
- 8008b8c:	6013      	str	r3, [r2, #0]
+ 8008b8c:	f44f 7380 	mov.w	r3, #256	@ 0x100
+ 8008b90:	6013      	str	r3, [r2, #0]
 }
- 8008b8e:	4770      	bx	lr
- 8008b90:	20000828 	.word	0x20000828
- 8008b94:	20000428 	.word	0x20000428
+ 8008b92:	4770      	bx	lr
+ 8008b94:	20000828 	.word	0x20000828
+ 8008b98:	20000428 	.word	0x20000428
 
-08008b98 <prvHeapInit>:
+08008b9c <prvHeapInit>:
 uint8_t *pucAlignedHeap;
 size_t uxAddress;
 size_t xTotalHeapSize = configTOTAL_HEAP_SIZE;
 
 	/* Ensure the heap starts on a correctly aligned boundary. */
 	uxAddress = ( size_t ) ucHeap;
- 8008b98:	4a13      	ldr	r2, [pc, #76]	@ (8008be8 <prvHeapInit+0x50>)
+ 8008b9c:	4a13      	ldr	r2, [pc, #76]	@ (8008bec <prvHeapInit+0x50>)
 
 	if( ( uxAddress & portBYTE_ALIGNMENT_MASK ) != 0 )
- 8008b9a:	f012 0f07 	tst.w	r2, #7
- 8008b9e:	d01f      	beq.n	8008be0 <prvHeapInit+0x48>
+ 8008b9e:	f012 0f07 	tst.w	r2, #7
+ 8008ba2:	d01f      	beq.n	8008be4 <prvHeapInit+0x48>
 	{
 		uxAddress += ( portBYTE_ALIGNMENT - 1 );
- 8008ba0:	1dd1      	adds	r1, r2, #7
+ 8008ba4:	1dd1      	adds	r1, r2, #7
 		uxAddress &= ~( ( size_t ) portBYTE_ALIGNMENT_MASK );
- 8008ba2:	f021 0107 	bic.w	r1, r1, #7
+ 8008ba6:	f021 0107 	bic.w	r1, r1, #7
 		xTotalHeapSize -= uxAddress - ( size_t ) ucHeap;
- 8008ba6:	f5c1 533b 	rsb	r3, r1, #11968	@ 0x2ec0
- 8008baa:	3320      	adds	r3, #32
- 8008bac:	4413      	add	r3, r2
+ 8008baa:	f5c1 533b 	rsb	r3, r1, #11968	@ 0x2ec0
+ 8008bae:	3320      	adds	r3, #32
+ 8008bb0:	4413      	add	r3, r2
 		uxAddress &= ~( ( size_t ) portBYTE_ALIGNMENT_MASK );
- 8008bae:	460a      	mov	r2, r1
+ 8008bb2:	460a      	mov	r2, r1
 
 	pucAlignedHeap = ( uint8_t * ) uxAddress;
 
 	/* xStart is used to hold a pointer to the first item in the list of free
 	blocks.  The void cast is used to prevent compiler warnings. */
 	xStart.pxNextFreeBlock = ( void * ) pucAlignedHeap;
- 8008bb0:	480e      	ldr	r0, [pc, #56]	@ (8008bec <prvHeapInit+0x54>)
- 8008bb2:	6002      	str	r2, [r0, #0]
+ 8008bb4:	480e      	ldr	r0, [pc, #56]	@ (8008bf0 <prvHeapInit+0x54>)
+ 8008bb6:	6002      	str	r2, [r0, #0]
 	xStart.xBlockSize = ( size_t ) 0;
- 8008bb4:	2100      	movs	r1, #0
- 8008bb6:	6041      	str	r1, [r0, #4]
+ 8008bb8:	2100      	movs	r1, #0
+ 8008bba:	6041      	str	r1, [r0, #4]
 
 	/* pxEnd is used to mark the end of the list of free blocks and is inserted
 	at the end of the heap space. */
 	uxAddress = ( ( size_t ) pucAlignedHeap ) + xTotalHeapSize;
- 8008bb8:	4413      	add	r3, r2
+ 8008bbc:	4413      	add	r3, r2
 	uxAddress -= xHeapStructSize;
- 8008bba:	3b08      	subs	r3, #8
+ 8008bbe:	3b08      	subs	r3, #8
 	uxAddress &= ~( ( size_t ) portBYTE_ALIGNMENT_MASK );
- 8008bbc:	f023 0307 	bic.w	r3, r3, #7
+ 8008bc0:	f023 0307 	bic.w	r3, r3, #7
 	pxEnd = ( void * ) uxAddress;
- 8008bc0:	480b      	ldr	r0, [pc, #44]	@ (8008bf0 <prvHeapInit+0x58>)
- 8008bc2:	6003      	str	r3, [r0, #0]
+ 8008bc4:	480b      	ldr	r0, [pc, #44]	@ (8008bf4 <prvHeapInit+0x58>)
+ 8008bc6:	6003      	str	r3, [r0, #0]
 	pxEnd->xBlockSize = 0;
- 8008bc4:	6059      	str	r1, [r3, #4]
+ 8008bc8:	6059      	str	r1, [r3, #4]
 	pxEnd->pxNextFreeBlock = NULL;
- 8008bc6:	6019      	str	r1, [r3, #0]
+ 8008bca:	6019      	str	r1, [r3, #0]
 
 	/* To start with there is a single free block that is sized to take up the
 	entire heap space, minus the space taken by pxEnd. */
 	pxFirstFreeBlock = ( void * ) pucAlignedHeap;
 	pxFirstFreeBlock->xBlockSize = uxAddress - ( size_t ) pxFirstFreeBlock;
- 8008bc8:	1a99      	subs	r1, r3, r2
- 8008bca:	6051      	str	r1, [r2, #4]
+ 8008bcc:	1a99      	subs	r1, r3, r2
+ 8008bce:	6051      	str	r1, [r2, #4]
 	pxFirstFreeBlock->pxNextFreeBlock = pxEnd;
- 8008bcc:	6013      	str	r3, [r2, #0]
+ 8008bd0:	6013      	str	r3, [r2, #0]
 
 	/* Only one block exists - and it covers the entire usable heap space. */
 	xMinimumEverFreeBytesRemaining = pxFirstFreeBlock->xBlockSize;
- 8008bce:	4b09      	ldr	r3, [pc, #36]	@ (8008bf4 <prvHeapInit+0x5c>)
- 8008bd0:	6019      	str	r1, [r3, #0]
-	xFreeBytesRemaining = pxFirstFreeBlock->xBlockSize;
- 8008bd2:	4b09      	ldr	r3, [pc, #36]	@ (8008bf8 <prvHeapInit+0x60>)
+ 8008bd2:	4b09      	ldr	r3, [pc, #36]	@ (8008bf8 <prvHeapInit+0x5c>)
  8008bd4:	6019      	str	r1, [r3, #0]
+	xFreeBytesRemaining = pxFirstFreeBlock->xBlockSize;
+ 8008bd6:	4b09      	ldr	r3, [pc, #36]	@ (8008bfc <prvHeapInit+0x60>)
+ 8008bd8:	6019      	str	r1, [r3, #0]
 
 	/* Work out the position of the top bit in a size_t variable. */
 	xBlockAllocatedBit = ( ( size_t ) 1 ) << ( ( sizeof( size_t ) * heapBITS_PER_BYTE ) - 1 );
- 8008bd6:	4b09      	ldr	r3, [pc, #36]	@ (8008bfc <prvHeapInit+0x64>)
- 8008bd8:	f04f 4200 	mov.w	r2, #2147483648	@ 0x80000000
- 8008bdc:	601a      	str	r2, [r3, #0]
+ 8008bda:	4b09      	ldr	r3, [pc, #36]	@ (8008c00 <prvHeapInit+0x64>)
+ 8008bdc:	f04f 4200 	mov.w	r2, #2147483648	@ 0x80000000
+ 8008be0:	601a      	str	r2, [r3, #0]
 }
- 8008bde:	4770      	bx	lr
+ 8008be2:	4770      	bx	lr
 size_t xTotalHeapSize = configTOTAL_HEAP_SIZE;
- 8008be0:	f642 63e0 	movw	r3, #12000	@ 0x2ee0
- 8008be4:	e7e4      	b.n	8008bb0 <prvHeapInit+0x18>
- 8008be6:	bf00      	nop
- 8008be8:	20000b04 	.word	0x20000b04
- 8008bec:	20000afc 	.word	0x20000afc
- 8008bf0:	20000af8 	.word	0x20000af8
- 8008bf4:	20000af0 	.word	0x20000af0
- 8008bf8:	20000af4 	.word	0x20000af4
- 8008bfc:	20000ae4 	.word	0x20000ae4
+ 8008be4:	f642 63e0 	movw	r3, #12000	@ 0x2ee0
+ 8008be8:	e7e4      	b.n	8008bb4 <prvHeapInit+0x18>
+ 8008bea:	bf00      	nop
+ 8008bec:	20000b04 	.word	0x20000b04
+ 8008bf0:	20000afc 	.word	0x20000afc
+ 8008bf4:	20000af8 	.word	0x20000af8
+ 8008bf8:	20000af0 	.word	0x20000af0
+ 8008bfc:	20000af4 	.word	0x20000af4
+ 8008c00:	20000ae4 	.word	0x20000ae4
 
-08008c00 <prvInsertBlockIntoFreeList>:
+08008c04 <prvInsertBlockIntoFreeList>:
 BlockLink_t *pxIterator;
 uint8_t *puc;
 
 	/* Iterate through the list until a block is found that has a higher address
 	than the block being inserted. */
 	for( pxIterator = &xStart; pxIterator->pxNextFreeBlock < pxBlockToInsert; pxIterator = pxIterator->pxNextFreeBlock )
- 8008c00:	4b16      	ldr	r3, [pc, #88]	@ (8008c5c <prvInsertBlockIntoFreeList+0x5c>)
- 8008c02:	461a      	mov	r2, r3
- 8008c04:	681b      	ldr	r3, [r3, #0]
- 8008c06:	4283      	cmp	r3, r0
- 8008c08:	d3fb      	bcc.n	8008c02 <prvInsertBlockIntoFreeList+0x2>
+ 8008c04:	4b16      	ldr	r3, [pc, #88]	@ (8008c60 <prvInsertBlockIntoFreeList+0x5c>)
+ 8008c06:	461a      	mov	r2, r3
+ 8008c08:	681b      	ldr	r3, [r3, #0]
+ 8008c0a:	4283      	cmp	r3, r0
+ 8008c0c:	d3fb      	bcc.n	8008c06 <prvInsertBlockIntoFreeList+0x2>
 	}
 
 	/* Do the block being inserted, and the block it is being inserted after
 	make a contiguous block of memory? */
 	puc = ( uint8_t * ) pxIterator;
 	if( ( puc + pxIterator->xBlockSize ) == ( uint8_t * ) pxBlockToInsert )
- 8008c0a:	6851      	ldr	r1, [r2, #4]
- 8008c0c:	eb02 0c01 	add.w	ip, r2, r1
- 8008c10:	4584      	cmp	ip, r0
- 8008c12:	d009      	beq.n	8008c28 <prvInsertBlockIntoFreeList+0x28>
+ 8008c0e:	6851      	ldr	r1, [r2, #4]
+ 8008c10:	eb02 0c01 	add.w	ip, r2, r1
+ 8008c14:	4584      	cmp	ip, r0
+ 8008c16:	d009      	beq.n	8008c2c <prvInsertBlockIntoFreeList+0x28>
 	}
 
 	/* Do the block being inserted, and the block it is being inserted before
 	make a contiguous block of memory? */
 	puc = ( uint8_t * ) pxBlockToInsert;
 	if( ( puc + pxBlockToInsert->xBlockSize ) == ( uint8_t * ) pxIterator->pxNextFreeBlock )
- 8008c14:	6841      	ldr	r1, [r0, #4]
- 8008c16:	eb00 0c01 	add.w	ip, r0, r1
- 8008c1a:	4563      	cmp	r3, ip
- 8008c1c:	d009      	beq.n	8008c32 <prvInsertBlockIntoFreeList+0x32>
+ 8008c18:	6841      	ldr	r1, [r0, #4]
+ 8008c1a:	eb00 0c01 	add.w	ip, r0, r1
+ 8008c1e:	4563      	cmp	r3, ip
+ 8008c20:	d009      	beq.n	8008c36 <prvInsertBlockIntoFreeList+0x32>
 			pxBlockToInsert->pxNextFreeBlock = pxEnd;
 		}
 	}
 	else
 	{
 		pxBlockToInsert->pxNextFreeBlock = pxIterator->pxNextFreeBlock;
- 8008c1e:	6003      	str	r3, [r0, #0]
+ 8008c22:	6003      	str	r3, [r0, #0]
 
 	/* If the block being inserted plugged a gab, so was merged with the block
 	before and the block after, then it's pxNextFreeBlock pointer will have
 	already been set, and should not be set here as that would make it point
 	to itself. */
 	if( pxIterator != pxBlockToInsert )
- 8008c20:	4290      	cmp	r0, r2
- 8008c22:	d019      	beq.n	8008c58 <prvInsertBlockIntoFreeList+0x58>
+ 8008c24:	4290      	cmp	r0, r2
+ 8008c26:	d019      	beq.n	8008c5c <prvInsertBlockIntoFreeList+0x58>
 	{
 		pxIterator->pxNextFreeBlock = pxBlockToInsert;
- 8008c24:	6010      	str	r0, [r2, #0]
+ 8008c28:	6010      	str	r0, [r2, #0]
 	}
 	else
 	{
 		mtCOVERAGE_TEST_MARKER();
- 8008c26:	4770      	bx	lr
+ 8008c2a:	4770      	bx	lr
 		pxIterator->xBlockSize += pxBlockToInsert->xBlockSize;
- 8008c28:	6840      	ldr	r0, [r0, #4]
- 8008c2a:	4401      	add	r1, r0
- 8008c2c:	6051      	str	r1, [r2, #4]
+ 8008c2c:	6840      	ldr	r0, [r0, #4]
+ 8008c2e:	4401      	add	r1, r0
+ 8008c30:	6051      	str	r1, [r2, #4]
 		pxBlockToInsert = pxIterator;
- 8008c2e:	4610      	mov	r0, r2
- 8008c30:	e7f0      	b.n	8008c14 <prvInsertBlockIntoFreeList+0x14>
+ 8008c32:	4610      	mov	r0, r2
+ 8008c34:	e7f0      	b.n	8008c18 <prvInsertBlockIntoFreeList+0x14>
 {
- 8008c32:	b410      	push	{r4}
+ 8008c36:	b410      	push	{r4}
 		if( pxIterator->pxNextFreeBlock != pxEnd )
- 8008c34:	4c0a      	ldr	r4, [pc, #40]	@ (8008c60 <prvInsertBlockIntoFreeList+0x60>)
- 8008c36:	6824      	ldr	r4, [r4, #0]
- 8008c38:	42a3      	cmp	r3, r4
- 8008c3a:	d00b      	beq.n	8008c54 <prvInsertBlockIntoFreeList+0x54>
+ 8008c38:	4c0a      	ldr	r4, [pc, #40]	@ (8008c64 <prvInsertBlockIntoFreeList+0x60>)
+ 8008c3a:	6824      	ldr	r4, [r4, #0]
+ 8008c3c:	42a3      	cmp	r3, r4
+ 8008c3e:	d00b      	beq.n	8008c58 <prvInsertBlockIntoFreeList+0x54>
 			pxBlockToInsert->xBlockSize += pxIterator->pxNextFreeBlock->xBlockSize;
- 8008c3c:	685b      	ldr	r3, [r3, #4]
- 8008c3e:	4419      	add	r1, r3
- 8008c40:	6041      	str	r1, [r0, #4]
+ 8008c40:	685b      	ldr	r3, [r3, #4]
+ 8008c42:	4419      	add	r1, r3
+ 8008c44:	6041      	str	r1, [r0, #4]
 			pxBlockToInsert->pxNextFreeBlock = pxIterator->pxNextFreeBlock->pxNextFreeBlock;
- 8008c42:	6813      	ldr	r3, [r2, #0]
- 8008c44:	681b      	ldr	r3, [r3, #0]
- 8008c46:	6003      	str	r3, [r0, #0]
+ 8008c46:	6813      	ldr	r3, [r2, #0]
+ 8008c48:	681b      	ldr	r3, [r3, #0]
+ 8008c4a:	6003      	str	r3, [r0, #0]
 	if( pxIterator != pxBlockToInsert )
- 8008c48:	4290      	cmp	r0, r2
- 8008c4a:	d000      	beq.n	8008c4e <prvInsertBlockIntoFreeList+0x4e>
+ 8008c4c:	4290      	cmp	r0, r2
+ 8008c4e:	d000      	beq.n	8008c52 <prvInsertBlockIntoFreeList+0x4e>
 		pxIterator->pxNextFreeBlock = pxBlockToInsert;
- 8008c4c:	6010      	str	r0, [r2, #0]
+ 8008c50:	6010      	str	r0, [r2, #0]
 	}
 }
- 8008c4e:	f85d 4b04 	ldr.w	r4, [sp], #4
- 8008c52:	4770      	bx	lr
+ 8008c52:	f85d 4b04 	ldr.w	r4, [sp], #4
+ 8008c56:	4770      	bx	lr
 			pxBlockToInsert->pxNextFreeBlock = pxEnd;
- 8008c54:	6004      	str	r4, [r0, #0]
- 8008c56:	e7f7      	b.n	8008c48 <prvInsertBlockIntoFreeList+0x48>
- 8008c58:	4770      	bx	lr
- 8008c5a:	bf00      	nop
- 8008c5c:	20000afc 	.word	0x20000afc
- 8008c60:	20000af8 	.word	0x20000af8
+ 8008c58:	6004      	str	r4, [r0, #0]
+ 8008c5a:	e7f7      	b.n	8008c4c <prvInsertBlockIntoFreeList+0x48>
+ 8008c5c:	4770      	bx	lr
+ 8008c5e:	bf00      	nop
+ 8008c60:	20000afc 	.word	0x20000afc
+ 8008c64:	20000af8 	.word	0x20000af8
 
-08008c64 <pvPortMalloc>:
+08008c68 <pvPortMalloc>:
 {
- 8008c64:	b538      	push	{r3, r4, r5, lr}
- 8008c66:	4604      	mov	r4, r0
+ 8008c68:	b538      	push	{r3, r4, r5, lr}
+ 8008c6a:	4604      	mov	r4, r0
 	vTaskSuspendAll();
- 8008c68:	f003 ffaa 	bl	800cbc0 <vTaskSuspendAll>
+ 8008c6c:	f003 ffa8 	bl	800cbc0 <vTaskSuspendAll>
 		if( pxEnd == NULL )
- 8008c6c:	4b3d      	ldr	r3, [pc, #244]	@ (8008d64 <pvPortMalloc+0x100>)
- 8008c6e:	681b      	ldr	r3, [r3, #0]
- 8008c70:	b1ab      	cbz	r3, 8008c9e <pvPortMalloc+0x3a>
+ 8008c70:	4b3d      	ldr	r3, [pc, #244]	@ (8008d68 <pvPortMalloc+0x100>)
+ 8008c72:	681b      	ldr	r3, [r3, #0]
+ 8008c74:	b1ab      	cbz	r3, 8008ca2 <pvPortMalloc+0x3a>
 		if( ( xWantedSize & xBlockAllocatedBit ) == 0 )
- 8008c72:	4b3d      	ldr	r3, [pc, #244]	@ (8008d68 <pvPortMalloc+0x104>)
- 8008c74:	681b      	ldr	r3, [r3, #0]
- 8008c76:	421c      	tst	r4, r3
- 8008c78:	d114      	bne.n	8008ca4 <pvPortMalloc+0x40>
+ 8008c76:	4b3d      	ldr	r3, [pc, #244]	@ (8008d6c <pvPortMalloc+0x104>)
+ 8008c78:	681b      	ldr	r3, [r3, #0]
+ 8008c7a:	421c      	tst	r4, r3
+ 8008c7c:	d114      	bne.n	8008ca8 <pvPortMalloc+0x40>
 			if( xWantedSize > 0 )
- 8008c7a:	2c00      	cmp	r4, #0
- 8008c7c:	d06a      	beq.n	8008d54 <pvPortMalloc+0xf0>
+ 8008c7e:	2c00      	cmp	r4, #0
+ 8008c80:	d06a      	beq.n	8008d58 <pvPortMalloc+0xf0>
 				xWantedSize += xHeapStructSize;
- 8008c7e:	f104 0208 	add.w	r2, r4, #8
+ 8008c82:	f104 0208 	add.w	r2, r4, #8
 				if( ( xWantedSize & portBYTE_ALIGNMENT_MASK ) != 0x00 )
- 8008c82:	f014 0f07 	tst.w	r4, #7
- 8008c86:	d002      	beq.n	8008c8e <pvPortMalloc+0x2a>
+ 8008c86:	f014 0f07 	tst.w	r4, #7
+ 8008c8a:	d002      	beq.n	8008c92 <pvPortMalloc+0x2a>
 					xWantedSize += ( portBYTE_ALIGNMENT - ( xWantedSize & portBYTE_ALIGNMENT_MASK ) );
- 8008c88:	f022 0207 	bic.w	r2, r2, #7
- 8008c8c:	3208      	adds	r2, #8
+ 8008c8c:	f022 0207 	bic.w	r2, r2, #7
+ 8008c90:	3208      	adds	r2, #8
 			if( ( xWantedSize > 0 ) && ( xWantedSize <= xFreeBytesRemaining ) )
- 8008c8e:	b1d2      	cbz	r2, 8008cc6 <pvPortMalloc+0x62>
- 8008c90:	4b36      	ldr	r3, [pc, #216]	@ (8008d6c <pvPortMalloc+0x108>)
- 8008c92:	681b      	ldr	r3, [r3, #0]
- 8008c94:	4293      	cmp	r3, r2
- 8008c96:	d31a      	bcc.n	8008cce <pvPortMalloc+0x6a>
+ 8008c92:	b1d2      	cbz	r2, 8008cca <pvPortMalloc+0x62>
+ 8008c94:	4b36      	ldr	r3, [pc, #216]	@ (8008d70 <pvPortMalloc+0x108>)
+ 8008c96:	681b      	ldr	r3, [r3, #0]
+ 8008c98:	4293      	cmp	r3, r2
+ 8008c9a:	d31a      	bcc.n	8008cd2 <pvPortMalloc+0x6a>
 				pxBlock = xStart.pxNextFreeBlock;
- 8008c98:	4935      	ldr	r1, [pc, #212]	@ (8008d70 <pvPortMalloc+0x10c>)
- 8008c9a:	680c      	ldr	r4, [r1, #0]
+ 8008c9c:	4935      	ldr	r1, [pc, #212]	@ (8008d74 <pvPortMalloc+0x10c>)
+ 8008c9e:	680c      	ldr	r4, [r1, #0]
 				while( ( pxBlock->xBlockSize < xWantedSize ) && ( pxBlock->pxNextFreeBlock != NULL ) )
- 8008c9c:	e01d      	b.n	8008cda <pvPortMalloc+0x76>
+ 8008ca0:	e01d      	b.n	8008cde <pvPortMalloc+0x76>
 			prvHeapInit();
- 8008c9e:	f7ff ff7b 	bl	8008b98 <prvHeapInit>
- 8008ca2:	e7e6      	b.n	8008c72 <pvPortMalloc+0xe>
+ 8008ca2:	f7ff ff7b 	bl	8008b9c <prvHeapInit>
+ 8008ca6:	e7e6      	b.n	8008c76 <pvPortMalloc+0xe>
 	( void ) xTaskResumeAll();
- 8008ca4:	f004 f82e 	bl	800cd04 <xTaskResumeAll>
+ 8008ca8:	f004 f82c 	bl	800cd04 <xTaskResumeAll>
 void *pvReturn = NULL;
- 8008ca8:	2500      	movs	r5, #0
+ 8008cac:	2500      	movs	r5, #0
 			vApplicationMallocFailedHook();
- 8008caa:	f000 f947 	bl	8008f3c <vApplicationMallocFailedHook>
+ 8008cae:	f000 f947 	bl	8008f40 <vApplicationMallocFailedHook>
 	configASSERT( ( ( ( size_t ) pvReturn ) & ( size_t ) portBYTE_ALIGNMENT_MASK ) == 0 );
- 8008cae:	f015 0f07 	tst.w	r5, #7
- 8008cb2:	d055      	beq.n	8008d60 <pvPortMalloc+0xfc>
+ 8008cb2:	f015 0f07 	tst.w	r5, #7
+ 8008cb6:	d055      	beq.n	8008d64 <pvPortMalloc+0xfc>
 
 portFORCE_INLINE static void vPortRaiseBASEPRI( void )
 {
 uint32_t ulNewBASEPRI;
 
 	__asm volatile
- 8008cb4:	f04f 0350 	mov.w	r3, #80	@ 0x50
- 8008cb8:	f383 8811 	msr	BASEPRI, r3
- 8008cbc:	f3bf 8f6f 	isb	sy
- 8008cc0:	f3bf 8f4f 	dsb	sy
- 8008cc4:	e7fe      	b.n	8008cc4 <pvPortMalloc+0x60>
+ 8008cb8:	f04f 0350 	mov.w	r3, #80	@ 0x50
+ 8008cbc:	f383 8811 	msr	BASEPRI, r3
+ 8008cc0:	f3bf 8f6f 	isb	sy
+ 8008cc4:	f3bf 8f4f 	dsb	sy
+ 8008cc8:	e7fe      	b.n	8008cc8 <pvPortMalloc+0x60>
 	( void ) xTaskResumeAll();
- 8008cc6:	f004 f81d 	bl	800cd04 <xTaskResumeAll>
+ 8008cca:	f004 f81b 	bl	800cd04 <xTaskResumeAll>
 void *pvReturn = NULL;
- 8008cca:	2500      	movs	r5, #0
- 8008ccc:	e7ed      	b.n	8008caa <pvPortMalloc+0x46>
+ 8008cce:	2500      	movs	r5, #0
+ 8008cd0:	e7ed      	b.n	8008cae <pvPortMalloc+0x46>
 	( void ) xTaskResumeAll();
- 8008cce:	f004 f819 	bl	800cd04 <xTaskResumeAll>
+ 8008cd2:	f004 f817 	bl	800cd04 <xTaskResumeAll>
 void *pvReturn = NULL;
- 8008cd2:	2500      	movs	r5, #0
- 8008cd4:	e7e9      	b.n	8008caa <pvPortMalloc+0x46>
+ 8008cd6:	2500      	movs	r5, #0
+ 8008cd8:	e7e9      	b.n	8008cae <pvPortMalloc+0x46>
 					pxPreviousBlock = pxBlock;
- 8008cd6:	4621      	mov	r1, r4
+ 8008cda:	4621      	mov	r1, r4
 					pxBlock = pxBlock->pxNextFreeBlock;
- 8008cd8:	461c      	mov	r4, r3
+ 8008cdc:	461c      	mov	r4, r3
 				while( ( pxBlock->xBlockSize < xWantedSize ) && ( pxBlock->pxNextFreeBlock != NULL ) )
- 8008cda:	6863      	ldr	r3, [r4, #4]
- 8008cdc:	4293      	cmp	r3, r2
- 8008cde:	d202      	bcs.n	8008ce6 <pvPortMalloc+0x82>
- 8008ce0:	6823      	ldr	r3, [r4, #0]
- 8008ce2:	2b00      	cmp	r3, #0
- 8008ce4:	d1f7      	bne.n	8008cd6 <pvPortMalloc+0x72>
+ 8008cde:	6863      	ldr	r3, [r4, #4]
+ 8008ce0:	4293      	cmp	r3, r2
+ 8008ce2:	d202      	bcs.n	8008cea <pvPortMalloc+0x82>
+ 8008ce4:	6823      	ldr	r3, [r4, #0]
+ 8008ce6:	2b00      	cmp	r3, #0
+ 8008ce8:	d1f7      	bne.n	8008cda <pvPortMalloc+0x72>
 				if( pxBlock != pxEnd )
- 8008ce6:	4b1f      	ldr	r3, [pc, #124]	@ (8008d64 <pvPortMalloc+0x100>)
- 8008ce8:	681b      	ldr	r3, [r3, #0]
- 8008cea:	42a3      	cmp	r3, r4
- 8008cec:	d014      	beq.n	8008d18 <pvPortMalloc+0xb4>
+ 8008cea:	4b1f      	ldr	r3, [pc, #124]	@ (8008d68 <pvPortMalloc+0x100>)
+ 8008cec:	681b      	ldr	r3, [r3, #0]
+ 8008cee:	42a3      	cmp	r3, r4
+ 8008cf0:	d014      	beq.n	8008d1c <pvPortMalloc+0xb4>
 					pvReturn = ( void * ) ( ( ( uint8_t * ) pxPreviousBlock->pxNextFreeBlock ) + xHeapStructSize );
- 8008cee:	680d      	ldr	r5, [r1, #0]
- 8008cf0:	3508      	adds	r5, #8
+ 8008cf2:	680d      	ldr	r5, [r1, #0]
+ 8008cf4:	3508      	adds	r5, #8
 					pxPreviousBlock->pxNextFreeBlock = pxBlock->pxNextFreeBlock;
- 8008cf2:	6823      	ldr	r3, [r4, #0]
- 8008cf4:	600b      	str	r3, [r1, #0]
+ 8008cf6:	6823      	ldr	r3, [r4, #0]
+ 8008cf8:	600b      	str	r3, [r1, #0]
 					if( ( pxBlock->xBlockSize - xWantedSize ) > heapMINIMUM_BLOCK_SIZE )
- 8008cf6:	6863      	ldr	r3, [r4, #4]
- 8008cf8:	1a9b      	subs	r3, r3, r2
- 8008cfa:	2b10      	cmp	r3, #16
- 8008cfc:	d914      	bls.n	8008d28 <pvPortMalloc+0xc4>
+ 8008cfa:	6863      	ldr	r3, [r4, #4]
+ 8008cfc:	1a9b      	subs	r3, r3, r2
+ 8008cfe:	2b10      	cmp	r3, #16
+ 8008d00:	d914      	bls.n	8008d2c <pvPortMalloc+0xc4>
 						pxNewBlockLink = ( void * ) ( ( ( uint8_t * ) pxBlock ) + xWantedSize );
- 8008cfe:	18a0      	adds	r0, r4, r2
+ 8008d02:	18a0      	adds	r0, r4, r2
 						configASSERT( ( ( ( size_t ) pxNewBlockLink ) & portBYTE_ALIGNMENT_MASK ) == 0 );
- 8008d00:	f010 0f07 	tst.w	r0, #7
- 8008d04:	d00c      	beq.n	8008d20 <pvPortMalloc+0xbc>
- 8008d06:	f04f 0350 	mov.w	r3, #80	@ 0x50
- 8008d0a:	f383 8811 	msr	BASEPRI, r3
- 8008d0e:	f3bf 8f6f 	isb	sy
- 8008d12:	f3bf 8f4f 	dsb	sy
- 8008d16:	e7fe      	b.n	8008d16 <pvPortMalloc+0xb2>
+ 8008d04:	f010 0f07 	tst.w	r0, #7
+ 8008d08:	d00c      	beq.n	8008d24 <pvPortMalloc+0xbc>
+ 8008d0a:	f04f 0350 	mov.w	r3, #80	@ 0x50
+ 8008d0e:	f383 8811 	msr	BASEPRI, r3
+ 8008d12:	f3bf 8f6f 	isb	sy
+ 8008d16:	f3bf 8f4f 	dsb	sy
+ 8008d1a:	e7fe      	b.n	8008d1a <pvPortMalloc+0xb2>
 	( void ) xTaskResumeAll();
- 8008d18:	f003 fff4 	bl	800cd04 <xTaskResumeAll>
+ 8008d1c:	f003 fff2 	bl	800cd04 <xTaskResumeAll>
 void *pvReturn = NULL;
- 8008d1c:	2500      	movs	r5, #0
- 8008d1e:	e7c4      	b.n	8008caa <pvPortMalloc+0x46>
+ 8008d20:	2500      	movs	r5, #0
+ 8008d22:	e7c4      	b.n	8008cae <pvPortMalloc+0x46>
 						pxNewBlockLink->xBlockSize = pxBlock->xBlockSize - xWantedSize;
- 8008d20:	6043      	str	r3, [r0, #4]
+ 8008d24:	6043      	str	r3, [r0, #4]
 						pxBlock->xBlockSize = xWantedSize;
- 8008d22:	6062      	str	r2, [r4, #4]
+ 8008d26:	6062      	str	r2, [r4, #4]
 						prvInsertBlockIntoFreeList( pxNewBlockLink );
- 8008d24:	f7ff ff6c 	bl	8008c00 <prvInsertBlockIntoFreeList>
+ 8008d28:	f7ff ff6c 	bl	8008c04 <prvInsertBlockIntoFreeList>
 					xFreeBytesRemaining -= pxBlock->xBlockSize;
- 8008d28:	6862      	ldr	r2, [r4, #4]
- 8008d2a:	4910      	ldr	r1, [pc, #64]	@ (8008d6c <pvPortMalloc+0x108>)
- 8008d2c:	680b      	ldr	r3, [r1, #0]
- 8008d2e:	1a9b      	subs	r3, r3, r2
- 8008d30:	600b      	str	r3, [r1, #0]
+ 8008d2c:	6862      	ldr	r2, [r4, #4]
+ 8008d2e:	4910      	ldr	r1, [pc, #64]	@ (8008d70 <pvPortMalloc+0x108>)
+ 8008d30:	680b      	ldr	r3, [r1, #0]
+ 8008d32:	1a9b      	subs	r3, r3, r2
+ 8008d34:	600b      	str	r3, [r1, #0]
 					if( xFreeBytesRemaining < xMinimumEverFreeBytesRemaining )
- 8008d32:	4910      	ldr	r1, [pc, #64]	@ (8008d74 <pvPortMalloc+0x110>)
- 8008d34:	6809      	ldr	r1, [r1, #0]
- 8008d36:	428b      	cmp	r3, r1
- 8008d38:	d201      	bcs.n	8008d3e <pvPortMalloc+0xda>
+ 8008d36:	4910      	ldr	r1, [pc, #64]	@ (8008d78 <pvPortMalloc+0x110>)
+ 8008d38:	6809      	ldr	r1, [r1, #0]
+ 8008d3a:	428b      	cmp	r3, r1
+ 8008d3c:	d201      	bcs.n	8008d42 <pvPortMalloc+0xda>
 						xMinimumEverFreeBytesRemaining = xFreeBytesRemaining;
- 8008d3a:	490e      	ldr	r1, [pc, #56]	@ (8008d74 <pvPortMalloc+0x110>)
- 8008d3c:	600b      	str	r3, [r1, #0]
+ 8008d3e:	490e      	ldr	r1, [pc, #56]	@ (8008d78 <pvPortMalloc+0x110>)
+ 8008d40:	600b      	str	r3, [r1, #0]
 					pxBlock->xBlockSize |= xBlockAllocatedBit;
- 8008d3e:	4b0a      	ldr	r3, [pc, #40]	@ (8008d68 <pvPortMalloc+0x104>)
- 8008d40:	681b      	ldr	r3, [r3, #0]
- 8008d42:	4313      	orrs	r3, r2
- 8008d44:	6063      	str	r3, [r4, #4]
+ 8008d42:	4b0a      	ldr	r3, [pc, #40]	@ (8008d6c <pvPortMalloc+0x104>)
+ 8008d44:	681b      	ldr	r3, [r3, #0]
+ 8008d46:	4313      	orrs	r3, r2
+ 8008d48:	6063      	str	r3, [r4, #4]
 					pxBlock->pxNextFreeBlock = NULL;
- 8008d46:	2300      	movs	r3, #0
- 8008d48:	6023      	str	r3, [r4, #0]
+ 8008d4a:	2300      	movs	r3, #0
+ 8008d4c:	6023      	str	r3, [r4, #0]
 					xNumberOfSuccessfulAllocations++;
- 8008d4a:	4a0b      	ldr	r2, [pc, #44]	@ (8008d78 <pvPortMalloc+0x114>)
- 8008d4c:	6813      	ldr	r3, [r2, #0]
- 8008d4e:	3301      	adds	r3, #1
- 8008d50:	6013      	str	r3, [r2, #0]
- 8008d52:	e000      	b.n	8008d56 <pvPortMalloc+0xf2>
+ 8008d4e:	4a0b      	ldr	r2, [pc, #44]	@ (8008d7c <pvPortMalloc+0x114>)
+ 8008d50:	6813      	ldr	r3, [r2, #0]
+ 8008d52:	3301      	adds	r3, #1
+ 8008d54:	6013      	str	r3, [r2, #0]
+ 8008d56:	e000      	b.n	8008d5a <pvPortMalloc+0xf2>
 void *pvReturn = NULL;
- 8008d54:	2500      	movs	r5, #0
+ 8008d58:	2500      	movs	r5, #0
 	( void ) xTaskResumeAll();
- 8008d56:	f003 ffd5 	bl	800cd04 <xTaskResumeAll>
+ 8008d5a:	f003 ffd3 	bl	800cd04 <xTaskResumeAll>
 		if( pvReturn == NULL )
- 8008d5a:	2d00      	cmp	r5, #0
- 8008d5c:	d1a7      	bne.n	8008cae <pvPortMalloc+0x4a>
- 8008d5e:	e7a4      	b.n	8008caa <pvPortMalloc+0x46>
+ 8008d5e:	2d00      	cmp	r5, #0
+ 8008d60:	d1a7      	bne.n	8008cb2 <pvPortMalloc+0x4a>
+ 8008d62:	e7a4      	b.n	8008cae <pvPortMalloc+0x46>
 }
- 8008d60:	4628      	mov	r0, r5
- 8008d62:	bd38      	pop	{r3, r4, r5, pc}
- 8008d64:	20000af8 	.word	0x20000af8
- 8008d68:	20000ae4 	.word	0x20000ae4
- 8008d6c:	20000af4 	.word	0x20000af4
- 8008d70:	20000afc 	.word	0x20000afc
- 8008d74:	20000af0 	.word	0x20000af0
- 8008d78:	20000aec 	.word	0x20000aec
+ 8008d64:	4628      	mov	r0, r5
+ 8008d66:	bd38      	pop	{r3, r4, r5, pc}
+ 8008d68:	20000af8 	.word	0x20000af8
+ 8008d6c:	20000ae4 	.word	0x20000ae4
+ 8008d70:	20000af4 	.word	0x20000af4
+ 8008d74:	20000afc 	.word	0x20000afc
+ 8008d78:	20000af0 	.word	0x20000af0
+ 8008d7c:	20000aec 	.word	0x20000aec
 
-08008d7c <vPortFree>:
+08008d80 <vPortFree>:
 	if( pv != NULL )
- 8008d7c:	2800      	cmp	r0, #0
- 8008d7e:	d034      	beq.n	8008dea <vPortFree+0x6e>
+ 8008d80:	2800      	cmp	r0, #0
+ 8008d82:	d034      	beq.n	8008dee <vPortFree+0x6e>
 {
- 8008d80:	b538      	push	{r3, r4, r5, lr}
- 8008d82:	4604      	mov	r4, r0
+ 8008d84:	b538      	push	{r3, r4, r5, lr}
+ 8008d86:	4604      	mov	r4, r0
 		puc -= xHeapStructSize;
- 8008d84:	f1a0 0508 	sub.w	r5, r0, #8
+ 8008d88:	f1a0 0508 	sub.w	r5, r0, #8
 		configASSERT( ( pxLink->xBlockSize & xBlockAllocatedBit ) != 0 );
- 8008d88:	f850 3c04 	ldr.w	r3, [r0, #-4]
- 8008d8c:	4a17      	ldr	r2, [pc, #92]	@ (8008dec <vPortFree+0x70>)
- 8008d8e:	6812      	ldr	r2, [r2, #0]
- 8008d90:	4213      	tst	r3, r2
- 8008d92:	d108      	bne.n	8008da6 <vPortFree+0x2a>
- 8008d94:	f04f 0350 	mov.w	r3, #80	@ 0x50
- 8008d98:	f383 8811 	msr	BASEPRI, r3
- 8008d9c:	f3bf 8f6f 	isb	sy
- 8008da0:	f3bf 8f4f 	dsb	sy
- 8008da4:	e7fe      	b.n	8008da4 <vPortFree+0x28>
+ 8008d8c:	f850 3c04 	ldr.w	r3, [r0, #-4]
+ 8008d90:	4a17      	ldr	r2, [pc, #92]	@ (8008df0 <vPortFree+0x70>)
+ 8008d92:	6812      	ldr	r2, [r2, #0]
+ 8008d94:	4213      	tst	r3, r2
+ 8008d96:	d108      	bne.n	8008daa <vPortFree+0x2a>
+ 8008d98:	f04f 0350 	mov.w	r3, #80	@ 0x50
+ 8008d9c:	f383 8811 	msr	BASEPRI, r3
+ 8008da0:	f3bf 8f6f 	isb	sy
+ 8008da4:	f3bf 8f4f 	dsb	sy
+ 8008da8:	e7fe      	b.n	8008da8 <vPortFree+0x28>
 		configASSERT( pxLink->pxNextFreeBlock == NULL );
- 8008da6:	f850 1c08 	ldr.w	r1, [r0, #-8]
- 8008daa:	b141      	cbz	r1, 8008dbe <vPortFree+0x42>
- 8008dac:	f04f 0350 	mov.w	r3, #80	@ 0x50
- 8008db0:	f383 8811 	msr	BASEPRI, r3
- 8008db4:	f3bf 8f6f 	isb	sy
- 8008db8:	f3bf 8f4f 	dsb	sy
- 8008dbc:	e7fe      	b.n	8008dbc <vPortFree+0x40>
+ 8008daa:	f850 1c08 	ldr.w	r1, [r0, #-8]
+ 8008dae:	b141      	cbz	r1, 8008dc2 <vPortFree+0x42>
+ 8008db0:	f04f 0350 	mov.w	r3, #80	@ 0x50
+ 8008db4:	f383 8811 	msr	BASEPRI, r3
+ 8008db8:	f3bf 8f6f 	isb	sy
+ 8008dbc:	f3bf 8f4f 	dsb	sy
+ 8008dc0:	e7fe      	b.n	8008dc0 <vPortFree+0x40>
 				pxLink->xBlockSize &= ~xBlockAllocatedBit;
- 8008dbe:	ea23 0302 	bic.w	r3, r3, r2
- 8008dc2:	f840 3c04 	str.w	r3, [r0, #-4]
+ 8008dc2:	ea23 0302 	bic.w	r3, r3, r2
+ 8008dc6:	f840 3c04 	str.w	r3, [r0, #-4]
 				vTaskSuspendAll();
- 8008dc6:	f003 fefb 	bl	800cbc0 <vTaskSuspendAll>
+ 8008dca:	f003 fef9 	bl	800cbc0 <vTaskSuspendAll>
 					xFreeBytesRemaining += pxLink->xBlockSize;
- 8008dca:	f854 1c04 	ldr.w	r1, [r4, #-4]
- 8008dce:	4a08      	ldr	r2, [pc, #32]	@ (8008df0 <vPortFree+0x74>)
- 8008dd0:	6813      	ldr	r3, [r2, #0]
- 8008dd2:	440b      	add	r3, r1
- 8008dd4:	6013      	str	r3, [r2, #0]
+ 8008dce:	f854 1c04 	ldr.w	r1, [r4, #-4]
+ 8008dd2:	4a08      	ldr	r2, [pc, #32]	@ (8008df4 <vPortFree+0x74>)
+ 8008dd4:	6813      	ldr	r3, [r2, #0]
+ 8008dd6:	440b      	add	r3, r1
+ 8008dd8:	6013      	str	r3, [r2, #0]
 					prvInsertBlockIntoFreeList( ( ( BlockLink_t * ) pxLink ) );
- 8008dd6:	4628      	mov	r0, r5
- 8008dd8:	f7ff ff12 	bl	8008c00 <prvInsertBlockIntoFreeList>
+ 8008dda:	4628      	mov	r0, r5
+ 8008ddc:	f7ff ff12 	bl	8008c04 <prvInsertBlockIntoFreeList>
 					xNumberOfSuccessfulFrees++;
- 8008ddc:	4a05      	ldr	r2, [pc, #20]	@ (8008df4 <vPortFree+0x78>)
- 8008dde:	6813      	ldr	r3, [r2, #0]
- 8008de0:	3301      	adds	r3, #1
- 8008de2:	6013      	str	r3, [r2, #0]
+ 8008de0:	4a05      	ldr	r2, [pc, #20]	@ (8008df8 <vPortFree+0x78>)
+ 8008de2:	6813      	ldr	r3, [r2, #0]
+ 8008de4:	3301      	adds	r3, #1
+ 8008de6:	6013      	str	r3, [r2, #0]
 				( void ) xTaskResumeAll();
- 8008de4:	f003 ff8e 	bl	800cd04 <xTaskResumeAll>
+ 8008de8:	f003 ff8c 	bl	800cd04 <xTaskResumeAll>
 }
- 8008de8:	bd38      	pop	{r3, r4, r5, pc}
- 8008dea:	4770      	bx	lr
- 8008dec:	20000ae4 	.word	0x20000ae4
- 8008df0:	20000af4 	.word	0x20000af4
- 8008df4:	20000ae8 	.word	0x20000ae8
+ 8008dec:	bd38      	pop	{r3, r4, r5, pc}
+ 8008dee:	4770      	bx	lr
+ 8008df0:	20000ae4 	.word	0x20000ae4
+ 8008df4:	20000af4 	.word	0x20000af4
+ 8008df8:	20000ae8 	.word	0x20000ae8
 
-08008df8 <vListInitialise>:
+08008dfc <vListInitialise>:
 void vListInitialise( List_t * const pxList )
 {
 	/* The list structure contains a list item which is used to mark the
 	end of the list.  To initialise the list the list end is inserted
 	as the only list entry. */
 	pxList->pxIndex = ( ListItem_t * ) &( pxList->xListEnd );			/*lint !e826 !e740 !e9087 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
- 8008df8:	f100 0308 	add.w	r3, r0, #8
- 8008dfc:	6043      	str	r3, [r0, #4]
+ 8008dfc:	f100 0308 	add.w	r3, r0, #8
+ 8008e00:	6043      	str	r3, [r0, #4]
 
 	/* The list end value is the highest possible value in the list to
 	ensure it remains at the end of the list. */
 	pxList->xListEnd.xItemValue = portMAX_DELAY;
- 8008dfe:	f04f 32ff 	mov.w	r2, #4294967295
- 8008e02:	6082      	str	r2, [r0, #8]
+ 8008e02:	f04f 32ff 	mov.w	r2, #4294967295
+ 8008e06:	6082      	str	r2, [r0, #8]
 
 	/* The list end next and previous pointers point to itself so we know
 	when the list is empty. */
 	pxList->xListEnd.pxNext = ( ListItem_t * ) &( pxList->xListEnd );	/*lint !e826 !e740 !e9087 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
- 8008e04:	60c3      	str	r3, [r0, #12]
+ 8008e08:	60c3      	str	r3, [r0, #12]
 	pxList->xListEnd.pxPrevious = ( ListItem_t * ) &( pxList->xListEnd );/*lint !e826 !e740 !e9087 The mini list structure is used as the list end to save RAM.  This is checked and valid. */
- 8008e06:	6103      	str	r3, [r0, #16]
+ 8008e0a:	6103      	str	r3, [r0, #16]
 
 	pxList->uxNumberOfItems = ( UBaseType_t ) 0U;
- 8008e08:	2300      	movs	r3, #0
- 8008e0a:	6003      	str	r3, [r0, #0]
+ 8008e0c:	2300      	movs	r3, #0
+ 8008e0e:	6003      	str	r3, [r0, #0]
 
 	/* Write known values into the list if
 	configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
 	listSET_LIST_INTEGRITY_CHECK_1_VALUE( pxList );
 	listSET_LIST_INTEGRITY_CHECK_2_VALUE( pxList );
 }
- 8008e0c:	4770      	bx	lr
+ 8008e10:	4770      	bx	lr
 
-08008e0e <vListInitialiseItem>:
+08008e12 <vListInitialiseItem>:
 /*-----------------------------------------------------------*/
 
 void vListInitialiseItem( ListItem_t * const pxItem )
 {
 	/* Make sure the list item is not recorded as being on a list. */
 	pxItem->pxContainer = NULL;
- 8008e0e:	2300      	movs	r3, #0
- 8008e10:	6103      	str	r3, [r0, #16]
+ 8008e12:	2300      	movs	r3, #0
+ 8008e14:	6103      	str	r3, [r0, #16]
 
 	/* Write known values into the list item if
 	configUSE_LIST_DATA_INTEGRITY_CHECK_BYTES is set to 1. */
 	listSET_FIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE( pxItem );
 	listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE( pxItem );
 }
- 8008e12:	4770      	bx	lr
+ 8008e16:	4770      	bx	lr
 
-08008e14 <vListInsertEnd>:
+08008e18 <vListInsertEnd>:
 /*-----------------------------------------------------------*/
 
 void vListInsertEnd( List_t * const pxList, ListItem_t * const pxNewListItem )
 {
 ListItem_t * const pxIndex = pxList->pxIndex;
- 8008e14:	6843      	ldr	r3, [r0, #4]
+ 8008e18:	6843      	ldr	r3, [r0, #4]
 	listTEST_LIST_ITEM_INTEGRITY( pxNewListItem );
 
 	/* Insert a new list item into pxList, but rather than sort the list,
 	makes the new list item the last item to be removed by a call to
 	listGET_OWNER_OF_NEXT_ENTRY(). */
 	pxNewListItem->pxNext = pxIndex;
- 8008e16:	604b      	str	r3, [r1, #4]
+ 8008e1a:	604b      	str	r3, [r1, #4]
 	pxNewListItem->pxPrevious = pxIndex->pxPrevious;
- 8008e18:	689a      	ldr	r2, [r3, #8]
- 8008e1a:	608a      	str	r2, [r1, #8]
+ 8008e1c:	689a      	ldr	r2, [r3, #8]
+ 8008e1e:	608a      	str	r2, [r1, #8]
 
 	/* Only used during decision coverage testing. */
 	mtCOVERAGE_TEST_DELAY();
 
 	pxIndex->pxPrevious->pxNext = pxNewListItem;
- 8008e1c:	6051      	str	r1, [r2, #4]
+ 8008e20:	6051      	str	r1, [r2, #4]
 	pxIndex->pxPrevious = pxNewListItem;
- 8008e1e:	6099      	str	r1, [r3, #8]
+ 8008e22:	6099      	str	r1, [r3, #8]
 
 	/* Remember which list the item is in. */
 	pxNewListItem->pxContainer = pxList;
- 8008e20:	6108      	str	r0, [r1, #16]
+ 8008e24:	6108      	str	r0, [r1, #16]
 
 	( pxList->uxNumberOfItems )++;
- 8008e22:	6803      	ldr	r3, [r0, #0]
- 8008e24:	3301      	adds	r3, #1
- 8008e26:	6003      	str	r3, [r0, #0]
+ 8008e26:	6803      	ldr	r3, [r0, #0]
+ 8008e28:	3301      	adds	r3, #1
+ 8008e2a:	6003      	str	r3, [r0, #0]
 }
- 8008e28:	4770      	bx	lr
+ 8008e2c:	4770      	bx	lr
 
-08008e2a <vListInsert>:
+08008e2e <vListInsert>:
 /*-----------------------------------------------------------*/
 
 void vListInsert( List_t * const pxList, ListItem_t * const pxNewListItem )
 {
- 8008e2a:	b430      	push	{r4, r5}
+ 8008e2e:	b430      	push	{r4, r5}
 ListItem_t *pxIterator;
 const TickType_t xValueOfInsertion = pxNewListItem->xItemValue;
- 8008e2c:	680d      	ldr	r5, [r1, #0]
+ 8008e30:	680d      	ldr	r5, [r1, #0]
 	new list item should be placed after it.  This ensures that TCBs which are
 	stored in ready lists (all of which have the same xItemValue value) get a
 	share of the CPU.  However, if the xItemValue is the same as the back marker
 	the iteration loop below will not end.  Therefore the value is checked
 	first, and the algorithm slightly modified if necessary. */
 	if( xValueOfInsertion == portMAX_DELAY )
- 8008e2e:	f1b5 3fff 	cmp.w	r5, #4294967295
- 8008e32:	d011      	beq.n	8008e58 <vListInsert+0x2e>
+ 8008e32:	f1b5 3fff 	cmp.w	r5, #4294967295
+ 8008e36:	d011      	beq.n	8008e5c <vListInsert+0x2e>
 			4) Using a queue or semaphore before it has been initialised or
 			   before the scheduler has been started (are interrupts firing
 			   before vTaskStartScheduler() has been called?).
 		**********************************************************************/
 
 		for( pxIterator = ( ListItem_t * ) &( pxList->xListEnd ); pxIterator->pxNext->xItemValue <= xValueOfInsertion; pxIterator = pxIterator->pxNext ) /*lint !e826 !e740 !e9087 The mini list structure is used as the list end to save RAM.  This is checked and valid. *//*lint !e440 The iterator moves to a different value, not xValueOfInsertion. */
- 8008e34:	f100 0308 	add.w	r3, r0, #8
- 8008e38:	461c      	mov	r4, r3
- 8008e3a:	685b      	ldr	r3, [r3, #4]
- 8008e3c:	681a      	ldr	r2, [r3, #0]
- 8008e3e:	42aa      	cmp	r2, r5
- 8008e40:	d9fa      	bls.n	8008e38 <vListInsert+0xe>
+ 8008e38:	f100 0308 	add.w	r3, r0, #8
+ 8008e3c:	461c      	mov	r4, r3
+ 8008e3e:	685b      	ldr	r3, [r3, #4]
+ 8008e40:	681a      	ldr	r2, [r3, #0]
+ 8008e42:	42aa      	cmp	r2, r5
+ 8008e44:	d9fa      	bls.n	8008e3c <vListInsert+0xe>
 			/* There is nothing to do here, just iterating to the wanted
 			insertion position. */
 		}
 	}
 
 	pxNewListItem->pxNext = pxIterator->pxNext;
- 8008e42:	6863      	ldr	r3, [r4, #4]
- 8008e44:	604b      	str	r3, [r1, #4]
+ 8008e46:	6863      	ldr	r3, [r4, #4]
+ 8008e48:	604b      	str	r3, [r1, #4]
 	pxNewListItem->pxNext->pxPrevious = pxNewListItem;
- 8008e46:	6099      	str	r1, [r3, #8]
+ 8008e4a:	6099      	str	r1, [r3, #8]
 	pxNewListItem->pxPrevious = pxIterator;
- 8008e48:	608c      	str	r4, [r1, #8]
+ 8008e4c:	608c      	str	r4, [r1, #8]
 	pxIterator->pxNext = pxNewListItem;
- 8008e4a:	6061      	str	r1, [r4, #4]
+ 8008e4e:	6061      	str	r1, [r4, #4]
 
 	/* Remember which list the item is in.  This allows fast removal of the
 	item later. */
 	pxNewListItem->pxContainer = pxList;
- 8008e4c:	6108      	str	r0, [r1, #16]
+ 8008e50:	6108      	str	r0, [r1, #16]
 
 	( pxList->uxNumberOfItems )++;
- 8008e4e:	6803      	ldr	r3, [r0, #0]
- 8008e50:	3301      	adds	r3, #1
- 8008e52:	6003      	str	r3, [r0, #0]
+ 8008e52:	6803      	ldr	r3, [r0, #0]
+ 8008e54:	3301      	adds	r3, #1
+ 8008e56:	6003      	str	r3, [r0, #0]
 }
- 8008e54:	bc30      	pop	{r4, r5}
- 8008e56:	4770      	bx	lr
+ 8008e58:	bc30      	pop	{r4, r5}
+ 8008e5a:	4770      	bx	lr
 		pxIterator = pxList->xListEnd.pxPrevious;
- 8008e58:	6904      	ldr	r4, [r0, #16]
- 8008e5a:	e7f2      	b.n	8008e42 <vListInsert+0x18>
+ 8008e5c:	6904      	ldr	r4, [r0, #16]
+ 8008e5e:	e7f2      	b.n	8008e46 <vListInsert+0x18>
 
-08008e5c <uxListRemove>:
+08008e60 <uxListRemove>:
 
 UBaseType_t uxListRemove( ListItem_t * const pxItemToRemove )
 {
 /* The list item knows which list it is in.  Obtain the list from the list
 item. */
 List_t * const pxList = pxItemToRemove->pxContainer;
- 8008e5c:	6903      	ldr	r3, [r0, #16]
+ 8008e60:	6903      	ldr	r3, [r0, #16]
 
 	pxItemToRemove->pxNext->pxPrevious = pxItemToRemove->pxPrevious;
- 8008e5e:	6841      	ldr	r1, [r0, #4]
- 8008e60:	6882      	ldr	r2, [r0, #8]
- 8008e62:	608a      	str	r2, [r1, #8]
+ 8008e62:	6841      	ldr	r1, [r0, #4]
+ 8008e64:	6882      	ldr	r2, [r0, #8]
+ 8008e66:	608a      	str	r2, [r1, #8]
 	pxItemToRemove->pxPrevious->pxNext = pxItemToRemove->pxNext;
- 8008e64:	6841      	ldr	r1, [r0, #4]
- 8008e66:	6051      	str	r1, [r2, #4]
+ 8008e68:	6841      	ldr	r1, [r0, #4]
+ 8008e6a:	6051      	str	r1, [r2, #4]
 
 	/* Only used during decision coverage testing. */
 	mtCOVERAGE_TEST_DELAY();
 
 	/* Make sure the index is left pointing to a valid item. */
 	if( pxList->pxIndex == pxItemToRemove )
- 8008e68:	685a      	ldr	r2, [r3, #4]
- 8008e6a:	4282      	cmp	r2, r0
- 8008e6c:	d006      	beq.n	8008e7c <uxListRemove+0x20>
+ 8008e6c:	685a      	ldr	r2, [r3, #4]
+ 8008e6e:	4282      	cmp	r2, r0
+ 8008e70:	d006      	beq.n	8008e80 <uxListRemove+0x20>
 	else
 	{
 		mtCOVERAGE_TEST_MARKER();
 	}
 
 	pxItemToRemove->pxContainer = NULL;
- 8008e6e:	2200      	movs	r2, #0
- 8008e70:	6102      	str	r2, [r0, #16]
+ 8008e72:	2200      	movs	r2, #0
+ 8008e74:	6102      	str	r2, [r0, #16]
 	( pxList->uxNumberOfItems )--;
- 8008e72:	681a      	ldr	r2, [r3, #0]
- 8008e74:	3a01      	subs	r2, #1
- 8008e76:	601a      	str	r2, [r3, #0]
+ 8008e76:	681a      	ldr	r2, [r3, #0]
+ 8008e78:	3a01      	subs	r2, #1
+ 8008e7a:	601a      	str	r2, [r3, #0]
 
 	return pxList->uxNumberOfItems;
- 8008e78:	6818      	ldr	r0, [r3, #0]
+ 8008e7c:	6818      	ldr	r0, [r3, #0]
 }
- 8008e7a:	4770      	bx	lr
+ 8008e7e:	4770      	bx	lr
 		pxList->pxIndex = pxItemToRemove->pxPrevious;
- 8008e7c:	6882      	ldr	r2, [r0, #8]
- 8008e7e:	605a      	str	r2, [r3, #4]
- 8008e80:	e7f5      	b.n	8008e6e <uxListRemove+0x12>
+ 8008e80:	6882      	ldr	r2, [r0, #8]
+ 8008e82:	605a      	str	r2, [r3, #4]
+ 8008e84:	e7f5      	b.n	8008e72 <uxListRemove+0x12>
 	...
 
-08008e84 <MX_GPIO_Init>:
+08008e88 <MX_GPIO_Init>:
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
   */
 static void MX_GPIO_Init(void)
 {
- 8008e84:	b5f0      	push	{r4, r5, r6, r7, lr}
- 8008e86:	b089      	sub	sp, #36	@ 0x24
+ 8008e88:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 8008e8a:	b089      	sub	sp, #36	@ 0x24
   GPIO_InitTypeDef GPIO_InitStruct = {0};
- 8008e88:	ad03      	add	r5, sp, #12
- 8008e8a:	2400      	movs	r4, #0
- 8008e8c:	9403      	str	r4, [sp, #12]
- 8008e8e:	9404      	str	r4, [sp, #16]
- 8008e90:	9405      	str	r4, [sp, #20]
- 8008e92:	9406      	str	r4, [sp, #24]
- 8008e94:	9407      	str	r4, [sp, #28]
+ 8008e8c:	ad03      	add	r5, sp, #12
+ 8008e8e:	2400      	movs	r4, #0
+ 8008e90:	9403      	str	r4, [sp, #12]
+ 8008e92:	9404      	str	r4, [sp, #16]
+ 8008e94:	9405      	str	r4, [sp, #20]
+ 8008e96:	9406      	str	r4, [sp, #24]
+ 8008e98:	9407      	str	r4, [sp, #28]
   /* USER CODE BEGIN MX_GPIO_Init_1 */
 
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOA_CLK_ENABLE();
- 8008e96:	4b20      	ldr	r3, [pc, #128]	@ (8008f18 <MX_GPIO_Init+0x94>)
- 8008e98:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
- 8008e9a:	f042 0201 	orr.w	r2, r2, #1
- 8008e9e:	64da      	str	r2, [r3, #76]	@ 0x4c
- 8008ea0:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
- 8008ea2:	f002 0201 	and.w	r2, r2, #1
- 8008ea6:	9201      	str	r2, [sp, #4]
- 8008ea8:	9a01      	ldr	r2, [sp, #4]
+ 8008e9a:	4b20      	ldr	r3, [pc, #128]	@ (8008f1c <MX_GPIO_Init+0x94>)
+ 8008e9c:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
+ 8008e9e:	f042 0201 	orr.w	r2, r2, #1
+ 8008ea2:	64da      	str	r2, [r3, #76]	@ 0x4c
+ 8008ea4:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
+ 8008ea6:	f002 0201 	and.w	r2, r2, #1
+ 8008eaa:	9201      	str	r2, [sp, #4]
+ 8008eac:	9a01      	ldr	r2, [sp, #4]
   __HAL_RCC_GPIOB_CLK_ENABLE();
- 8008eaa:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
- 8008eac:	f042 0202 	orr.w	r2, r2, #2
- 8008eb0:	64da      	str	r2, [r3, #76]	@ 0x4c
- 8008eb2:	6cdb      	ldr	r3, [r3, #76]	@ 0x4c
- 8008eb4:	f003 0302 	and.w	r3, r3, #2
- 8008eb8:	9302      	str	r3, [sp, #8]
- 8008eba:	9b02      	ldr	r3, [sp, #8]
+ 8008eae:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
+ 8008eb0:	f042 0202 	orr.w	r2, r2, #2
+ 8008eb4:	64da      	str	r2, [r3, #76]	@ 0x4c
+ 8008eb6:	6cdb      	ldr	r3, [r3, #76]	@ 0x4c
+ 8008eb8:	f003 0302 	and.w	r3, r3, #2
+ 8008ebc:	9302      	str	r3, [sp, #8]
+ 8008ebe:	9b02      	ldr	r3, [sp, #8]
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, MUX_SIG1_Pin|MUX_SIG3_Pin|BMS_RESET_Pin, GPIO_PIN_RESET);
- 8008ebc:	4e17      	ldr	r6, [pc, #92]	@ (8008f1c <MX_GPIO_Init+0x98>)
- 8008ebe:	4622      	mov	r2, r4
- 8008ec0:	2162      	movs	r1, #98	@ 0x62
- 8008ec2:	4630      	mov	r0, r6
- 8008ec4:	f002 f8ce 	bl	800b064 <HAL_GPIO_WritePin>
+ 8008ec0:	4e17      	ldr	r6, [pc, #92]	@ (8008f20 <MX_GPIO_Init+0x98>)
+ 8008ec2:	4622      	mov	r2, r4
+ 8008ec4:	2162      	movs	r1, #98	@ 0x62
+ 8008ec6:	4630      	mov	r0, r6
+ 8008ec8:	f002 f8cc 	bl	800b064 <HAL_GPIO_WritePin>
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(MUX_SIG2_GPIO_Port, MUX_SIG2_Pin, GPIO_PIN_RESET);
- 8008ec8:	4622      	mov	r2, r4
- 8008eca:	f44f 7180 	mov.w	r1, #256	@ 0x100
- 8008ece:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 8008ed2:	f002 f8c7 	bl	800b064 <HAL_GPIO_WritePin>
+ 8008ecc:	4622      	mov	r2, r4
+ 8008ece:	f44f 7180 	mov.w	r1, #256	@ 0x100
+ 8008ed2:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 8008ed6:	f002 f8c5 	bl	800b064 <HAL_GPIO_WritePin>
 
   /*Configure GPIO pins : MUX_SIG1_Pin MUX_SIG3_Pin BMS_RESET_Pin */
   GPIO_InitStruct.Pin = MUX_SIG1_Pin|MUX_SIG3_Pin|BMS_RESET_Pin;
- 8008ed6:	2362      	movs	r3, #98	@ 0x62
- 8008ed8:	9303      	str	r3, [sp, #12]
+ 8008eda:	2362      	movs	r3, #98	@ 0x62
+ 8008edc:	9303      	str	r3, [sp, #12]
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
- 8008eda:	2701      	movs	r7, #1
- 8008edc:	9704      	str	r7, [sp, #16]
+ 8008ede:	2701      	movs	r7, #1
+ 8008ee0:	9704      	str	r7, [sp, #16]
   GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8008ede:	9405      	str	r4, [sp, #20]
+ 8008ee2:	9405      	str	r4, [sp, #20]
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
- 8008ee0:	9406      	str	r4, [sp, #24]
+ 8008ee4:	9406      	str	r4, [sp, #24]
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
- 8008ee2:	4629      	mov	r1, r5
- 8008ee4:	4630      	mov	r0, r6
- 8008ee6:	f001 ffe5 	bl	800aeb4 <HAL_GPIO_Init>
+ 8008ee6:	4629      	mov	r1, r5
+ 8008ee8:	4630      	mov	r0, r6
+ 8008eea:	f001 ffe3 	bl	800aeb4 <HAL_GPIO_Init>
 
   /*Configure GPIO pin : MUX_SIG2_Pin */
   GPIO_InitStruct.Pin = MUX_SIG2_Pin;
- 8008eea:	f44f 7380 	mov.w	r3, #256	@ 0x100
- 8008eee:	9303      	str	r3, [sp, #12]
+ 8008eee:	f44f 7380 	mov.w	r3, #256	@ 0x100
+ 8008ef2:	9303      	str	r3, [sp, #12]
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
- 8008ef0:	9704      	str	r7, [sp, #16]
+ 8008ef4:	9704      	str	r7, [sp, #16]
   GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8008ef2:	9405      	str	r4, [sp, #20]
+ 8008ef6:	9405      	str	r4, [sp, #20]
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
- 8008ef4:	9406      	str	r4, [sp, #24]
+ 8008ef8:	9406      	str	r4, [sp, #24]
   HAL_GPIO_Init(MUX_SIG2_GPIO_Port, &GPIO_InitStruct);
- 8008ef6:	4629      	mov	r1, r5
- 8008ef8:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 8008efc:	f001 ffda 	bl	800aeb4 <HAL_GPIO_Init>
+ 8008efa:	4629      	mov	r1, r5
+ 8008efc:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 8008f00:	f001 ffd8 	bl	800aeb4 <HAL_GPIO_Init>
 
   /*Configure GPIO pin : ALERT_IN_Pin */
   GPIO_InitStruct.Pin = ALERT_IN_Pin;
- 8008f00:	2380      	movs	r3, #128	@ 0x80
- 8008f02:	9303      	str	r3, [sp, #12]
+ 8008f04:	2380      	movs	r3, #128	@ 0x80
+ 8008f06:	9303      	str	r3, [sp, #12]
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
- 8008f04:	f44f 1344 	mov.w	r3, #3211264	@ 0x310000
- 8008f08:	9304      	str	r3, [sp, #16]
+ 8008f08:	f44f 1344 	mov.w	r3, #3211264	@ 0x310000
+ 8008f0c:	9304      	str	r3, [sp, #16]
   GPIO_InitStruct.Pull = GPIO_NOPULL;
- 8008f0a:	9405      	str	r4, [sp, #20]
+ 8008f0e:	9405      	str	r4, [sp, #20]
   HAL_GPIO_Init(ALERT_IN_GPIO_Port, &GPIO_InitStruct);
- 8008f0c:	4629      	mov	r1, r5
- 8008f0e:	4630      	mov	r0, r6
- 8008f10:	f001 ffd0 	bl	800aeb4 <HAL_GPIO_Init>
+ 8008f10:	4629      	mov	r1, r5
+ 8008f12:	4630      	mov	r0, r6
+ 8008f14:	f001 ffce 	bl	800aeb4 <HAL_GPIO_Init>
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   /* USER CODE END MX_GPIO_Init_2 */
 }
- 8008f14:	b009      	add	sp, #36	@ 0x24
- 8008f16:	bdf0      	pop	{r4, r5, r6, r7, pc}
- 8008f18:	40021000 	.word	0x40021000
- 8008f1c:	48000400 	.word	0x48000400
+ 8008f18:	b009      	add	sp, #36	@ 0x24
+ 8008f1a:	bdf0      	pop	{r4, r5, r6, r7, pc}
+ 8008f1c:	40021000 	.word	0x40021000
+ 8008f20:	48000400 	.word	0x48000400
 
-08008f20 <StartDefaultTask>:
+08008f24 <StartDefaultTask>:
   * @param  argument: Not used
   * @retval None
   */
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void *argument)
 {
- 8008f20:	b508      	push	{r3, lr}
+ 8008f24:	b508      	push	{r3, lr}
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
- 8008f22:	2001      	movs	r0, #1
- 8008f24:	f7ff fcf8 	bl	8008918 <osDelay>
+ 8008f26:	2001      	movs	r0, #1
+ 8008f28:	f7ff fcf8 	bl	800891c <osDelay>
   for(;;)
- 8008f28:	e7fb      	b.n	8008f22 <StartDefaultTask+0x2>
+ 8008f2c:	e7fb      	b.n	8008f26 <StartDefaultTask+0x2>
 
-08008f2a <ReadCellVoltage>:
+08008f2e <ReadCellVoltage>:
 * @param argument: Not used
 * @retval None
 */
 /* USER CODE END Header_ReadCellVoltage */
 void ReadCellVoltage(void *argument)
 {
- 8008f2a:	b508      	push	{r3, lr}
+ 8008f2e:	b508      	push	{r3, lr}
   /* USER CODE BEGIN ReadCellVoltage */
   /* Infinite loop */
   for(;;)
   {
     osDelay(1);
- 8008f2c:	2001      	movs	r0, #1
- 8008f2e:	f7ff fcf3 	bl	8008918 <osDelay>
+ 8008f30:	2001      	movs	r0, #1
+ 8008f32:	f7ff fcf3 	bl	800891c <osDelay>
   for(;;)
- 8008f32:	e7fb      	b.n	8008f2c <ReadCellVoltage+0x2>
+ 8008f36:	e7fb      	b.n	8008f30 <ReadCellVoltage+0x2>
 
-08008f34 <ReadCellTemps>:
+08008f38 <ReadCellTemps>:
 * @param argument: Not used
 * @retval None
 */
 /* USER CODE END Header_ReadCellTemps */
 void ReadCellTemps(void *argument)
 {
- 8008f34:	b508      	push	{r3, lr}
+ 8008f38:	b508      	push	{r3, lr}
   /* USER CODE BEGIN ReadCellTemps */
   /* Call the cell temperature monitoring task */
   CellTemp_MonitorTask(argument);
- 8008f36:	f7ff fbc1 	bl	80086bc <CellTemp_MonitorTask>
+ 8008f3a:	f7ff fbc1 	bl	80086c0 <CellTemp_MonitorTask>
   /* USER CODE END ReadCellTemps */
 }
- 8008f3a:	bd08      	pop	{r3, pc}
+ 8008f3e:	bd08      	pop	{r3, pc}
 
-08008f3c <vApplicationMallocFailedHook>:
+08008f40 <vApplicationMallocFailedHook>:
 {
- 8008f3c:	b500      	push	{lr}
- 8008f3e:	b083      	sub	sp, #12
- 8008f40:	f04f 0350 	mov.w	r3, #80	@ 0x50
- 8008f44:	f383 8811 	msr	BASEPRI, r3
- 8008f48:	f3bf 8f6f 	isb	sy
- 8008f4c:	f3bf 8f4f 	dsb	sy
+ 8008f40:	b500      	push	{lr}
+ 8008f42:	b083      	sub	sp, #12
+ 8008f44:	f04f 0350 	mov.w	r3, #80	@ 0x50
+ 8008f48:	f383 8811 	msr	BASEPRI, r3
+ 8008f4c:	f3bf 8f6f 	isb	sy
+ 8008f50:	f3bf 8f4f 	dsb	sy
     HAL_GPIO_TogglePin(GPIOB, MUX_SIG1_Pin);
- 8008f50:	2102      	movs	r1, #2
- 8008f52:	4806      	ldr	r0, [pc, #24]	@ (8008f6c <vApplicationMallocFailedHook+0x30>)
- 8008f54:	f002 f88b 	bl	800b06e <HAL_GPIO_TogglePin>
+ 8008f54:	2102      	movs	r1, #2
+ 8008f56:	4806      	ldr	r0, [pc, #24]	@ (8008f70 <vApplicationMallocFailedHook+0x30>)
+ 8008f58:	f002 f889 	bl	800b06e <HAL_GPIO_TogglePin>
     for(volatile uint32_t i = 0; i < 100000; i++);  // Busy wait
- 8008f58:	2300      	movs	r3, #0
- 8008f5a:	9301      	str	r3, [sp, #4]
- 8008f5c:	9a01      	ldr	r2, [sp, #4]
- 8008f5e:	4b04      	ldr	r3, [pc, #16]	@ (8008f70 <vApplicationMallocFailedHook+0x34>)
- 8008f60:	429a      	cmp	r2, r3
- 8008f62:	d8f5      	bhi.n	8008f50 <vApplicationMallocFailedHook+0x14>
- 8008f64:	9b01      	ldr	r3, [sp, #4]
- 8008f66:	3301      	adds	r3, #1
- 8008f68:	9301      	str	r3, [sp, #4]
- 8008f6a:	e7f7      	b.n	8008f5c <vApplicationMallocFailedHook+0x20>
- 8008f6c:	48000400 	.word	0x48000400
- 8008f70:	0001869f 	.word	0x0001869f
+ 8008f5c:	2300      	movs	r3, #0
+ 8008f5e:	9301      	str	r3, [sp, #4]
+ 8008f60:	9a01      	ldr	r2, [sp, #4]
+ 8008f62:	4b04      	ldr	r3, [pc, #16]	@ (8008f74 <vApplicationMallocFailedHook+0x34>)
+ 8008f64:	429a      	cmp	r2, r3
+ 8008f66:	d8f5      	bhi.n	8008f54 <vApplicationMallocFailedHook+0x14>
+ 8008f68:	9b01      	ldr	r3, [sp, #4]
+ 8008f6a:	3301      	adds	r3, #1
+ 8008f6c:	9301      	str	r3, [sp, #4]
+ 8008f6e:	e7f7      	b.n	8008f60 <vApplicationMallocFailedHook+0x20>
+ 8008f70:	48000400 	.word	0x48000400
+ 8008f74:	0001869f 	.word	0x0001869f
 
-08008f74 <HAL_TIM_PeriodElapsedCallback>:
+08008f78 <HAL_TIM_PeriodElapsedCallback>:
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
   * @retval None
   */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
- 8008f74:	b508      	push	{r3, lr}
+ 8008f78:	b508      	push	{r3, lr}
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
   if (htim->Instance == TIM6)
- 8008f76:	6802      	ldr	r2, [r0, #0]
- 8008f78:	4b03      	ldr	r3, [pc, #12]	@ (8008f88 <HAL_TIM_PeriodElapsedCallback+0x14>)
- 8008f7a:	429a      	cmp	r2, r3
- 8008f7c:	d000      	beq.n	8008f80 <HAL_TIM_PeriodElapsedCallback+0xc>
+ 8008f7a:	6802      	ldr	r2, [r0, #0]
+ 8008f7c:	4b03      	ldr	r3, [pc, #12]	@ (8008f8c <HAL_TIM_PeriodElapsedCallback+0x14>)
+ 8008f7e:	429a      	cmp	r2, r3
+ 8008f80:	d000      	beq.n	8008f84 <HAL_TIM_PeriodElapsedCallback+0xc>
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
 
   /* USER CODE END Callback 1 */
 }
- 8008f7e:	bd08      	pop	{r3, pc}
+ 8008f82:	bd08      	pop	{r3, pc}
     HAL_IncTick();
- 8008f80:	f000 ff50 	bl	8009e24 <HAL_IncTick>
+ 8008f84:	f000 ff4e 	bl	8009e24 <HAL_IncTick>
 }
- 8008f84:	e7fb      	b.n	8008f7e <HAL_TIM_PeriodElapsedCallback+0xa>
- 8008f86:	bf00      	nop
- 8008f88:	40001000 	.word	0x40001000
+ 8008f88:	e7fb      	b.n	8008f82 <HAL_TIM_PeriodElapsedCallback+0xa>
+ 8008f8a:	bf00      	nop
+ 8008f8c:	40001000 	.word	0x40001000
 
-08008f8c <Error_Handler>:
+08008f90 <Error_Handler>:
   __ASM volatile ("cpsid i" : : : "memory");
- 8008f8c:	b672      	cpsid	i
+ 8008f90:	b672      	cpsid	i
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
   /* User can add his own implementation to report the HAL error return state */
   __disable_irq();
   while (1)
- 8008f8e:	e7fe      	b.n	8008f8e <Error_Handler+0x2>
+ 8008f92:	e7fe      	b.n	8008f92 <Error_Handler+0x2>
 
-08008f90 <MX_ADC1_Init>:
+08008f94 <MX_ADC1_Init>:
 {
- 8008f90:	b500      	push	{lr}
- 8008f92:	b087      	sub	sp, #28
+ 8008f94:	b500      	push	{lr}
+ 8008f96:	b087      	sub	sp, #28
   ADC_ChannelConfTypeDef sConfig = {0};
- 8008f94:	2300      	movs	r3, #0
- 8008f96:	9300      	str	r3, [sp, #0]
- 8008f98:	9301      	str	r3, [sp, #4]
- 8008f9a:	9302      	str	r3, [sp, #8]
- 8008f9c:	9303      	str	r3, [sp, #12]
- 8008f9e:	9304      	str	r3, [sp, #16]
- 8008fa0:	9305      	str	r3, [sp, #20]
+ 8008f98:	2300      	movs	r3, #0
+ 8008f9a:	9300      	str	r3, [sp, #0]
+ 8008f9c:	9301      	str	r3, [sp, #4]
+ 8008f9e:	9302      	str	r3, [sp, #8]
+ 8008fa0:	9303      	str	r3, [sp, #12]
+ 8008fa2:	9304      	str	r3, [sp, #16]
+ 8008fa4:	9305      	str	r3, [sp, #20]
   hadc1.Instance = ADC1;
- 8008fa2:	4818      	ldr	r0, [pc, #96]	@ (8009004 <MX_ADC1_Init+0x74>)
- 8008fa4:	4a18      	ldr	r2, [pc, #96]	@ (8009008 <MX_ADC1_Init+0x78>)
- 8008fa6:	6002      	str	r2, [r0, #0]
+ 8008fa6:	4818      	ldr	r0, [pc, #96]	@ (8009008 <MX_ADC1_Init+0x74>)
+ 8008fa8:	4a18      	ldr	r2, [pc, #96]	@ (800900c <MX_ADC1_Init+0x78>)
+ 8008faa:	6002      	str	r2, [r0, #0]
   hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
- 8008fa8:	6043      	str	r3, [r0, #4]
+ 8008fac:	6043      	str	r3, [r0, #4]
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
- 8008faa:	6083      	str	r3, [r0, #8]
+ 8008fae:	6083      	str	r3, [r0, #8]
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
- 8008fac:	60c3      	str	r3, [r0, #12]
+ 8008fb0:	60c3      	str	r3, [r0, #12]
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
- 8008fae:	6103      	str	r3, [r0, #16]
+ 8008fb2:	6103      	str	r3, [r0, #16]
   hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
- 8008fb0:	2204      	movs	r2, #4
- 8008fb2:	6142      	str	r2, [r0, #20]
+ 8008fb4:	2204      	movs	r2, #4
+ 8008fb6:	6142      	str	r2, [r0, #20]
   hadc1.Init.LowPowerAutoWait = DISABLE;
- 8008fb4:	7603      	strb	r3, [r0, #24]
+ 8008fb8:	7603      	strb	r3, [r0, #24]
   hadc1.Init.ContinuousConvMode = DISABLE;
- 8008fb6:	7643      	strb	r3, [r0, #25]
+ 8008fba:	7643      	strb	r3, [r0, #25]
   hadc1.Init.NbrOfConversion = 1;
- 8008fb8:	2201      	movs	r2, #1
- 8008fba:	61c2      	str	r2, [r0, #28]
+ 8008fbc:	2201      	movs	r2, #1
+ 8008fbe:	61c2      	str	r2, [r0, #28]
   hadc1.Init.DiscontinuousConvMode = DISABLE;
- 8008fbc:	f880 3020 	strb.w	r3, [r0, #32]
+ 8008fc0:	f880 3020 	strb.w	r3, [r0, #32]
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
- 8008fc0:	6283      	str	r3, [r0, #40]	@ 0x28
+ 8008fc4:	6283      	str	r3, [r0, #40]	@ 0x28
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
- 8008fc2:	62c3      	str	r3, [r0, #44]	@ 0x2c
+ 8008fc6:	62c3      	str	r3, [r0, #44]	@ 0x2c
   hadc1.Init.DMAContinuousRequests = DISABLE;
- 8008fc4:	f880 3030 	strb.w	r3, [r0, #48]	@ 0x30
+ 8008fc8:	f880 3030 	strb.w	r3, [r0, #48]	@ 0x30
   hadc1.Init.Overrun = ADC_OVR_DATA_PRESERVED;
- 8008fc8:	6343      	str	r3, [r0, #52]	@ 0x34
+ 8008fcc:	6343      	str	r3, [r0, #52]	@ 0x34
   hadc1.Init.OversamplingMode = DISABLE;
- 8008fca:	f880 3038 	strb.w	r3, [r0, #56]	@ 0x38
+ 8008fce:	f880 3038 	strb.w	r3, [r0, #56]	@ 0x38
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
- 8008fce:	f000 ff69 	bl	8009ea4 <HAL_ADC_Init>
- 8008fd2:	b998      	cbnz	r0, 8008ffc <MX_ADC1_Init+0x6c>
+ 8008fd2:	f000 ff67 	bl	8009ea4 <HAL_ADC_Init>
+ 8008fd6:	b998      	cbnz	r0, 8009000 <MX_ADC1_Init+0x6c>
   sConfig.Channel = ADC_CHANNEL_5;  // ADC1 (PA0) - first thermistor channel
- 8008fd4:	4b0d      	ldr	r3, [pc, #52]	@ (800900c <MX_ADC1_Init+0x7c>)
- 8008fd6:	9300      	str	r3, [sp, #0]
+ 8008fd8:	4b0d      	ldr	r3, [pc, #52]	@ (8009010 <MX_ADC1_Init+0x7c>)
+ 8008fda:	9300      	str	r3, [sp, #0]
   sConfig.Rank = ADC_REGULAR_RANK_1;
- 8008fd8:	2306      	movs	r3, #6
- 8008fda:	9301      	str	r3, [sp, #4]
+ 8008fdc:	2306      	movs	r3, #6
+ 8008fde:	9301      	str	r3, [sp, #4]
   sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5;  // Longer sampling for high impedance thermistors
- 8008fdc:	2307      	movs	r3, #7
- 8008fde:	9302      	str	r3, [sp, #8]
+ 8008fe0:	2307      	movs	r3, #7
+ 8008fe2:	9302      	str	r3, [sp, #8]
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
- 8008fe0:	237f      	movs	r3, #127	@ 0x7f
- 8008fe2:	9303      	str	r3, [sp, #12]
+ 8008fe4:	237f      	movs	r3, #127	@ 0x7f
+ 8008fe6:	9303      	str	r3, [sp, #12]
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
- 8008fe4:	2304      	movs	r3, #4
- 8008fe6:	9304      	str	r3, [sp, #16]
+ 8008fe8:	2304      	movs	r3, #4
+ 8008fea:	9304      	str	r3, [sp, #16]
   sConfig.Offset = 0;
- 8008fe8:	2300      	movs	r3, #0
- 8008fea:	9305      	str	r3, [sp, #20]
+ 8008fec:	2300      	movs	r3, #0
+ 8008fee:	9305      	str	r3, [sp, #20]
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
- 8008fec:	4669      	mov	r1, sp
- 8008fee:	4805      	ldr	r0, [pc, #20]	@ (8009004 <MX_ADC1_Init+0x74>)
- 8008ff0:	f001 f89a 	bl	800a128 <HAL_ADC_ConfigChannel>
- 8008ff4:	b920      	cbnz	r0, 8009000 <MX_ADC1_Init+0x70>
+ 8008ff0:	4669      	mov	r1, sp
+ 8008ff2:	4805      	ldr	r0, [pc, #20]	@ (8009008 <MX_ADC1_Init+0x74>)
+ 8008ff4:	f001 f898 	bl	800a128 <HAL_ADC_ConfigChannel>
+ 8008ff8:	b920      	cbnz	r0, 8009004 <MX_ADC1_Init+0x70>
 }
- 8008ff6:	b007      	add	sp, #28
- 8008ff8:	f85d fb04 	ldr.w	pc, [sp], #4
+ 8008ffa:	b007      	add	sp, #28
+ 8008ffc:	f85d fb04 	ldr.w	pc, [sp], #4
     Error_Handler();
- 8008ffc:	f7ff ffc6 	bl	8008f8c <Error_Handler>
+ 8009000:	f7ff ffc6 	bl	8008f90 <Error_Handler>
     Error_Handler();
- 8009000:	f7ff ffc4 	bl	8008f8c <Error_Handler>
- 8009004:	20003af4 	.word	0x20003af4
- 8009008:	50040000 	.word	0x50040000
- 800900c:	14f00020 	.word	0x14f00020
+ 8009004:	f7ff ffc4 	bl	8008f90 <Error_Handler>
+ 8009008:	20003af4 	.word	0x20003af4
+ 800900c:	50040000 	.word	0x50040000
+ 8009010:	14f00020 	.word	0x14f00020
 
-08009010 <MX_CAN1_Init>:
+08009014 <MX_CAN1_Init>:
 {
- 8009010:	b508      	push	{r3, lr}
+ 8009014:	b508      	push	{r3, lr}
   hcan1.Instance = CAN1;
- 8009012:	480d      	ldr	r0, [pc, #52]	@ (8009048 <MX_CAN1_Init+0x38>)
- 8009014:	4b0d      	ldr	r3, [pc, #52]	@ (800904c <MX_CAN1_Init+0x3c>)
- 8009016:	6003      	str	r3, [r0, #0]
+ 8009016:	480d      	ldr	r0, [pc, #52]	@ (800904c <MX_CAN1_Init+0x38>)
+ 8009018:	4b0d      	ldr	r3, [pc, #52]	@ (8009050 <MX_CAN1_Init+0x3c>)
+ 800901a:	6003      	str	r3, [r0, #0]
   hcan1.Init.Prescaler = 10;
- 8009018:	230a      	movs	r3, #10
- 800901a:	6043      	str	r3, [r0, #4]
+ 800901c:	230a      	movs	r3, #10
+ 800901e:	6043      	str	r3, [r0, #4]
   hcan1.Init.Mode = CAN_MODE_NORMAL;
- 800901c:	2300      	movs	r3, #0
- 800901e:	6083      	str	r3, [r0, #8]
+ 8009020:	2300      	movs	r3, #0
+ 8009022:	6083      	str	r3, [r0, #8]
   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
- 8009020:	60c3      	str	r3, [r0, #12]
+ 8009024:	60c3      	str	r3, [r0, #12]
   hcan1.Init.TimeSeg1 = CAN_BS1_13TQ;
- 8009022:	f44f 2240 	mov.w	r2, #786432	@ 0xc0000
- 8009026:	6102      	str	r2, [r0, #16]
+ 8009026:	f44f 2240 	mov.w	r2, #786432	@ 0xc0000
+ 800902a:	6102      	str	r2, [r0, #16]
   hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
- 8009028:	f44f 1280 	mov.w	r2, #1048576	@ 0x100000
- 800902c:	6142      	str	r2, [r0, #20]
+ 800902c:	f44f 1280 	mov.w	r2, #1048576	@ 0x100000
+ 8009030:	6142      	str	r2, [r0, #20]
   hcan1.Init.TimeTriggeredMode = DISABLE;
- 800902e:	7603      	strb	r3, [r0, #24]
+ 8009032:	7603      	strb	r3, [r0, #24]
   hcan1.Init.AutoBusOff = DISABLE;
- 8009030:	7643      	strb	r3, [r0, #25]
+ 8009034:	7643      	strb	r3, [r0, #25]
   hcan1.Init.AutoWakeUp = DISABLE;
- 8009032:	7683      	strb	r3, [r0, #26]
+ 8009036:	7683      	strb	r3, [r0, #26]
   hcan1.Init.AutoRetransmission = DISABLE;
- 8009034:	76c3      	strb	r3, [r0, #27]
+ 8009038:	76c3      	strb	r3, [r0, #27]
   hcan1.Init.ReceiveFifoLocked = DISABLE;
- 8009036:	7703      	strb	r3, [r0, #28]
+ 800903a:	7703      	strb	r3, [r0, #28]
   hcan1.Init.TransmitFifoPriority = DISABLE;
- 8009038:	7743      	strb	r3, [r0, #29]
+ 800903c:	7743      	strb	r3, [r0, #29]
   if (HAL_CAN_Init(&hcan1) != HAL_OK)
- 800903a:	f001 fc78 	bl	800a92e <HAL_CAN_Init>
- 800903e:	b900      	cbnz	r0, 8009042 <MX_CAN1_Init+0x32>
+ 800903e:	f001 fc76 	bl	800a92e <HAL_CAN_Init>
+ 8009042:	b900      	cbnz	r0, 8009046 <MX_CAN1_Init+0x32>
 }
- 8009040:	bd08      	pop	{r3, pc}
+ 8009044:	bd08      	pop	{r3, pc}
     Error_Handler();
- 8009042:	f7ff ffa3 	bl	8008f8c <Error_Handler>
- 8009046:	bf00      	nop
- 8009048:	20003acc 	.word	0x20003acc
- 800904c:	40006400 	.word	0x40006400
+ 8009046:	f7ff ffa3 	bl	8008f90 <Error_Handler>
+ 800904a:	bf00      	nop
+ 800904c:	20003acc 	.word	0x20003acc
+ 8009050:	40006400 	.word	0x40006400
 
-08009050 <MX_CRC_Init>:
+08009054 <MX_CRC_Init>:
 {
- 8009050:	b508      	push	{r3, lr}
+ 8009054:	b508      	push	{r3, lr}
   hcrc.Instance = CRC;
- 8009052:	4808      	ldr	r0, [pc, #32]	@ (8009074 <MX_CRC_Init+0x24>)
- 8009054:	4b08      	ldr	r3, [pc, #32]	@ (8009078 <MX_CRC_Init+0x28>)
- 8009056:	6003      	str	r3, [r0, #0]
+ 8009056:	4808      	ldr	r0, [pc, #32]	@ (8009078 <MX_CRC_Init+0x24>)
+ 8009058:	4b08      	ldr	r3, [pc, #32]	@ (800907c <MX_CRC_Init+0x28>)
+ 800905a:	6003      	str	r3, [r0, #0]
   hcrc.Init.DefaultPolynomialUse = DEFAULT_POLYNOMIAL_ENABLE;
- 8009058:	2300      	movs	r3, #0
- 800905a:	7103      	strb	r3, [r0, #4]
+ 800905c:	2300      	movs	r3, #0
+ 800905e:	7103      	strb	r3, [r0, #4]
   hcrc.Init.DefaultInitValueUse = DEFAULT_INIT_VALUE_ENABLE;
- 800905c:	7143      	strb	r3, [r0, #5]
+ 8009060:	7143      	strb	r3, [r0, #5]
   hcrc.Init.InputDataInversionMode = CRC_INPUTDATA_INVERSION_NONE;
- 800905e:	6143      	str	r3, [r0, #20]
+ 8009062:	6143      	str	r3, [r0, #20]
   hcrc.Init.OutputDataInversionMode = CRC_OUTPUTDATA_INVERSION_DISABLE;
- 8009060:	6183      	str	r3, [r0, #24]
+ 8009064:	6183      	str	r3, [r0, #24]
   hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
- 8009062:	2301      	movs	r3, #1
- 8009064:	6203      	str	r3, [r0, #32]
+ 8009066:	2301      	movs	r3, #1
+ 8009068:	6203      	str	r3, [r0, #32]
   if (HAL_CRC_Init(&hcrc) != HAL_OK)
- 8009066:	f001 fea9 	bl	800adbc <HAL_CRC_Init>
- 800906a:	b900      	cbnz	r0, 800906e <MX_CRC_Init+0x1e>
+ 800906a:	f001 fea7 	bl	800adbc <HAL_CRC_Init>
+ 800906e:	b900      	cbnz	r0, 8009072 <MX_CRC_Init+0x1e>
 }
- 800906c:	bd08      	pop	{r3, pc}
+ 8009070:	bd08      	pop	{r3, pc}
     Error_Handler();
- 800906e:	f7ff ff8d 	bl	8008f8c <Error_Handler>
- 8009072:	bf00      	nop
- 8009074:	20003aa8 	.word	0x20003aa8
- 8009078:	40023000 	.word	0x40023000
+ 8009072:	f7ff ff8d 	bl	8008f90 <Error_Handler>
+ 8009076:	bf00      	nop
+ 8009078:	20003aa8 	.word	0x20003aa8
+ 800907c:	40023000 	.word	0x40023000
 
-0800907c <MX_I2C1_Init>:
+08009080 <MX_I2C1_Init>:
 {
- 800907c:	b508      	push	{r3, lr}
+ 8009080:	b508      	push	{r3, lr}
   hi2c1.Instance = I2C1;
- 800907e:	4811      	ldr	r0, [pc, #68]	@ (80090c4 <MX_I2C1_Init+0x48>)
- 8009080:	4b11      	ldr	r3, [pc, #68]	@ (80090c8 <MX_I2C1_Init+0x4c>)
- 8009082:	6003      	str	r3, [r0, #0]
+ 8009082:	4811      	ldr	r0, [pc, #68]	@ (80090c8 <MX_I2C1_Init+0x48>)
+ 8009084:	4b11      	ldr	r3, [pc, #68]	@ (80090cc <MX_I2C1_Init+0x4c>)
+ 8009086:	6003      	str	r3, [r0, #0]
   hi2c1.Init.Timing = 0x00503D58;
- 8009084:	4b11      	ldr	r3, [pc, #68]	@ (80090cc <MX_I2C1_Init+0x50>)
- 8009086:	6043      	str	r3, [r0, #4]
+ 8009088:	4b11      	ldr	r3, [pc, #68]	@ (80090d0 <MX_I2C1_Init+0x50>)
+ 800908a:	6043      	str	r3, [r0, #4]
   hi2c1.Init.OwnAddress1 = 0;
- 8009088:	2300      	movs	r3, #0
- 800908a:	6083      	str	r3, [r0, #8]
+ 800908c:	2300      	movs	r3, #0
+ 800908e:	6083      	str	r3, [r0, #8]
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
- 800908c:	2201      	movs	r2, #1
- 800908e:	60c2      	str	r2, [r0, #12]
+ 8009090:	2201      	movs	r2, #1
+ 8009092:	60c2      	str	r2, [r0, #12]
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
- 8009090:	6103      	str	r3, [r0, #16]
+ 8009094:	6103      	str	r3, [r0, #16]
   hi2c1.Init.OwnAddress2 = 0;
- 8009092:	6143      	str	r3, [r0, #20]
+ 8009096:	6143      	str	r3, [r0, #20]
   hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
- 8009094:	6183      	str	r3, [r0, #24]
+ 8009098:	6183      	str	r3, [r0, #24]
   hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
- 8009096:	61c3      	str	r3, [r0, #28]
+ 800909a:	61c3      	str	r3, [r0, #28]
   hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
- 8009098:	6203      	str	r3, [r0, #32]
+ 800909c:	6203      	str	r3, [r0, #32]
   if (HAL_I2C_Init(&hi2c1) != HAL_OK)
- 800909a:	f001 fff1 	bl	800b080 <HAL_I2C_Init>
- 800909e:	b950      	cbnz	r0, 80090b6 <MX_I2C1_Init+0x3a>
+ 800909e:	f001 ffef 	bl	800b080 <HAL_I2C_Init>
+ 80090a2:	b950      	cbnz	r0, 80090ba <MX_I2C1_Init+0x3a>
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
- 80090a0:	2100      	movs	r1, #0
- 80090a2:	4808      	ldr	r0, [pc, #32]	@ (80090c4 <MX_I2C1_Init+0x48>)
- 80090a4:	f002 f850 	bl	800b148 <HAL_I2CEx_ConfigAnalogFilter>
- 80090a8:	b938      	cbnz	r0, 80090ba <MX_I2C1_Init+0x3e>
+ 80090a4:	2100      	movs	r1, #0
+ 80090a6:	4808      	ldr	r0, [pc, #32]	@ (80090c8 <MX_I2C1_Init+0x48>)
+ 80090a8:	f002 f84e 	bl	800b148 <HAL_I2CEx_ConfigAnalogFilter>
+ 80090ac:	b938      	cbnz	r0, 80090be <MX_I2C1_Init+0x3e>
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
- 80090aa:	2100      	movs	r1, #0
- 80090ac:	4805      	ldr	r0, [pc, #20]	@ (80090c4 <MX_I2C1_Init+0x48>)
- 80090ae:	f002 f878 	bl	800b1a2 <HAL_I2CEx_ConfigDigitalFilter>
- 80090b2:	b920      	cbnz	r0, 80090be <MX_I2C1_Init+0x42>
+ 80090ae:	2100      	movs	r1, #0
+ 80090b0:	4805      	ldr	r0, [pc, #20]	@ (80090c8 <MX_I2C1_Init+0x48>)
+ 80090b2:	f002 f876 	bl	800b1a2 <HAL_I2CEx_ConfigDigitalFilter>
+ 80090b6:	b920      	cbnz	r0, 80090c2 <MX_I2C1_Init+0x42>
 }
- 80090b4:	bd08      	pop	{r3, pc}
+ 80090b8:	bd08      	pop	{r3, pc}
     Error_Handler();
- 80090b6:	f7ff ff69 	bl	8008f8c <Error_Handler>
+ 80090ba:	f7ff ff69 	bl	8008f90 <Error_Handler>
     Error_Handler();
- 80090ba:	f7ff ff67 	bl	8008f8c <Error_Handler>
+ 80090be:	f7ff ff67 	bl	8008f90 <Error_Handler>
     Error_Handler();
- 80090be:	f7ff ff65 	bl	8008f8c <Error_Handler>
- 80090c2:	bf00      	nop
- 80090c4:	20003a54 	.word	0x20003a54
- 80090c8:	40005400 	.word	0x40005400
- 80090cc:	00503d58 	.word	0x00503d58
+ 80090c2:	f7ff ff65 	bl	8008f90 <Error_Handler>
+ 80090c6:	bf00      	nop
+ 80090c8:	20003a54 	.word	0x20003a54
+ 80090cc:	40005400 	.word	0x40005400
+ 80090d0:	00503d58 	.word	0x00503d58
 
-080090d0 <MX_I2C3_Init>:
+080090d4 <MX_I2C3_Init>:
 {
- 80090d0:	b508      	push	{r3, lr}
+ 80090d4:	b508      	push	{r3, lr}
   hi2c3.Instance = I2C3;
- 80090d2:	4811      	ldr	r0, [pc, #68]	@ (8009118 <MX_I2C3_Init+0x48>)
- 80090d4:	4b11      	ldr	r3, [pc, #68]	@ (800911c <MX_I2C3_Init+0x4c>)
- 80090d6:	6003      	str	r3, [r0, #0]
+ 80090d6:	4811      	ldr	r0, [pc, #68]	@ (800911c <MX_I2C3_Init+0x48>)
+ 80090d8:	4b11      	ldr	r3, [pc, #68]	@ (8009120 <MX_I2C3_Init+0x4c>)
+ 80090da:	6003      	str	r3, [r0, #0]
   hi2c3.Init.Timing = 0x00503D58;
- 80090d8:	4b11      	ldr	r3, [pc, #68]	@ (8009120 <MX_I2C3_Init+0x50>)
- 80090da:	6043      	str	r3, [r0, #4]
+ 80090dc:	4b11      	ldr	r3, [pc, #68]	@ (8009124 <MX_I2C3_Init+0x50>)
+ 80090de:	6043      	str	r3, [r0, #4]
   hi2c3.Init.OwnAddress1 = 0;
- 80090dc:	2300      	movs	r3, #0
- 80090de:	6083      	str	r3, [r0, #8]
+ 80090e0:	2300      	movs	r3, #0
+ 80090e2:	6083      	str	r3, [r0, #8]
   hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
- 80090e0:	2201      	movs	r2, #1
- 80090e2:	60c2      	str	r2, [r0, #12]
+ 80090e4:	2201      	movs	r2, #1
+ 80090e6:	60c2      	str	r2, [r0, #12]
   hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
- 80090e4:	6103      	str	r3, [r0, #16]
+ 80090e8:	6103      	str	r3, [r0, #16]
   hi2c3.Init.OwnAddress2 = 0;
- 80090e6:	6143      	str	r3, [r0, #20]
+ 80090ea:	6143      	str	r3, [r0, #20]
   hi2c3.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
- 80090e8:	6183      	str	r3, [r0, #24]
+ 80090ec:	6183      	str	r3, [r0, #24]
   hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
- 80090ea:	61c3      	str	r3, [r0, #28]
+ 80090ee:	61c3      	str	r3, [r0, #28]
   hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
- 80090ec:	6203      	str	r3, [r0, #32]
+ 80090f0:	6203      	str	r3, [r0, #32]
   if (HAL_I2C_Init(&hi2c3) != HAL_OK)
- 80090ee:	f001 ffc7 	bl	800b080 <HAL_I2C_Init>
- 80090f2:	b950      	cbnz	r0, 800910a <MX_I2C3_Init+0x3a>
+ 80090f2:	f001 ffc5 	bl	800b080 <HAL_I2C_Init>
+ 80090f6:	b950      	cbnz	r0, 800910e <MX_I2C3_Init+0x3a>
   if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
- 80090f4:	2100      	movs	r1, #0
- 80090f6:	4808      	ldr	r0, [pc, #32]	@ (8009118 <MX_I2C3_Init+0x48>)
- 80090f8:	f002 f826 	bl	800b148 <HAL_I2CEx_ConfigAnalogFilter>
- 80090fc:	b938      	cbnz	r0, 800910e <MX_I2C3_Init+0x3e>
+ 80090f8:	2100      	movs	r1, #0
+ 80090fa:	4808      	ldr	r0, [pc, #32]	@ (800911c <MX_I2C3_Init+0x48>)
+ 80090fc:	f002 f824 	bl	800b148 <HAL_I2CEx_ConfigAnalogFilter>
+ 8009100:	b938      	cbnz	r0, 8009112 <MX_I2C3_Init+0x3e>
   if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
- 80090fe:	2100      	movs	r1, #0
- 8009100:	4805      	ldr	r0, [pc, #20]	@ (8009118 <MX_I2C3_Init+0x48>)
- 8009102:	f002 f84e 	bl	800b1a2 <HAL_I2CEx_ConfigDigitalFilter>
- 8009106:	b920      	cbnz	r0, 8009112 <MX_I2C3_Init+0x42>
+ 8009102:	2100      	movs	r1, #0
+ 8009104:	4805      	ldr	r0, [pc, #20]	@ (800911c <MX_I2C3_Init+0x48>)
+ 8009106:	f002 f84c 	bl	800b1a2 <HAL_I2CEx_ConfigDigitalFilter>
+ 800910a:	b920      	cbnz	r0, 8009116 <MX_I2C3_Init+0x42>
 }
- 8009108:	bd08      	pop	{r3, pc}
+ 800910c:	bd08      	pop	{r3, pc}
     Error_Handler();
- 800910a:	f7ff ff3f 	bl	8008f8c <Error_Handler>
+ 800910e:	f7ff ff3f 	bl	8008f90 <Error_Handler>
     Error_Handler();
- 800910e:	f7ff ff3d 	bl	8008f8c <Error_Handler>
+ 8009112:	f7ff ff3d 	bl	8008f90 <Error_Handler>
     Error_Handler();
- 8009112:	f7ff ff3b 	bl	8008f8c <Error_Handler>
- 8009116:	bf00      	nop
- 8009118:	20003a00 	.word	0x20003a00
- 800911c:	40005c00 	.word	0x40005c00
- 8009120:	00503d58 	.word	0x00503d58
+ 8009116:	f7ff ff3b 	bl	8008f90 <Error_Handler>
+ 800911a:	bf00      	nop
+ 800911c:	20003a00 	.word	0x20003a00
+ 8009120:	40005c00 	.word	0x40005c00
+ 8009124:	00503d58 	.word	0x00503d58
 
-08009124 <SystemClock_Config>:
+08009128 <SystemClock_Config>:
 {
- 8009124:	b500      	push	{lr}
- 8009126:	b097      	sub	sp, #92	@ 0x5c
+ 8009128:	b500      	push	{lr}
+ 800912a:	b097      	sub	sp, #92	@ 0x5c
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
- 8009128:	2244      	movs	r2, #68	@ 0x44
- 800912a:	2100      	movs	r1, #0
- 800912c:	a805      	add	r0, sp, #20
- 800912e:	f004 fa52 	bl	800d5d6 <memset>
+ 800912c:	2244      	movs	r2, #68	@ 0x44
+ 800912e:	2100      	movs	r1, #0
+ 8009130:	a805      	add	r0, sp, #20
+ 8009132:	f004 fa50 	bl	800d5d6 <memset>
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
- 8009132:	2300      	movs	r3, #0
- 8009134:	9300      	str	r3, [sp, #0]
- 8009136:	9301      	str	r3, [sp, #4]
- 8009138:	9302      	str	r3, [sp, #8]
- 800913a:	9303      	str	r3, [sp, #12]
- 800913c:	9304      	str	r3, [sp, #16]
+ 8009136:	2300      	movs	r3, #0
+ 8009138:	9300      	str	r3, [sp, #0]
+ 800913a:	9301      	str	r3, [sp, #4]
+ 800913c:	9302      	str	r3, [sp, #8]
+ 800913e:	9303      	str	r3, [sp, #12]
+ 8009140:	9304      	str	r3, [sp, #16]
   if (HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1) != HAL_OK)
- 800913e:	f44f 7000 	mov.w	r0, #512	@ 0x200
- 8009142:	f002 f9cb 	bl	800b4dc <HAL_PWREx_ControlVoltageScaling>
- 8009146:	bb18      	cbnz	r0, 8009190 <SystemClock_Config+0x6c>
+ 8009142:	f44f 7000 	mov.w	r0, #512	@ 0x200
+ 8009146:	f002 f9c9 	bl	800b4dc <HAL_PWREx_ControlVoltageScaling>
+ 800914a:	bb18      	cbnz	r0, 8009194 <SystemClock_Config+0x6c>
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
- 8009148:	2302      	movs	r3, #2
- 800914a:	9305      	str	r3, [sp, #20]
+ 800914c:	2302      	movs	r3, #2
+ 800914e:	9305      	str	r3, [sp, #20]
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
- 800914c:	f44f 7280 	mov.w	r2, #256	@ 0x100
- 8009150:	9208      	str	r2, [sp, #32]
+ 8009150:	f44f 7280 	mov.w	r2, #256	@ 0x100
+ 8009154:	9208      	str	r2, [sp, #32]
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
- 8009152:	2210      	movs	r2, #16
- 8009154:	9209      	str	r2, [sp, #36]	@ 0x24
+ 8009156:	2210      	movs	r2, #16
+ 8009158:	9209      	str	r2, [sp, #36]	@ 0x24
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
- 8009156:	930f      	str	r3, [sp, #60]	@ 0x3c
+ 800915a:	930f      	str	r3, [sp, #60]	@ 0x3c
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
- 8009158:	9310      	str	r3, [sp, #64]	@ 0x40
+ 800915c:	9310      	str	r3, [sp, #64]	@ 0x40
   RCC_OscInitStruct.PLL.PLLM = 2;
- 800915a:	9311      	str	r3, [sp, #68]	@ 0x44
+ 800915e:	9311      	str	r3, [sp, #68]	@ 0x44
   RCC_OscInitStruct.PLL.PLLN = 20;
- 800915c:	2214      	movs	r2, #20
- 800915e:	9212      	str	r2, [sp, #72]	@ 0x48
+ 8009160:	2214      	movs	r2, #20
+ 8009162:	9212      	str	r2, [sp, #72]	@ 0x48
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
- 8009160:	2207      	movs	r2, #7
- 8009162:	9213      	str	r2, [sp, #76]	@ 0x4c
+ 8009164:	2207      	movs	r2, #7
+ 8009166:	9213      	str	r2, [sp, #76]	@ 0x4c
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
- 8009164:	9314      	str	r3, [sp, #80]	@ 0x50
+ 8009168:	9314      	str	r3, [sp, #80]	@ 0x50
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
- 8009166:	9315      	str	r3, [sp, #84]	@ 0x54
+ 800916a:	9315      	str	r3, [sp, #84]	@ 0x54
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
- 8009168:	a805      	add	r0, sp, #20
- 800916a:	f002 fa9b 	bl	800b6a4 <HAL_RCC_OscConfig>
- 800916e:	b988      	cbnz	r0, 8009194 <SystemClock_Config+0x70>
+ 800916c:	a805      	add	r0, sp, #20
+ 800916e:	f002 fa99 	bl	800b6a4 <HAL_RCC_OscConfig>
+ 8009172:	b988      	cbnz	r0, 8009198 <SystemClock_Config+0x70>
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
- 8009170:	230f      	movs	r3, #15
- 8009172:	9300      	str	r3, [sp, #0]
+ 8009174:	230f      	movs	r3, #15
+ 8009176:	9300      	str	r3, [sp, #0]
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
- 8009174:	2303      	movs	r3, #3
- 8009176:	9301      	str	r3, [sp, #4]
+ 8009178:	2303      	movs	r3, #3
+ 800917a:	9301      	str	r3, [sp, #4]
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
- 8009178:	2300      	movs	r3, #0
- 800917a:	9302      	str	r3, [sp, #8]
+ 800917c:	2300      	movs	r3, #0
+ 800917e:	9302      	str	r3, [sp, #8]
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
- 800917c:	9303      	str	r3, [sp, #12]
+ 8009180:	9303      	str	r3, [sp, #12]
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
- 800917e:	9304      	str	r3, [sp, #16]
+ 8009182:	9304      	str	r3, [sp, #16]
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
- 8009180:	2104      	movs	r1, #4
- 8009182:	4668      	mov	r0, sp
- 8009184:	f002 fdc4 	bl	800bd10 <HAL_RCC_ClockConfig>
- 8009188:	b930      	cbnz	r0, 8009198 <SystemClock_Config+0x74>
+ 8009184:	2104      	movs	r1, #4
+ 8009186:	4668      	mov	r0, sp
+ 8009188:	f002 fdc2 	bl	800bd10 <HAL_RCC_ClockConfig>
+ 800918c:	b930      	cbnz	r0, 800919c <SystemClock_Config+0x74>
 }
- 800918a:	b017      	add	sp, #92	@ 0x5c
- 800918c:	f85d fb04 	ldr.w	pc, [sp], #4
+ 800918e:	b017      	add	sp, #92	@ 0x5c
+ 8009190:	f85d fb04 	ldr.w	pc, [sp], #4
     Error_Handler();
- 8009190:	f7ff fefc 	bl	8008f8c <Error_Handler>
+ 8009194:	f7ff fefc 	bl	8008f90 <Error_Handler>
     Error_Handler();
- 8009194:	f7ff fefa 	bl	8008f8c <Error_Handler>
+ 8009198:	f7ff fefa 	bl	8008f90 <Error_Handler>
     Error_Handler();  
- 8009198:	f7ff fef8 	bl	8008f8c <Error_Handler>
+ 800919c:	f7ff fef8 	bl	8008f90 <Error_Handler>
 
-0800919c <main>:
+080091a0 <main>:
 {
- 800919c:	b508      	push	{r3, lr}
- 800919e:	b672      	cpsid	i
+ 80091a0:	b508      	push	{r3, lr}
+ 80091a2:	b672      	cpsid	i
   SysTick->CTRL = 0;
- 80091a0:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
- 80091a4:	2200      	movs	r2, #0
- 80091a6:	611a      	str	r2, [r3, #16]
+ 80091a4:	f04f 23e0 	mov.w	r3, #3758153728	@ 0xe000e000
+ 80091a8:	2200      	movs	r2, #0
+ 80091aa:	611a      	str	r2, [r3, #16]
   SysTick->LOAD = 0;
- 80091a8:	615a      	str	r2, [r3, #20]
+ 80091ac:	615a      	str	r2, [r3, #20]
   SysTick->VAL = 0;
- 80091aa:	619a      	str	r2, [r3, #24]
+ 80091ae:	619a      	str	r2, [r3, #24]
   HAL_Init();
- 80091ac:	f000 fe2b 	bl	8009e06 <HAL_Init>
+ 80091b0:	f000 fe29 	bl	8009e06 <HAL_Init>
   SystemClock_Config();
- 80091b0:	f7ff ffb8 	bl	8009124 <SystemClock_Config>
+ 80091b4:	f7ff ffb8 	bl	8009128 <SystemClock_Config>
   MX_GPIO_Init();
- 80091b4:	f7ff fe66 	bl	8008e84 <MX_GPIO_Init>
+ 80091b8:	f7ff fe66 	bl	8008e88 <MX_GPIO_Init>
   MX_ADC1_Init();
- 80091b8:	f7ff feea 	bl	8008f90 <MX_ADC1_Init>
+ 80091bc:	f7ff feea 	bl	8008f94 <MX_ADC1_Init>
   MX_CAN1_Init();
- 80091bc:	f7ff ff28 	bl	8009010 <MX_CAN1_Init>
+ 80091c0:	f7ff ff28 	bl	8009014 <MX_CAN1_Init>
   MX_CRC_Init();
- 80091c0:	f7ff ff46 	bl	8009050 <MX_CRC_Init>
+ 80091c4:	f7ff ff46 	bl	8009054 <MX_CRC_Init>
   MX_I2C1_Init();
- 80091c4:	f7ff ff5a 	bl	800907c <MX_I2C1_Init>
+ 80091c8:	f7ff ff5a 	bl	8009080 <MX_I2C1_Init>
   MX_I2C3_Init();
- 80091c8:	f7ff ff82 	bl	80090d0 <MX_I2C3_Init>
+ 80091cc:	f7ff ff82 	bl	80090d4 <MX_I2C3_Init>
   if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)
- 80091cc:	217f      	movs	r1, #127	@ 0x7f
- 80091ce:	4820      	ldr	r0, [pc, #128]	@ (8009250 <main+0xb4>)
- 80091d0:	f001 fb61 	bl	800a896 <HAL_ADCEx_Calibration_Start>
- 80091d4:	b108      	cbz	r0, 80091da <main+0x3e>
+ 80091d0:	217f      	movs	r1, #127	@ 0x7f
+ 80091d2:	4820      	ldr	r0, [pc, #128]	@ (8009254 <main+0xb4>)
+ 80091d4:	f001 fb5f 	bl	800a896 <HAL_ADCEx_Calibration_Start>
+ 80091d8:	b108      	cbz	r0, 80091de <main+0x3e>
     Error_Handler();
- 80091d6:	f7ff fed9 	bl	8008f8c <Error_Handler>
+ 80091da:	f7ff fed9 	bl	8008f90 <Error_Handler>
   if (HAL_CAN_Start(&hcan1) != HAL_OK)
- 80091da:	481e      	ldr	r0, [pc, #120]	@ (8009254 <main+0xb8>)
- 80091dc:	f001 fcd0 	bl	800ab80 <HAL_CAN_Start>
- 80091e0:	b108      	cbz	r0, 80091e6 <main+0x4a>
+ 80091de:	481e      	ldr	r0, [pc, #120]	@ (8009258 <main+0xb8>)
+ 80091e0:	f001 fcce 	bl	800ab80 <HAL_CAN_Start>
+ 80091e4:	b108      	cbz	r0, 80091ea <main+0x4a>
     Error_Handler();
- 80091e2:	f7ff fed3 	bl	8008f8c <Error_Handler>
+ 80091e6:	f7ff fed3 	bl	8008f90 <Error_Handler>
   osKernelInitialize();
- 80091e6:	f7ff fb05 	bl	80087f4 <osKernelInitialize>
+ 80091ea:	f7ff fb05 	bl	80087f8 <osKernelInitialize>
   I2C1Handle = osMutexNew(&I2C1_attributes);
- 80091ea:	481b      	ldr	r0, [pc, #108]	@ (8009258 <main+0xbc>)
- 80091ec:	f7ff fba2 	bl	8008934 <osMutexNew>
- 80091f0:	4b1a      	ldr	r3, [pc, #104]	@ (800925c <main+0xc0>)
- 80091f2:	6018      	str	r0, [r3, #0]
+ 80091ee:	481b      	ldr	r0, [pc, #108]	@ (800925c <main+0xbc>)
+ 80091f0:	f7ff fba2 	bl	8008938 <osMutexNew>
+ 80091f4:	4b1a      	ldr	r3, [pc, #104]	@ (8009260 <main+0xc0>)
+ 80091f6:	6018      	str	r0, [r3, #0]
   I2C3Handle = osMutexNew(&I2C3_attributes);
- 80091f4:	481a      	ldr	r0, [pc, #104]	@ (8009260 <main+0xc4>)
- 80091f6:	f7ff fb9d 	bl	8008934 <osMutexNew>
- 80091fa:	4b1a      	ldr	r3, [pc, #104]	@ (8009264 <main+0xc8>)
- 80091fc:	6018      	str	r0, [r3, #0]
+ 80091f8:	481a      	ldr	r0, [pc, #104]	@ (8009264 <main+0xc4>)
+ 80091fa:	f7ff fb9d 	bl	8008938 <osMutexNew>
+ 80091fe:	4b1a      	ldr	r3, [pc, #104]	@ (8009268 <main+0xc8>)
+ 8009200:	6018      	str	r0, [r3, #0]
   CANHandle = osMutexNew(&CAN_attributes);
- 80091fe:	481a      	ldr	r0, [pc, #104]	@ (8009268 <main+0xcc>)
- 8009200:	f7ff fb98 	bl	8008934 <osMutexNew>
- 8009204:	4b19      	ldr	r3, [pc, #100]	@ (800926c <main+0xd0>)
- 8009206:	6018      	str	r0, [r3, #0]
+ 8009202:	481a      	ldr	r0, [pc, #104]	@ (800926c <main+0xcc>)
+ 8009204:	f7ff fb98 	bl	8008938 <osMutexNew>
+ 8009208:	4b19      	ldr	r3, [pc, #100]	@ (8009270 <main+0xd0>)
+ 800920a:	6018      	str	r0, [r3, #0]
   if (CAN_Manager_Init() != HAL_OK)
- 8009208:	f7ff f8aa 	bl	8008360 <CAN_Manager_Init>
- 800920c:	b108      	cbz	r0, 8009212 <main+0x76>
+ 800920c:	f7ff f8a8 	bl	8008360 <CAN_Manager_Init>
+ 8009210:	b108      	cbz	r0, 8009216 <main+0x76>
     Error_Handler();
- 800920e:	f7ff febd 	bl	8008f8c <Error_Handler>
+ 8009212:	f7ff febd 	bl	8008f90 <Error_Handler>
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
- 8009212:	4a17      	ldr	r2, [pc, #92]	@ (8009270 <main+0xd4>)
- 8009214:	2100      	movs	r1, #0
- 8009216:	4817      	ldr	r0, [pc, #92]	@ (8009274 <main+0xd8>)
- 8009218:	f7ff fb24 	bl	8008864 <osThreadNew>
- 800921c:	4b16      	ldr	r3, [pc, #88]	@ (8009278 <main+0xdc>)
- 800921e:	6018      	str	r0, [r3, #0]
+ 8009216:	4a17      	ldr	r2, [pc, #92]	@ (8009274 <main+0xd4>)
+ 8009218:	2100      	movs	r1, #0
+ 800921a:	4817      	ldr	r0, [pc, #92]	@ (8009278 <main+0xd8>)
+ 800921c:	f7ff fb24 	bl	8008868 <osThreadNew>
+ 8009220:	4b16      	ldr	r3, [pc, #88]	@ (800927c <main+0xdc>)
+ 8009222:	6018      	str	r0, [r3, #0]
   CellVoltageHandle = osThreadNew(ReadCellVoltage, NULL, &CellVoltage_attributes);
- 8009220:	4a16      	ldr	r2, [pc, #88]	@ (800927c <main+0xe0>)
- 8009222:	2100      	movs	r1, #0
- 8009224:	4816      	ldr	r0, [pc, #88]	@ (8009280 <main+0xe4>)
- 8009226:	f7ff fb1d 	bl	8008864 <osThreadNew>
- 800922a:	4b16      	ldr	r3, [pc, #88]	@ (8009284 <main+0xe8>)
- 800922c:	6018      	str	r0, [r3, #0]
+ 8009224:	4a16      	ldr	r2, [pc, #88]	@ (8009280 <main+0xe0>)
+ 8009226:	2100      	movs	r1, #0
+ 8009228:	4816      	ldr	r0, [pc, #88]	@ (8009284 <main+0xe4>)
+ 800922a:	f7ff fb1d 	bl	8008868 <osThreadNew>
+ 800922e:	4b16      	ldr	r3, [pc, #88]	@ (8009288 <main+0xe8>)
+ 8009230:	6018      	str	r0, [r3, #0]
   CellTemperatureHandle = osThreadNew(ReadCellTemps, NULL, &CellTemperature_attributes);
- 800922e:	4a16      	ldr	r2, [pc, #88]	@ (8009288 <main+0xec>)
- 8009230:	2100      	movs	r1, #0
- 8009232:	4816      	ldr	r0, [pc, #88]	@ (800928c <main+0xf0>)
- 8009234:	f7ff fb16 	bl	8008864 <osThreadNew>
- 8009238:	4b15      	ldr	r3, [pc, #84]	@ (8009290 <main+0xf4>)
- 800923a:	6018      	str	r0, [r3, #0]
+ 8009232:	4a16      	ldr	r2, [pc, #88]	@ (800928c <main+0xec>)
+ 8009234:	2100      	movs	r1, #0
+ 8009236:	4816      	ldr	r0, [pc, #88]	@ (8009290 <main+0xf0>)
+ 8009238:	f7ff fb16 	bl	8008868 <osThreadNew>
+ 800923c:	4b15      	ldr	r3, [pc, #84]	@ (8009294 <main+0xf4>)
+ 800923e:	6018      	str	r0, [r3, #0]
   CANManagerHandle = osThreadNew(CAN_ManagerTask, NULL, &CANManager_attributes);
- 800923c:	4a15      	ldr	r2, [pc, #84]	@ (8009294 <main+0xf8>)
- 800923e:	2100      	movs	r1, #0
- 8009240:	4815      	ldr	r0, [pc, #84]	@ (8009298 <main+0xfc>)
- 8009242:	f7ff fb0f 	bl	8008864 <osThreadNew>
- 8009246:	4b15      	ldr	r3, [pc, #84]	@ (800929c <main+0x100>)
- 8009248:	6018      	str	r0, [r3, #0]
+ 8009240:	4a15      	ldr	r2, [pc, #84]	@ (8009298 <main+0xf8>)
+ 8009242:	2100      	movs	r1, #0
+ 8009244:	4815      	ldr	r0, [pc, #84]	@ (800929c <main+0xfc>)
+ 8009246:	f7ff fb0f 	bl	8008868 <osThreadNew>
+ 800924a:	4b15      	ldr	r3, [pc, #84]	@ (80092a0 <main+0x100>)
+ 800924c:	6018      	str	r0, [r3, #0]
   osKernelStart();
- 800924a:	f7ff fae5 	bl	8008818 <osKernelStart>
+ 800924e:	f7ff fae5 	bl	800881c <osKernelStart>
   while (1)
- 800924e:	e7fe      	b.n	800924e <main+0xb2>
- 8009250:	20003af4 	.word	0x20003af4
- 8009254:	20003acc 	.word	0x20003acc
- 8009258:	0800d974 	.word	0x0800d974
- 800925c:	200039ec 	.word	0x200039ec
- 8009260:	0800d964 	.word	0x0800d964
- 8009264:	200039e8 	.word	0x200039e8
- 8009268:	0800d954 	.word	0x0800d954
- 800926c:	200039e4 	.word	0x200039e4
- 8009270:	0800d9f0 	.word	0x0800d9f0
- 8009274:	08008f21 	.word	0x08008f21
- 8009278:	200039fc 	.word	0x200039fc
- 800927c:	0800d9cc 	.word	0x0800d9cc
- 8009280:	08008f2b 	.word	0x08008f2b
- 8009284:	200039f8 	.word	0x200039f8
- 8009288:	0800d9a8 	.word	0x0800d9a8
- 800928c:	08008f35 	.word	0x08008f35
- 8009290:	200039f4 	.word	0x200039f4
- 8009294:	0800d984 	.word	0x0800d984
- 8009298:	08008315 	.word	0x08008315
- 800929c:	200039f0 	.word	0x200039f0
+ 8009252:	e7fe      	b.n	8009252 <main+0xb2>
+ 8009254:	20003af4 	.word	0x20003af4
+ 8009258:	20003acc 	.word	0x20003acc
+ 800925c:	0800d974 	.word	0x0800d974
+ 8009260:	200039ec 	.word	0x200039ec
+ 8009264:	0800d964 	.word	0x0800d964
+ 8009268:	200039e8 	.word	0x200039e8
+ 800926c:	0800d954 	.word	0x0800d954
+ 8009270:	200039e4 	.word	0x200039e4
+ 8009274:	0800d9f0 	.word	0x0800d9f0
+ 8009278:	08008f25 	.word	0x08008f25
+ 800927c:	200039fc 	.word	0x200039fc
+ 8009280:	0800d9cc 	.word	0x0800d9cc
+ 8009284:	08008f2f 	.word	0x08008f2f
+ 8009288:	200039f8 	.word	0x200039f8
+ 800928c:	0800d9a8 	.word	0x0800d9a8
+ 8009290:	08008f39 	.word	0x08008f39
+ 8009294:	200039f4 	.word	0x200039f4
+ 8009298:	0800d984 	.word	0x0800d984
+ 800929c:	08008315 	.word	0x08008315
+ 80092a0:	200039f0 	.word	0x200039f0
 
-080092a0 <prvTaskExitError>:
+080092a4 <prvTaskExitError>:
 	return pxTopOfStack;
 }
 /*-----------------------------------------------------------*/
 
 static void prvTaskExitError( void )
 {
- 80092a0:	b082      	sub	sp, #8
+ 80092a4:	b082      	sub	sp, #8
 volatile uint32_t ulDummy = 0;
- 80092a2:	2300      	movs	r3, #0
- 80092a4:	9301      	str	r3, [sp, #4]
+ 80092a6:	2300      	movs	r3, #0
+ 80092a8:	9301      	str	r3, [sp, #4]
 	its caller as there is nothing to return to.  If a task wants to exit it
 	should instead call vTaskDelete( NULL ).
 
 	Artificially force an assert() to be triggered if configASSERT() is
 	defined, then stop here so application writers can catch the error. */
 	configASSERT( uxCriticalNesting == ~0UL );
- 80092a6:	4b0d      	ldr	r3, [pc, #52]	@ (80092dc <prvTaskExitError+0x3c>)
- 80092a8:	681b      	ldr	r3, [r3, #0]
- 80092aa:	f1b3 3fff 	cmp.w	r3, #4294967295
- 80092ae:	d008      	beq.n	80092c2 <prvTaskExitError+0x22>
- 80092b0:	f04f 0350 	mov.w	r3, #80	@ 0x50
- 80092b4:	f383 8811 	msr	BASEPRI, r3
- 80092b8:	f3bf 8f6f 	isb	sy
- 80092bc:	f3bf 8f4f 	dsb	sy
- 80092c0:	e7fe      	b.n	80092c0 <prvTaskExitError+0x20>
- 80092c2:	f04f 0350 	mov.w	r3, #80	@ 0x50
- 80092c6:	f383 8811 	msr	BASEPRI, r3
- 80092ca:	f3bf 8f6f 	isb	sy
- 80092ce:	f3bf 8f4f 	dsb	sy
+ 80092aa:	4b0d      	ldr	r3, [pc, #52]	@ (80092e0 <prvTaskExitError+0x3c>)
+ 80092ac:	681b      	ldr	r3, [r3, #0]
+ 80092ae:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 80092b2:	d008      	beq.n	80092c6 <prvTaskExitError+0x22>
+ 80092b4:	f04f 0350 	mov.w	r3, #80	@ 0x50
+ 80092b8:	f383 8811 	msr	BASEPRI, r3
+ 80092bc:	f3bf 8f6f 	isb	sy
+ 80092c0:	f3bf 8f4f 	dsb	sy
+ 80092c4:	e7fe      	b.n	80092c4 <prvTaskExitError+0x20>
+ 80092c6:	f04f 0350 	mov.w	r3, #80	@ 0x50
+ 80092ca:	f383 8811 	msr	BASEPRI, r3
+ 80092ce:	f3bf 8f6f 	isb	sy
+ 80092d2:	f3bf 8f4f 	dsb	sy
 	portDISABLE_INTERRUPTS();
 	while( ulDummy == 0 )
- 80092d2:	9b01      	ldr	r3, [sp, #4]
- 80092d4:	2b00      	cmp	r3, #0
- 80092d6:	d0fc      	beq.n	80092d2 <prvTaskExitError+0x32>
+ 80092d6:	9b01      	ldr	r3, [sp, #4]
+ 80092d8:	2b00      	cmp	r3, #0
+ 80092da:	d0fc      	beq.n	80092d6 <prvTaskExitError+0x32>
 		about code appearing after this function is called - making ulDummy
 		volatile makes the compiler think the function could return and
 		therefore not output an 'unreachable code' warning for code that appears
 		after it. */
 	}
 }
- 80092d8:	b002      	add	sp, #8
- 80092da:	4770      	bx	lr
- 80092dc:	20000000 	.word	0x20000000
+ 80092dc:	b002      	add	sp, #8
+ 80092de:	4770      	bx	lr
+ 80092e0:	20000000 	.word	0x20000000
 
-080092e0 <prvPortStartFirstTask>:
+080092e4 <prvPortStartFirstTask>:
 {
 	/* Start the first task.  This also clears the bit that indicates the FPU is
 	in use in case the FPU was used before the scheduler was started - which
 	would otherwise result in the unnecessary leaving of space in the SVC stack
 	for lazy saving of FPU registers. */
 	__asm volatile(
- 80092e0:	4808      	ldr	r0, [pc, #32]	@ (8009304 <prvPortStartFirstTask+0x24>)
- 80092e2:	6800      	ldr	r0, [r0, #0]
- 80092e4:	6800      	ldr	r0, [r0, #0]
- 80092e6:	f380 8808 	msr	MSP, r0
- 80092ea:	f04f 0000 	mov.w	r0, #0
- 80092ee:	f380 8814 	msr	CONTROL, r0
- 80092f2:	b662      	cpsie	i
- 80092f4:	b661      	cpsie	f
- 80092f6:	f3bf 8f4f 	dsb	sy
- 80092fa:	f3bf 8f6f 	isb	sy
- 80092fe:	df00      	svc	0
- 8009300:	bf00      	nop
+ 80092e4:	4808      	ldr	r0, [pc, #32]	@ (8009308 <prvPortStartFirstTask+0x24>)
+ 80092e6:	6800      	ldr	r0, [r0, #0]
+ 80092e8:	6800      	ldr	r0, [r0, #0]
+ 80092ea:	f380 8808 	msr	MSP, r0
+ 80092ee:	f04f 0000 	mov.w	r0, #0
+ 80092f2:	f380 8814 	msr	CONTROL, r0
+ 80092f6:	b662      	cpsie	i
+ 80092f8:	b661      	cpsie	f
+ 80092fa:	f3bf 8f4f 	dsb	sy
+ 80092fe:	f3bf 8f6f 	isb	sy
+ 8009302:	df00      	svc	0
+ 8009304:	bf00      	nop
 					" dsb					\n"
 					" isb					\n"
 					" svc 0					\n" /* System call to start first task. */
 					" nop					\n"
 				);
 }
- 8009302:	0000      	.short	0x0000
- 8009304:	e000ed08 	.word	0xe000ed08
+ 8009306:	0000      	.short	0x0000
+ 8009308:	e000ed08 	.word	0xe000ed08
 
-08009308 <vPortEnableVFP>:
+0800930c <vPortEnableVFP>:
 /*-----------------------------------------------------------*/
 
 /* This is a naked function. */
 static void vPortEnableVFP( void )
 {
 	__asm volatile
- 8009308:	f8df 000c 	ldr.w	r0, [pc, #12]	@ 8009318 <vPortEnableVFP+0x10>
- 800930c:	6801      	ldr	r1, [r0, #0]
- 800930e:	f441 0170 	orr.w	r1, r1, #15728640	@ 0xf00000
- 8009312:	6001      	str	r1, [r0, #0]
- 8009314:	4770      	bx	lr
+ 800930c:	f8df 000c 	ldr.w	r0, [pc, #12]	@ 800931c <vPortEnableVFP+0x10>
+ 8009310:	6801      	ldr	r1, [r0, #0]
+ 8009312:	f441 0170 	orr.w	r1, r1, #15728640	@ 0xf00000
+ 8009316:	6001      	str	r1, [r0, #0]
+ 8009318:	4770      	bx	lr
 		"								\n"
 		"	orr r1, r1, #( 0xf << 20 )	\n" /* Enable CP10 and CP11 coprocessors, then save back. */
 		"	str r1, [r0]				\n"
 		"	bx r14						"
 	);
 }
- 8009316:	0000      	.short	0x0000
- 8009318:	e000ed88 	.word	0xe000ed88
+ 800931a:	0000      	.short	0x0000
+ 800931c:	e000ed88 	.word	0xe000ed88
 
-0800931c <pxPortInitialiseStack>:
+08009320 <pxPortInitialiseStack>:
 	*pxTopOfStack = portINITIAL_XPSR;	/* xPSR */
- 800931c:	f04f 7380 	mov.w	r3, #16777216	@ 0x1000000
- 8009320:	f840 3c04 	str.w	r3, [r0, #-4]
+ 8009320:	f04f 7380 	mov.w	r3, #16777216	@ 0x1000000
+ 8009324:	f840 3c04 	str.w	r3, [r0, #-4]
 	*pxTopOfStack = ( ( StackType_t ) pxCode ) & portSTART_ADDRESS_MASK;	/* PC */
- 8009324:	f021 0101 	bic.w	r1, r1, #1
- 8009328:	f840 1c08 	str.w	r1, [r0, #-8]
+ 8009328:	f021 0101 	bic.w	r1, r1, #1
+ 800932c:	f840 1c08 	str.w	r1, [r0, #-8]
 	*pxTopOfStack = ( StackType_t ) portTASK_RETURN_ADDRESS;	/* LR */
- 800932c:	4b05      	ldr	r3, [pc, #20]	@ (8009344 <pxPortInitialiseStack+0x28>)
- 800932e:	f840 3c0c 	str.w	r3, [r0, #-12]
+ 8009330:	4b05      	ldr	r3, [pc, #20]	@ (8009348 <pxPortInitialiseStack+0x28>)
+ 8009332:	f840 3c0c 	str.w	r3, [r0, #-12]
 	*pxTopOfStack = ( StackType_t ) pvParameters;	/* R0 */
- 8009332:	f840 2c20 	str.w	r2, [r0, #-32]
+ 8009336:	f840 2c20 	str.w	r2, [r0, #-32]
 	*pxTopOfStack = portINITIAL_EXC_RETURN;
- 8009336:	f06f 0302 	mvn.w	r3, #2
- 800933a:	f840 3c24 	str.w	r3, [r0, #-36]
+ 800933a:	f06f 0302 	mvn.w	r3, #2
+ 800933e:	f840 3c24 	str.w	r3, [r0, #-36]
 }
- 800933e:	3844      	subs	r0, #68	@ 0x44
- 8009340:	4770      	bx	lr
- 8009342:	bf00      	nop
- 8009344:	080092a1 	.word	0x080092a1
-	...
+ 8009342:	3844      	subs	r0, #68	@ 0x44
+ 8009344:	4770      	bx	lr
+ 8009346:	bf00      	nop
+ 8009348:	080092a5 	.word	0x080092a5
+ 800934c:	00000000 	.word	0x00000000
 
 08009350 <SVC_Handler>:
 	__asm volatile (
@@ -3465,17 +3466,17 @@ portFORCE_INLINE static void vPortSetBASEPRI( uint32_t ulNewMaskValue )
  8009582:	4b0e      	ldr	r3, [pc, #56]	@ (80095bc <xPortStartScheduler+0x114>)
  8009584:	601d      	str	r5, [r3, #0]
 	vPortEnableVFP();
- 8009586:	f7ff febf 	bl	8009308 <vPortEnableVFP>
+ 8009586:	f7ff fec1 	bl	800930c <vPortEnableVFP>
 	*( portFPCCR ) |= portASPEN_AND_LSPEN_BITS;
  800958a:	f8d4 3f34 	ldr.w	r3, [r4, #3892]	@ 0xf34
  800958e:	f043 4340 	orr.w	r3, r3, #3221225472	@ 0xc0000000
  8009592:	f8c4 3f34 	str.w	r3, [r4, #3892]	@ 0xf34
 	prvPortStartFirstTask();
- 8009596:	f7ff fea3 	bl	80092e0 <prvPortStartFirstTask>
+ 8009596:	f7ff fea5 	bl	80092e4 <prvPortStartFirstTask>
 	vTaskSwitchContext();
  800959a:	f003 fc55 	bl	800ce48 <vTaskSwitchContext>
 	prvTaskExitError();
- 800959e:	f7ff fe7f 	bl	80092a0 <prvTaskExitError>
+ 800959e:	f7ff fe81 	bl	80092a4 <prvTaskExitError>
 }
  80095a2:	4628      	mov	r0, r5
  80095a4:	b003      	add	sp, #12
@@ -3837,10 +3838,10 @@ BaseType_t xReturn = pdFALSE;
  80097cc:	e7e1      	b.n	8009792 <xQueueGenericReset+0x36>
 			vListInitialise( &( pxQueue->xTasksWaitingToSend ) );
  80097ce:	f104 0010 	add.w	r0, r4, #16
- 80097d2:	f7ff fb11 	bl	8008df8 <vListInitialise>
+ 80097d2:	f7ff fb13 	bl	8008dfc <vListInitialise>
 			vListInitialise( &( pxQueue->xTasksWaitingToReceive ) );
  80097d6:	f104 0024 	add.w	r0, r4, #36	@ 0x24
- 80097da:	f7ff fb0d 	bl	8008df8 <vListInitialise>
+ 80097da:	f7ff fb0f 	bl	8008dfc <vListInitialise>
  80097de:	e7d8      	b.n	8009792 <xQueueGenericReset+0x36>
 
 080097e0 <prvInitialiseNewQueue>:
@@ -3953,7 +3954,7 @@ BaseType_t xReturn = pdFALSE;
  80098b4:	fb01 f000 	mul.w	r0, r1, r0
 		pxNewQueue = ( Queue_t * ) pvPortMalloc( sizeof( Queue_t ) + xQueueSizeInBytes ); /*lint !e9087 !e9079 see comment above. */
  80098b8:	3050      	adds	r0, #80	@ 0x50
- 80098ba:	f7ff f9d3 	bl	8008c64 <pvPortMalloc>
+ 80098ba:	f7ff f9d5 	bl	8008c68 <pvPortMalloc>
 		if( pxNewQueue != NULL )
  80098be:	4607      	mov	r7, r0
  80098c0:	b150      	cbz	r0, 80098d8 <xQueueGenericCreate+0x42>
@@ -8454,7 +8455,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 }
  800b2ec:	e7b5      	b.n	800b25a <HAL_ADC_MspInit+0x22>
       Error_Handler();
- 800b2ee:	f7fd fe4d 	bl	8008f8c <Error_Handler>
+ 800b2ee:	f7fd fe4f 	bl	8008f90 <Error_Handler>
  800b2f2:	e7cb      	b.n	800b28c <HAL_ADC_MspInit+0x54>
  800b2f4:	50040000 	.word	0x50040000
  800b2f8:	40021000 	.word	0x40021000
@@ -8656,7 +8657,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
  800b41a:	9b02      	ldr	r3, [sp, #8]
  800b41c:	e7cf      	b.n	800b3be <HAL_I2C_MspInit+0x2a>
       Error_Handler();
- 800b41e:	f7fd fdb5 	bl	8008f8c <Error_Handler>
+ 800b41e:	f7fd fdb7 	bl	8008f90 <Error_Handler>
  800b422:	e7d8      	b.n	800b3d6 <HAL_I2C_MspInit+0x42>
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C3;
  800b424:	f44f 7380 	mov.w	r3, #256	@ 0x100
@@ -8732,7 +8733,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 }
  800b4b2:	e784      	b.n	800b3be <HAL_I2C_MspInit+0x2a>
       Error_Handler();
- 800b4b4:	f7fd fd6a 	bl	8008f8c <Error_Handler>
+ 800b4b4:	f7fd fd6c 	bl	8008f90 <Error_Handler>
  800b4b8:	e7bf      	b.n	800b43a <HAL_I2C_MspInit+0xa6>
  800b4ba:	bf00      	nop
  800b4bc:	40005400 	.word	0x40005400
@@ -10994,7 +10995,7 @@ static HAL_StatusTypeDef RCCEx_PLLSAI1_Config(RCC_PLLSAI1InitTypeDef *PllSai1, u
  800c504:	611a      	str	r2, [r3, #16]
       HAL_TIM_PeriodElapsedCallback(htim);
  800c506:	4620      	mov	r0, r4
- 800c508:	f7fc fd34 	bl	8008f74 <HAL_TIM_PeriodElapsedCallback>
+ 800c508:	f7fc fd36 	bl	8008f78 <HAL_TIM_PeriodElapsedCallback>
  800c50c:	e7c3      	b.n	800c496 <HAL_TIM_IRQHandler+0xc2>
       __HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_BREAK | TIM_FLAG_SYSTEM_BREAK);
  800c50e:	6823      	ldr	r3, [r4, #0]
@@ -11567,10 +11568,10 @@ TCB_t *pxTCB;
  800c7cc:	6525      	str	r5, [r4, #80]	@ 0x50
 	vListInitialiseItem( &( pxNewTCB->xStateListItem ) );
  800c7ce:	1d20      	adds	r0, r4, #4
- 800c7d0:	f7fc fb1d 	bl	8008e0e <vListInitialiseItem>
+ 800c7d0:	f7fc fb1f 	bl	8008e12 <vListInitialiseItem>
 	vListInitialiseItem( &( pxNewTCB->xEventListItem ) );
  800c7d4:	f104 0018 	add.w	r0, r4, #24
- 800c7d8:	f7fc fb19 	bl	8008e0e <vListInitialiseItem>
+ 800c7d8:	f7fc fb1b 	bl	8008e12 <vListInitialiseItem>
 	listSET_LIST_ITEM_OWNER( &( pxNewTCB->xStateListItem ), pxNewTCB );
  800c7dc:	6124      	str	r4, [r4, #16]
 	listSET_LIST_ITEM_VALUE( &( pxNewTCB->xEventListItem ), ( TickType_t ) configMAX_PRIORITIES - ( TickType_t ) uxPriority ); /*lint !e961 MISRA exception as the casts are only redundant for some ports. */
@@ -11586,7 +11587,7 @@ TCB_t *pxTCB;
  800c7ec:	464a      	mov	r2, r9
  800c7ee:	4641      	mov	r1, r8
  800c7f0:	4638      	mov	r0, r7
- 800c7f2:	f7fc fd93 	bl	800931c <pxPortInitialiseStack>
+ 800c7f2:	f7fc fd95 	bl	8009320 <pxPortInitialiseStack>
  800c7f6:	6020      	str	r0, [r4, #0]
 	if( pxCreatedTask != NULL )
  800c7f8:	f1ba 0f00 	cmp.w	sl, #0
@@ -11612,7 +11613,7 @@ TCB_t *pxTCB;
  800c81a:	0093      	lsls	r3, r2, #2
  800c81c:	480e      	ldr	r0, [pc, #56]	@ (800c858 <prvInitialiseTaskLists+0x48>)
  800c81e:	4418      	add	r0, r3
- 800c820:	f7fc faea 	bl	8008df8 <vListInitialise>
+ 800c820:	f7fc faec 	bl	8008dfc <vListInitialise>
 	for( uxPriority = ( UBaseType_t ) 0U; uxPriority < ( UBaseType_t ) configMAX_PRIORITIES; uxPriority++ )
  800c824:	3401      	adds	r4, #1
  800c826:	2c37      	cmp	r4, #55	@ 0x37
@@ -11620,20 +11621,20 @@ TCB_t *pxTCB;
 	vListInitialise( &xDelayedTaskList1 );
  800c82a:	4d0c      	ldr	r5, [pc, #48]	@ (800c85c <prvInitialiseTaskLists+0x4c>)
  800c82c:	4628      	mov	r0, r5
- 800c82e:	f7fc fae3 	bl	8008df8 <vListInitialise>
+ 800c82e:	f7fc fae5 	bl	8008dfc <vListInitialise>
 	vListInitialise( &xDelayedTaskList2 );
  800c832:	4c0b      	ldr	r4, [pc, #44]	@ (800c860 <prvInitialiseTaskLists+0x50>)
  800c834:	4620      	mov	r0, r4
- 800c836:	f7fc fadf 	bl	8008df8 <vListInitialise>
+ 800c836:	f7fc fae1 	bl	8008dfc <vListInitialise>
 	vListInitialise( &xPendingReadyList );
  800c83a:	480a      	ldr	r0, [pc, #40]	@ (800c864 <prvInitialiseTaskLists+0x54>)
- 800c83c:	f7fc fadc 	bl	8008df8 <vListInitialise>
+ 800c83c:	f7fc fade 	bl	8008dfc <vListInitialise>
 		vListInitialise( &xTasksWaitingTermination );
  800c840:	4809      	ldr	r0, [pc, #36]	@ (800c868 <prvInitialiseTaskLists+0x58>)
- 800c842:	f7fc fad9 	bl	8008df8 <vListInitialise>
+ 800c842:	f7fc fadb 	bl	8008dfc <vListInitialise>
 		vListInitialise( &xSuspendedTaskList );
  800c846:	4809      	ldr	r0, [pc, #36]	@ (800c86c <prvInitialiseTaskLists+0x5c>)
- 800c848:	f7fc fad6 	bl	8008df8 <vListInitialise>
+ 800c848:	f7fc fad8 	bl	8008dfc <vListInitialise>
 	pxDelayedTaskList = &xDelayedTaskList1;
  800c84c:	4b08      	ldr	r3, [pc, #32]	@ (800c870 <prvInitialiseTaskLists+0x60>)
  800c84e:	601d      	str	r5, [r3, #0]
@@ -11708,7 +11709,7 @@ TCB_t *pxTCB;
  800c8cc:	1d21      	adds	r1, r4, #4
  800c8ce:	4b14      	ldr	r3, [pc, #80]	@ (800c920 <prvAddNewTaskToReadyList+0xa8>)
  800c8d0:	eb03 0080 	add.w	r0, r3, r0, lsl #2
- 800c8d4:	f7fc fa9e 	bl	8008e14 <vListInsertEnd>
+ 800c8d4:	f7fc faa0 	bl	8008e18 <vListInsertEnd>
 	taskEXIT_CRITICAL();
  800c8d8:	f7fc fd6e 	bl	80093b8 <vPortExitCritical>
 	if( xSchedulerRunning != pdFALSE )
@@ -11761,14 +11762,14 @@ TCB_t *pxTCB;
  800c946:	e7fe      	b.n	800c946 <prvDeleteTCB+0x22>
 				vPortFree( pxTCB->pxStack );
  800c948:	6b00      	ldr	r0, [r0, #48]	@ 0x30
- 800c94a:	f7fc fa17 	bl	8008d7c <vPortFree>
+ 800c94a:	f7fc fa19 	bl	8008d80 <vPortFree>
 				vPortFree( pxTCB );
  800c94e:	4620      	mov	r0, r4
- 800c950:	f7fc fa14 	bl	8008d7c <vPortFree>
+ 800c950:	f7fc fa16 	bl	8008d80 <vPortFree>
 	}
  800c954:	bd10      	pop	{r4, pc}
 				vPortFree( pxTCB );
- 800c956:	f7fc fa11 	bl	8008d7c <vPortFree>
+ 800c956:	f7fc fa13 	bl	8008d80 <vPortFree>
  800c95a:	e7fb      	b.n	800c954 <prvDeleteTCB+0x30>
 
 0800c95c <prvCheckTasksWaitingTermination>:
@@ -11786,7 +11787,7 @@ TCB_t *pxTCB;
  800c96c:	68dc      	ldr	r4, [r3, #12]
 				( void ) uxListRemove( &( pxTCB->xStateListItem ) );
  800c96e:	1d20      	adds	r0, r4, #4
- 800c970:	f7fc fa74 	bl	8008e5c <uxListRemove>
+ 800c970:	f7fc fa76 	bl	8008e60 <uxListRemove>
 				--uxCurrentNumberOfTasks;
  800c974:	4a0b      	ldr	r2, [pc, #44]	@ (800c9a4 <prvCheckTasksWaitingTermination+0x48>)
  800c976:	6813      	ldr	r3, [r2, #0]
@@ -11857,7 +11858,7 @@ const TickType_t xConstTickCount = xTickCount;
  800c9da:	4b17      	ldr	r3, [pc, #92]	@ (800ca38 <prvAddCurrentTaskToDelayedList+0x68>)
  800c9dc:	6818      	ldr	r0, [r3, #0]
  800c9de:	3004      	adds	r0, #4
- 800c9e0:	f7fc fa3c 	bl	8008e5c <uxListRemove>
+ 800c9e0:	f7fc fa3e 	bl	8008e60 <uxListRemove>
 		mtCOVERAGE_TEST_MARKER();
 	}
 
@@ -11892,7 +11893,7 @@ const TickType_t xConstTickCount = xTickCount;
  800c9fa:	4b0f      	ldr	r3, [pc, #60]	@ (800ca38 <prvAddCurrentTaskToDelayedList+0x68>)
  800c9fc:	6819      	ldr	r1, [r3, #0]
  800c9fe:	3104      	adds	r1, #4
- 800ca00:	f7fc fa13 	bl	8008e2a <vListInsert>
+ 800ca00:	f7fc fa15 	bl	8008e2e <vListInsert>
 
 		/* Avoid compiler warning when INCLUDE_vTaskSuspend is not 1. */
 		( void ) xCanBlockIndefinitely;
@@ -11908,7 +11909,7 @@ const TickType_t xConstTickCount = xTickCount;
  800ca0c:	6819      	ldr	r1, [r3, #0]
  800ca0e:	3104      	adds	r1, #4
  800ca10:	480b      	ldr	r0, [pc, #44]	@ (800ca40 <prvAddCurrentTaskToDelayedList+0x70>)
- 800ca12:	f7fc f9ff 	bl	8008e14 <vListInsertEnd>
+ 800ca12:	f7fc fa01 	bl	8008e18 <vListInsertEnd>
  800ca16:	e7f5      	b.n	800ca04 <prvAddCurrentTaskToDelayedList+0x34>
 				vListInsert( pxDelayedTaskList, &( pxCurrentTCB->xStateListItem ) );
  800ca18:	4b0a      	ldr	r3, [pc, #40]	@ (800ca44 <prvAddCurrentTaskToDelayedList+0x74>)
@@ -11916,7 +11917,7 @@ const TickType_t xConstTickCount = xTickCount;
  800ca1c:	4b06      	ldr	r3, [pc, #24]	@ (800ca38 <prvAddCurrentTaskToDelayedList+0x68>)
  800ca1e:	6819      	ldr	r1, [r3, #0]
  800ca20:	3104      	adds	r1, #4
- 800ca22:	f7fc fa02 	bl	8008e2a <vListInsert>
+ 800ca22:	f7fc fa04 	bl	8008e2e <vListInsert>
 				if( xTimeToWake < xNextTaskUnblockTime )
  800ca26:	4b08      	ldr	r3, [pc, #32]	@ (800ca48 <prvAddCurrentTaskToDelayedList+0x78>)
  800ca28:	681b      	ldr	r3, [r3, #0]
@@ -12003,13 +12004,13 @@ const TickType_t xConstTickCount = xTickCount;
  800cace:	461e      	mov	r6, r3
 			pxStack = pvPortMalloc( ( ( ( size_t ) usStackDepth ) * sizeof( StackType_t ) ) ); /*lint !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack and this allocation is the stack. */
  800cad0:	0090      	lsls	r0, r2, #2
- 800cad2:	f7fc f8c7 	bl	8008c64 <pvPortMalloc>
+ 800cad2:	f7fc f8c9 	bl	8008c68 <pvPortMalloc>
 			if( pxStack != NULL )
  800cad6:	b308      	cbz	r0, 800cb1c <xTaskCreate+0x5a>
  800cad8:	4681      	mov	r9, r0
 				pxNewTCB = ( TCB_t * ) pvPortMalloc( sizeof( TCB_t ) ); /*lint !e9087 !e9079 All values returned by pvPortMalloc() have at least the alignment required by the MCU's stack, and the first member of TCB_t is always a pointer to the task's stack. */
  800cada:	205c      	movs	r0, #92	@ 0x5c
- 800cadc:	f7fc f8c2 	bl	8008c64 <pvPortMalloc>
+ 800cadc:	f7fc f8c4 	bl	8008c68 <pvPortMalloc>
 				if( pxNewTCB != NULL )
  800cae0:	4605      	mov	r5, r0
  800cae2:	b1a8      	cbz	r0, 800cb10 <xTaskCreate+0x4e>
@@ -12038,7 +12039,7 @@ const TickType_t xConstTickCount = xTickCount;
  800cb0e:	e007      	b.n	800cb20 <xTaskCreate+0x5e>
 					vPortFree( pxStack );
  800cb10:	4648      	mov	r0, r9
- 800cb12:	f7fc f933 	bl	8008d7c <vPortFree>
+ 800cb12:	f7fc f935 	bl	8008d80 <vPortFree>
 			xReturn = errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY;
  800cb16:	f04f 30ff 	mov.w	r0, #4294967295
  800cb1a:	e001      	b.n	800cb20 <xTaskCreate+0x5e>
@@ -12061,7 +12062,7 @@ const TickType_t xConstTickCount = xTickCount;
  800cb32:	aa07      	add	r2, sp, #28
  800cb34:	a906      	add	r1, sp, #24
  800cb36:	a805      	add	r0, sp, #20
- 800cb38:	f7fc f816 	bl	8008b68 <vApplicationGetIdleTaskMemory>
+ 800cb38:	f7fc f818 	bl	8008b6c <vApplicationGetIdleTaskMemory>
 		xIdleTaskHandle = xTaskCreateStatic(	prvIdleTask,
  800cb3c:	9b05      	ldr	r3, [sp, #20]
  800cb3e:	9302      	str	r3, [sp, #8]
@@ -12240,13 +12241,13 @@ BaseType_t xSwitchRequired = pdFALSE;
 					( void ) uxListRemove( &( pxTCB->xStateListItem ) );
  800cc76:	1d26      	adds	r6, r4, #4
  800cc78:	4630      	mov	r0, r6
- 800cc7a:	f7fc f8ef 	bl	8008e5c <uxListRemove>
+ 800cc7a:	f7fc f8f1 	bl	8008e60 <uxListRemove>
 					if( listLIST_ITEM_CONTAINER( &( pxTCB->xEventListItem ) ) != NULL )
  800cc7e:	6aa3      	ldr	r3, [r4, #40]	@ 0x28
  800cc80:	b11b      	cbz	r3, 800cc8a <xTaskIncrementTick+0x9e>
 						( void ) uxListRemove( &( pxTCB->xEventListItem ) );
  800cc82:	f104 0018 	add.w	r0, r4, #24
- 800cc86:	f7fc f8e9 	bl	8008e5c <uxListRemove>
+ 800cc86:	f7fc f8eb 	bl	8008e60 <uxListRemove>
 					prvAddTaskToReadyList( pxTCB );
  800cc8a:	6ae3      	ldr	r3, [r4, #44]	@ 0x2c
  800cc8c:	4a1b      	ldr	r2, [pc, #108]	@ (800ccfc <xTaskIncrementTick+0x110>)
@@ -12260,7 +12261,7 @@ BaseType_t xSwitchRequired = pdFALSE;
  800cc9e:	4631      	mov	r1, r6
  800cca0:	4814      	ldr	r0, [pc, #80]	@ (800ccf4 <xTaskIncrementTick+0x108>)
  800cca2:	4410      	add	r0, r2
- 800cca4:	f7fc f8b6 	bl	8008e14 <vListInsertEnd>
+ 800cca4:	f7fc f8b8 	bl	8008e18 <vListInsertEnd>
 						if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
  800cca8:	6ae2      	ldr	r2, [r4, #44]	@ 0x2c
  800ccaa:	4b11      	ldr	r3, [pc, #68]	@ (800ccf0 <xTaskIncrementTick+0x104>)
@@ -12347,11 +12348,11 @@ TCB_t *pxTCB = NULL;
  800cd46:	68dc      	ldr	r4, [r3, #12]
 					( void ) uxListRemove( &( pxTCB->xEventListItem ) );
  800cd48:	f104 0018 	add.w	r0, r4, #24
- 800cd4c:	f7fc f886 	bl	8008e5c <uxListRemove>
+ 800cd4c:	f7fc f888 	bl	8008e60 <uxListRemove>
 					( void ) uxListRemove( &( pxTCB->xStateListItem ) );
  800cd50:	1d25      	adds	r5, r4, #4
  800cd52:	4628      	mov	r0, r5
- 800cd54:	f7fc f882 	bl	8008e5c <uxListRemove>
+ 800cd54:	f7fc f884 	bl	8008e60 <uxListRemove>
 					prvAddTaskToReadyList( pxTCB );
  800cd58:	6ae0      	ldr	r0, [r4, #44]	@ 0x2c
  800cd5a:	4b23      	ldr	r3, [pc, #140]	@ (800cde8 <xTaskResumeAll+0xe4>)
@@ -12364,7 +12365,7 @@ TCB_t *pxTCB = NULL;
  800cd6a:	4629      	mov	r1, r5
  800cd6c:	4b1f      	ldr	r3, [pc, #124]	@ (800cdec <xTaskResumeAll+0xe8>)
  800cd6e:	eb03 0080 	add.w	r0, r3, r0, lsl #2
- 800cd72:	f7fc f84f 	bl	8008e14 <vListInsertEnd>
+ 800cd72:	f7fc f851 	bl	8008e18 <vListInsertEnd>
 					if( pxTCB->uxPriority >= pxCurrentTCB->uxPriority )
  800cd76:	6ae2      	ldr	r2, [r4, #44]	@ 0x2c
  800cd78:	4b1d      	ldr	r3, [pc, #116]	@ (800cdf0 <xTaskResumeAll+0xec>)
@@ -12549,7 +12550,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
  800cee6:	4a09      	ldr	r2, [pc, #36]	@ (800cf0c <vTaskPlaceOnEventList+0x2c>)
  800cee8:	6811      	ldr	r1, [r2, #0]
  800ceea:	3118      	adds	r1, #24
- 800ceec:	f7fb ff9d 	bl	8008e2a <vListInsert>
+ 800ceec:	f7fb ff9f 	bl	8008e2e <vListInsert>
 	prvAddCurrentTaskToDelayedList( xTicksToWait, pdTRUE );
  800cef0:	2101      	movs	r1, #1
  800cef2:	4620      	mov	r0, r4
@@ -12575,7 +12576,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
  800cf18:	4a0a      	ldr	r2, [pc, #40]	@ (800cf44 <vTaskPlaceOnEventListRestricted+0x34>)
  800cf1a:	6811      	ldr	r1, [r2, #0]
  800cf1c:	3118      	adds	r1, #24
- 800cf1e:	f7fb ff79 	bl	8008e14 <vListInsertEnd>
+ 800cf1e:	f7fb ff7b 	bl	8008e18 <vListInsertEnd>
 		if( xWaitIndefinitely != pdFALSE )
  800cf22:	b10c      	cbz	r4, 800cf28 <vTaskPlaceOnEventListRestricted+0x18>
 			xTicksToWait = portMAX_DELAY;
@@ -12605,7 +12606,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
 	( void ) uxListRemove( &( pxUnblockedTCB->xEventListItem ) );
  800cf50:	f104 0518 	add.w	r5, r4, #24
  800cf54:	4628      	mov	r0, r5
- 800cf56:	f7fb ff81 	bl	8008e5c <uxListRemove>
+ 800cf56:	f7fb ff83 	bl	8008e60 <uxListRemove>
 	if( uxSchedulerSuspended == ( UBaseType_t ) pdFALSE )
  800cf5a:	4b18      	ldr	r3, [pc, #96]	@ (800cfbc <xTaskRemoveFromEventList+0x74>)
  800cf5c:	681b      	ldr	r3, [r3, #0]
@@ -12613,7 +12614,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
 		( void ) uxListRemove( &( pxUnblockedTCB->xStateListItem ) );
  800cf60:	1d25      	adds	r5, r4, #4
  800cf62:	4628      	mov	r0, r5
- 800cf64:	f7fb ff7a 	bl	8008e5c <uxListRemove>
+ 800cf64:	f7fb ff7c 	bl	8008e60 <uxListRemove>
 		prvAddTaskToReadyList( pxUnblockedTCB );
  800cf68:	6ae0      	ldr	r0, [r4, #44]	@ 0x2c
  800cf6a:	4b15      	ldr	r3, [pc, #84]	@ (800cfc0 <xTaskRemoveFromEventList+0x78>)
@@ -12626,7 +12627,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
  800cf7a:	4629      	mov	r1, r5
  800cf7c:	4b11      	ldr	r3, [pc, #68]	@ (800cfc4 <xTaskRemoveFromEventList+0x7c>)
  800cf7e:	eb03 0080 	add.w	r0, r3, r0, lsl #2
- 800cf82:	f7fb ff47 	bl	8008e14 <vListInsertEnd>
+ 800cf82:	f7fb ff49 	bl	8008e18 <vListInsertEnd>
 	if( pxUnblockedTCB->uxPriority > pxCurrentTCB->uxPriority )
  800cf86:	6ae2      	ldr	r2, [r4, #44]	@ 0x2c
  800cf88:	4b0f      	ldr	r3, [pc, #60]	@ (800cfc8 <xTaskRemoveFromEventList+0x80>)
@@ -12649,7 +12650,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
 		vListInsertEnd( &( xPendingReadyList ), &( pxUnblockedTCB->xEventListItem ) );
  800cfac:	4629      	mov	r1, r5
  800cfae:	4808      	ldr	r0, [pc, #32]	@ (800cfd0 <xTaskRemoveFromEventList+0x88>)
- 800cfb0:	f7fb ff30 	bl	8008e14 <vListInsertEnd>
+ 800cfb0:	f7fb ff32 	bl	8008e18 <vListInsertEnd>
  800cfb4:	e7e7      	b.n	800cf86 <xTaskRemoveFromEventList+0x3e>
 		xReturn = pdFALSE;
  800cfb6:	2000      	movs	r0, #0
@@ -12825,7 +12826,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
 					if( uxListRemove( &( pxTCB->xStateListItem ) ) == ( UBaseType_t ) 0 )
  800d0ea:	1d05      	adds	r5, r0, #4
  800d0ec:	4628      	mov	r0, r5
- 800d0ee:	f7fb feb5 	bl	8008e5c <uxListRemove>
+ 800d0ee:	f7fb feb7 	bl	8008e60 <uxListRemove>
 					pxTCB->uxPriority = pxTCB->uxBasePriority;
  800d0f2:	6ce0      	ldr	r0, [r4, #76]	@ 0x4c
  800d0f4:	62e0      	str	r0, [r4, #44]	@ 0x2c
@@ -12843,7 +12844,7 @@ BaseType_t xAlreadyYielded = pdFALSE;
  800d10c:	4629      	mov	r1, r5
  800d10e:	4b07      	ldr	r3, [pc, #28]	@ (800d12c <xTaskPriorityDisinherit+0x8c>)
  800d110:	eb03 0080 	add.w	r0, r3, r0, lsl #2
- 800d114:	f7fb fe7e 	bl	8008e14 <vListInsertEnd>
+ 800d114:	f7fb fe80 	bl	8008e18 <vListInsertEnd>
 					xReturn = pdTRUE;
  800d118:	2001      	movs	r0, #1
  800d11a:	e7e5      	b.n	800d0e8 <xTaskPriorityDisinherit+0x48>
@@ -12936,7 +12937,7 @@ BaseType_t xProcessTimerNow = pdFALSE;
  800d166:	1d01      	adds	r1, r0, #4
  800d168:	4b09      	ldr	r3, [pc, #36]	@ (800d190 <prvInsertTimerInActiveList+0x40>)
  800d16a:	6818      	ldr	r0, [r3, #0]
- 800d16c:	f7fb fe5d 	bl	8008e2a <vListInsert>
+ 800d16c:	f7fb fe5f 	bl	8008e2e <vListInsert>
 BaseType_t xProcessTimerNow = pdFALSE;
  800d170:	2000      	movs	r0, #0
  800d172:	e7f7      	b.n	800d164 <prvInsertTimerInActiveList+0x14>
@@ -12949,7 +12950,7 @@ BaseType_t xProcessTimerNow = pdFALSE;
  800d17c:	1d01      	adds	r1, r0, #4
  800d17e:	4b05      	ldr	r3, [pc, #20]	@ (800d194 <prvInsertTimerInActiveList+0x44>)
  800d180:	6818      	ldr	r0, [r3, #0]
- 800d182:	f7fb fe52 	bl	8008e2a <vListInsert>
+ 800d182:	f7fb fe54 	bl	8008e2e <vListInsert>
 BaseType_t xProcessTimerNow = pdFALSE;
  800d186:	2000      	movs	r0, #0
  800d188:	e7ec      	b.n	800d164 <prvInsertTimerInActiveList+0x14>
@@ -12993,11 +12994,11 @@ static void prvCheckForValidListAndQueue( void )
 			vListInitialise( &xActiveTimerList1 );
  800d1ae:	4d0f      	ldr	r5, [pc, #60]	@ (800d1ec <prvCheckForValidListAndQueue+0x54>)
  800d1b0:	4628      	mov	r0, r5
- 800d1b2:	f7fb fe21 	bl	8008df8 <vListInitialise>
+ 800d1b2:	f7fb fe23 	bl	8008dfc <vListInitialise>
 			vListInitialise( &xActiveTimerList2 );
  800d1b6:	4c0e      	ldr	r4, [pc, #56]	@ (800d1f0 <prvCheckForValidListAndQueue+0x58>)
  800d1b8:	4620      	mov	r0, r4
- 800d1ba:	f7fb fe1d 	bl	8008df8 <vListInitialise>
+ 800d1ba:	f7fb fe1f 	bl	8008dfc <vListInitialise>
 			pxCurrentTimerList = &xActiveTimerList1;
  800d1be:	4b0d      	ldr	r3, [pc, #52]	@ (800d1f4 <prvCheckForValidListAndQueue+0x5c>)
  800d1c0:	601d      	str	r5, [r3, #0]
@@ -13050,7 +13051,7 @@ static void prvCheckForValidListAndQueue( void )
  800d21c:	aa07      	add	r2, sp, #28
  800d21e:	a906      	add	r1, sp, #24
  800d220:	a805      	add	r0, sp, #20
- 800d222:	f7fb fcad 	bl	8008b80 <vApplicationGetTimerTaskMemory>
+ 800d222:	f7fb fcaf 	bl	8008b84 <vApplicationGetTimerTaskMemory>
 			xTimerTaskHandle = xTaskCreateStatic(	prvTimerTask,
  800d226:	9b05      	ldr	r3, [sp, #20]
  800d228:	9302      	str	r3, [sp, #8]
@@ -13160,7 +13161,7 @@ BaseType_t xReturn = pdFAIL;
 		( void ) uxListRemove( &( pxTimer->xTimerListItem ) );
  800d2ea:	1d25      	adds	r5, r4, #4
  800d2ec:	4628      	mov	r0, r5
- 800d2ee:	f7fb fdb5 	bl	8008e5c <uxListRemove>
+ 800d2ee:	f7fb fdb7 	bl	8008e60 <uxListRemove>
 		pxTimer->pxCallbackFunction( ( TimerHandle_t ) pxTimer );
  800d2f2:	6a23      	ldr	r3, [r4, #32]
  800d2f4:	4620      	mov	r0, r4
@@ -13183,7 +13184,7 @@ BaseType_t xReturn = pdFAIL;
  800d30e:	4629      	mov	r1, r5
  800d310:	4b0e      	ldr	r3, [pc, #56]	@ (800d34c <prvSwitchTimerLists+0x74>)
  800d312:	6818      	ldr	r0, [r3, #0]
- 800d314:	f7fb fd89 	bl	8008e2a <vListInsert>
+ 800d314:	f7fb fd8b 	bl	8008e2e <vListInsert>
  800d318:	e7e0      	b.n	800d2dc <prvSwitchTimerLists+0x4>
 				xResult = xTimerGenericCommand( pxTimer, tmrCOMMAND_START_DONT_TRACE, xNextExpireTime, NULL, tmrNO_DELAY );
  800d31a:	2100      	movs	r1, #0
@@ -13255,7 +13256,7 @@ Timer_t * const pxTimer = ( Timer_t * ) listGET_OWNER_OF_HEAD_ENTRY( pxCurrentTi
  800d38e:	68cc      	ldr	r4, [r1, #12]
 	( void ) uxListRemove( &( pxTimer->xTimerListItem ) );
  800d390:	1d20      	adds	r0, r4, #4
- 800d392:	f7fb fd63 	bl	8008e5c <uxListRemove>
+ 800d392:	f7fb fd65 	bl	8008e60 <uxListRemove>
 	if( ( pxTimer->ucStatus & tmrSTATUS_IS_AUTORELOAD ) != 0 )
  800d396:	f894 c028 	ldrb.w	ip, [r4, #40]	@ 0x28
  800d39a:	f01c 0f04 	tst.w	ip, #4
@@ -13390,7 +13391,7 @@ Timer_t * const pxTimer = ( Timer_t * ) listGET_OWNER_OF_HEAD_ENTRY( pxCurrentTi
  800d490:	b113      	cbz	r3, 800d498 <prvProcessReceivedCommands+0x38>
 				( void ) uxListRemove( &( pxTimer->xTimerListItem ) );
  800d492:	1d20      	adds	r0, r4, #4
- 800d494:	f7fb fce2 	bl	8008e5c <uxListRemove>
+ 800d494:	f7fb fce4 	bl	8008e60 <uxListRemove>
 			xTimeNow = prvSampleTimeNow( &xTimerListsWereSwitched );
  800d498:	a803      	add	r0, sp, #12
  800d49a:	f7ff ff5b 	bl	800d354 <prvSampleTimeNow>
@@ -13478,7 +13479,7 @@ Timer_t * const pxTimer = ( Timer_t * ) listGET_OWNER_OF_HEAD_ENTRY( pxCurrentTi
  800d558:	e788      	b.n	800d46c <prvProcessReceivedCommands+0xc>
 							vPortFree( pxTimer );
  800d55a:	4620      	mov	r0, r4
- 800d55c:	f7fb fc0e 	bl	8008d7c <vPortFree>
+ 800d55c:	f7fb fc10 	bl	8008d80 <vPortFree>
  800d560:	e784      	b.n	800d46c <prvProcessReceivedCommands+0xc>
 }
  800d562:	b008      	add	sp, #32
@@ -13578,7 +13579,7 @@ LoopFillZerobss:
  800d5b2:	f000 f81f 	bl	800d5f4 <__libc_init_array>
 /* Call the application's entry point.*/
 	bl	main
- 800d5b6:	f7fb fdf1 	bl	800919c <main>
+ 800d5b6:	f7fb fdf3 	bl	80091a0 <main>
 
 0800d5ba <LoopForever>:
 
