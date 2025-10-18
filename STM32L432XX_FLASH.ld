@@ -63,7 +63,7 @@ MEMORY
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 48K
 RAM2 (xrw)      : ORIGIN = 0x10000000, LENGTH = 16K
 FLASH (rx)      : ORIGIN = 0x8008000, LENGTH = 208K    /* Reduced from 224K to reserve last 16KB */
-STORAGE (r)    : ORIGIN = 0x8042000, LENGTH = 16K      /* Reserved for permanent data storage (last 16KB) */
+STORAGE (r)    : ORIGIN = 0x803C000, LENGTH = 16K      /* Reserved for permanent data storage (last 16KB of physical flash) */
 }
 
 /* Storage area symbols for application use */

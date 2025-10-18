@@ -114,6 +114,13 @@ HAL_StatusTypeDef CAN_SendMessageExt(uint32_t id, uint8_t *data, uint8_t length,
 void CAN_RegisterRxCallback(CAN_RxCallback_t callback);
 
 /**
+  * @brief  Reconfigure CAN filters for new module ID
+  * @note   Call this after changing module ID to update RX filters
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_ReconfigureFilters(void);
+
+/**
   * @brief  Get CAN statistics
   * @param  stats: Pointer to statistics structure
   * @retval None
@@ -150,6 +157,21 @@ uint32_t CAN_FlushTxQueue(void);
   * @retval HAL_StatusTypeDef
   */
 HAL_StatusTypeDef CAN_SendHeartbeat(void);
+
+/**
+  * @brief  Send BMS CAN statistics message
+  * @note   Contains RX/TX counters for diagnostics
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendStatistics(void);
+
+/**
+  * @brief  Send debug information message
+  * @note   Contains module ID, firmware version, uptime, etc.
+  *         Sent in response to CAN_DEBUG_REQUEST_ID
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendDebugInfo(void);
 
 #ifdef __cplusplus
 }

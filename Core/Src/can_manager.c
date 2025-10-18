@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "can_manager.h"
 #include "error_manager.h"
+#include "config_manager.h"
 
 /* Private variables ---------------------------------------------------------*/
 osMessageQueueId_t CANTxQueueHandle = NULL;
@@ -32,6 +33,7 @@ static CAN_Statistics_t can_stats = {0};
 static void CAN_ProcessTxQueue(void);
 static void CAN_ProcessRxMessage(CAN_Message_t *msg);
 static HAL_StatusTypeDef CAN_TransmitMessage(CAN_Message_t *msg);
+static void CAN_ConfigureFilters(void);
 static void CAN_ConfigureFilters(void);
 
 /* Function Implementations --------------------------------------------------*/
@@ -54,10 +56,10 @@ HAL_StatusTypeDef CAN_Manager_Init(void)
         return HAL_ERROR;
     }
     
-    // Configure CAN filters to accept all messages
-    CAN_ConfigureFilters();
+    // NOTE: CAN filter is now configured in MX_CAN1_Init() BEFORE HAL_CAN_Start()
+    // This is critical - filters must be configured before starting CAN!
     
-    // Activate CAN RX FIFO notifications
+    // Activate CAN RX FIFO notifications (CAN must already be started)
     if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING | 
                                               CAN_IT_RX_FIFO1_MSG_PENDING |
                                               CAN_IT_ERROR |
@@ -72,26 +74,45 @@ HAL_StatusTypeDef CAN_Manager_Init(void)
 }
 
 /**
-  * @brief  Configure CAN filters to accept all extended ID messages
+  * @brief  Configure CAN filters to accept messages for current module ID
   * @retval None
+  * @note   TEMPORARY: Accept ALL extended CAN messages for debugging
+  *         TODO: Restore module-specific filtering once RX is working
   */
 static void CAN_ConfigureFilters(void)
 {
     CAN_FilterTypeDef filterConfig;
     
-    // Configure filter 0 to accept all extended IDs (29-bit)
+    // TEMPORARY DEBUG: Accept ALL extended CAN IDs
+    // This disables filtering to verify RX path is working
+    
     filterConfig.FilterBank = 0;
     filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
     filterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+    
+    // Accept all extended IDs: ID=0, Mask=0 means "don't care about any bits"
     filterConfig.FilterIdHigh = 0x0000;
-    filterConfig.FilterIdLow = 0x0004;  // Set IDE bit for extended IDs
-    filterConfig.FilterMaskIdHigh = 0x0000;
-    filterConfig.FilterMaskIdLow = 0x0004;  // Mask only IDE bit
+    filterConfig.FilterIdLow = 0x0004;   // Only IDE bit set (extended ID)
+    filterConfig.FilterMaskIdHigh = 0x0000;  // Don't care about any ID bits
+    filterConfig.FilterMaskIdLow = 0x0004;   // But we DO care about IDE bit (only extended)
+    
     filterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
     filterConfig.FilterActivation = ENABLE;
     filterConfig.SlaveStartFilterBank = 14;
     
     HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
+}
+
+/**
+  * @brief  Reconfigure CAN filters for new module ID
+  * @note   Call this after changing module ID to update RX filters
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_ReconfigureFilters(void)
+{
+    // Reconfigure filters with new module ID
+    CAN_ConfigureFilters();
+    return HAL_OK;
 }
 
 /**
@@ -110,6 +131,9 @@ HAL_StatusTypeDef CAN_SendMessage(uint32_t id, uint8_t *data, uint8_t length, ui
     if (length > 8 || id > 0x1FFFFFFF) {
         return HAL_ERROR;
     }
+    
+    // ID is already configured with module offset at startup
+    // No need to apply offset here anymore
     
     // Prepare message
     msg.id = id;
@@ -216,6 +240,22 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
 {
     can_stats.rx_message_count++;
     
+    // Check for configuration command message
+    // Hardware filter already ensures this is for our module ID
+    uint32_t base_id = msg->id & 0xFFFF0FFF;  // Strip module ID to get base ID
+    if (base_id == (CAN_CONFIG_CMD_ID & 0xFFFF0FFF)) {
+        // Process configuration command
+        Config_ProcessCANCommand(msg->data, msg->length);
+        return;
+    }
+    
+    // Check for debug info request (broadcast message - no module ID)
+    if (msg->id == CAN_DEBUG_REQUEST_ID) {
+        // Send debug info response
+        CAN_SendDebugInfo();
+        return;
+    }
+    
     // Call registered callback if available
     if (rx_callback != NULL) {
         rx_callback(msg);
@@ -249,14 +289,16 @@ void CAN_ManagerTask(void *argument)
 {
     CAN_Message_t rx_msg;
     uint32_t last_heartbeat_tick = 0;
+    uint32_t last_stats_tick = 0;
     uint32_t last_uptime_tick = 0;
     uint32_t current_tick = 0;
     
     // Wait 100ms for system to stabilize
     osDelay(100);
     
-    // Initialize heartbeat timing
+    // Initialize timing
     last_heartbeat_tick = osKernelGetTickCount();
+    last_stats_tick = osKernelGetTickCount();
     last_uptime_tick = osKernelGetTickCount();
     
     /* Infinite loop */
@@ -276,6 +318,12 @@ void CAN_ManagerTask(void *argument)
         if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
             CAN_SendHeartbeat();
             last_heartbeat_tick = current_tick;
+        }
+        
+        // Send statistics message at regular intervals (every 1 second)
+        if ((current_tick - last_stats_tick) >= 1000) {
+            CAN_SendStatistics();
+            last_stats_tick = current_tick;
         }
         
         // Update uptime counter every second
@@ -461,5 +509,73 @@ HAL_StatusTypeDef CAN_SendHeartbeat(void)
     heartbeat_data[7] = (uint8_t)((status.fault_count >> 8) & 0xFF);   // Fault count high byte
     
     // Send heartbeat with high priority
-    return CAN_SendMessage(CAN_BMS_HEARTBEAT_ID, heartbeat_data, 8, CAN_PRIORITY_HIGH);
+    return CAN_SendMessage(CAN_BMS_HEARTBEAT_ID, heartbeat_data, 8, CAN_PRIORITY_CRITICAL);
+}
+
+/**
+  * @brief  Send CAN statistics message for diagnostics
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendStatistics(void)
+{
+    uint8_t stats_data[8];
+    
+    // Pack CAN statistics message
+    // Bytes 0-1: RX message count (16-bit)
+    stats_data[0] = (uint8_t)(can_stats.rx_message_count & 0xFF);
+    stats_data[1] = (uint8_t)((can_stats.rx_message_count >> 8) & 0xFF);
+    
+    // Bytes 2-3: TX success count (16-bit)
+    stats_data[2] = (uint8_t)(can_stats.tx_success_count & 0xFF);
+    stats_data[3] = (uint8_t)((can_stats.tx_success_count >> 8) & 0xFF);
+    
+    // Byte 4: TX error count
+    stats_data[4] = (uint8_t)(can_stats.tx_error_count & 0xFF);
+    
+    // Byte 5: RX queue full count
+    stats_data[5] = (uint8_t)(can_stats.rx_queue_full_count & 0xFF);
+    
+    // Byte 6: Bus-off count
+    stats_data[6] = (uint8_t)(can_stats.bus_off_count & 0xFF);
+    
+    // Byte 7: TX queue full count
+    stats_data[7] = (uint8_t)(can_stats.tx_queue_full_count & 0xFF);
+    
+    // Send statistics with normal priority
+    return CAN_SendMessage(CAN_BMS_STATS_ID, stats_data, 8, CAN_PRIORITY_NORMAL);
+}
+
+/**
+  * @brief  Send debug information message
+  * @note   Debug info format (8 bytes):
+  *         Byte 0: Module ID (0-15)
+  *         Byte 1: Firmware version major
+  *         Byte 2: Firmware version minor
+  *         Byte 3: Firmware version patch
+  *         Bytes 4-7: Uptime in seconds (32-bit)
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendDebugInfo(void)
+{
+    uint8_t debug_data[8];
+    
+    // Get current module ID
+    extern uint8_t Config_GetModuleID(void);
+    uint8_t module_id = Config_GetModuleID();
+    
+    // Get uptime in seconds (convert from milliseconds)
+    uint32_t uptime_sec = osKernelGetTickCount() / 1000;
+    
+    // Pack debug information message
+    debug_data[0] = module_id;          // Byte 0: Module ID
+    debug_data[1] = 1;                  // Byte 1: Firmware version major (TODO: define these)
+    debug_data[2] = 0;                  // Byte 2: Firmware version minor
+    debug_data[3] = 0;                  // Byte 3: Firmware version patch
+    debug_data[4] = (uint8_t)(uptime_sec & 0xFF);           // Byte 4: Uptime LSB
+    debug_data[5] = (uint8_t)((uptime_sec >> 8) & 0xFF);    // Byte 5: Uptime
+    debug_data[6] = (uint8_t)((uptime_sec >> 16) & 0xFF);   // Byte 6: Uptime
+    debug_data[7] = (uint8_t)((uptime_sec >> 24) & 0xFF);   // Byte 7: Uptime MSB
+    
+    // Send debug info with high priority
+    return CAN_SendMessage(CAN_DEBUG_RESPONSE_ID, debug_data, 8, CAN_PRIORITY_HIGH);
 }

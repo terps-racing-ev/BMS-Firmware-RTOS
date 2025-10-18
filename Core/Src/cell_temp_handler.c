@@ -475,7 +475,8 @@ static HAL_StatusTypeDef CellTemp_SendTemperatureMessage(uint8_t msg_index, uint
     }
     
     // Send via CAN Manager (non-blocking, queued)
-    uint32_t can_id = CAN_TEMP_BASE_ID + msg_index;
+    // CAN_TEMP_ID already has module offset applied from Config_Init()
+    uint32_t can_id = CAN_TEMP_ID + msg_index;
     return CAN_SendMessage(can_id, TxData, 8, CAN_PRIORITY_NORMAL);
 }
 

@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "cell_temp_handler.h"
 #include "can_manager.h"
+#include "config_manager.h"
 #include "error_manager.h"
 /* USER CODE END Includes */
 
@@ -203,6 +204,9 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
+  // Initialize Configuration Manager
+  Config_Init();
+  
   // Initialize Error Manager
   if (ErrorMgr_Init() != HAL_OK)
   {
@@ -393,6 +397,28 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
+  
+  // Configure CAN filter BEFORE starting CAN
+  // Accept all extended CAN IDs (for debugging)
+  CAN_FilterTypeDef filterConfig;
+  filterConfig.FilterBank = 0;
+  filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  filterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+  
+  // Accept all extended IDs: ID=0, Mask=0 means "don't care about any bits"
+  filterConfig.FilterIdHigh = 0x0000;
+  filterConfig.FilterIdLow = 0x0004;   // Only IDE bit set (extended ID)
+  filterConfig.FilterMaskIdHigh = 0x0000;  // Don't care about any ID bits
+  filterConfig.FilterMaskIdLow = 0x0004;   // But we DO care about IDE bit (only extended)
+  
+  filterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
+  filterConfig.FilterActivation = ENABLE;
+  filterConfig.SlaveStartFilterBank = 14;
+  
+  if (HAL_CAN_ConfigFilter(&hcan1, &filterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
   /* USER CODE END CAN1_Init 2 */
 

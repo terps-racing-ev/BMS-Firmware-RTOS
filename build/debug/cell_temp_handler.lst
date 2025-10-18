@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
   28:Core/Src/cell_temp_handler.c **** static const uint32_t adc_channels[NUM_ADC_CHANNELS] = {
   29:Core/Src/cell_temp_handler.c ****     ADC_CH_1, ADC_CH_2, ADC_CH_3, ADC_CH_4, ADC_CH_5, ADC_CH_6, ADC_CH_7
   30:Core/Src/cell_temp_handler.c **** };
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 2
 
 
   31:Core/Src/cell_temp_handler.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
   85:Core/Src/cell_temp_handler.c ****     sConfig.Rank = ADC_REGULAR_RANK_1;
   86:Core/Src/cell_temp_handler.c ****     sConfig.SamplingTime = ADC_SAMPLETIME_640CYCLES_5; // Long sampling for high impedance
   87:Core/Src/cell_temp_handler.c ****     sConfig.SingleDiff = ADC_SINGLE_ENDED;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 3
 
 
   88:Core/Src/cell_temp_handler.c ****     sConfig.OffsetNumber = ADC_OFFSET_NONE;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  142:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG1_PORT, MUX_SIG1_PIN, GPIO_PIN_RESET);
  143:Core/Src/cell_temp_handler.c ****     }
  144:Core/Src/cell_temp_handler.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 4
 
 
  145:Core/Src/cell_temp_handler.c ****     if (channel & 0x02) {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  199:Core/Src/cell_temp_handler.c ****     float temp_kelvin = 1.0f / ((1.0f / REFERENCE_TEMP_K) + (ln_ratio / THERMISTOR_B_VALUE));
  200:Core/Src/cell_temp_handler.c ****     
  201:Core/Src/cell_temp_handler.c ****     // Convert to Celsius
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 5
 
 
  202:Core/Src/cell_temp_handler.c ****     float temp_celsius = temp_kelvin - 273.15f;
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  256:Core/Src/cell_temp_handler.c ****     // - Send CAN messages with updated values for all 7 ADCs
  257:Core/Src/cell_temp_handler.c ****     // - Move to next MUX channel and repeat
  258:Core/Src/cell_temp_handler.c ****     // Complete cycle time: 125ms × 8 MUX channels = 1 second
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 6
 
 
  259:Core/Src/cell_temp_handler.c ****     
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  313:Core/Src/cell_temp_handler.c ****                     // Check temperature limits and set error flags
  314:Core/Src/cell_temp_handler.c ****                     if (therm->temperature > -126.0f) {  // Valid temperature reading
  315:Core/Src/cell_temp_handler.c ****                         if (therm->temperature > TEMP_MAX_CELSIUS) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 7
 
 
  316:Core/Src/cell_temp_handler.c ****                             ErrorMgr_SetError(ERROR_OVER_TEMP);
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  370:Core/Src/cell_temp_handler.c ****         if (temp_state.current_mux >= MUX_CHANNELS) {
  371:Core/Src/cell_temp_handler.c ****             temp_state.current_mux = 0;
  372:Core/Src/cell_temp_handler.c ****             temp_state.cycle_count++;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 8
 
 
  373:Core/Src/cell_temp_handler.c ****             
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  422:Core/Src/cell_temp_handler.c ****     if (adc_index >= NUM_ADC_CHANNELS) {
   34              		.loc 1 422 5 view .LVU1
   35              		.loc 1 422 8 is_stmt 0 view .LVU2
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 9
 
 
   36 0000 0628     		cmp	r0, #6
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
   83 000a 0193     		str	r3, [sp, #4]
   84 000c 0293     		str	r3, [sp, #8]
   85 000e 0393     		str	r3, [sp, #12]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 10
 
 
   86 0010 0493     		str	r3, [sp, #16]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  125              	.LFE293:
  127              		.section	.text.CellTemp_SendTemperatureMessage,"ax",%progbits
  128              		.align	1
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 11
 
 
  129              		.syntax unified
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  165              	.LBB2:
  166              		.loc 1 445 10 view .LVU37
  167              		.loc 1 445 5 is_stmt 0 view .LVU38
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 12
 
 
  168 000e 01E0     		b	.L12
@@ -710,7 +710,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  206              		.loc 1 452 5 is_stmt 1 view .LVU48
  207              		.loc 1 452 8 is_stmt 0 view .LVU49
  208 0030 0028     		cmp	r0, #0
- 209 0032 3ED0     		beq	.L15
+ 209 0032 3DD0     		beq	.L15
  210              	.LBB4:
  453:Core/Src/cell_temp_handler.c ****         return HAL_OK; // Skip sending this message
  454:Core/Src/cell_temp_handler.c ****     }
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  456:Core/Src/cell_temp_handler.c ****     // Prepare CAN message with 4 thermistor readings per message
  457:Core/Src/cell_temp_handler.c ****     // Temperature format: temp_celsius * 10 (0.1°C resolution), little endian
  458:Core/Src/cell_temp_handler.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 13
 
 
  459:Core/Src/cell_temp_handler.c ****     for (uint8_t i = 0; i < 4; i++) {
@@ -733,7 +733,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  460:Core/Src/cell_temp_handler.c ****         uint8_t therm_idx = start_therm_idx + i;
  461:Core/Src/cell_temp_handler.c ****         int16_t temp_data = 0x8000; // Default invalid temperature marker
  219              		.loc 1 461 17 view .LVU52
- 220 0038 1F4B     		ldr	r3, .L31
+ 220 0038 1E4B     		ldr	r3, .L31
  221              	.LVL17:
  222              	.L17:
  462:Core/Src/cell_temp_handler.c ****         
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  246              		.loc 1 459 27 is_stmt 1 discriminator 1 view .LVU61
  247 0054 032C     		cmp	r4, #3
  248 0056 23D8     		bhi	.L30
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 14
 
 
  249              	.LBB7:
@@ -817,12 +817,12 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  272              	.LVL24:
  467:Core/Src/cell_temp_handler.c ****                 temp_data = (int16_t)(temp_state.thermistors[therm_idx].temperature * 10.0f);
  273              		.loc 1 467 50 view .LVU72
- 274 006c 134B     		ldr	r3, .L31+4
+ 274 006c 124B     		ldr	r3, .L31+4
  275 006e 03EBC703 		add	r3, r3, r7, lsl #3
  276 0072 D3ED017A 		vldr.32	s15, [r3, #4]
  466:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].temperature > -126.0f) {
  277              		.loc 1 466 50 discriminator 1 view .LVU73
- 278 0076 9FED127A 		vldr.32	s14, .L31+8
+ 278 0076 9FED117A 		vldr.32	s14, .L31+8
  279 007a F4EEC77A 		vcmpe.f32	s15, s14
  280 007e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  281 0082 0BDD     		ble	.L26
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  288 0090 17EE903A 		vmov	r3, s15	@ int
  289 0094 1BB2     		sxth	r3, r3
  290              	.LVL25:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 15
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 15
 
 
  468:Core/Src/cell_temp_handler.c ****             }
@@ -851,13 +851,13 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  296              	.LBE6:
  461:Core/Src/cell_temp_handler.c ****         
  297              		.loc 1 461 17 view .LVU79
- 298 0098 074B     		ldr	r3, .L31
+ 298 0098 064B     		ldr	r3, .L31
  299 009a CEE7     		b	.L17
  300              	.LVL27:
  301              	.L26:
  461:Core/Src/cell_temp_handler.c ****         
  302              		.loc 1 461 17 view .LVU80
- 303 009c 064B     		ldr	r3, .L31
+ 303 009c 054B     		ldr	r3, .L31
  304 009e CCE7     		b	.L17
  305              	.LVL28:
  306              	.L30:
@@ -868,1981 +868,1990 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 1
  475:Core/Src/cell_temp_handler.c ****     }
  476:Core/Src/cell_temp_handler.c ****     
  477:Core/Src/cell_temp_handler.c ****     // Send via CAN Manager (non-blocking, queued)
- 478:Core/Src/cell_temp_handler.c ****     uint32_t can_id = CAN_TEMP_BASE_ID + msg_index;
- 310              		.loc 1 478 5 is_stmt 1 view .LVU82
- 479:Core/Src/cell_temp_handler.c ****     return CAN_SendMessage(can_id, TxData, 8, CAN_PRIORITY_NORMAL);
- 311              		.loc 1 479 5 view .LVU83
- 312              		.loc 1 479 12 is_stmt 0 view .LVU84
- 313 00a0 0223     		movs	r3, #2
- 314 00a2 0822     		movs	r2, #8
- 315 00a4 6946     		mov	r1, sp
- 316 00a6 06F10F60 		add	r0, r6, #149946368
- 317 00aa 00F57020 		add	r0, r0, #983040
- 318 00ae FFF7FEFF 		bl	CAN_SendMessage
- 319              	.LVL29:
- 320              	.L15:
- 480:Core/Src/cell_temp_handler.c **** }
- 321              		.loc 1 480 1 view .LVU85
- 322 00b2 03B0     		add	sp, sp, #12
- 323              		.cfi_def_cfa_offset 20
- 324              		@ sp needed
- 325 00b4 F0BD     		pop	{r4, r5, r6, r7, pc}
- 326              	.LVL30:
- 327              	.L32:
- 328              		.loc 1 480 1 view .LVU86
- 329 00b6 00BF     		.align	2
- 330              	.L31:
- 331 00b8 0080FFFF 		.word	-32768
- 332 00bc 00000000 		.word	temp_state
- 333 00c0 0000FCC2 		.word	-1023672320
- 334              		.cfi_endproc
- 335              	.LFE300:
- 337              		.section	.text.CellTemp_Init,"ax",%progbits
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 16
+ 478:Core/Src/cell_temp_handler.c ****     // CAN_TEMP_ID already has module offset applied from Config_Init()
+ 479:Core/Src/cell_temp_handler.c ****     uint32_t can_id = CAN_TEMP_ID + msg_index;
+ 310              		.loc 1 479 5 is_stmt 1 view .LVU82
+ 311              		.loc 1 479 35 is_stmt 0 view .LVU83
+ 312 00a0 074B     		ldr	r3, .L31+12
+ 313 00a2 1868     		ldr	r0, [r3]
+ 314              	.LVL29:
+ 480:Core/Src/cell_temp_handler.c ****     return CAN_SendMessage(can_id, TxData, 8, CAN_PRIORITY_NORMAL);
+ 315              		.loc 1 480 5 is_stmt 1 view .LVU84
+ 316              		.loc 1 480 12 is_stmt 0 view .LVU85
+ 317 00a4 0223     		movs	r3, #2
+ 318 00a6 0822     		movs	r2, #8
+ 319 00a8 6946     		mov	r1, sp
+ 320 00aa 3044     		add	r0, r0, r6
+ 321              	.LVL30:
+ 322              		.loc 1 480 12 view .LVU86
+ 323 00ac FFF7FEFF 		bl	CAN_SendMessage
+ 324              	.LVL31:
+ 325              	.L15:
+ 481:Core/Src/cell_temp_handler.c **** }
+ 326              		.loc 1 481 1 view .LVU87
+ 327 00b0 03B0     		add	sp, sp, #12
+ 328              		.cfi_def_cfa_offset 20
+ 329              		@ sp needed
+ 330 00b2 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 331              	.LVL32:
+ 332              	.L32:
+ 333              		.loc 1 481 1 view .LVU88
+ 334              		.align	2
+ 335              	.L31:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 16
 
 
- 338              		.align	1
- 339              		.global	CellTemp_Init
- 340              		.syntax unified
- 341              		.thumb
- 342              		.thumb_func
- 344              	CellTemp_Init:
- 345              	.LFB292:
+ 336 00b4 0080FFFF 		.word	-32768
+ 337 00b8 00000000 		.word	temp_state
+ 338 00bc 0000FCC2 		.word	-1023672320
+ 339 00c0 00000000 		.word	CAN_TEMP_ID
+ 340              		.cfi_endproc
+ 341              	.LFE300:
+ 343              		.section	.text.CellTemp_Init,"ax",%progbits
+ 344              		.align	1
+ 345              		.global	CellTemp_Init
+ 346              		.syntax unified
+ 347              		.thumb
+ 348              		.thumb_func
+ 350              	CellTemp_Init:
+ 351              	.LFB292:
   50:Core/Src/cell_temp_handler.c ****     // Initialize state structure
- 346              		.loc 1 50 1 is_stmt 1 view -0
- 347              		.cfi_startproc
- 348              		@ args = 0, pretend = 0, frame = 0
- 349              		@ frame_needed = 0, uses_anonymous_args = 0
- 350 0000 10B5     		push	{r4, lr}
- 351              		.cfi_def_cfa_offset 8
- 352              		.cfi_offset 4, -8
- 353              		.cfi_offset 14, -4
+ 352              		.loc 1 50 1 is_stmt 1 view -0
+ 353              		.cfi_startproc
+ 354              		@ args = 0, pretend = 0, frame = 0
+ 355              		@ frame_needed = 0, uses_anonymous_args = 0
+ 356 0000 10B5     		push	{r4, lr}
+ 357              		.cfi_def_cfa_offset 8
+ 358              		.cfi_offset 4, -8
+ 359              		.cfi_offset 14, -4
   52:Core/Src/cell_temp_handler.c **** 
- 354              		.loc 1 52 5 view .LVU88
- 355 0002 40F24C52 		movw	r2, #1356
- 356 0006 0021     		movs	r1, #0
- 357 0008 1A48     		ldr	r0, .L37
- 358 000a FFF7FEFF 		bl	memset
- 359              	.LVL31:
+ 360              		.loc 1 52 5 view .LVU90
+ 361 0002 40F24C52 		movw	r2, #1356
+ 362 0006 0021     		movs	r1, #0
+ 363 0008 1A48     		ldr	r0, .L37
+ 364 000a FFF7FEFF 		bl	memset
+ 365              	.LVL33:
   55:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_index = i / MUX_CHANNELS;
- 360              		.loc 1 55 5 view .LVU89
- 361              	.LBB8:
+ 366              		.loc 1 55 5 view .LVU91
+ 367              	.LBB8:
   55:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_index = i / MUX_CHANNELS;
- 362              		.loc 1 55 10 view .LVU90
+ 368              		.loc 1 55 10 view .LVU92
   55:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_index = i / MUX_CHANNELS;
- 363              		.loc 1 55 18 is_stmt 0 view .LVU91
- 364 000e 0023     		movs	r3, #0
+ 369              		.loc 1 55 18 is_stmt 0 view .LVU93
+ 370 000e 0023     		movs	r3, #0
   55:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_index = i / MUX_CHANNELS;
- 365              		.loc 1 55 5 view .LVU92
- 366 0010 19E0     		b	.L34
- 367              	.LVL32:
- 368              	.L35:
+ 371              		.loc 1 55 5 view .LVU94
+ 372 0010 19E0     		b	.L34
+ 373              	.LVL34:
+ 374              	.L35:
   56:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].mux_channel = i % MUX_CHANNELS;
- 369              		.loc 1 56 9 is_stmt 1 view .LVU93
+ 375              		.loc 1 56 9 is_stmt 1 view .LVU95
   56:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].mux_channel = i % MUX_CHANNELS;
- 370              		.loc 1 56 45 is_stmt 0 view .LVU94
- 371 0012 184A     		ldr	r2, .L37
- 372 0014 03EB4301 		add	r1, r3, r3, lsl #1
- 373 0018 C800     		lsls	r0, r1, #3
- 374 001a 1118     		adds	r1, r2, r0
- 375 001c 4FEAD30C 		lsr	ip, r3, #3
- 376 0020 02F800C0 		strb	ip, [r2, r0]
+ 376              		.loc 1 56 45 is_stmt 0 view .LVU96
+ 377 0012 184A     		ldr	r2, .L37
+ 378 0014 03EB4301 		add	r1, r3, r3, lsl #1
+ 379 0018 C800     		lsls	r0, r1, #3
+ 380 001a 1118     		adds	r1, r2, r0
+ 381 001c 4FEAD30C 		lsr	ip, r3, #3
+ 382 0020 02F800C0 		strb	ip, [r2, r0]
   57:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].temperature = -127.0f; // Invalid temperature marker
- 377              		.loc 1 57 9 is_stmt 1 view .LVU95
+ 383              		.loc 1 57 9 is_stmt 1 view .LVU97
   57:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].temperature = -127.0f; // Invalid temperature marker
- 378              		.loc 1 57 51 is_stmt 0 view .LVU96
- 379 0024 03F00700 		and	r0, r3, #7
-  57:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].temperature = -127.0f; // Invalid temperature marker
- 380              		.loc 1 57 47 view .LVU97
- 381 0028 4870     		strb	r0, [r1, #1]
-  58:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].raw_adc = 0;
- 382              		.loc 1 58 9 is_stmt 1 view .LVU98
-  58:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].raw_adc = 0;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 17
+ 384              		.loc 1 57 51 is_stmt 0 view .LVU98
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 17
 
 
- 383              		.loc 1 58 47 is_stmt 0 view .LVU99
- 384 002a 1348     		ldr	r0, .L37+4
- 385 002c 4860     		str	r0, [r1, #4]	@ float
+ 385 0024 03F00700 		and	r0, r3, #7
+  57:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].temperature = -127.0f; // Invalid temperature marker
+ 386              		.loc 1 57 47 view .LVU99
+ 387 0028 4870     		strb	r0, [r1, #1]
+  58:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].raw_adc = 0;
+ 388              		.loc 1 58 9 is_stmt 1 view .LVU100
+  58:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].raw_adc = 0;
+ 389              		.loc 1 58 47 is_stmt 0 view .LVU101
+ 390 002a 1348     		ldr	r0, .L37+4
+ 391 002c 4860     		str	r0, [r1, #4]	@ float
   59:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].last_read_time = 0;
- 386              		.loc 1 59 9 is_stmt 1 view .LVU100
+ 392              		.loc 1 59 9 is_stmt 1 view .LVU102
   59:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].last_read_time = 0;
- 387              		.loc 1 59 43 is_stmt 0 view .LVU101
- 388 002e 0020     		movs	r0, #0
- 389 0030 0881     		strh	r0, [r1, #8]	@ movhi
+ 393              		.loc 1 59 43 is_stmt 0 view .LVU103
+ 394 002e 0020     		movs	r0, #0
+ 395 0030 0881     		strh	r0, [r1, #8]	@ movhi
   60:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_accumulator = 0;
- 390              		.loc 1 60 9 is_stmt 1 view .LVU102
+ 396              		.loc 1 60 9 is_stmt 1 view .LVU104
   60:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_accumulator = 0;
- 391              		.loc 1 60 50 is_stmt 0 view .LVU103
- 392 0032 C860     		str	r0, [r1, #12]
+ 397              		.loc 1 60 50 is_stmt 0 view .LVU105
+ 398 0032 C860     		str	r0, [r1, #12]
   61:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].sample_count = 0;
- 393              		.loc 1 61 9 is_stmt 1 view .LVU104
+ 399              		.loc 1 61 9 is_stmt 1 view .LVU106
   61:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].sample_count = 0;
- 394              		.loc 1 61 51 is_stmt 0 view .LVU105
- 395 0034 0861     		str	r0, [r1, #16]
+ 400              		.loc 1 61 51 is_stmt 0 view .LVU107
+ 401 0034 0861     		str	r0, [r1, #16]
   62:Core/Src/cell_temp_handler.c ****     }
- 396              		.loc 1 62 9 is_stmt 1 view .LVU106
+ 402              		.loc 1 62 9 is_stmt 1 view .LVU108
   62:Core/Src/cell_temp_handler.c ****     }
- 397              		.loc 1 62 48 is_stmt 0 view .LVU107
- 398 0036 03EB430C 		add	ip, r3, r3, lsl #1
- 399 003a 4FEACC01 		lsl	r1, ip, #3
- 400 003e 0A44     		add	r2, r2, r1
- 401 0040 9082     		strh	r0, [r2, #20]	@ movhi
+ 403              		.loc 1 62 48 is_stmt 0 view .LVU109
+ 404 0036 03EB430C 		add	ip, r3, r3, lsl #1
+ 405 003a 4FEACC01 		lsl	r1, ip, #3
+ 406 003e 0A44     		add	r2, r2, r1
+ 407 0040 9082     		strh	r0, [r2, #20]	@ movhi
   55:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_index = i / MUX_CHANNELS;
- 402              		.loc 1 55 49 is_stmt 1 discriminator 3 view .LVU108
- 403 0042 0133     		adds	r3, r3, #1
- 404              	.LVL33:
+ 408              		.loc 1 55 49 is_stmt 1 discriminator 3 view .LVU110
+ 409 0042 0133     		adds	r3, r3, #1
+ 410              	.LVL35:
   55:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_index = i / MUX_CHANNELS;
- 405              		.loc 1 55 49 is_stmt 0 discriminator 3 view .LVU109
- 406 0044 DBB2     		uxtb	r3, r3
- 407              	.LVL34:
- 408              	.L34:
+ 411              		.loc 1 55 49 is_stmt 0 discriminator 3 view .LVU111
+ 412 0044 DBB2     		uxtb	r3, r3
+ 413              	.LVL36:
+ 414              	.L34:
   55:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_index = i / MUX_CHANNELS;
- 409              		.loc 1 55 27 is_stmt 1 discriminator 1 view .LVU110
- 410 0046 372B     		cmp	r3, #55
- 411 0048 E3D9     		bls	.L35
- 412              	.LBE8:
+ 415              		.loc 1 55 27 is_stmt 1 discriminator 1 view .LVU112
+ 416 0046 372B     		cmp	r3, #55
+ 417 0048 E3D9     		bls	.L35
+ 418              	.LBE8:
   68:Core/Src/cell_temp_handler.c ****     HAL_GPIO_WritePin(MUX_SIG2_PORT, MUX_SIG2_PIN, GPIO_PIN_RESET);
- 413              		.loc 1 68 5 view .LVU111
- 414 004a 0C4C     		ldr	r4, .L37+8
- 415 004c 0022     		movs	r2, #0
- 416 004e 0221     		movs	r1, #2
- 417 0050 2046     		mov	r0, r4
- 418 0052 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 419              	.LVL35:
+ 419              		.loc 1 68 5 view .LVU113
+ 420 004a 0C4C     		ldr	r4, .L37+8
+ 421 004c 0022     		movs	r2, #0
+ 422 004e 0221     		movs	r1, #2
+ 423 0050 2046     		mov	r0, r4
+ 424 0052 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 425              	.LVL37:
   69:Core/Src/cell_temp_handler.c ****     HAL_GPIO_WritePin(MUX_SIG3_PORT, MUX_SIG3_PIN, GPIO_PIN_RESET);
- 420              		.loc 1 69 5 view .LVU112
- 421 0056 0022     		movs	r2, #0
- 422 0058 4FF48071 		mov	r1, #256
- 423 005c 4FF09040 		mov	r0, #1207959552
- 424 0060 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 425              	.LVL36:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 18
+
+
+ 426              		.loc 1 69 5 view .LVU114
+ 427 0056 0022     		movs	r2, #0
+ 428 0058 4FF48071 		mov	r1, #256
+ 429 005c 4FF09040 		mov	r0, #1207959552
+ 430 0060 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 431              	.LVL38:
   70:Core/Src/cell_temp_handler.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 18
-
-
- 426              		.loc 1 70 5 view .LVU113
- 427 0064 0022     		movs	r2, #0
- 428 0066 2021     		movs	r1, #32
- 429 0068 2046     		mov	r0, r4
- 430 006a FFF7FEFF 		bl	HAL_GPIO_WritePin
- 431              	.LVL37:
+ 432              		.loc 1 70 5 view .LVU115
+ 433 0064 0022     		movs	r2, #0
+ 434 0066 2021     		movs	r1, #32
+ 435 0068 2046     		mov	r0, r4
+ 436 006a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 437              	.LVL39:
   72:Core/Src/cell_temp_handler.c **** }
- 432              		.loc 1 72 5 view .LVU114
+ 438              		.loc 1 72 5 view .LVU116
   73:Core/Src/cell_temp_handler.c **** 
- 433              		.loc 1 73 1 is_stmt 0 view .LVU115
- 434 006e 0020     		movs	r0, #0
- 435 0070 10BD     		pop	{r4, pc}
- 436              	.L38:
- 437 0072 00BF     		.align	2
- 438              	.L37:
- 439 0074 00000000 		.word	temp_state
- 440 0078 0000FEC2 		.word	-1023541248
- 441 007c 00040048 		.word	1207960576
- 442              		.cfi_endproc
- 443              	.LFE292:
- 445              		.section	.text.CellTemp_ReadADC,"ax",%progbits
- 446              		.align	1
- 447              		.global	CellTemp_ReadADC
- 448              		.syntax unified
- 449              		.thumb
- 450              		.thumb_func
- 452              	CellTemp_ReadADC:
- 453              	.LVL38:
- 454              	.LFB294:
+ 439              		.loc 1 73 1 is_stmt 0 view .LVU117
+ 440 006e 0020     		movs	r0, #0
+ 441 0070 10BD     		pop	{r4, pc}
+ 442              	.L38:
+ 443 0072 00BF     		.align	2
+ 444              	.L37:
+ 445 0074 00000000 		.word	temp_state
+ 446 0078 0000FEC2 		.word	-1023541248
+ 447 007c 00040048 		.word	1207960576
+ 448              		.cfi_endproc
+ 449              	.LFE292:
+ 451              		.section	.text.CellTemp_ReadADC,"ax",%progbits
+ 452              		.align	1
+ 453              		.global	CellTemp_ReadADC
+ 454              		.syntax unified
+ 455              		.thumb
+ 456              		.thumb_func
+ 458              	CellTemp_ReadADC:
+ 459              	.LVL40:
+ 460              	.LFB294:
  100:Core/Src/cell_temp_handler.c ****     uint16_t adc_value = 0;
- 455              		.loc 1 100 1 is_stmt 1 view -0
- 456              		.cfi_startproc
- 457              		@ args = 0, pretend = 0, frame = 0
- 458              		@ frame_needed = 0, uses_anonymous_args = 0
+ 461              		.loc 1 100 1 is_stmt 1 view -0
+ 462              		.cfi_startproc
+ 463              		@ args = 0, pretend = 0, frame = 0
+ 464              		@ frame_needed = 0, uses_anonymous_args = 0
  100:Core/Src/cell_temp_handler.c ****     uint16_t adc_value = 0;
- 459              		.loc 1 100 1 is_stmt 0 view .LVU117
- 460 0000 10B5     		push	{r4, lr}
- 461              		.cfi_def_cfa_offset 8
- 462              		.cfi_offset 4, -8
- 463              		.cfi_offset 14, -4
+ 465              		.loc 1 100 1 is_stmt 0 view .LVU119
+ 466 0000 10B5     		push	{r4, lr}
+ 467              		.cfi_def_cfa_offset 8
+ 468              		.cfi_offset 4, -8
+ 469              		.cfi_offset 14, -4
  101:Core/Src/cell_temp_handler.c ****     
- 464              		.loc 1 101 5 is_stmt 1 view .LVU118
- 465              	.LVL39:
+ 470              		.loc 1 101 5 is_stmt 1 view .LVU120
+ 471              	.LVL41:
  104:Core/Src/cell_temp_handler.c ****         return 0;
- 466              		.loc 1 104 5 view .LVU119
+ 472              		.loc 1 104 5 view .LVU121
  104:Core/Src/cell_temp_handler.c ****         return 0;
- 467              		.loc 1 104 9 is_stmt 0 view .LVU120
- 468 0002 FFF7FEFF 		bl	CellTemp_ConfigureADCChannel
- 469              	.LVL40:
+ 473              		.loc 1 104 9 is_stmt 0 view .LVU122
+ 474 0002 FFF7FEFF 		bl	CellTemp_ConfigureADCChannel
+ 475              	.LVL42:
  104:Core/Src/cell_temp_handler.c ****         return 0;
- 470              		.loc 1 104 8 discriminator 1 view .LVU121
- 471 0006 10B1     		cbz	r0, .L46
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 19
+
+
+ 476              		.loc 1 104 8 discriminator 1 view .LVU123
+ 477 0006 10B1     		cbz	r0, .L46
  105:Core/Src/cell_temp_handler.c ****     }
- 472              		.loc 1 105 16 view .LVU122
- 473 0008 0024     		movs	r4, #0
- 474              	.LVL41:
- 475              	.L40:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 19
-
-
+ 478              		.loc 1 105 16 view .LVU124
+ 479 0008 0024     		movs	r4, #0
+ 480              	.LVL43:
+ 481              	.L40:
  120:Core/Src/cell_temp_handler.c **** 
- 476              		.loc 1 120 1 view .LVU123
- 477 000a 2046     		mov	r0, r4
- 478 000c 10BD     		pop	{r4, pc}
- 479              	.LVL42:
- 480              	.L46:
+ 482              		.loc 1 120 1 view .LVU125
+ 483 000a 2046     		mov	r0, r4
+ 484 000c 10BD     		pop	{r4, pc}
+ 485              	.LVL44:
+ 486              	.L46:
  109:Core/Src/cell_temp_handler.c ****         // Wait for conversion to complete
- 481              		.loc 1 109 5 is_stmt 1 view .LVU124
+ 487              		.loc 1 109 5 is_stmt 1 view .LVU126
  109:Core/Src/cell_temp_handler.c ****         // Wait for conversion to complete
- 482              		.loc 1 109 9 is_stmt 0 view .LVU125
- 483 000e 0B48     		ldr	r0, .L49
- 484 0010 FFF7FEFF 		bl	HAL_ADC_Start
- 485              	.LVL43:
+ 488              		.loc 1 109 9 is_stmt 0 view .LVU127
+ 489 000e 0B48     		ldr	r0, .L49
+ 490 0010 FFF7FEFF 		bl	HAL_ADC_Start
+ 491              	.LVL45:
  109:Core/Src/cell_temp_handler.c ****         // Wait for conversion to complete
- 486              		.loc 1 109 8 discriminator 1 view .LVU126
- 487 0014 08B1     		cbz	r0, .L47
+ 492              		.loc 1 109 8 discriminator 1 view .LVU128
+ 493 0014 08B1     		cbz	r0, .L47
  101:Core/Src/cell_temp_handler.c ****     
- 488              		.loc 1 101 14 view .LVU127
- 489 0016 0024     		movs	r4, #0
- 490 0018 F7E7     		b	.L40
- 491              	.L47:
+ 494              		.loc 1 101 14 view .LVU129
+ 495 0016 0024     		movs	r4, #0
+ 496 0018 F7E7     		b	.L40
+ 497              	.L47:
  111:Core/Src/cell_temp_handler.c ****             // Get ADC value
- 492              		.loc 1 111 9 is_stmt 1 view .LVU128
+ 498              		.loc 1 111 9 is_stmt 1 view .LVU130
  111:Core/Src/cell_temp_handler.c ****             // Get ADC value
- 493              		.loc 1 111 13 is_stmt 0 view .LVU129
- 494 001a 4FF0FF31 		mov	r1, #-1
- 495 001e 0748     		ldr	r0, .L49
- 496 0020 FFF7FEFF 		bl	HAL_ADC_PollForConversion
- 497              	.LVL44:
+ 499              		.loc 1 111 13 is_stmt 0 view .LVU131
+ 500 001a 4FF0FF31 		mov	r1, #-1
+ 501 001e 0748     		ldr	r0, .L49
+ 502 0020 FFF7FEFF 		bl	HAL_ADC_PollForConversion
+ 503              	.LVL46:
  111:Core/Src/cell_temp_handler.c ****             // Get ADC value
- 498              		.loc 1 111 12 discriminator 1 view .LVU130
- 499 0024 20B1     		cbz	r0, .L48
+ 504              		.loc 1 111 12 discriminator 1 view .LVU132
+ 505 0024 20B1     		cbz	r0, .L48
  101:Core/Src/cell_temp_handler.c ****     
- 500              		.loc 1 101 14 view .LVU131
- 501 0026 0024     		movs	r4, #0
- 502              	.LVL45:
- 503              	.L41:
+ 506              		.loc 1 101 14 view .LVU133
+ 507 0026 0024     		movs	r4, #0
+ 508              	.LVL47:
+ 509              	.L41:
  116:Core/Src/cell_temp_handler.c ****     }
- 504              		.loc 1 116 9 is_stmt 1 view .LVU132
- 505 0028 0448     		ldr	r0, .L49
- 506 002a FFF7FEFF 		bl	HAL_ADC_Stop
- 507              	.LVL46:
- 508 002e ECE7     		b	.L40
- 509              	.LVL47:
- 510              	.L48:
+ 510              		.loc 1 116 9 is_stmt 1 view .LVU134
+ 511 0028 0448     		ldr	r0, .L49
+ 512 002a FFF7FEFF 		bl	HAL_ADC_Stop
+ 513              	.LVL48:
+ 514 002e ECE7     		b	.L40
+ 515              	.LVL49:
+ 516              	.L48:
  113:Core/Src/cell_temp_handler.c ****         }
- 511              		.loc 1 113 13 view .LVU133
+ 517              		.loc 1 113 13 view .LVU135
  113:Core/Src/cell_temp_handler.c ****         }
- 512              		.loc 1 113 25 is_stmt 0 view .LVU134
- 513 0030 0248     		ldr	r0, .L49
- 514 0032 FFF7FEFF 		bl	HAL_ADC_GetValue
- 515              	.LVL48:
- 113:Core/Src/cell_temp_handler.c ****         }
- 516              		.loc 1 113 23 discriminator 1 view .LVU135
- 517 0036 84B2     		uxth	r4, r0
- 518              	.LVL49:
- 113:Core/Src/cell_temp_handler.c ****         }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 20
+ 518              		.loc 1 113 25 is_stmt 0 view .LVU136
+ 519 0030 0248     		ldr	r0, .L49
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 20
 
 
- 519              		.loc 1 113 23 discriminator 1 view .LVU136
- 520 0038 F6E7     		b	.L41
- 521              	.L50:
- 522 003a 00BF     		.align	2
- 523              	.L49:
- 524 003c 00000000 		.word	hadc1
- 525              		.cfi_endproc
- 526              	.LFE294:
- 528              		.section	.text.CellTemp_SetMuxChannel,"ax",%progbits
- 529              		.align	1
- 530              		.global	CellTemp_SetMuxChannel
- 531              		.syntax unified
- 532              		.thumb
- 533              		.thumb_func
- 535              	CellTemp_SetMuxChannel:
- 536              	.LVL50:
- 537              	.LFB295:
+ 520 0032 FFF7FEFF 		bl	HAL_ADC_GetValue
+ 521              	.LVL50:
+ 113:Core/Src/cell_temp_handler.c ****         }
+ 522              		.loc 1 113 23 discriminator 1 view .LVU137
+ 523 0036 84B2     		uxth	r4, r0
+ 524              	.LVL51:
+ 113:Core/Src/cell_temp_handler.c ****         }
+ 525              		.loc 1 113 23 discriminator 1 view .LVU138
+ 526 0038 F6E7     		b	.L41
+ 527              	.L50:
+ 528 003a 00BF     		.align	2
+ 529              	.L49:
+ 530 003c 00000000 		.word	hadc1
+ 531              		.cfi_endproc
+ 532              	.LFE294:
+ 534              		.section	.text.CellTemp_SetMuxChannel,"ax",%progbits
+ 535              		.align	1
+ 536              		.global	CellTemp_SetMuxChannel
+ 537              		.syntax unified
+ 538              		.thumb
+ 539              		.thumb_func
+ 541              	CellTemp_SetMuxChannel:
+ 542              	.LVL52:
+ 543              	.LFB295:
  128:Core/Src/cell_temp_handler.c ****     // Validate channel range
- 538              		.loc 1 128 1 is_stmt 1 view -0
- 539              		.cfi_startproc
- 540              		@ args = 0, pretend = 0, frame = 0
- 541              		@ frame_needed = 0, uses_anonymous_args = 0
+ 544              		.loc 1 128 1 is_stmt 1 view -0
+ 545              		.cfi_startproc
+ 546              		@ args = 0, pretend = 0, frame = 0
+ 547              		@ frame_needed = 0, uses_anonymous_args = 0
  130:Core/Src/cell_temp_handler.c ****         return;
- 542              		.loc 1 130 5 view .LVU138
+ 548              		.loc 1 130 5 view .LVU140
  130:Core/Src/cell_temp_handler.c ****         return;
- 543              		.loc 1 130 8 is_stmt 0 view .LVU139
- 544 0000 0728     		cmp	r0, #7
- 545 0002 33D8     		bhi	.L60
+ 549              		.loc 1 130 8 is_stmt 0 view .LVU141
+ 550 0000 0728     		cmp	r0, #7
+ 551 0002 33D8     		bhi	.L60
  128:Core/Src/cell_temp_handler.c ****     // Validate channel range
- 546              		.loc 1 128 1 view .LVU140
- 547 0004 10B5     		push	{r4, lr}
- 548              		.cfi_def_cfa_offset 8
- 549              		.cfi_offset 4, -8
- 550              		.cfi_offset 14, -4
- 551 0006 0446     		mov	r4, r0
+ 552              		.loc 1 128 1 view .LVU142
+ 553 0004 10B5     		push	{r4, lr}
+ 554              		.cfi_def_cfa_offset 8
+ 555              		.cfi_offset 4, -8
+ 556              		.cfi_offset 14, -4
+ 557 0006 0446     		mov	r4, r0
  139:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG1_PORT, MUX_SIG1_PIN, GPIO_PIN_SET);
- 552              		.loc 1 139 5 is_stmt 1 view .LVU141
+ 558              		.loc 1 139 5 is_stmt 1 view .LVU143
  139:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG1_PORT, MUX_SIG1_PIN, GPIO_PIN_SET);
- 553              		.loc 1 139 8 is_stmt 0 view .LVU142
- 554 0008 10F0010F 		tst	r0, #1
- 555 000c 1AD0     		beq	.L53
+ 559              		.loc 1 139 8 is_stmt 0 view .LVU144
+ 560 0008 10F0010F 		tst	r0, #1
+ 561 000c 1AD0     		beq	.L53
  140:Core/Src/cell_temp_handler.c ****     } else {
- 556              		.loc 1 140 9 is_stmt 1 view .LVU143
- 557 000e 0122     		movs	r2, #1
- 558 0010 0221     		movs	r1, #2
- 559 0012 1748     		ldr	r0, .L63
- 560              	.LVL51:
+ 562              		.loc 1 140 9 is_stmt 1 view .LVU145
+ 563 000e 0122     		movs	r2, #1
+ 564 0010 0221     		movs	r1, #2
+ 565 0012 1748     		ldr	r0, .L63
+ 566              	.LVL53:
  140:Core/Src/cell_temp_handler.c ****     } else {
- 561              		.loc 1 140 9 is_stmt 0 view .LVU144
- 562 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 563              	.LVL52:
- 564              	.L54:
- 145:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG2_PORT, MUX_SIG2_PIN, GPIO_PIN_SET);
- 565              		.loc 1 145 5 is_stmt 1 view .LVU145
- 145:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG2_PORT, MUX_SIG2_PIN, GPIO_PIN_SET);
- 566              		.loc 1 145 8 is_stmt 0 view .LVU146
- 567 0018 14F0020F 		tst	r4, #2
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 21
+ 567              		.loc 1 140 9 is_stmt 0 view .LVU146
+ 568 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 21
 
 
- 568 001c 18D0     		beq	.L55
+ 569              	.LVL54:
+ 570              	.L54:
+ 145:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG2_PORT, MUX_SIG2_PIN, GPIO_PIN_SET);
+ 571              		.loc 1 145 5 is_stmt 1 view .LVU147
+ 145:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG2_PORT, MUX_SIG2_PIN, GPIO_PIN_SET);
+ 572              		.loc 1 145 8 is_stmt 0 view .LVU148
+ 573 0018 14F0020F 		tst	r4, #2
+ 574 001c 18D0     		beq	.L55
  146:Core/Src/cell_temp_handler.c ****     } else {
- 569              		.loc 1 146 9 is_stmt 1 view .LVU147
- 570 001e 0122     		movs	r2, #1
- 571 0020 4FF48071 		mov	r1, #256
- 572 0024 4FF09040 		mov	r0, #1207959552
- 573 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 574              	.LVL53:
- 575              	.L56:
+ 575              		.loc 1 146 9 is_stmt 1 view .LVU149
+ 576 001e 0122     		movs	r2, #1
+ 577 0020 4FF48071 		mov	r1, #256
+ 578 0024 4FF09040 		mov	r0, #1207959552
+ 579 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 580              	.LVL55:
+ 581              	.L56:
  151:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG3_PORT, MUX_SIG3_PIN, GPIO_PIN_SET);
- 576              		.loc 1 151 5 view .LVU148
+ 582              		.loc 1 151 5 view .LVU150
  151:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG3_PORT, MUX_SIG3_PIN, GPIO_PIN_SET);
- 577              		.loc 1 151 8 is_stmt 0 view .LVU149
- 578 002c 14F0040F 		tst	r4, #4
- 579 0030 16D0     		beq	.L57
+ 583              		.loc 1 151 8 is_stmt 0 view .LVU151
+ 584 002c 14F0040F 		tst	r4, #4
+ 585 0030 16D0     		beq	.L57
  152:Core/Src/cell_temp_handler.c ****     } else {
- 580              		.loc 1 152 9 is_stmt 1 view .LVU150
- 581 0032 0122     		movs	r2, #1
- 582 0034 2021     		movs	r1, #32
- 583 0036 0E48     		ldr	r0, .L63
- 584 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 585              	.LVL54:
- 586              	.L58:
+ 586              		.loc 1 152 9 is_stmt 1 view .LVU152
+ 587 0032 0122     		movs	r2, #1
+ 588 0034 2021     		movs	r1, #32
+ 589 0036 0E48     		ldr	r0, .L63
+ 590 0038 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 591              	.LVL56:
+ 592              	.L58:
  158:Core/Src/cell_temp_handler.c **** }
- 587              		.loc 1 158 5 view .LVU151
- 588 003c 0220     		movs	r0, #2
- 589 003e FFF7FEFF 		bl	osDelay
- 590              	.LVL55:
+ 593              		.loc 1 158 5 view .LVU153
+ 594 003c 0220     		movs	r0, #2
+ 595 003e FFF7FEFF 		bl	osDelay
+ 596              	.LVL57:
  159:Core/Src/cell_temp_handler.c **** 
- 591              		.loc 1 159 1 is_stmt 0 view .LVU152
- 592 0042 10BD     		pop	{r4, pc}
- 593              	.LVL56:
- 594              	.L53:
+ 597              		.loc 1 159 1 is_stmt 0 view .LVU154
+ 598 0042 10BD     		pop	{r4, pc}
+ 599              	.LVL58:
+ 600              	.L53:
  142:Core/Src/cell_temp_handler.c ****     }
- 595              		.loc 1 142 9 is_stmt 1 view .LVU153
- 596 0044 0022     		movs	r2, #0
- 597 0046 0221     		movs	r1, #2
- 598 0048 0948     		ldr	r0, .L63
- 599              	.LVL57:
+ 601              		.loc 1 142 9 is_stmt 1 view .LVU155
+ 602 0044 0022     		movs	r2, #0
+ 603 0046 0221     		movs	r1, #2
+ 604 0048 0948     		ldr	r0, .L63
+ 605              	.LVL59:
  142:Core/Src/cell_temp_handler.c ****     }
- 600              		.loc 1 142 9 is_stmt 0 view .LVU154
- 601 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
- 602              	.LVL58:
- 603 004e E3E7     		b	.L54
- 604              	.L55:
+ 606              		.loc 1 142 9 is_stmt 0 view .LVU156
+ 607 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 608              	.LVL60:
+ 609 004e E3E7     		b	.L54
+ 610              	.L55:
  148:Core/Src/cell_temp_handler.c ****     }
- 605              		.loc 1 148 9 is_stmt 1 view .LVU155
- 606 0050 0022     		movs	r2, #0
- 607 0052 4FF48071 		mov	r1, #256
- 608 0056 4FF09040 		mov	r0, #1207959552
- 609 005a FFF7FEFF 		bl	HAL_GPIO_WritePin
- 610              	.LVL59:
- 611 005e E5E7     		b	.L56
- 612              	.L57:
- 154:Core/Src/cell_temp_handler.c ****     }
- 613              		.loc 1 154 9 view .LVU156
- 614 0060 0022     		movs	r2, #0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 22
+ 611              		.loc 1 148 9 is_stmt 1 view .LVU157
+ 612 0050 0022     		movs	r2, #0
+ 613 0052 4FF48071 		mov	r1, #256
+ 614 0056 4FF09040 		mov	r0, #1207959552
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 22
 
 
- 615 0062 2021     		movs	r1, #32
- 616 0064 0248     		ldr	r0, .L63
- 617 0066 FFF7FEFF 		bl	HAL_GPIO_WritePin
- 618              	.LVL60:
- 619 006a E7E7     		b	.L58
- 620              	.LVL61:
- 621              	.L60:
- 622              		.cfi_def_cfa_offset 0
- 623              		.cfi_restore 4
- 624              		.cfi_restore 14
+ 615 005a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 616              	.LVL61:
+ 617 005e E5E7     		b	.L56
+ 618              	.L57:
  154:Core/Src/cell_temp_handler.c ****     }
- 625              		.loc 1 154 9 is_stmt 0 view .LVU157
- 626 006c 7047     		bx	lr
- 627              	.L64:
- 628 006e 00BF     		.align	2
- 629              	.L63:
- 630 0070 00040048 		.word	1207960576
- 631              		.cfi_endproc
- 632              	.LFE295:
- 634              		.section	.text.CellTemp_CalculateTemperature,"ax",%progbits
- 635              		.align	1
- 636              		.global	CellTemp_CalculateTemperature
- 637              		.syntax unified
- 638              		.thumb
- 639              		.thumb_func
- 641              	CellTemp_CalculateTemperature:
- 642              	.LVL62:
- 643              	.LFB296:
+ 619              		.loc 1 154 9 view .LVU158
+ 620 0060 0022     		movs	r2, #0
+ 621 0062 2021     		movs	r1, #32
+ 622 0064 0248     		ldr	r0, .L63
+ 623 0066 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 624              	.LVL62:
+ 625 006a E7E7     		b	.L58
+ 626              	.LVL63:
+ 627              	.L60:
+ 628              		.cfi_def_cfa_offset 0
+ 629              		.cfi_restore 4
+ 630              		.cfi_restore 14
+ 154:Core/Src/cell_temp_handler.c ****     }
+ 631              		.loc 1 154 9 is_stmt 0 view .LVU159
+ 632 006c 7047     		bx	lr
+ 633              	.L64:
+ 634 006e 00BF     		.align	2
+ 635              	.L63:
+ 636 0070 00040048 		.word	1207960576
+ 637              		.cfi_endproc
+ 638              	.LFE295:
+ 640              		.section	.text.CellTemp_CalculateTemperature,"ax",%progbits
+ 641              		.align	1
+ 642              		.global	CellTemp_CalculateTemperature
+ 643              		.syntax unified
+ 644              		.thumb
+ 645              		.thumb_func
+ 647              	CellTemp_CalculateTemperature:
+ 648              	.LVL64:
+ 649              	.LFB296:
  167:Core/Src/cell_temp_handler.c ****     // Convert ADC value to voltage
- 644              		.loc 1 167 1 is_stmt 1 view -0
- 645              		.cfi_startproc
- 646              		@ args = 0, pretend = 0, frame = 0
- 647              		@ frame_needed = 0, uses_anonymous_args = 0
+ 650              		.loc 1 167 1 is_stmt 1 view -0
+ 651              		.cfi_startproc
+ 652              		@ args = 0, pretend = 0, frame = 0
+ 653              		@ frame_needed = 0, uses_anonymous_args = 0
  169:Core/Src/cell_temp_handler.c ****     
- 648              		.loc 1 169 5 view .LVU159
+ 654              		.loc 1 169 5 view .LVU161
  169:Core/Src/cell_temp_handler.c ****     
- 649              		.loc 1 169 22 is_stmt 0 view .LVU160
- 650 0000 07EE900A 		vmov	s15, r0	@ int
- 651 0004 F8EE676A 		vcvt.f32.u32	s13, s15
+ 655              		.loc 1 169 22 is_stmt 0 view .LVU162
+ 656 0000 07EE900A 		vmov	s15, r0	@ int
+ 657 0004 F8EE676A 		vcvt.f32.u32	s13, s15
  169:Core/Src/cell_temp_handler.c ****     
- 652              		.loc 1 169 39 view .LVU161
- 653 0008 9FED297A 		vldr.32	s14, .L77
- 654 000c C6EE877A 		vdiv.f32	s15, s13, s14
+ 658              		.loc 1 169 39 view .LVU163
+ 659 0008 9FED297A 		vldr.32	s14, .L77
+ 660 000c C6EE877A 		vdiv.f32	s15, s13, s14
  169:Core/Src/cell_temp_handler.c ****     
- 655              		.loc 1 169 11 view .LVU162
- 656 0010 9FED287A 		vldr.32	s14, .L77+4
- 657 0014 67EE877A 		vmul.f32	s15, s15, s14
- 658              	.LVL63:
+ 661              		.loc 1 169 11 view .LVU164
+ 662 0010 9FED287A 		vldr.32	s14, .L77+4
+ 663 0014 67EE877A 		vmul.f32	s15, s15, s14
+ 664              	.LVL65:
  172:Core/Src/cell_temp_handler.c ****         return -127.0f;  // Return obvious error value
- 659              		.loc 1 172 5 is_stmt 1 view .LVU163
+ 665              		.loc 1 172 5 is_stmt 1 view .LVU165
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 23
+
+
  172:Core/Src/cell_temp_handler.c ****         return -127.0f;  // Return obvious error value
- 660              		.loc 1 172 8 is_stmt 0 view .LVU164
- 661 0018 0928     		cmp	r0, #9
- 662 001a 40D9     		bls	.L68
+ 666              		.loc 1 172 8 is_stmt 0 view .LVU166
+ 667 0018 0928     		cmp	r0, #9
+ 668 001a 40D9     		bls	.L68
  181:Core/Src/cell_temp_handler.c ****     
- 663              		.loc 1 181 5 is_stmt 1 view .LVU165
+ 669              		.loc 1 181 5 is_stmt 1 view .LVU167
  183:Core/Src/cell_temp_handler.c ****         r_thermistor = PULLUP_RESISTOR * 100.0f;  // Assume very high resistance
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 23
-
-
- 664              		.loc 1 183 5 view .LVU166
+ 670              		.loc 1 183 5 view .LVU168
  183:Core/Src/cell_temp_handler.c ****         r_thermistor = PULLUP_RESISTOR * 100.0f;  // Assume very high resistance
- 665              		.loc 1 183 8 is_stmt 0 view .LVU167
- 666 001c 9FED267A 		vldr.32	s14, .L77+8
- 667 0020 F4EEC77A 		vcmpe.f32	s15, s14
- 668 0024 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 669 0028 36DA     		bge	.L69
+ 671              		.loc 1 183 8 is_stmt 0 view .LVU169
+ 672 001c 9FED267A 		vldr.32	s14, .L77+8
+ 673 0020 F4EEC77A 		vcmpe.f32	s15, s14
+ 674 0024 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 675 0028 36DA     		bge	.L69
  187:Core/Src/cell_temp_handler.c ****     }
- 670              		.loc 1 187 9 is_stmt 1 view .LVU168
+ 676              		.loc 1 187 9 is_stmt 1 view .LVU170
  187:Core/Src/cell_temp_handler.c ****     }
- 671              		.loc 1 187 33 is_stmt 0 view .LVU169
- 672 002a DFED246A 		vldr.32	s13, .L77+12
- 673 002e 67EEA66A 		vmul.f32	s13, s15, s13
+ 677              		.loc 1 187 33 is_stmt 0 view .LVU171
+ 678 002a DFED246A 		vldr.32	s13, .L77+12
+ 679 002e 67EEA66A 		vmul.f32	s13, s15, s13
  187:Core/Src/cell_temp_handler.c ****     }
- 674              		.loc 1 187 64 view .LVU170
- 675 0032 9FED207A 		vldr.32	s14, .L77+4
- 676 0036 77EE677A 		vsub.f32	s15, s14, s15
- 677              	.LVL64:
+ 680              		.loc 1 187 64 view .LVU172
+ 681 0032 9FED207A 		vldr.32	s14, .L77+4
+ 682 0036 77EE677A 		vsub.f32	s15, s14, s15
+ 683              	.LVL66:
  187:Core/Src/cell_temp_handler.c ****     }
- 678              		.loc 1 187 22 view .LVU171
- 679 003a 86EEA77A 		vdiv.f32	s14, s13, s15
- 680              	.LVL65:
+ 684              		.loc 1 187 22 view .LVU173
+ 685 003a 86EEA77A 		vdiv.f32	s14, s13, s15
+ 686              	.LVL67:
  191:Core/Src/cell_temp_handler.c ****         return 125.0f; // Return maximum temperature for very low resistance
- 681              		.loc 1 191 5 is_stmt 1 view .LVU172
+ 687              		.loc 1 191 5 is_stmt 1 view .LVU174
  191:Core/Src/cell_temp_handler.c ****         return 125.0f; // Return maximum temperature for very low resistance
- 682              		.loc 1 191 8 is_stmt 0 view .LVU173
- 683 003e B5EEC07A 		vcmpe.f32	s14, #0
- 684 0042 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 685 0046 2DD9     		bls	.L76
- 686              	.LVL66:
- 687              	.L67:
+ 688              		.loc 1 191 8 is_stmt 0 view .LVU175
+ 689 003e B5EEC07A 		vcmpe.f32	s14, #0
+ 690 0042 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 691 0046 2DD9     		bls	.L76
+ 692              	.LVL68:
+ 693              	.L67:
  167:Core/Src/cell_temp_handler.c ****     // Convert ADC value to voltage
- 688              		.loc 1 167 1 view .LVU174
- 689 0048 08B5     		push	{r3, lr}
- 690              		.cfi_def_cfa_offset 8
- 691              		.cfi_offset 3, -8
- 692              		.cfi_offset 14, -4
+ 694              		.loc 1 167 1 view .LVU176
+ 695 0048 08B5     		push	{r3, lr}
+ 696              		.cfi_def_cfa_offset 8
+ 697              		.cfi_offset 3, -8
+ 698              		.cfi_offset 14, -4
  198:Core/Src/cell_temp_handler.c ****     float temp_kelvin = 1.0f / ((1.0f / REFERENCE_TEMP_K) + (ln_ratio / THERMISTOR_B_VALUE));
- 693              		.loc 1 198 5 is_stmt 1 view .LVU175
+ 699              		.loc 1 198 5 is_stmt 1 view .LVU177
  198:Core/Src/cell_temp_handler.c ****     float temp_kelvin = 1.0f / ((1.0f / REFERENCE_TEMP_K) + (ln_ratio / THERMISTOR_B_VALUE));
- 694              		.loc 1 198 22 is_stmt 0 view .LVU176
- 695 004a 9FED1C0A 		vldr.32	s0, .L77+12
- 696 004e 87EE000A 		vdiv.f32	s0, s14, s0
- 697 0052 FFF7FEFF 		bl	logf
- 698              	.LVL67:
+ 700              		.loc 1 198 22 is_stmt 0 view .LVU178
+ 701 004a 9FED1C0A 		vldr.32	s0, .L77+12
+ 702 004e 87EE000A 		vdiv.f32	s0, s14, s0
+ 703 0052 FFF7FEFF 		bl	logf
+ 704              	.LVL69:
  199:Core/Src/cell_temp_handler.c ****     
- 699              		.loc 1 199 5 is_stmt 1 view .LVU177
+ 705              		.loc 1 199 5 is_stmt 1 view .LVU179
  199:Core/Src/cell_temp_handler.c ****     
- 700              		.loc 1 199 71 is_stmt 0 view .LVU178
- 701 0056 9FED1A7A 		vldr.32	s14, .L77+16
- 702 005a C0EE077A 		vdiv.f32	s15, s0, s14
- 199:Core/Src/cell_temp_handler.c ****     
- 703              		.loc 1 199 59 view .LVU179
- 704 005e 9FED197A 		vldr.32	s14, .L77+20
- 705 0062 77EE877A 		vadd.f32	s15, s15, s14
- 199:Core/Src/cell_temp_handler.c ****     
- 706              		.loc 1 199 11 view .LVU180
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 24
+ 706              		.loc 1 199 71 is_stmt 0 view .LVU180
+ 707 0056 9FED1A7A 		vldr.32	s14, .L77+16
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 24
 
 
- 707 0066 B7EE007A 		vmov.f32	s14, #1.0e+0
- 708 006a 87EE270A 		vdiv.f32	s0, s14, s15
- 709              	.LVL68:
+ 708 005a C0EE077A 		vdiv.f32	s15, s0, s14
+ 199:Core/Src/cell_temp_handler.c ****     
+ 709              		.loc 1 199 59 view .LVU181
+ 710 005e 9FED197A 		vldr.32	s14, .L77+20
+ 711 0062 77EE877A 		vadd.f32	s15, s15, s14
+ 199:Core/Src/cell_temp_handler.c ****     
+ 712              		.loc 1 199 11 view .LVU182
+ 713 0066 B7EE007A 		vmov.f32	s14, #1.0e+0
+ 714 006a 87EE270A 		vdiv.f32	s0, s14, s15
+ 715              	.LVL70:
  202:Core/Src/cell_temp_handler.c ****     
- 710              		.loc 1 202 5 is_stmt 1 view .LVU181
+ 716              		.loc 1 202 5 is_stmt 1 view .LVU183
  202:Core/Src/cell_temp_handler.c ****     
- 711              		.loc 1 202 11 is_stmt 0 view .LVU182
- 712 006e DFED167A 		vldr.32	s15, .L77+24
- 713 0072 30EE670A 		vsub.f32	s0, s0, s15
- 714              	.LVL69:
+ 717              		.loc 1 202 11 is_stmt 0 view .LVU184
+ 718 006e DFED167A 		vldr.32	s15, .L77+24
+ 719 0072 30EE670A 		vsub.f32	s0, s0, s15
+ 720              	.LVL71:
  205:Core/Src/cell_temp_handler.c ****         temp_celsius = -40.0f;
- 715              		.loc 1 205 5 is_stmt 1 view .LVU183
+ 721              		.loc 1 205 5 is_stmt 1 view .LVU185
  205:Core/Src/cell_temp_handler.c ****         temp_celsius = -40.0f;
- 716              		.loc 1 205 8 is_stmt 0 view .LVU184
- 717 0076 DFED157A 		vldr.32	s15, .L77+28
- 718 007a B4EEE70A 		vcmpe.f32	s0, s15
- 719 007e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 720 0082 12D4     		bmi	.L71
+ 722              		.loc 1 205 8 is_stmt 0 view .LVU186
+ 723 0076 DFED157A 		vldr.32	s15, .L77+28
+ 724 007a B4EEE70A 		vcmpe.f32	s0, s15
+ 725 007e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 726 0082 12D4     		bmi	.L71
  207:Core/Src/cell_temp_handler.c ****         temp_celsius = 125.0f;
- 721              		.loc 1 207 12 is_stmt 1 view .LVU185
+ 727              		.loc 1 207 12 is_stmt 1 view .LVU187
  207:Core/Src/cell_temp_handler.c ****         temp_celsius = 125.0f;
- 722              		.loc 1 207 15 is_stmt 0 view .LVU186
- 723 0084 DFED127A 		vldr.32	s15, .L77+32
- 724 0088 B4EEE70A 		vcmpe.f32	s0, s15
- 725 008c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 726 0090 0DDD     		ble	.L65
+ 728              		.loc 1 207 15 is_stmt 0 view .LVU188
+ 729 0084 DFED127A 		vldr.32	s15, .L77+32
+ 730 0088 B4EEE70A 		vcmpe.f32	s0, s15
+ 731 008c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 732 0090 0DDD     		ble	.L65
  208:Core/Src/cell_temp_handler.c ****     }
- 727              		.loc 1 208 22 view .LVU187
- 728 0092 9FED0F0A 		vldr.32	s0, .L77+32
- 729              	.LVL70:
+ 733              		.loc 1 208 22 view .LVU189
+ 734 0092 9FED0F0A 		vldr.32	s0, .L77+32
+ 735              	.LVL72:
  208:Core/Src/cell_temp_handler.c ****     }
- 730              		.loc 1 208 22 view .LVU188
- 731 0096 0AE0     		b	.L65
- 732              	.LVL71:
- 733              	.L69:
- 734              		.cfi_def_cfa_offset 0
- 735              		.cfi_restore 3
- 736              		.cfi_restore 14
+ 736              		.loc 1 208 22 view .LVU190
+ 737 0096 0AE0     		b	.L65
+ 738              	.LVL73:
+ 739              	.L69:
+ 740              		.cfi_def_cfa_offset 0
+ 741              		.cfi_restore 3
+ 742              		.cfi_restore 14
  184:Core/Src/cell_temp_handler.c ****     } else {
- 737              		.loc 1 184 22 view .LVU189
- 738 0098 9FED0E7A 		vldr.32	s14, .L77+36
- 739 009c D4E7     		b	.L67
- 740              	.L68:
+ 743              		.loc 1 184 22 view .LVU191
+ 744 0098 9FED0E7A 		vldr.32	s14, .L77+36
+ 745 009c D4E7     		b	.L67
+ 746              	.L68:
  173:Core/Src/cell_temp_handler.c ****     }
- 741              		.loc 1 173 16 view .LVU190
- 742 009e 9FED0E0A 		vldr.32	s0, .L77+40
- 743 00a2 7047     		bx	lr
- 744              	.LVL72:
- 745              	.L76:
+ 747              		.loc 1 173 16 view .LVU192
+ 748 009e 9FED0E0A 		vldr.32	s0, .L77+40
+ 749 00a2 7047     		bx	lr
+ 750              	.LVL74:
+ 751              	.L76:
  192:Core/Src/cell_temp_handler.c ****     }
- 746              		.loc 1 192 16 view .LVU191
- 747 00a4 9FED0A0A 		vldr.32	s0, .L77+32
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 25
+
+
+ 752              		.loc 1 192 16 view .LVU193
+ 753 00a4 9FED0A0A 		vldr.32	s0, .L77+32
  212:Core/Src/cell_temp_handler.c **** 
- 748              		.loc 1 212 1 view .LVU192
- 749 00a8 7047     		bx	lr
- 750              	.LVL73:
- 751              	.L71:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 25
-
-
- 752              		.cfi_def_cfa_offset 8
- 753              		.cfi_offset 3, -8
- 754              		.cfi_offset 14, -4
+ 754              		.loc 1 212 1 view .LVU194
+ 755 00a8 7047     		bx	lr
+ 756              	.LVL75:
+ 757              	.L71:
+ 758              		.cfi_def_cfa_offset 8
+ 759              		.cfi_offset 3, -8
+ 760              		.cfi_offset 14, -4
  206:Core/Src/cell_temp_handler.c ****     } else if (temp_celsius > 125.0f) {
- 755              		.loc 1 206 22 view .LVU193
- 756 00aa 9FED080A 		vldr.32	s0, .L77+28
- 757              	.LVL74:
- 758              	.L65:
+ 761              		.loc 1 206 22 view .LVU195
+ 762 00aa 9FED080A 		vldr.32	s0, .L77+28
+ 763              	.LVL76:
+ 764              	.L65:
  212:Core/Src/cell_temp_handler.c **** 
- 759              		.loc 1 212 1 view .LVU194
- 760 00ae 08BD     		pop	{r3, pc}
- 761              	.L78:
- 762              		.align	2
- 763              	.L77:
- 764 00b0 00F07F45 		.word	1166012416
- 765 00b4 33335340 		.word	1079194419
- 766 00b8 5C8F5240 		.word	1079152476
- 767 00bc 00401C46 		.word	1176256512
- 768 00c0 00608645 		.word	1166434304
- 769 00c4 0FCF5B3B 		.word	995872527
- 770 00c8 33938843 		.word	1133024051
- 771 00cc 000020C2 		.word	-1038090240
- 772 00d0 0000FA42 		.word	1123680256
- 773 00d4 00247449 		.word	1232348160
- 774 00d8 0000FEC2 		.word	-1023541248
- 775              		.cfi_endproc
- 776              	.LFE296:
- 778              		.section	.text.CellTemp_ReadThermistor,"ax",%progbits
- 779              		.align	1
- 780              		.global	CellTemp_ReadThermistor
- 781              		.syntax unified
- 782              		.thumb
- 783              		.thumb_func
- 785              	CellTemp_ReadThermistor:
- 786              	.LVL75:
- 787              	.LFB297:
+ 765              		.loc 1 212 1 view .LVU196
+ 766 00ae 08BD     		pop	{r3, pc}
+ 767              	.L78:
+ 768              		.align	2
+ 769              	.L77:
+ 770 00b0 00F07F45 		.word	1166012416
+ 771 00b4 33335340 		.word	1079194419
+ 772 00b8 5C8F5240 		.word	1079152476
+ 773 00bc 00401C46 		.word	1176256512
+ 774 00c0 00608645 		.word	1166434304
+ 775 00c4 0FCF5B3B 		.word	995872527
+ 776 00c8 33938843 		.word	1133024051
+ 777 00cc 000020C2 		.word	-1038090240
+ 778 00d0 0000FA42 		.word	1123680256
+ 779 00d4 00247449 		.word	1232348160
+ 780 00d8 0000FEC2 		.word	-1023541248
+ 781              		.cfi_endproc
+ 782              	.LFE296:
+ 784              		.section	.text.CellTemp_ReadThermistor,"ax",%progbits
+ 785              		.align	1
+ 786              		.global	CellTemp_ReadThermistor
+ 787              		.syntax unified
+ 788              		.thumb
+ 789              		.thumb_func
+ 791              	CellTemp_ReadThermistor:
+ 792              	.LVL77:
+ 793              	.LFB297:
  221:Core/Src/cell_temp_handler.c ****     // Validate inputs
- 788              		.loc 1 221 1 is_stmt 1 view -0
- 789              		.cfi_startproc
- 790              		@ args = 0, pretend = 0, frame = 0
- 791              		@ frame_needed = 0, uses_anonymous_args = 0
+ 794              		.loc 1 221 1 is_stmt 1 view -0
+ 795              		.cfi_startproc
+ 796              		@ args = 0, pretend = 0, frame = 0
+ 797              		@ frame_needed = 0, uses_anonymous_args = 0
  223:Core/Src/cell_temp_handler.c ****         return -127.0f;
- 792              		.loc 1 223 5 view .LVU196
+ 798              		.loc 1 223 5 view .LVU198
  223:Core/Src/cell_temp_handler.c ****         return -127.0f;
- 793              		.loc 1 223 8 is_stmt 0 view .LVU197
- 794 0000 0628     		cmp	r0, #6
- 795 0002 11D8     		bhi	.L81
+ 799              		.loc 1 223 8 is_stmt 0 view .LVU199
+ 800 0000 0628     		cmp	r0, #6
+ 801 0002 11D8     		bhi	.L81
  221:Core/Src/cell_temp_handler.c ****     // Validate inputs
- 796              		.loc 1 221 1 view .LVU198
- 797 0004 10B5     		push	{r4, lr}
- 798              		.cfi_def_cfa_offset 8
- 799              		.cfi_offset 4, -8
- 800              		.cfi_offset 14, -4
- 801 0006 0446     		mov	r4, r0
+ 802              		.loc 1 221 1 view .LVU200
+ 803 0004 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 26
+
+
+ 804              		.cfi_def_cfa_offset 8
+ 805              		.cfi_offset 4, -8
+ 806              		.cfi_offset 14, -4
+ 807 0006 0446     		mov	r4, r0
  223:Core/Src/cell_temp_handler.c ****         return -127.0f;
- 802              		.loc 1 223 39 discriminator 1 view .LVU199
- 803 0008 0729     		cmp	r1, #7
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 26
-
-
- 804 000a 02D9     		bls	.L87
+ 808              		.loc 1 223 39 discriminator 1 view .LVU201
+ 809 0008 0729     		cmp	r1, #7
+ 810 000a 02D9     		bls	.L87
  224:Core/Src/cell_temp_handler.c ****     }
- 805              		.loc 1 224 16 view .LVU200
- 806 000c 9FED080A 		vldr.32	s0, .L88
- 807              	.LVL76:
- 808              	.L79:
+ 811              		.loc 1 224 16 view .LVU202
+ 812 000c 9FED080A 		vldr.32	s0, .L88
+ 813              	.LVL78:
+ 814              	.L79:
  235:Core/Src/cell_temp_handler.c **** 
- 809              		.loc 1 235 1 view .LVU201
- 810 0010 10BD     		pop	{r4, pc}
- 811              	.LVL77:
- 812              	.L87:
+ 815              		.loc 1 235 1 view .LVU203
+ 816 0010 10BD     		pop	{r4, pc}
+ 817              	.LVL79:
+ 818              	.L87:
  228:Core/Src/cell_temp_handler.c ****     
- 813              		.loc 1 228 5 is_stmt 1 view .LVU202
- 814 0012 0846     		mov	r0, r1
- 815              	.LVL78:
+ 819              		.loc 1 228 5 is_stmt 1 view .LVU204
+ 820 0012 0846     		mov	r0, r1
+ 821              	.LVL80:
  228:Core/Src/cell_temp_handler.c ****     
- 816              		.loc 1 228 5 is_stmt 0 view .LVU203
- 817 0014 FFF7FEFF 		bl	CellTemp_SetMuxChannel
- 818              	.LVL79:
+ 822              		.loc 1 228 5 is_stmt 0 view .LVU205
+ 823 0014 FFF7FEFF 		bl	CellTemp_SetMuxChannel
+ 824              	.LVL81:
  231:Core/Src/cell_temp_handler.c ****     
- 819              		.loc 1 231 5 is_stmt 1 view .LVU204
+ 825              		.loc 1 231 5 is_stmt 1 view .LVU206
  231:Core/Src/cell_temp_handler.c ****     
- 820              		.loc 1 231 26 is_stmt 0 view .LVU205
- 821 0018 064B     		ldr	r3, .L88+4
- 822 001a 53F82400 		ldr	r0, [r3, r4, lsl #2]
- 823 001e FFF7FEFF 		bl	CellTemp_ReadADC
- 824              	.LVL80:
+ 826              		.loc 1 231 26 is_stmt 0 view .LVU207
+ 827 0018 064B     		ldr	r3, .L88+4
+ 828 001a 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 829 001e FFF7FEFF 		bl	CellTemp_ReadADC
+ 830              	.LVL82:
  234:Core/Src/cell_temp_handler.c **** }
- 825              		.loc 1 234 5 is_stmt 1 view .LVU206
+ 831              		.loc 1 234 5 is_stmt 1 view .LVU208
  234:Core/Src/cell_temp_handler.c **** }
- 826              		.loc 1 234 12 is_stmt 0 view .LVU207
- 827 0022 FFF7FEFF 		bl	CellTemp_CalculateTemperature
- 828              	.LVL81:
+ 832              		.loc 1 234 12 is_stmt 0 view .LVU209
+ 833 0022 FFF7FEFF 		bl	CellTemp_CalculateTemperature
+ 834              	.LVL83:
  234:Core/Src/cell_temp_handler.c **** }
- 829              		.loc 1 234 12 view .LVU208
- 830 0026 F3E7     		b	.L79
- 831              	.LVL82:
- 832              	.L81:
- 833              		.cfi_def_cfa_offset 0
- 834              		.cfi_restore 4
- 835              		.cfi_restore 14
+ 835              		.loc 1 234 12 view .LVU210
+ 836 0026 F3E7     		b	.L79
+ 837              	.LVL84:
+ 838              	.L81:
+ 839              		.cfi_def_cfa_offset 0
+ 840              		.cfi_restore 4
+ 841              		.cfi_restore 14
  224:Core/Src/cell_temp_handler.c ****     }
- 836              		.loc 1 224 16 view .LVU209
- 837 0028 9FED010A 		vldr.32	s0, .L88
+ 842              		.loc 1 224 16 view .LVU211
+ 843 0028 9FED010A 		vldr.32	s0, .L88
  235:Core/Src/cell_temp_handler.c **** 
- 838              		.loc 1 235 1 view .LVU210
- 839 002c 7047     		bx	lr
- 840              	.L89:
- 841 002e 00BF     		.align	2
- 842              	.L88:
- 843 0030 0000FEC2 		.word	-1023541248
- 844 0034 00000000 		.word	adc_channels
- 845              		.cfi_endproc
- 846              	.LFE297:
- 848              		.section	.text.CellTemp_MonitorTask,"ax",%progbits
- 849              		.align	1
- 850              		.global	CellTemp_MonitorTask
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 27
+ 844              		.loc 1 235 1 view .LVU212
+ 845 002c 7047     		bx	lr
+ 846              	.L89:
+ 847 002e 00BF     		.align	2
+ 848              	.L88:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 27
 
 
- 851              		.syntax unified
- 852              		.thumb
- 853              		.thumb_func
- 855              	CellTemp_MonitorTask:
- 856              	.LVL83:
- 857              	.LFB298:
+ 849 0030 0000FEC2 		.word	-1023541248
+ 850 0034 00000000 		.word	adc_channels
+ 851              		.cfi_endproc
+ 852              	.LFE297:
+ 854              		.section	.text.CellTemp_MonitorTask,"ax",%progbits
+ 855              		.align	1
+ 856              		.global	CellTemp_MonitorTask
+ 857              		.syntax unified
+ 858              		.thumb
+ 859              		.thumb_func
+ 861              	CellTemp_MonitorTask:
+ 862              	.LVL85:
+ 863              	.LFB298:
  243:Core/Src/cell_temp_handler.c ****     // Initialize the temperature monitoring system
- 858              		.loc 1 243 1 is_stmt 1 view -0
- 859              		.cfi_startproc
- 860              		@ args = 0, pretend = 0, frame = 0
- 861              		@ frame_needed = 0, uses_anonymous_args = 0
+ 864              		.loc 1 243 1 is_stmt 1 view -0
+ 865              		.cfi_startproc
+ 866              		@ args = 0, pretend = 0, frame = 0
+ 867              		@ frame_needed = 0, uses_anonymous_args = 0
  243:Core/Src/cell_temp_handler.c ****     // Initialize the temperature monitoring system
- 862              		.loc 1 243 1 is_stmt 0 view .LVU212
- 863 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
- 864              		.cfi_def_cfa_offset 32
- 865              		.cfi_offset 4, -32
- 866              		.cfi_offset 5, -28
- 867              		.cfi_offset 6, -24
- 868              		.cfi_offset 7, -20
- 869              		.cfi_offset 8, -16
- 870              		.cfi_offset 9, -12
- 871              		.cfi_offset 10, -8
- 872              		.cfi_offset 14, -4
+ 868              		.loc 1 243 1 is_stmt 0 view .LVU214
+ 869 0000 2DE9F047 		push	{r4, r5, r6, r7, r8, r9, r10, lr}
+ 870              		.cfi_def_cfa_offset 32
+ 871              		.cfi_offset 4, -32
+ 872              		.cfi_offset 5, -28
+ 873              		.cfi_offset 6, -24
+ 874              		.cfi_offset 7, -20
+ 875              		.cfi_offset 8, -16
+ 876              		.cfi_offset 9, -12
+ 877              		.cfi_offset 10, -8
+ 878              		.cfi_offset 14, -4
  245:Core/Src/cell_temp_handler.c ****         // Handle initialization error - blink would go here if we had an LED
- 873              		.loc 1 245 5 is_stmt 1 view .LVU213
+ 879              		.loc 1 245 5 is_stmt 1 view .LVU215
  245:Core/Src/cell_temp_handler.c ****         // Handle initialization error - blink would go here if we had an LED
- 874              		.loc 1 245 9 is_stmt 0 view .LVU214
- 875 0004 FFF7FEFF 		bl	CellTemp_Init
- 876              	.LVL84:
+ 880              		.loc 1 245 9 is_stmt 0 view .LVU216
+ 881 0004 FFF7FEFF 		bl	CellTemp_Init
+ 882              	.LVL86:
  245:Core/Src/cell_temp_handler.c ****         // Handle initialization error - blink would go here if we had an LED
- 877              		.loc 1 245 8 discriminator 1 view .LVU215
- 878 0008 0746     		mov	r7, r0
- 879 000a 0028     		cmp	r0, #0
- 880 000c 00F0CA80 		beq	.L116
- 881              	.L92:
+ 883              		.loc 1 245 8 discriminator 1 view .LVU217
+ 884 0008 0746     		mov	r7, r0
+ 885 000a 0028     		cmp	r0, #0
+ 886 000c 00F0CA80 		beq	.L116
+ 887              	.L92:
  247:Core/Src/cell_temp_handler.c ****             osDelay(1000);  // Wait 1 second (1000 ticks at 1ms tick rate)
- 882              		.loc 1 247 9 is_stmt 1 view .LVU216
+ 888              		.loc 1 247 9 is_stmt 1 view .LVU218
  248:Core/Src/cell_temp_handler.c ****         }
- 883              		.loc 1 248 13 discriminator 1 view .LVU217
- 884 0010 4FF47A70 		mov	r0, #1000
- 885 0014 FFF7FEFF 		bl	osDelay
- 886              	.LVL85:
+ 889              		.loc 1 248 13 discriminator 1 view .LVU219
+ 890 0010 4FF47A70 		mov	r0, #1000
+ 891 0014 FFF7FEFF 		bl	osDelay
+ 892              	.LVL87:
  247:Core/Src/cell_temp_handler.c ****             osDelay(1000);  // Wait 1 second (1000 ticks at 1ms tick rate)
- 887              		.loc 1 247 14 view .LVU218
- 888 0018 FAE7     		b	.L92
- 889              	.LVL86:
- 890              	.L94:
- 891              	.LBB9:
- 892              	.LBB10:
+ 893              		.loc 1 247 14 view .LVU220
+ 894 0018 FAE7     		b	.L92
+ 895              	.LVL88:
+ 896              	.L94:
+ 897              	.LBB9:
+ 898              	.LBB10:
  267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 893              		.loc 1 267 58 discriminator 2 view .LVU219
- 894 001a 0134     		adds	r4, r4, #1
- 895              	.LVL87:
- 267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 896              		.loc 1 267 58 is_stmt 0 discriminator 2 view .LVU220
- 897 001c E4B2     		uxtb	r4, r4
- 898              	.LVL88:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 28
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 28
 
 
- 899              	.L93:
+ 899              		.loc 1 267 58 discriminator 2 view .LVU221
+ 900 001a 0134     		adds	r4, r4, #1
+ 901              	.LVL89:
  267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 900              		.loc 1 267 35 is_stmt 1 discriminator 1 view .LVU221
- 901 001e 062C     		cmp	r4, #6
- 902 0020 13D8     		bhi	.L135
+ 902              		.loc 1 267 58 is_stmt 0 discriminator 2 view .LVU222
+ 903 001c E4B2     		uxtb	r4, r4
+ 904              	.LVL90:
+ 905              	.L93:
+ 267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
+ 906              		.loc 1 267 35 is_stmt 1 discriminator 1 view .LVU223
+ 907 001e 062C     		cmp	r4, #6
+ 908 0020 13D8     		bhi	.L135
  268:Core/Src/cell_temp_handler.c ****                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 903              		.loc 1 268 13 view .LVU222
+ 909              		.loc 1 268 13 view .LVU224
  268:Core/Src/cell_temp_handler.c ****                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 904              		.loc 1 268 17 is_stmt 0 view .LVU223
- 905 0022 2046     		mov	r0, r4
- 906 0024 FFF7FEFF 		bl	CellTemp_IsADCEnabled
- 907              	.LVL89:
+ 910              		.loc 1 268 17 is_stmt 0 view .LVU225
+ 911 0022 2046     		mov	r0, r4
+ 912 0024 FFF7FEFF 		bl	CellTemp_IsADCEnabled
+ 913              	.LVL91:
  268:Core/Src/cell_temp_handler.c ****                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 908              		.loc 1 268 16 discriminator 1 view .LVU224
- 909 0028 0028     		cmp	r0, #0
- 910 002a F6D0     		beq	.L94
- 911              	.LBB11:
+ 914              		.loc 1 268 16 discriminator 1 view .LVU226
+ 915 0028 0028     		cmp	r0, #0
+ 916 002a F6D0     		beq	.L94
+ 917              	.LBB11:
  269:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].adc_accumulator = 0;
- 912              		.loc 1 269 17 is_stmt 1 view .LVU225
+ 918              		.loc 1 269 17 is_stmt 1 view .LVU227
  269:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].adc_accumulator = 0;
- 913              		.loc 1 269 56 is_stmt 0 view .LVU226
- 914 002c E300     		lsls	r3, r4, #3
- 915 002e DBB2     		uxtb	r3, r3
+ 919              		.loc 1 269 56 is_stmt 0 view .LVU228
+ 920 002c E300     		lsls	r3, r4, #3
+ 921 002e DBB2     		uxtb	r3, r3
  269:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].adc_accumulator = 0;
- 916              		.loc 1 269 68 view .LVU227
- 917 0030 9C4A     		ldr	r2, .L146
- 918 0032 92F84115 		ldrb	r1, [r2, #1345]	@ zero_extendqisi2
+ 922              		.loc 1 269 68 view .LVU229
+ 923 0030 9C4A     		ldr	r2, .L146
+ 924 0032 92F84115 		ldrb	r1, [r2, #1345]	@ zero_extendqisi2
  269:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].adc_accumulator = 0;
- 919              		.loc 1 269 25 view .LVU228
- 920 0036 0B44     		add	r3, r3, r1
- 921 0038 DBB2     		uxtb	r3, r3
- 922              	.LVL90:
+ 925              		.loc 1 269 25 view .LVU230
+ 926 0036 0B44     		add	r3, r3, r1
+ 927 0038 DBB2     		uxtb	r3, r3
+ 928              	.LVL92:
  270:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].sample_count = 0;
- 923              		.loc 1 270 17 is_stmt 1 view .LVU229
+ 929              		.loc 1 270 17 is_stmt 1 view .LVU231
  270:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].sample_count = 0;
- 924              		.loc 1 270 67 is_stmt 0 view .LVU230
- 925 003a 03EB4301 		add	r1, r3, r3, lsl #1
- 926 003e 02EBC101 		add	r1, r2, r1, lsl #3
- 927 0042 0020     		movs	r0, #0
- 928 0044 0861     		str	r0, [r1, #16]
+ 930              		.loc 1 270 67 is_stmt 0 view .LVU232
+ 931 003a 03EB4301 		add	r1, r3, r3, lsl #1
+ 932 003e 02EBC101 		add	r1, r2, r1, lsl #3
+ 933 0042 0020     		movs	r0, #0
+ 934 0044 0861     		str	r0, [r1, #16]
  271:Core/Src/cell_temp_handler.c ****             }
- 929              		.loc 1 271 17 is_stmt 1 view .LVU231
+ 935              		.loc 1 271 17 is_stmt 1 view .LVU233
  271:Core/Src/cell_temp_handler.c ****             }
- 930              		.loc 1 271 64 is_stmt 0 view .LVU232
- 931 0046 8882     		strh	r0, [r1, #20]	@ movhi
- 932 0048 E7E7     		b	.L94
- 933              	.LVL91:
- 934              	.L135:
+ 936              		.loc 1 271 64 is_stmt 0 view .LVU234
+ 937 0046 8882     		strh	r0, [r1, #20]	@ movhi
+ 938 0048 E7E7     		b	.L94
+ 939              	.LVL93:
+ 940              	.L135:
  271:Core/Src/cell_temp_handler.c ****             }
- 935              		.loc 1 271 64 view .LVU233
- 936              	.LBE11:
- 937              	.LBE10:
- 938              	.LBB12:
+ 941              		.loc 1 271 64 view .LVU235
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 29
+
+
+ 942              	.LBE11:
+ 943              	.LBE10:
+ 944              	.LBB12:
  276:Core/Src/cell_temp_handler.c ****             // Read all enabled ADC channels for current MUX channel
- 939              		.loc 1 276 23 view .LVU234
- 940 004a 0026     		movs	r6, #0
- 941 004c 2BE0     		b	.L96
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 29
-
-
- 942              	.LVL92:
- 943              	.L97:
- 944              	.LBB13:
+ 945              		.loc 1 276 23 view .LVU236
+ 946 004a 0026     		movs	r6, #0
+ 947 004c 2BE0     		b	.L96
+ 948              	.LVL94:
+ 949              	.L97:
+ 950              	.LBB13:
  278:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(adc)) {
- 945              		.loc 1 278 62 is_stmt 1 discriminator 2 view .LVU235
- 946 004e 0134     		adds	r4, r4, #1
- 947              	.LVL93:
+ 951              		.loc 1 278 62 is_stmt 1 discriminator 2 view .LVU237
+ 952 004e 0134     		adds	r4, r4, #1
+ 953              	.LVL95:
  278:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(adc)) {
- 948              		.loc 1 278 62 is_stmt 0 discriminator 2 view .LVU236
- 949 0050 E4B2     		uxtb	r4, r4
- 950              	.LVL94:
- 951              	.L99:
+ 954              		.loc 1 278 62 is_stmt 0 discriminator 2 view .LVU238
+ 955 0050 E4B2     		uxtb	r4, r4
+ 956              	.LVL96:
+ 957              	.L99:
  278:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(adc)) {
- 952              		.loc 1 278 39 is_stmt 1 discriminator 1 view .LVU237
- 953 0052 062C     		cmp	r4, #6
- 954 0054 22D8     		bhi	.L136
+ 958              		.loc 1 278 39 is_stmt 1 discriminator 1 view .LVU239
+ 959 0052 062C     		cmp	r4, #6
+ 960 0054 22D8     		bhi	.L136
  279:Core/Src/cell_temp_handler.c ****                     uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 955              		.loc 1 279 17 view .LVU238
+ 961              		.loc 1 279 17 view .LVU240
  279:Core/Src/cell_temp_handler.c ****                     uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 956              		.loc 1 279 21 is_stmt 0 view .LVU239
- 957 0056 2046     		mov	r0, r4
- 958 0058 FFF7FEFF 		bl	CellTemp_IsADCEnabled
- 959              	.LVL95:
+ 962              		.loc 1 279 21 is_stmt 0 view .LVU241
+ 963 0056 2046     		mov	r0, r4
+ 964 0058 FFF7FEFF 		bl	CellTemp_IsADCEnabled
+ 965              	.LVL97:
  279:Core/Src/cell_temp_handler.c ****                     uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 960              		.loc 1 279 20 discriminator 1 view .LVU240
- 961 005c 0028     		cmp	r0, #0
- 962 005e F6D0     		beq	.L97
- 963              	.LBB14:
+ 966              		.loc 1 279 20 discriminator 1 view .LVU242
+ 967 005c 0028     		cmp	r0, #0
+ 968 005e F6D0     		beq	.L97
+ 969              	.LBB14:
  280:Core/Src/cell_temp_handler.c ****                     thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 964              		.loc 1 280 21 is_stmt 1 view .LVU241
+ 970              		.loc 1 280 21 is_stmt 1 view .LVU243
  280:Core/Src/cell_temp_handler.c ****                     thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 965              		.loc 1 280 60 is_stmt 0 view .LVU242
- 966 0060 E500     		lsls	r5, r4, #3
- 967 0062 EDB2     		uxtb	r5, r5
+ 971              		.loc 1 280 60 is_stmt 0 view .LVU244
+ 972 0060 E500     		lsls	r5, r4, #3
+ 973 0062 EDB2     		uxtb	r5, r5
  280:Core/Src/cell_temp_handler.c ****                     thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 968              		.loc 1 280 72 view .LVU243
- 969 0064 8F4B     		ldr	r3, .L146
- 970 0066 93F84135 		ldrb	r3, [r3, #1345]	@ zero_extendqisi2
+ 974              		.loc 1 280 72 view .LVU245
+ 975 0064 8F4B     		ldr	r3, .L146
+ 976 0066 93F84135 		ldrb	r3, [r3, #1345]	@ zero_extendqisi2
  280:Core/Src/cell_temp_handler.c ****                     thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 971              		.loc 1 280 29 view .LVU244
- 972 006a 1D44     		add	r5, r5, r3
- 973 006c EDB2     		uxtb	r5, r5
- 974              	.LVL96:
+ 977              		.loc 1 280 29 view .LVU246
+ 978 006a 1D44     		add	r5, r5, r3
+ 979 006c EDB2     		uxtb	r5, r5
+ 980              	.LVL98:
  281:Core/Src/cell_temp_handler.c ****                     
- 975              		.loc 1 281 21 is_stmt 1 view .LVU245
+ 981              		.loc 1 281 21 is_stmt 1 view .LVU247
  284:Core/Src/cell_temp_handler.c ****                     
- 976              		.loc 1 284 21 view .LVU246
+ 982              		.loc 1 284 21 view .LVU248
  284:Core/Src/cell_temp_handler.c ****                     
- 977              		.loc 1 284 42 is_stmt 0 view .LVU247
- 978 006e 8E4B     		ldr	r3, .L146+4
- 979 0070 53F82400 		ldr	r0, [r3, r4, lsl #2]
- 980 0074 FFF7FEFF 		bl	CellTemp_ReadADC
- 981              	.LVL97:
- 287:Core/Src/cell_temp_handler.c ****                         therm->adc_accumulator += adc_value;
- 982              		.loc 1 287 21 is_stmt 1 view .LVU248
- 287:Core/Src/cell_temp_handler.c ****                         therm->adc_accumulator += adc_value;
- 983              		.loc 1 287 24 is_stmt 0 view .LVU249
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 30
+ 983              		.loc 1 284 42 is_stmt 0 view .LVU249
+ 984 006e 8E4B     		ldr	r3, .L146+4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 30
 
 
- 984 0078 0928     		cmp	r0, #9
- 985 007a E8D9     		bls	.L97
+ 985 0070 53F82400 		ldr	r0, [r3, r4, lsl #2]
+ 986 0074 FFF7FEFF 		bl	CellTemp_ReadADC
+ 987              	.LVL99:
+ 287:Core/Src/cell_temp_handler.c ****                         therm->adc_accumulator += adc_value;
+ 988              		.loc 1 287 21 is_stmt 1 view .LVU250
+ 287:Core/Src/cell_temp_handler.c ****                         therm->adc_accumulator += adc_value;
+ 989              		.loc 1 287 24 is_stmt 0 view .LVU251
+ 990 0078 0928     		cmp	r0, #9
+ 991 007a E8D9     		bls	.L97
  288:Core/Src/cell_temp_handler.c ****                         therm->sample_count++;
- 986              		.loc 1 288 25 is_stmt 1 view .LVU250
+ 992              		.loc 1 288 25 is_stmt 1 view .LVU252
  288:Core/Src/cell_temp_handler.c ****                         therm->sample_count++;
- 987              		.loc 1 288 30 is_stmt 0 view .LVU251
- 988 007c 894A     		ldr	r2, .L146
- 989 007e 05EB4503 		add	r3, r5, r5, lsl #1
- 990 0082 02EBC303 		add	r3, r2, r3, lsl #3
- 991 0086 1969     		ldr	r1, [r3, #16]
+ 993              		.loc 1 288 30 is_stmt 0 view .LVU253
+ 994 007c 894A     		ldr	r2, .L146
+ 995 007e 05EB4503 		add	r3, r5, r5, lsl #1
+ 996 0082 02EBC303 		add	r3, r2, r3, lsl #3
+ 997 0086 1969     		ldr	r1, [r3, #16]
  288:Core/Src/cell_temp_handler.c ****                         therm->sample_count++;
- 992              		.loc 1 288 48 view .LVU252
- 993 0088 0844     		add	r0, r0, r1
- 994              	.LVL98:
+ 998              		.loc 1 288 48 view .LVU254
+ 999 0088 0844     		add	r0, r0, r1
+ 1000              	.LVL100:
  288:Core/Src/cell_temp_handler.c ****                         therm->sample_count++;
- 995              		.loc 1 288 48 view .LVU253
- 996 008a 1861     		str	r0, [r3, #16]
+ 1001              		.loc 1 288 48 view .LVU255
+ 1002 008a 1861     		str	r0, [r3, #16]
  289:Core/Src/cell_temp_handler.c ****                     }
- 997              		.loc 1 289 25 is_stmt 1 view .LVU254
+ 1003              		.loc 1 289 25 is_stmt 1 view .LVU256
  289:Core/Src/cell_temp_handler.c ****                     }
- 998              		.loc 1 289 30 is_stmt 0 view .LVU255
- 999 008c 9B8A     		ldrh	r3, [r3, #20]
+ 1004              		.loc 1 289 30 is_stmt 0 view .LVU257
+ 1005 008c 9B8A     		ldrh	r3, [r3, #20]
  289:Core/Src/cell_temp_handler.c ****                     }
- 1000              		.loc 1 289 44 view .LVU256
- 1001 008e 05EB4505 		add	r5, r5, r5, lsl #1
- 1002              	.LVL99:
+ 1006              		.loc 1 289 44 view .LVU258
+ 1007 008e 05EB4505 		add	r5, r5, r5, lsl #1
+ 1008              	.LVL101:
  289:Core/Src/cell_temp_handler.c ****                     }
- 1003              		.loc 1 289 44 view .LVU257
- 1004 0092 02EBC502 		add	r2, r2, r5, lsl #3
- 1005 0096 0133     		adds	r3, r3, #1
- 1006 0098 9382     		strh	r3, [r2, #20]	@ movhi
- 1007 009a D8E7     		b	.L97
- 1008              	.LVL100:
- 1009              	.L136:
+ 1009              		.loc 1 289 44 view .LVU259
+ 1010 0092 02EBC502 		add	r2, r2, r5, lsl #3
+ 1011 0096 0133     		adds	r3, r3, #1
+ 1012 0098 9382     		strh	r3, [r2, #20]	@ movhi
+ 1013 009a D8E7     		b	.L97
+ 1014              	.LVL102:
+ 1015              	.L136:
  289:Core/Src/cell_temp_handler.c ****                     }
- 1010              		.loc 1 289 44 view .LVU258
- 1011              	.LBE14:
- 1012              	.LBE13:
+ 1016              		.loc 1 289 44 view .LVU260
+ 1017              	.LBE14:
+ 1018              	.LBE13:
  295:Core/Src/cell_temp_handler.c ****         }
- 1013              		.loc 1 295 13 is_stmt 1 view .LVU259
- 1014 009c 0A20     		movs	r0, #10
- 1015 009e FFF7FEFF 		bl	osDelay
- 1016              	.LVL101:
- 276:Core/Src/cell_temp_handler.c ****             // Read all enabled ADC channels for current MUX channel
- 1017              		.loc 1 276 72 discriminator 2 view .LVU260
- 1018 00a2 0136     		adds	r6, r6, #1
- 1019              	.LVL102:
- 276:Core/Src/cell_temp_handler.c ****             // Read all enabled ADC channels for current MUX channel
- 1020              		.loc 1 276 72 is_stmt 0 discriminator 2 view .LVU261
- 1021 00a4 B6B2     		uxth	r6, r6
+ 1019              		.loc 1 295 13 is_stmt 1 view .LVU261
+ 1020 009c 0A20     		movs	r0, #10
+ 1021 009e FFF7FEFF 		bl	osDelay
  1022              	.LVL103:
- 1023              	.L96:
  276:Core/Src/cell_temp_handler.c ****             // Read all enabled ADC channels for current MUX channel
- 1024              		.loc 1 276 42 is_stmt 1 discriminator 1 view .LVU262
- 1025 00a6 0B2E     		cmp	r6, #11
- 1026 00a8 01D8     		bhi	.L137
- 1027              	.LBB15:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 31
+ 1023              		.loc 1 276 72 discriminator 2 view .LVU262
+ 1024 00a2 0136     		adds	r6, r6, #1
+ 1025              	.LVL104:
+ 276:Core/Src/cell_temp_handler.c ****             // Read all enabled ADC channels for current MUX channel
+ 1026              		.loc 1 276 72 is_stmt 0 discriminator 2 view .LVU263
+ 1027 00a4 B6B2     		uxth	r6, r6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 31
 
 
+ 1028              	.LVL105:
+ 1029              	.L96:
+ 276:Core/Src/cell_temp_handler.c ****             // Read all enabled ADC channels for current MUX channel
+ 1030              		.loc 1 276 42 is_stmt 1 discriminator 1 view .LVU264
+ 1031 00a6 0B2E     		cmp	r6, #11
+ 1032 00a8 01D8     		bhi	.L137
+ 1033              	.LBB15:
  278:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(adc)) {
- 1028              		.loc 1 278 26 is_stmt 0 view .LVU263
- 1029 00aa 3C46     		mov	r4, r7
- 1030 00ac D1E7     		b	.L99
- 1031              	.L137:
- 1032              	.LBE15:
- 1033              	.LBE12:
+ 1034              		.loc 1 278 26 is_stmt 0 view .LVU265
+ 1035 00aa 3C46     		mov	r4, r7
+ 1036 00ac D1E7     		b	.L99
+ 1037              	.L137:
+ 1038              	.LBE15:
+ 1039              	.LBE12:
  299:Core/Src/cell_temp_handler.c ****         
- 1034              		.loc 1 299 9 is_stmt 1 view .LVU264
+ 1040              		.loc 1 299 9 is_stmt 1 view .LVU266
  299:Core/Src/cell_temp_handler.c ****         
- 1035              		.loc 1 299 33 is_stmt 0 view .LVU265
- 1036 00ae FFF7FEFF 		bl	osKernelGetTickCount
- 1037              	.LVL104:
- 1038 00b2 0646     		mov	r6, r0
- 1039              	.LVL105:
+ 1041              		.loc 1 299 33 is_stmt 0 view .LVU267
+ 1042 00ae FFF7FEFF 		bl	osKernelGetTickCount
+ 1043              	.LVL106:
+ 1044 00b2 0646     		mov	r6, r0
+ 1045              	.LVL107:
  301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1040              		.loc 1 301 9 is_stmt 1 view .LVU266
- 1041              	.LBB16:
+ 1046              		.loc 1 301 9 is_stmt 1 view .LVU268
+ 1047              	.LBB16:
  301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1042              		.loc 1 301 14 view .LVU267
+ 1048              		.loc 1 301 14 view .LVU269
  301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1043              		.loc 1 301 22 is_stmt 0 view .LVU268
- 1044 00b4 3C46     		mov	r4, r7
+ 1049              		.loc 1 301 22 is_stmt 0 view .LVU270
+ 1050 00b4 3C46     		mov	r4, r7
  301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1045              		.loc 1 301 9 view .LVU269
- 1046 00b6 26E0     		b	.L100
- 1047              	.LVL106:
- 1048              	.L139:
- 1049              	.LBB17:
+ 1051              		.loc 1 301 9 view .LVU271
+ 1052 00b6 26E0     		b	.L100
+ 1053              	.LVL108:
+ 1054              	.L139:
+ 1055              	.LBB17:
  316:Core/Src/cell_temp_handler.c ****                         } else if (therm->temperature < TEMP_MIN_CELSIUS) {
- 1050              		.loc 1 316 29 is_stmt 1 view .LVU270
- 1051 00b8 0120     		movs	r0, #1
- 1052 00ba FFF7FEFF 		bl	ErrorMgr_SetError
- 1053              	.LVL107:
- 1054 00be 20E0     		b	.L107
- 1055              	.L132:
+ 1056              		.loc 1 316 29 is_stmt 1 view .LVU272
+ 1057 00b8 0120     		movs	r0, #1
+ 1058 00ba FFF7FEFF 		bl	ErrorMgr_SetError
+ 1059              	.LVL109:
+ 1060 00be 20E0     		b	.L107
+ 1061              	.L132:
  321:Core/Src/cell_temp_handler.c ****                     }
- 1056              		.loc 1 321 25 view .LVU271
- 1057 00c0 0420     		movs	r0, #4
- 1058 00c2 FFF7FEFF 		bl	ErrorMgr_SetError
- 1059              	.LVL108:
- 1060 00c6 1CE0     		b	.L107
- 1061              	.L102:
+ 1062              		.loc 1 321 25 view .LVU273
+ 1063 00c0 0420     		movs	r0, #4
+ 1064 00c2 FFF7FEFF 		bl	ErrorMgr_SetError
+ 1065              	.LVL110:
+ 1066 00c6 1CE0     		b	.L107
+ 1067              	.L102:
  326:Core/Src/cell_temp_handler.c ****                     therm->temperature = -127.0f;
- 1062              		.loc 1 326 21 view .LVU272
+ 1068              		.loc 1 326 21 view .LVU274
  326:Core/Src/cell_temp_handler.c ****                     therm->temperature = -127.0f;
- 1063              		.loc 1 326 36 is_stmt 0 view .LVU273
- 1064 00c8 764B     		ldr	r3, .L146
- 1065 00ca 05EB4502 		add	r2, r5, r5, lsl #1
- 1066 00ce 03EBC202 		add	r2, r3, r2, lsl #3
- 1067 00d2 0021     		movs	r1, #0
- 1068 00d4 1181     		strh	r1, [r2, #8]	@ movhi
+ 1069              		.loc 1 326 36 is_stmt 0 view .LVU275
+ 1070 00c8 764B     		ldr	r3, .L146
+ 1071 00ca 05EB4502 		add	r2, r5, r5, lsl #1
+ 1072 00ce 03EBC202 		add	r2, r3, r2, lsl #3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 32
+
+
+ 1073 00d2 0021     		movs	r1, #0
+ 1074 00d4 1181     		strh	r1, [r2, #8]	@ movhi
  327:Core/Src/cell_temp_handler.c **** #if TEMP_FAULT_DETECTION_ENABLED
- 1069              		.loc 1 327 21 is_stmt 1 view .LVU274
+ 1075              		.loc 1 327 21 is_stmt 1 view .LVU276
  327:Core/Src/cell_temp_handler.c **** #if TEMP_FAULT_DETECTION_ENABLED
- 1070              		.loc 1 327 40 is_stmt 0 view .LVU275
- 1071 00d6 1346     		mov	r3, r2
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 32
-
-
- 1072 00d8 744A     		ldr	r2, .L146+8
- 1073 00da 5A60     		str	r2, [r3, #4]	@ float
+ 1076              		.loc 1 327 40 is_stmt 0 view .LVU277
+ 1077 00d6 1346     		mov	r3, r2
+ 1078 00d8 744A     		ldr	r2, .L146+8
+ 1079 00da 5A60     		str	r2, [r3, #4]	@ float
  329:Core/Src/cell_temp_handler.c **** #endif
- 1074              		.loc 1 329 21 is_stmt 1 view .LVU276
- 1075 00dc 0420     		movs	r0, #4
- 1076 00de FFF7FEFF 		bl	ErrorMgr_SetError
- 1077              	.LVL109:
- 1078 00e2 0EE0     		b	.L107
- 1079              	.LVL110:
- 1080              	.L101:
+ 1080              		.loc 1 329 21 is_stmt 1 view .LVU278
+ 1081 00dc 0420     		movs	r0, #4
+ 1082 00de FFF7FEFF 		bl	ErrorMgr_SetError
+ 1083              	.LVL111:
+ 1084 00e2 0EE0     		b	.L107
+ 1085              	.LVL112:
+ 1086              	.L101:
  329:Core/Src/cell_temp_handler.c **** #endif
- 1081              		.loc 1 329 21 is_stmt 0 view .LVU277
- 1082              	.LBE17:
- 1083              	.LBB18:
+ 1087              		.loc 1 329 21 is_stmt 0 view .LVU279
+ 1088              	.LBE17:
+ 1089              	.LBB18:
  334:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].temperature = -127.0f;
- 1084              		.loc 1 334 17 is_stmt 1 view .LVU278
+ 1090              		.loc 1 334 17 is_stmt 1 view .LVU280
  334:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].temperature = -127.0f;
- 1085              		.loc 1 334 56 is_stmt 0 view .LVU279
- 1086 00e4 E300     		lsls	r3, r4, #3
- 1087 00e6 DBB2     		uxtb	r3, r3
+ 1091              		.loc 1 334 56 is_stmt 0 view .LVU281
+ 1092 00e4 E300     		lsls	r3, r4, #3
+ 1093 00e6 DBB2     		uxtb	r3, r3
  334:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].temperature = -127.0f;
- 1088              		.loc 1 334 68 view .LVU280
- 1089 00e8 6E4A     		ldr	r2, .L146
- 1090 00ea 92F84115 		ldrb	r1, [r2, #1345]	@ zero_extendqisi2
+ 1094              		.loc 1 334 68 view .LVU282
+ 1095 00e8 6E4A     		ldr	r2, .L146
+ 1096 00ea 92F84115 		ldrb	r1, [r2, #1345]	@ zero_extendqisi2
  334:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].temperature = -127.0f;
- 1091              		.loc 1 334 25 view .LVU281
- 1092 00ee 0B44     		add	r3, r3, r1
- 1093 00f0 DBB2     		uxtb	r3, r3
- 1094              	.LVL111:
+ 1097              		.loc 1 334 25 view .LVU283
+ 1098 00ee 0B44     		add	r3, r3, r1
+ 1099 00f0 DBB2     		uxtb	r3, r3
+ 1100              	.LVL113:
  335:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].raw_adc = 0;
- 1095              		.loc 1 335 17 is_stmt 1 view .LVU282
+ 1101              		.loc 1 335 17 is_stmt 1 view .LVU284
  335:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].raw_adc = 0;
- 1096              		.loc 1 335 63 is_stmt 0 view .LVU283
- 1097 00f2 03EB4301 		add	r1, r3, r3, lsl #1
- 1098 00f6 02EBC101 		add	r1, r2, r1, lsl #3
- 1099 00fa 6C48     		ldr	r0, .L146+8
- 1100 00fc 4860     		str	r0, [r1, #4]	@ float
+ 1102              		.loc 1 335 63 is_stmt 0 view .LVU285
+ 1103 00f2 03EB4301 		add	r1, r3, r3, lsl #1
+ 1104 00f6 02EBC101 		add	r1, r2, r1, lsl #3
+ 1105 00fa 6C48     		ldr	r0, .L146+8
+ 1106 00fc 4860     		str	r0, [r1, #4]	@ float
  336:Core/Src/cell_temp_handler.c ****             }
- 1101              		.loc 1 336 17 is_stmt 1 view .LVU284
+ 1107              		.loc 1 336 17 is_stmt 1 view .LVU286
  336:Core/Src/cell_temp_handler.c ****             }
- 1102              		.loc 1 336 59 is_stmt 0 view .LVU285
- 1103 00fe 0023     		movs	r3, #0
- 1104              	.LVL112:
+ 1108              		.loc 1 336 59 is_stmt 0 view .LVU287
+ 1109 00fe 0023     		movs	r3, #0
+ 1110              	.LVL114:
  336:Core/Src/cell_temp_handler.c ****             }
- 1105              		.loc 1 336 59 view .LVU286
- 1106 0100 0B81     		strh	r3, [r1, #8]	@ movhi
- 1107              	.LVL113:
- 1108              	.L107:
+ 1111              		.loc 1 336 59 view .LVU288
+ 1112 0100 0B81     		strh	r3, [r1, #8]	@ movhi
+ 1113              	.LVL115:
+ 1114              	.L107:
  336:Core/Src/cell_temp_handler.c ****             }
- 1109              		.loc 1 336 59 view .LVU287
- 1110              	.LBE18:
- 301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1111              		.loc 1 301 58 is_stmt 1 discriminator 2 view .LVU288
- 1112 0102 0134     		adds	r4, r4, #1
- 1113              	.LVL114:
- 301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1114              		.loc 1 301 58 is_stmt 0 discriminator 2 view .LVU289
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 33
+ 1115              		.loc 1 336 59 view .LVU289
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 33
 
 
- 1115 0104 E4B2     		uxtb	r4, r4
- 1116              	.LVL115:
- 1117              	.L100:
+ 1116              	.LBE18:
  301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1118              		.loc 1 301 35 is_stmt 1 discriminator 1 view .LVU290
- 1119 0106 062C     		cmp	r4, #6
- 1120 0108 3CD8     		bhi	.L138
+ 1117              		.loc 1 301 58 is_stmt 1 discriminator 2 view .LVU290
+ 1118 0102 0134     		adds	r4, r4, #1
+ 1119              	.LVL116:
+ 301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
+ 1120              		.loc 1 301 58 is_stmt 0 discriminator 2 view .LVU291
+ 1121 0104 E4B2     		uxtb	r4, r4
+ 1122              	.LVL117:
+ 1123              	.L100:
+ 301:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
+ 1124              		.loc 1 301 35 is_stmt 1 discriminator 1 view .LVU292
+ 1125 0106 062C     		cmp	r4, #6
+ 1126 0108 3CD8     		bhi	.L138
  302:Core/Src/cell_temp_handler.c ****                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 1121              		.loc 1 302 13 view .LVU291
+ 1127              		.loc 1 302 13 view .LVU293
  302:Core/Src/cell_temp_handler.c ****                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 1122              		.loc 1 302 17 is_stmt 0 view .LVU292
- 1123 010a 2046     		mov	r0, r4
- 1124 010c FFF7FEFF 		bl	CellTemp_IsADCEnabled
- 1125              	.LVL116:
+ 1128              		.loc 1 302 17 is_stmt 0 view .LVU294
+ 1129 010a 2046     		mov	r0, r4
+ 1130 010c FFF7FEFF 		bl	CellTemp_IsADCEnabled
+ 1131              	.LVL118:
  302:Core/Src/cell_temp_handler.c ****                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
- 1126              		.loc 1 302 16 discriminator 1 view .LVU293
- 1127 0110 0028     		cmp	r0, #0
- 1128 0112 E7D0     		beq	.L101
- 1129              	.LBB19:
+ 1132              		.loc 1 302 16 discriminator 1 view .LVU295
+ 1133 0110 0028     		cmp	r0, #0
+ 1134 0112 E7D0     		beq	.L101
+ 1135              	.LBB19:
  303:Core/Src/cell_temp_handler.c ****                 thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 1130              		.loc 1 303 17 is_stmt 1 view .LVU294
+ 1136              		.loc 1 303 17 is_stmt 1 view .LVU296
  303:Core/Src/cell_temp_handler.c ****                 thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 1131              		.loc 1 303 56 is_stmt 0 view .LVU295
- 1132 0114 E500     		lsls	r5, r4, #3
- 1133 0116 EDB2     		uxtb	r5, r5
+ 1137              		.loc 1 303 56 is_stmt 0 view .LVU297
+ 1138 0114 E500     		lsls	r5, r4, #3
+ 1139 0116 EDB2     		uxtb	r5, r5
  303:Core/Src/cell_temp_handler.c ****                 thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 1134              		.loc 1 303 68 view .LVU296
- 1135 0118 624B     		ldr	r3, .L146
- 1136 011a 93F84125 		ldrb	r2, [r3, #1345]	@ zero_extendqisi2
+ 1140              		.loc 1 303 68 view .LVU298
+ 1141 0118 624B     		ldr	r3, .L146
+ 1142 011a 93F84125 		ldrb	r2, [r3, #1345]	@ zero_extendqisi2
  303:Core/Src/cell_temp_handler.c ****                 thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
- 1137              		.loc 1 303 25 view .LVU297
- 1138 011e 1544     		add	r5, r5, r2
- 1139 0120 EDB2     		uxtb	r5, r5
- 1140              	.LVL117:
+ 1143              		.loc 1 303 25 view .LVU299
+ 1144 011e 1544     		add	r5, r5, r2
+ 1145 0120 EDB2     		uxtb	r5, r5
+ 1146              	.LVL119:
  304:Core/Src/cell_temp_handler.c ****                 
- 1141              		.loc 1 304 17 is_stmt 1 view .LVU298
+ 1147              		.loc 1 304 17 is_stmt 1 view .LVU300
  307:Core/Src/cell_temp_handler.c ****                     therm->raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
- 1142              		.loc 1 307 17 view .LVU299
+ 1148              		.loc 1 307 17 view .LVU301
  307:Core/Src/cell_temp_handler.c ****                     therm->raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
- 1143              		.loc 1 307 26 is_stmt 0 view .LVU300
- 1144 0122 05EB4502 		add	r2, r5, r5, lsl #1
- 1145 0126 03EBC203 		add	r3, r3, r2, lsl #3
- 1146 012a 9B8A     		ldrh	r3, [r3, #20]
+ 1149              		.loc 1 307 26 is_stmt 0 view .LVU302
+ 1150 0122 05EB4502 		add	r2, r5, r5, lsl #1
+ 1151 0126 03EBC203 		add	r3, r3, r2, lsl #3
+ 1152 012a 9B8A     		ldrh	r3, [r3, #20]
  307:Core/Src/cell_temp_handler.c ****                     therm->raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
- 1147              		.loc 1 307 20 view .LVU301
- 1148 012c 002B     		cmp	r3, #0
- 1149 012e CBD0     		beq	.L102
+ 1153              		.loc 1 307 20 view .LVU303
+ 1154 012c 002B     		cmp	r3, #0
+ 1155 012e CBD0     		beq	.L102
  308:Core/Src/cell_temp_handler.c ****                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
- 1150              		.loc 1 308 21 is_stmt 1 view .LVU302
+ 1156              		.loc 1 308 21 is_stmt 1 view .LVU304
  308:Core/Src/cell_temp_handler.c ****                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
- 1151              		.loc 1 308 54 is_stmt 0 view .LVU303
- 1152 0130 DFF87091 		ldr	r9, .L146
- 1153 0134 09EBC208 		add	r8, r9, r2, lsl #3
- 1154 0138 D8F81000 		ldr	r0, [r8, #16]
- 308:Core/Src/cell_temp_handler.c ****                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
- 1155              		.loc 1 308 72 view .LVU304
- 1156 013c B0FBF3F0 		udiv	r0, r0, r3
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 34
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 34
 
 
+ 1157              		.loc 1 308 54 is_stmt 0 view .LVU305
+ 1158 0130 DFF87091 		ldr	r9, .L146
+ 1159 0134 09EBC208 		add	r8, r9, r2, lsl #3
+ 1160 0138 D8F81000 		ldr	r0, [r8, #16]
  308:Core/Src/cell_temp_handler.c ****                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
- 1157              		.loc 1 308 38 view .LVU305
- 1158 0140 80B2     		uxth	r0, r0
+ 1161              		.loc 1 308 72 view .LVU306
+ 1162 013c B0FBF3F0 		udiv	r0, r0, r3
  308:Core/Src/cell_temp_handler.c ****                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
- 1159              		.loc 1 308 36 view .LVU306
- 1160 0142 A8F80800 		strh	r0, [r8, #8]	@ movhi
+ 1163              		.loc 1 308 38 view .LVU307
+ 1164 0140 80B2     		uxth	r0, r0
+ 308:Core/Src/cell_temp_handler.c ****                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
+ 1165              		.loc 1 308 36 view .LVU308
+ 1166 0142 A8F80800 		strh	r0, [r8, #8]	@ movhi
  309:Core/Src/cell_temp_handler.c ****                     therm->last_read_time = current_time;
- 1161              		.loc 1 309 21 is_stmt 1 view .LVU307
+ 1167              		.loc 1 309 21 is_stmt 1 view .LVU309
  309:Core/Src/cell_temp_handler.c ****                     therm->last_read_time = current_time;
- 1162              		.loc 1 309 42 is_stmt 0 view .LVU308
- 1163 0146 FFF7FEFF 		bl	CellTemp_CalculateTemperature
- 1164              	.LVL118:
+ 1168              		.loc 1 309 42 is_stmt 0 view .LVU310
+ 1169 0146 FFF7FEFF 		bl	CellTemp_CalculateTemperature
+ 1170              	.LVL120:
  309:Core/Src/cell_temp_handler.c ****                     therm->last_read_time = current_time;
- 1165              		.loc 1 309 40 discriminator 1 view .LVU309
- 1166 014a 88ED010A 		vstr.32	s0, [r8, #4]
+ 1171              		.loc 1 309 40 discriminator 1 view .LVU311
+ 1172 014a 88ED010A 		vstr.32	s0, [r8, #4]
  310:Core/Src/cell_temp_handler.c ****                     
- 1167              		.loc 1 310 21 is_stmt 1 view .LVU310
+ 1173              		.loc 1 310 21 is_stmt 1 view .LVU312
  310:Core/Src/cell_temp_handler.c ****                     
- 1168              		.loc 1 310 43 is_stmt 0 view .LVU311
- 1169 014e C8F80C60 		str	r6, [r8, #12]
+ 1174              		.loc 1 310 43 is_stmt 0 view .LVU313
+ 1175 014e C8F80C60 		str	r6, [r8, #12]
  314:Core/Src/cell_temp_handler.c ****                         if (therm->temperature > TEMP_MAX_CELSIUS) {
- 1170              		.loc 1 314 21 is_stmt 1 view .LVU312
+ 1176              		.loc 1 314 21 is_stmt 1 view .LVU314
  314:Core/Src/cell_temp_handler.c ****                         if (therm->temperature > TEMP_MAX_CELSIUS) {
- 1171              		.loc 1 314 24 is_stmt 0 view .LVU313
- 1172 0152 DFED577A 		vldr.32	s15, .L146+12
- 1173 0156 B4EEE70A 		vcmpe.f32	s0, s15
- 1174 015a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1175 015e AFDD     		ble	.L132
+ 1177              		.loc 1 314 24 is_stmt 0 view .LVU315
+ 1178 0152 DFED577A 		vldr.32	s15, .L146+12
+ 1179 0156 B4EEE70A 		vcmpe.f32	s0, s15
+ 1180 015a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1181 015e AFDD     		ble	.L132
  315:Core/Src/cell_temp_handler.c ****                             ErrorMgr_SetError(ERROR_OVER_TEMP);
- 1176              		.loc 1 315 25 is_stmt 1 view .LVU314
+ 1182              		.loc 1 315 25 is_stmt 1 view .LVU316
  315:Core/Src/cell_temp_handler.c ****                             ErrorMgr_SetError(ERROR_OVER_TEMP);
- 1177              		.loc 1 315 28 is_stmt 0 view .LVU315
- 1178 0160 DFED547A 		vldr.32	s15, .L146+16
- 1179 0164 B4EEE70A 		vcmpe.f32	s0, s15
- 1180 0168 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1181 016c A4DC     		bgt	.L139
+ 1183              		.loc 1 315 28 is_stmt 0 view .LVU317
+ 1184 0160 DFED547A 		vldr.32	s15, .L146+16
+ 1185 0164 B4EEE70A 		vcmpe.f32	s0, s15
+ 1186 0168 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1187 016c A4DC     		bgt	.L139
  317:Core/Src/cell_temp_handler.c ****                             ErrorMgr_SetError(ERROR_UNDER_TEMP);
- 1182              		.loc 1 317 32 is_stmt 1 view .LVU316
+ 1188              		.loc 1 317 32 is_stmt 1 view .LVU318
  317:Core/Src/cell_temp_handler.c ****                             ErrorMgr_SetError(ERROR_UNDER_TEMP);
- 1183              		.loc 1 317 35 is_stmt 0 view .LVU317
- 1184 016e FBEE047A 		vmov.f32	s15, #-2.0e+1
- 1185 0172 B4EEE70A 		vcmpe.f32	s0, s15
- 1186 0176 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1187 017a C2D5     		bpl	.L107
+ 1189              		.loc 1 317 35 is_stmt 0 view .LVU319
+ 1190 016e FBEE047A 		vmov.f32	s15, #-2.0e+1
+ 1191 0172 B4EEE70A 		vcmpe.f32	s0, s15
+ 1192 0176 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1193 017a C2D5     		bpl	.L107
  318:Core/Src/cell_temp_handler.c ****                         }
- 1188              		.loc 1 318 29 is_stmt 1 view .LVU318
- 1189 017c 0220     		movs	r0, #2
- 1190 017e FFF7FEFF 		bl	ErrorMgr_SetError
- 1191              	.LVL119:
- 1192 0182 BEE7     		b	.L107
- 1193              	.LVL120:
- 1194              	.L138:
- 318:Core/Src/cell_temp_handler.c ****                         }
- 1195              		.loc 1 318 29 is_stmt 0 view .LVU319
- 1196              	.LBE19:
- 1197              	.LBE16:
- 344:Core/Src/cell_temp_handler.c ****             // Just completed MUX 0-3 or MUX 4-7, so we have all 4 temps for a message
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 35
+ 1194              		.loc 1 318 29 is_stmt 1 view .LVU320
+ 1195 017c 0220     		movs	r0, #2
+ 1196 017e FFF7FEFF 		bl	ErrorMgr_SetError
+ 1197              	.LVL121:
+ 1198 0182 BEE7     		b	.L107
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 35
 
 
- 1198              		.loc 1 344 9 is_stmt 1 view .LVU320
+ 1199              	.LVL122:
+ 1200              	.L138:
+ 318:Core/Src/cell_temp_handler.c ****                         }
+ 1201              		.loc 1 318 29 is_stmt 0 view .LVU321
+ 1202              	.LBE19:
+ 1203              	.LBE16:
  344:Core/Src/cell_temp_handler.c ****             // Just completed MUX 0-3 or MUX 4-7, so we have all 4 temps for a message
- 1199              		.loc 1 344 23 is_stmt 0 view .LVU321
- 1200 0184 474B     		ldr	r3, .L146
- 1201 0186 93F84135 		ldrb	r3, [r3, #1345]	@ zero_extendqisi2
+ 1204              		.loc 1 344 9 is_stmt 1 view .LVU322
  344:Core/Src/cell_temp_handler.c ****             // Just completed MUX 0-3 or MUX 4-7, so we have all 4 temps for a message
- 1202              		.loc 1 344 12 view .LVU322
- 1203 018a 032B     		cmp	r3, #3
- 1204 018c 39D0     		beq	.L124
+ 1205              		.loc 1 344 23 is_stmt 0 view .LVU323
+ 1206 0184 474B     		ldr	r3, .L146
+ 1207 0186 93F84135 		ldrb	r3, [r3, #1345]	@ zero_extendqisi2
  344:Core/Src/cell_temp_handler.c ****             // Just completed MUX 0-3 or MUX 4-7, so we have all 4 temps for a message
- 1205              		.loc 1 344 41 discriminator 1 view .LVU323
- 1206 018e 072B     		cmp	r3, #7
- 1207 0190 39D0     		beq	.L140
- 1208              	.LVL121:
- 1209              	.L111:
+ 1208              		.loc 1 344 12 view .LVU324
+ 1209 018a 032B     		cmp	r3, #3
+ 1210 018c 39D0     		beq	.L124
+ 344:Core/Src/cell_temp_handler.c ****             // Just completed MUX 0-3 or MUX 4-7, so we have all 4 temps for a message
+ 1211              		.loc 1 344 41 discriminator 1 view .LVU325
+ 1212 018e 072B     		cmp	r3, #7
+ 1213 0190 39D0     		beq	.L140
+ 1214              	.LVL123:
+ 1215              	.L111:
  367:Core/Src/cell_temp_handler.c ****         
- 1210              		.loc 1 367 9 is_stmt 1 view .LVU324
+ 1216              		.loc 1 367 9 is_stmt 1 view .LVU326
  367:Core/Src/cell_temp_handler.c ****         
- 1211              		.loc 1 367 19 is_stmt 0 view .LVU325
- 1212 0192 444A     		ldr	r2, .L146
- 1213 0194 92F84135 		ldrb	r3, [r2, #1345]	@ zero_extendqisi2
+ 1217              		.loc 1 367 19 is_stmt 0 view .LVU327
+ 1218 0192 444A     		ldr	r2, .L146
+ 1219 0194 92F84135 		ldrb	r3, [r2, #1345]	@ zero_extendqisi2
  367:Core/Src/cell_temp_handler.c ****         
- 1214              		.loc 1 367 31 view .LVU326
- 1215 0198 0133     		adds	r3, r3, #1
- 1216 019a DBB2     		uxtb	r3, r3
- 1217 019c 82F84135 		strb	r3, [r2, #1345]
+ 1220              		.loc 1 367 31 view .LVU328
+ 1221 0198 0133     		adds	r3, r3, #1
+ 1222 019a DBB2     		uxtb	r3, r3
+ 1223 019c 82F84135 		strb	r3, [r2, #1345]
  370:Core/Src/cell_temp_handler.c ****             temp_state.current_mux = 0;
- 1218              		.loc 1 370 9 is_stmt 1 view .LVU327
+ 1224              		.loc 1 370 9 is_stmt 1 view .LVU329
  370:Core/Src/cell_temp_handler.c ****             temp_state.current_mux = 0;
- 1219              		.loc 1 370 12 is_stmt 0 view .LVU328
- 1220 01a0 072B     		cmp	r3, #7
- 1221 01a2 32D8     		bhi	.L141
- 1222              	.LVL122:
- 1223              	.L116:
+ 1225              		.loc 1 370 12 is_stmt 0 view .LVU330
+ 1226 01a0 072B     		cmp	r3, #7
+ 1227 01a2 32D8     		bhi	.L141
+ 1228              	.LVL124:
+ 1229              	.L116:
  370:Core/Src/cell_temp_handler.c ****             temp_state.current_mux = 0;
- 1224              		.loc 1 370 12 view .LVU329
- 1225              	.LBE9:
+ 1230              		.loc 1 370 12 view .LVU331
+ 1231              	.LBE9:
  261:Core/Src/cell_temp_handler.c ****     {
- 1226              		.loc 1 261 5 is_stmt 1 view .LVU330
- 1227              	.LBB31:
+ 1232              		.loc 1 261 5 is_stmt 1 view .LVU332
+ 1233              	.LBB31:
  264:Core/Src/cell_temp_handler.c ****         
- 1228              		.loc 1 264 9 view .LVU331
- 1229 01a4 3F4B     		ldr	r3, .L146
- 1230 01a6 93F84105 		ldrb	r0, [r3, #1345]	@ zero_extendqisi2
- 1231 01aa FFF7FEFF 		bl	CellTemp_SetMuxChannel
- 1232              	.LVL123:
+ 1234              		.loc 1 264 9 view .LVU333
+ 1235 01a4 3F4B     		ldr	r3, .L146
+ 1236 01a6 93F84105 		ldrb	r0, [r3, #1345]	@ zero_extendqisi2
+ 1237 01aa FFF7FEFF 		bl	CellTemp_SetMuxChannel
+ 1238              	.LVL125:
  267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1233              		.loc 1 267 9 view .LVU332
- 1234              	.LBB20:
+ 1239              		.loc 1 267 9 view .LVU334
+ 1240              	.LBB20:
  267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1235              		.loc 1 267 14 view .LVU333
- 267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1236              		.loc 1 267 22 is_stmt 0 view .LVU334
- 1237 01ae 3C46     		mov	r4, r7
- 267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1238              		.loc 1 267 9 view .LVU335
- 1239 01b0 35E7     		b	.L93
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 36
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 36
 
 
- 1240              	.LVL124:
- 1241              	.L142:
+ 1241              		.loc 1 267 14 view .LVU335
  267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
- 1242              		.loc 1 267 9 view .LVU336
- 1243              	.LBE20:
- 1244              	.LBB21:
- 1245              	.LBB22:
+ 1242              		.loc 1 267 22 is_stmt 0 view .LVU336
+ 1243 01ae 3C46     		mov	r4, r7
+ 267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
+ 1244              		.loc 1 267 9 view .LVU337
+ 1245 01b0 35E7     		b	.L93
+ 1246              	.LVL126:
+ 1247              	.L142:
+ 267:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(adc)) {
+ 1248              		.loc 1 267 9 view .LVU338
+ 1249              	.LBE20:
+ 1250              	.LBB21:
+ 1251              	.LBB22:
  351:Core/Src/cell_temp_handler.c ****                         uint8_t start_therm_idx = adc * MUX_CHANNELS;
- 1246              		.loc 1 351 25 is_stmt 1 view .LVU337
+ 1252              		.loc 1 351 25 is_stmt 1 view .LVU339
  351:Core/Src/cell_temp_handler.c ****                         uint8_t start_therm_idx = adc * MUX_CHANNELS;
- 1247              		.loc 1 351 33 is_stmt 0 view .LVU338
- 1248 01b2 6000     		lsls	r0, r4, #1
+ 1253              		.loc 1 351 33 is_stmt 0 view .LVU340
+ 1254 01b2 6000     		lsls	r0, r4, #1
  352:Core/Src/cell_temp_handler.c ****                         CellTemp_SendTemperatureMessage(msg_idx, start_therm_idx);
- 1249              		.loc 1 352 25 is_stmt 1 view .LVU339
+ 1255              		.loc 1 352 25 is_stmt 1 view .LVU341
  352:Core/Src/cell_temp_handler.c ****                         CellTemp_SendTemperatureMessage(msg_idx, start_therm_idx);
- 1250              		.loc 1 352 33 is_stmt 0 view .LVU340
- 1251 01b4 E100     		lsls	r1, r4, #3
- 1252              	.LVL125:
+ 1256              		.loc 1 352 33 is_stmt 0 view .LVU342
+ 1257 01b4 E100     		lsls	r1, r4, #3
+ 1258              	.LVL127:
  353:Core/Src/cell_temp_handler.c ****                         osDelay(2); // Small delay between messages
- 1253              		.loc 1 353 25 is_stmt 1 view .LVU341
- 1254 01b6 01F0F801 		and	r1, r1, #248
- 1255              	.LVL126:
+ 1259              		.loc 1 353 25 is_stmt 1 view .LVU343
+ 1260 01b6 01F0F801 		and	r1, r1, #248
+ 1261              	.LVL128:
  353:Core/Src/cell_temp_handler.c ****                         osDelay(2); // Small delay between messages
- 1256              		.loc 1 353 25 is_stmt 0 view .LVU342
- 1257 01ba 00F0FE00 		and	r0, r0, #254
- 1258 01be FFF7FEFF 		bl	CellTemp_SendTemperatureMessage
- 1259              	.LVL127:
+ 1262              		.loc 1 353 25 is_stmt 0 view .LVU344
+ 1263 01ba 00F0FE00 		and	r0, r0, #254
+ 1264 01be FFF7FEFF 		bl	CellTemp_SendTemperatureMessage
+ 1265              	.LVL129:
  354:Core/Src/cell_temp_handler.c ****                     } else {
- 1260              		.loc 1 354 25 is_stmt 1 view .LVU343
- 1261 01c2 0220     		movs	r0, #2
- 1262 01c4 FFF7FEFF 		bl	osDelay
- 1263              	.LVL128:
- 1264              	.L112:
+ 1266              		.loc 1 354 25 is_stmt 1 view .LVU345
+ 1267 01c2 0220     		movs	r0, #2
+ 1268 01c4 FFF7FEFF 		bl	osDelay
+ 1269              	.LVL130:
+ 1270              	.L112:
  354:Core/Src/cell_temp_handler.c ****                     } else {
- 1265              		.loc 1 354 25 is_stmt 0 view .LVU344
- 1266              	.LBE22:
+ 1271              		.loc 1 354 25 is_stmt 0 view .LVU346
+ 1272              	.LBE22:
  346:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(adc)) {
- 1267              		.loc 1 346 62 is_stmt 1 discriminator 2 view .LVU345
- 1268 01c8 0134     		adds	r4, r4, #1
- 1269              	.LVL129:
+ 1273              		.loc 1 346 62 is_stmt 1 discriminator 2 view .LVU347
+ 1274 01c8 0134     		adds	r4, r4, #1
+ 1275              	.LVL131:
  346:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(adc)) {
- 1270              		.loc 1 346 62 is_stmt 0 discriminator 2 view .LVU346
- 1271 01ca E4B2     		uxtb	r4, r4
- 1272              	.LVL130:
- 1273              	.L114:
+ 1276              		.loc 1 346 62 is_stmt 0 discriminator 2 view .LVU348
+ 1277 01ca E4B2     		uxtb	r4, r4
+ 1278              	.LVL132:
+ 1279              	.L114:
  346:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(adc)) {
- 1274              		.loc 1 346 39 is_stmt 1 discriminator 1 view .LVU347
- 1275 01cc 062C     		cmp	r4, #6
- 1276 01ce E0D8     		bhi	.L111
+ 1280              		.loc 1 346 39 is_stmt 1 discriminator 1 view .LVU349
+ 1281 01cc 062C     		cmp	r4, #6
+ 1282 01ce E0D8     		bhi	.L111
  347:Core/Src/cell_temp_handler.c ****                     // Determine which message to send based on current MUX
- 1277              		.loc 1 347 17 view .LVU348
- 347:Core/Src/cell_temp_handler.c ****                     // Determine which message to send based on current MUX
- 1278              		.loc 1 347 21 is_stmt 0 view .LVU349
- 1279 01d0 2046     		mov	r0, r4
- 1280 01d2 FFF7FEFF 		bl	CellTemp_IsADCEnabled
- 1281              	.LVL131:
- 347:Core/Src/cell_temp_handler.c ****                     // Determine which message to send based on current MUX
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 37
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 37
 
 
- 1282              		.loc 1 347 20 discriminator 1 view .LVU350
- 1283 01d6 0028     		cmp	r0, #0
- 1284 01d8 F6D0     		beq	.L112
+ 1283              		.loc 1 347 17 view .LVU350
+ 347:Core/Src/cell_temp_handler.c ****                     // Determine which message to send based on current MUX
+ 1284              		.loc 1 347 21 is_stmt 0 view .LVU351
+ 1285 01d0 2046     		mov	r0, r4
+ 1286 01d2 FFF7FEFF 		bl	CellTemp_IsADCEnabled
+ 1287              	.LVL133:
+ 347:Core/Src/cell_temp_handler.c ****                     // Determine which message to send based on current MUX
+ 1288              		.loc 1 347 20 discriminator 1 view .LVU352
+ 1289 01d6 0028     		cmp	r0, #0
+ 1290 01d8 F6D0     		beq	.L112
  349:Core/Src/cell_temp_handler.c ****                         // Send message 0 for this ADC (thermistors 0-3)
- 1285              		.loc 1 349 21 is_stmt 1 view .LVU351
+ 1291              		.loc 1 349 21 is_stmt 1 view .LVU353
  349:Core/Src/cell_temp_handler.c ****                         // Send message 0 for this ADC (thermistors 0-3)
- 1286              		.loc 1 349 35 is_stmt 0 view .LVU352
- 1287 01da 324B     		ldr	r3, .L146
- 1288 01dc 93F84135 		ldrb	r3, [r3, #1345]	@ zero_extendqisi2
+ 1292              		.loc 1 349 35 is_stmt 0 view .LVU354
+ 1293 01da 324B     		ldr	r3, .L146
+ 1294 01dc 93F84135 		ldrb	r3, [r3, #1345]	@ zero_extendqisi2
  349:Core/Src/cell_temp_handler.c ****                         // Send message 0 for this ADC (thermistors 0-3)
- 1289              		.loc 1 349 24 view .LVU353
- 1290 01e0 032B     		cmp	r3, #3
- 1291 01e2 E6D0     		beq	.L142
- 1292              	.LBB23:
+ 1295              		.loc 1 349 24 view .LVU355
+ 1296 01e0 032B     		cmp	r3, #3
+ 1297 01e2 E6D0     		beq	.L142
+ 1298              	.LBB23:
  357:Core/Src/cell_temp_handler.c ****                         uint8_t start_therm_idx = adc * MUX_CHANNELS + 4;
- 1293              		.loc 1 357 25 is_stmt 1 view .LVU354
+ 1299              		.loc 1 357 25 is_stmt 1 view .LVU356
  357:Core/Src/cell_temp_handler.c ****                         uint8_t start_therm_idx = adc * MUX_CHANNELS + 4;
- 1294              		.loc 1 357 51 is_stmt 0 view .LVU355
- 1295 01e4 6000     		lsls	r0, r4, #1
- 1296 01e6 C0B2     		uxtb	r0, r0
+ 1300              		.loc 1 357 51 is_stmt 0 view .LVU357
+ 1301 01e4 6000     		lsls	r0, r4, #1
+ 1302 01e6 C0B2     		uxtb	r0, r0
  357:Core/Src/cell_temp_handler.c ****                         uint8_t start_therm_idx = adc * MUX_CHANNELS + 4;
- 1297              		.loc 1 357 33 view .LVU356
- 1298 01e8 0130     		adds	r0, r0, #1
- 1299              	.LVL132:
+ 1303              		.loc 1 357 33 view .LVU358
+ 1304 01e8 0130     		adds	r0, r0, #1
+ 1305              	.LVL134:
  358:Core/Src/cell_temp_handler.c ****                         CellTemp_SendTemperatureMessage(msg_idx, start_therm_idx);
- 1300              		.loc 1 358 25 is_stmt 1 view .LVU357
+ 1306              		.loc 1 358 25 is_stmt 1 view .LVU359
  358:Core/Src/cell_temp_handler.c ****                         CellTemp_SendTemperatureMessage(msg_idx, start_therm_idx);
- 1301              		.loc 1 358 70 is_stmt 0 view .LVU358
- 1302 01ea E100     		lsls	r1, r4, #3
- 1303 01ec C9B2     		uxtb	r1, r1
+ 1307              		.loc 1 358 70 is_stmt 0 view .LVU360
+ 1308 01ea E100     		lsls	r1, r4, #3
+ 1309 01ec C9B2     		uxtb	r1, r1
  358:Core/Src/cell_temp_handler.c ****                         CellTemp_SendTemperatureMessage(msg_idx, start_therm_idx);
- 1304              		.loc 1 358 33 view .LVU359
- 1305 01ee 0431     		adds	r1, r1, #4
- 1306              	.LVL133:
+ 1310              		.loc 1 358 33 view .LVU361
+ 1311 01ee 0431     		adds	r1, r1, #4
+ 1312              	.LVL135:
  359:Core/Src/cell_temp_handler.c ****                         osDelay(2); // Small delay between messages
- 1307              		.loc 1 359 25 is_stmt 1 view .LVU360
- 1308 01f0 01F0FC01 		and	r1, r1, #252
- 1309              	.LVL134:
+ 1313              		.loc 1 359 25 is_stmt 1 view .LVU362
+ 1314 01f0 01F0FC01 		and	r1, r1, #252
+ 1315              	.LVL136:
  359:Core/Src/cell_temp_handler.c ****                         osDelay(2); // Small delay between messages
- 1310              		.loc 1 359 25 is_stmt 0 view .LVU361
- 1311 01f4 C0B2     		uxtb	r0, r0
+ 1316              		.loc 1 359 25 is_stmt 0 view .LVU363
+ 1317 01f4 C0B2     		uxtb	r0, r0
  359:Core/Src/cell_temp_handler.c ****                         osDelay(2); // Small delay between messages
- 1312              		.loc 1 359 25 view .LVU362
- 1313 01f6 FFF7FEFF 		bl	CellTemp_SendTemperatureMessage
- 1314              	.LVL135:
- 360:Core/Src/cell_temp_handler.c ****                     }
- 1315              		.loc 1 360 25 is_stmt 1 view .LVU363
- 1316 01fa 0220     		movs	r0, #2
- 1317 01fc FFF7FEFF 		bl	osDelay
- 1318              	.LVL136:
- 1319 0200 E2E7     		b	.L112
+ 1318              		.loc 1 359 25 view .LVU364
+ 1319 01f6 FFF7FEFF 		bl	CellTemp_SendTemperatureMessage
  1320              	.LVL137:
- 1321              	.L124:
  360:Core/Src/cell_temp_handler.c ****                     }
- 1322              		.loc 1 360 25 is_stmt 0 view .LVU364
- 1323              	.LBE23:
- 1324              	.LBE21:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 38
+ 1321              		.loc 1 360 25 is_stmt 1 view .LVU365
+ 1322 01fa 0220     		movs	r0, #2
+ 1323 01fc FFF7FEFF 		bl	osDelay
+ 1324              	.LVL138:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 38
 
 
- 1325 0202 3C46     		mov	r4, r7
- 1326              	.LVL138:
+ 1325 0200 E2E7     		b	.L112
+ 1326              	.LVL139:
+ 1327              	.L124:
  360:Core/Src/cell_temp_handler.c ****                     }
- 1327              		.loc 1 360 25 view .LVU365
- 1328 0204 E2E7     		b	.L114
- 1329              	.LVL139:
- 1330              	.L140:
+ 1328              		.loc 1 360 25 is_stmt 0 view .LVU366
+ 1329              	.LBE23:
+ 1330              	.LBE21:
+ 1331 0202 3C46     		mov	r4, r7
+ 1332              	.LVL140:
  360:Core/Src/cell_temp_handler.c ****                     }
- 1331              		.loc 1 360 25 view .LVU366
- 1332 0206 3C46     		mov	r4, r7
- 1333              	.LVL140:
+ 1333              		.loc 1 360 25 view .LVU367
+ 1334 0204 E2E7     		b	.L114
+ 1335              	.LVL141:
+ 1336              	.L140:
  360:Core/Src/cell_temp_handler.c ****                     }
- 1334              		.loc 1 360 25 view .LVU367
- 1335 0208 E0E7     		b	.L114
- 1336              	.L141:
- 1337              	.LBB24:
+ 1337              		.loc 1 360 25 view .LVU368
+ 1338 0206 3C46     		mov	r4, r7
+ 1339              	.LVL142:
+ 360:Core/Src/cell_temp_handler.c ****                     }
+ 1340              		.loc 1 360 25 view .LVU369
+ 1341 0208 E0E7     		b	.L114
+ 1342              	.L141:
+ 1343              	.LBB24:
  371:Core/Src/cell_temp_handler.c ****             temp_state.cycle_count++;
- 1338              		.loc 1 371 13 is_stmt 1 view .LVU368
+ 1344              		.loc 1 371 13 is_stmt 1 view .LVU370
  371:Core/Src/cell_temp_handler.c ****             temp_state.cycle_count++;
- 1339              		.loc 1 371 36 is_stmt 0 view .LVU369
- 1340 020a 1346     		mov	r3, r2
- 1341 020c 0022     		movs	r2, #0
- 1342 020e 83F84125 		strb	r2, [r3, #1345]
+ 1345              		.loc 1 371 36 is_stmt 0 view .LVU371
+ 1346 020a 1346     		mov	r3, r2
+ 1347 020c 0022     		movs	r2, #0
+ 1348 020e 83F84125 		strb	r2, [r3, #1345]
  372:Core/Src/cell_temp_handler.c ****             
- 1343              		.loc 1 372 13 is_stmt 1 view .LVU370
+ 1349              		.loc 1 372 13 is_stmt 1 view .LVU372
  372:Core/Src/cell_temp_handler.c ****             
- 1344              		.loc 1 372 23 is_stmt 0 view .LVU371
- 1345 0212 D3F84425 		ldr	r2, [r3, #1348]
+ 1350              		.loc 1 372 23 is_stmt 0 view .LVU373
+ 1351 0212 D3F84425 		ldr	r2, [r3, #1348]
  372:Core/Src/cell_temp_handler.c ****             
- 1346              		.loc 1 372 35 view .LVU372
- 1347 0216 0132     		adds	r2, r2, #1
- 1348 0218 C3F84425 		str	r2, [r3, #1348]
+ 1352              		.loc 1 372 35 view .LVU374
+ 1353 0216 0132     		adds	r2, r2, #1
+ 1354 0218 C3F84425 		str	r2, [r3, #1348]
  377:Core/Src/cell_temp_handler.c ****             uint8_t any_under_temp = 0;
- 1349              		.loc 1 377 13 is_stmt 1 view .LVU373
- 1350              	.LVL141:
+ 1355              		.loc 1 377 13 is_stmt 1 view .LVU375
+ 1356              	.LVL143:
  378:Core/Src/cell_temp_handler.c ****             uint8_t any_sensor_fault = 0;
- 1351              		.loc 1 378 13 view .LVU374
+ 1357              		.loc 1 378 13 view .LVU376
  379:Core/Src/cell_temp_handler.c ****             
- 1352              		.loc 1 379 13 view .LVU375
+ 1358              		.loc 1 379 13 view .LVU377
  381:Core/Src/cell_temp_handler.c ****                 // Only check enabled ADC channels
- 1353              		.loc 1 381 13 view .LVU376
- 1354              	.LBB25:
+ 1359              		.loc 1 381 13 view .LVU378
+ 1360              	.LBB25:
  381:Core/Src/cell_temp_handler.c ****                 // Only check enabled ADC channels
- 1355              		.loc 1 381 18 view .LVU377
+ 1361              		.loc 1 381 18 view .LVU379
  381:Core/Src/cell_temp_handler.c ****                 // Only check enabled ADC channels
- 1356              		.loc 1 381 26 is_stmt 0 view .LVU378
- 1357 021c 3C46     		mov	r4, r7
- 1358              	.LBE25:
+ 1362              		.loc 1 381 26 is_stmt 0 view .LVU380
+ 1363 021c 3C46     		mov	r4, r7
+ 1364              	.LBE25:
  379:Core/Src/cell_temp_handler.c ****             
- 1359              		.loc 1 379 21 view .LVU379
- 1360 021e 3D46     		mov	r5, r7
- 378:Core/Src/cell_temp_handler.c ****             uint8_t any_sensor_fault = 0;
- 1361              		.loc 1 378 21 view .LVU380
- 1362 0220 B846     		mov	r8, r7
- 377:Core/Src/cell_temp_handler.c ****             uint8_t any_under_temp = 0;
- 1363              		.loc 1 377 21 view .LVU381
- 1364 0222 3E46     		mov	r6, r7
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 39
+ 1365              		.loc 1 379 21 view .LVU381
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 39
 
 
- 1365              	.LVL142:
- 1366              	.LBB30:
+ 1366 021e 3D46     		mov	r5, r7
+ 378:Core/Src/cell_temp_handler.c ****             uint8_t any_sensor_fault = 0;
+ 1367              		.loc 1 378 21 view .LVU382
+ 1368 0220 B846     		mov	r8, r7
+ 377:Core/Src/cell_temp_handler.c ****             uint8_t any_under_temp = 0;
+ 1369              		.loc 1 377 21 view .LVU383
+ 1370 0222 3E46     		mov	r6, r7
+ 1371              	.LVL144:
+ 1372              	.LBB30:
  381:Core/Src/cell_temp_handler.c ****                 // Only check enabled ADC channels
- 1367              		.loc 1 381 13 view .LVU382
- 1368 0224 02E0     		b	.L117
- 1369              	.LVL143:
- 1370              	.L126:
- 1371              	.LBB26:
- 1372              	.LBB27:
+ 1373              		.loc 1 381 13 view .LVU384
+ 1374 0224 02E0     		b	.L117
+ 1375              	.LVL145:
+ 1376              	.L126:
+ 1377              	.LBB26:
+ 1378              	.LBB27:
  389:Core/Src/cell_temp_handler.c ****                     } else if (temp > TEMP_MAX_CELSIUS) {
- 1373              		.loc 1 389 42 view .LVU383
- 1374 0226 0125     		movs	r5, #1
- 1375              	.LVL144:
- 1376              	.L118:
+ 1379              		.loc 1 389 42 view .LVU385
+ 1380 0226 0125     		movs	r5, #1
+ 1381              	.LVL146:
+ 1382              	.L118:
  389:Core/Src/cell_temp_handler.c ****                     } else if (temp > TEMP_MAX_CELSIUS) {
- 1377              		.loc 1 389 42 view .LVU384
- 1378              	.LBE27:
- 1379              	.LBE26:
+ 1383              		.loc 1 389 42 view .LVU386
+ 1384              	.LBE27:
+ 1385              	.LBE26:
  381:Core/Src/cell_temp_handler.c ****                 // Only check enabled ADC channels
- 1380              		.loc 1 381 57 is_stmt 1 discriminator 2 view .LVU385
- 1381 0228 0134     		adds	r4, r4, #1
- 1382              	.LVL145:
+ 1386              		.loc 1 381 57 is_stmt 1 discriminator 2 view .LVU387
+ 1387 0228 0134     		adds	r4, r4, #1
+ 1388              	.LVL147:
  381:Core/Src/cell_temp_handler.c ****                 // Only check enabled ADC channels
- 1383              		.loc 1 381 57 is_stmt 0 discriminator 2 view .LVU386
- 1384 022a E4B2     		uxtb	r4, r4
- 1385              	.LVL146:
- 1386              	.L117:
+ 1389              		.loc 1 381 57 is_stmt 0 discriminator 2 view .LVU388
+ 1390 022a E4B2     		uxtb	r4, r4
+ 1391              	.LVL148:
+ 1392              	.L117:
  381:Core/Src/cell_temp_handler.c ****                 // Only check enabled ADC channels
- 1387              		.loc 1 381 35 is_stmt 1 discriminator 1 view .LVU387
- 1388 022c 372C     		cmp	r4, #55
- 1389 022e 26D8     		bhi	.L143
- 1390              	.LBB29:
+ 1393              		.loc 1 381 35 is_stmt 1 discriminator 1 view .LVU389
+ 1394 022c 372C     		cmp	r4, #55
+ 1395 022e 26D8     		bhi	.L143
+ 1396              	.LBB29:
  383:Core/Src/cell_temp_handler.c ****                 if (CellTemp_IsADCEnabled(therm_adc)) {
- 1391              		.loc 1 383 17 view .LVU388
- 1392              	.LVL147:
+ 1397              		.loc 1 383 17 view .LVU390
+ 1398              	.LVL149:
  384:Core/Src/cell_temp_handler.c ****                     float temp = temp_state.thermistors[i].temperature;
- 1393              		.loc 1 384 17 view .LVU389
+ 1399              		.loc 1 384 17 view .LVU391
  384:Core/Src/cell_temp_handler.c ****                     float temp = temp_state.thermistors[i].temperature;
- 1394              		.loc 1 384 21 is_stmt 0 view .LVU390
- 1395 0230 C4F3C700 		ubfx	r0, r4, #3, #8
- 1396 0234 FFF7FEFF 		bl	CellTemp_IsADCEnabled
- 1397              	.LVL148:
+ 1400              		.loc 1 384 21 is_stmt 0 view .LVU392
+ 1401 0230 C4F3C700 		ubfx	r0, r4, #3, #8
+ 1402 0234 FFF7FEFF 		bl	CellTemp_IsADCEnabled
+ 1403              	.LVL150:
  384:Core/Src/cell_temp_handler.c ****                     float temp = temp_state.thermistors[i].temperature;
- 1398              		.loc 1 384 20 discriminator 1 view .LVU391
- 1399 0238 0028     		cmp	r0, #0
- 1400 023a F5D0     		beq	.L118
- 1401              	.LBB28:
+ 1404              		.loc 1 384 20 discriminator 1 view .LVU393
+ 1405 0238 0028     		cmp	r0, #0
+ 1406 023a F5D0     		beq	.L118
+ 1407              	.LBB28:
  385:Core/Src/cell_temp_handler.c ****                     
- 1402              		.loc 1 385 21 is_stmt 1 view .LVU392
+ 1408              		.loc 1 385 21 is_stmt 1 view .LVU394
  385:Core/Src/cell_temp_handler.c ****                     
- 1403              		.loc 1 385 27 is_stmt 0 view .LVU393
- 1404 023c 04EB4402 		add	r2, r4, r4, lsl #1
- 1405 0240 184B     		ldr	r3, .L146
- 1406 0242 03EBC203 		add	r3, r3, r2, lsl #3
- 1407 0246 D3ED017A 		vldr.32	s15, [r3, #4]
- 1408              	.LVL149:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 40
+
+
+ 1409              		.loc 1 385 27 is_stmt 0 view .LVU395
+ 1410 023c 04EB4402 		add	r2, r4, r4, lsl #1
+ 1411 0240 184B     		ldr	r3, .L146
+ 1412 0242 03EBC203 		add	r3, r3, r2, lsl #3
+ 1413 0246 D3ED017A 		vldr.32	s15, [r3, #4]
+ 1414              	.LVL151:
  387:Core/Src/cell_temp_handler.c ****                         // Invalid reading - sensor fault
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 40
-
-
- 1409              		.loc 1 387 21 is_stmt 1 view .LVU394
+ 1415              		.loc 1 387 21 is_stmt 1 view .LVU396
  387:Core/Src/cell_temp_handler.c ****                         // Invalid reading - sensor fault
- 1410              		.loc 1 387 24 is_stmt 0 view .LVU395
- 1411 024a 9FED197A 		vldr.32	s14, .L146+12
- 1412 024e F4EEC77A 		vcmpe.f32	s15, s14
- 1413 0252 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1414 0256 E6D9     		bls	.L126
+ 1416              		.loc 1 387 24 is_stmt 0 view .LVU397
+ 1417 024a 9FED197A 		vldr.32	s14, .L146+12
+ 1418 024e F4EEC77A 		vcmpe.f32	s15, s14
+ 1419 0252 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1420 0256 E6D9     		bls	.L126
  390:Core/Src/cell_temp_handler.c ****                         // Over temperature
- 1415              		.loc 1 390 28 is_stmt 1 view .LVU396
+ 1421              		.loc 1 390 28 is_stmt 1 view .LVU398
  390:Core/Src/cell_temp_handler.c ****                         // Over temperature
- 1416              		.loc 1 390 31 is_stmt 0 view .LVU397
- 1417 0258 9FED167A 		vldr.32	s14, .L146+16
- 1418 025c F4EEC77A 		vcmpe.f32	s15, s14
- 1419 0260 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1420 0264 09DC     		bgt	.L127
+ 1422              		.loc 1 390 31 is_stmt 0 view .LVU399
+ 1423 0258 9FED167A 		vldr.32	s14, .L146+16
+ 1424 025c F4EEC77A 		vcmpe.f32	s15, s14
+ 1425 0260 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1426 0264 09DC     		bgt	.L127
  393:Core/Src/cell_temp_handler.c ****                         // Under temperature
- 1421              		.loc 1 393 28 is_stmt 1 view .LVU398
+ 1427              		.loc 1 393 28 is_stmt 1 view .LVU400
  393:Core/Src/cell_temp_handler.c ****                         // Under temperature
- 1422              		.loc 1 393 31 is_stmt 0 view .LVU399
- 1423 0266 BBEE047A 		vmov.f32	s14, #-2.0e+1
- 1424 026a F4EEC77A 		vcmpe.f32	s15, s14
- 1425 026e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1426 0272 D9D5     		bpl	.L118
+ 1428              		.loc 1 393 31 is_stmt 0 view .LVU401
+ 1429 0266 BBEE047A 		vmov.f32	s14, #-2.0e+1
+ 1430 026a F4EEC77A 		vcmpe.f32	s15, s14
+ 1431 026e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1432 0272 D9D5     		bpl	.L118
  395:Core/Src/cell_temp_handler.c ****                     }
- 1427              		.loc 1 395 40 view .LVU400
- 1428 0274 4FF00108 		mov	r8, #1
- 1429              	.LVL150:
+ 1433              		.loc 1 395 40 view .LVU402
+ 1434 0274 4FF00108 		mov	r8, #1
+ 1435              	.LVL152:
  395:Core/Src/cell_temp_handler.c ****                     }
- 1430              		.loc 1 395 40 view .LVU401
- 1431 0278 D6E7     		b	.L118
- 1432              	.LVL151:
- 1433              	.L127:
+ 1436              		.loc 1 395 40 view .LVU403
+ 1437 0278 D6E7     		b	.L118
+ 1438              	.LVL153:
+ 1439              	.L127:
  392:Core/Src/cell_temp_handler.c ****                     } else if (temp < TEMP_MIN_CELSIUS) {
- 1434              		.loc 1 392 39 view .LVU402
- 1435 027a 0126     		movs	r6, #1
- 1436              	.LVL152:
+ 1440              		.loc 1 392 39 view .LVU404
+ 1441 027a 0126     		movs	r6, #1
+ 1442              	.LVL154:
  392:Core/Src/cell_temp_handler.c ****                     } else if (temp < TEMP_MIN_CELSIUS) {
- 1437              		.loc 1 392 39 view .LVU403
- 1438 027c D4E7     		b	.L118
- 1439              	.LVL153:
- 1440              	.L143:
+ 1443              		.loc 1 392 39 view .LVU405
+ 1444 027c D4E7     		b	.L118
+ 1445              	.LVL155:
+ 1446              	.L143:
  392:Core/Src/cell_temp_handler.c ****                     } else if (temp < TEMP_MIN_CELSIUS) {
- 1441              		.loc 1 392 39 view .LVU404
- 1442              	.LBE28:
- 1443              	.LBE29:
- 1444              	.LBE30:
+ 1447              		.loc 1 392 39 view .LVU406
+ 1448              	.LBE28:
+ 1449              	.LBE29:
+ 1450              	.LBE30:
  401:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_OVER_TEMP);
- 1445              		.loc 1 401 13 is_stmt 1 view .LVU405
+ 1451              		.loc 1 401 13 is_stmt 1 view .LVU407
  401:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_OVER_TEMP);
- 1446              		.loc 1 401 16 is_stmt 0 view .LVU406
- 1447 027e 46B1     		cbz	r6, .L144
- 1448              	.L120:
- 404:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_UNDER_TEMP);
- 1449              		.loc 1 404 13 is_stmt 1 view .LVU407
- 404:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_UNDER_TEMP);
- 1450              		.loc 1 404 16 is_stmt 0 view .LVU408
- 1451 0280 B8F1000F 		cmp	r8, #0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 41
+ 1452              		.loc 1 401 16 is_stmt 0 view .LVU408
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 41
 
 
- 1452 0284 09D0     		beq	.L145
- 1453              	.L121:
+ 1453 027e 46B1     		cbz	r6, .L144
+ 1454              	.L120:
+ 404:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_UNDER_TEMP);
+ 1455              		.loc 1 404 13 is_stmt 1 view .LVU409
+ 404:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_UNDER_TEMP);
+ 1456              		.loc 1 404 16 is_stmt 0 view .LVU410
+ 1457 0280 B8F1000F 		cmp	r8, #0
+ 1458 0284 09D0     		beq	.L145
+ 1459              	.L121:
  407:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_TEMP_SENSOR_FAULT);
- 1454              		.loc 1 407 13 is_stmt 1 view .LVU409
+ 1460              		.loc 1 407 13 is_stmt 1 view .LVU411
  407:Core/Src/cell_temp_handler.c ****                 ErrorMgr_ClearError(ERROR_TEMP_SENSOR_FAULT);
- 1455              		.loc 1 407 16 is_stmt 0 view .LVU410
- 1456 0286 002D     		cmp	r5, #0
- 1457 0288 8CD1     		bne	.L116
+ 1461              		.loc 1 407 16 is_stmt 0 view .LVU412
+ 1462 0286 002D     		cmp	r5, #0
+ 1463 0288 8CD1     		bne	.L116
  408:Core/Src/cell_temp_handler.c ****             }
- 1458              		.loc 1 408 17 is_stmt 1 view .LVU411
- 1459 028a 0420     		movs	r0, #4
- 1460 028c FFF7FEFF 		bl	ErrorMgr_ClearError
- 1461              	.LVL154:
- 1462 0290 88E7     		b	.L116
- 1463              	.L144:
+ 1464              		.loc 1 408 17 is_stmt 1 view .LVU413
+ 1465 028a 0420     		movs	r0, #4
+ 1466 028c FFF7FEFF 		bl	ErrorMgr_ClearError
+ 1467              	.LVL156:
+ 1468 0290 88E7     		b	.L116
+ 1469              	.L144:
  402:Core/Src/cell_temp_handler.c ****             }
- 1464              		.loc 1 402 17 view .LVU412
- 1465 0292 0120     		movs	r0, #1
- 1466 0294 FFF7FEFF 		bl	ErrorMgr_ClearError
- 1467              	.LVL155:
- 1468 0298 F2E7     		b	.L120
- 1469              	.L145:
+ 1470              		.loc 1 402 17 view .LVU414
+ 1471 0292 0120     		movs	r0, #1
+ 1472 0294 FFF7FEFF 		bl	ErrorMgr_ClearError
+ 1473              	.LVL157:
+ 1474 0298 F2E7     		b	.L120
+ 1475              	.L145:
  405:Core/Src/cell_temp_handler.c ****             }
- 1470              		.loc 1 405 17 view .LVU413
- 1471 029a 0220     		movs	r0, #2
- 1472 029c FFF7FEFF 		bl	ErrorMgr_ClearError
- 1473              	.LVL156:
- 1474 02a0 F1E7     		b	.L121
- 1475              	.L147:
- 1476 02a2 00BF     		.align	2
- 1477              	.L146:
- 1478 02a4 00000000 		.word	temp_state
- 1479 02a8 00000000 		.word	adc_channels
- 1480 02ac 0000FEC2 		.word	-1023541248
- 1481 02b0 0000FCC2 		.word	-1023672320
- 1482 02b4 00007042 		.word	1114636288
- 1483              	.LBE24:
- 1484              	.LBE31:
- 1485              		.cfi_endproc
- 1486              	.LFE298:
- 1488              		.section	.text.CellTemp_SendCANData,"ax",%progbits
- 1489              		.align	1
- 1490              		.global	CellTemp_SendCANData
- 1491              		.syntax unified
- 1492              		.thumb
- 1493              		.thumb_func
- 1495              	CellTemp_SendCANData:
- 1496              	.LFB301:
- 481:Core/Src/cell_temp_handler.c **** 
- 482:Core/Src/cell_temp_handler.c **** /**
- 483:Core/Src/cell_temp_handler.c ****   * @brief  Send temperature data over CAN bus (manual/on-demand)
- 484:Core/Src/cell_temp_handler.c ****   * @note   In normal operation, CAN messages are sent automatically after each
- 485:Core/Src/cell_temp_handler.c ****   *         ADC completes its 8 MUX readings (once per second per enabled ADC).
- 486:Core/Src/cell_temp_handler.c ****   *         This function can be called manually to send all messages at once.
- 487:Core/Src/cell_temp_handler.c ****   * @retval HAL_StatusTypeDef
- 488:Core/Src/cell_temp_handler.c ****   */
- 489:Core/Src/cell_temp_handler.c **** HAL_StatusTypeDef CellTemp_SendCANData(void)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 42
+ 1476              		.loc 1 405 17 view .LVU415
+ 1477 029a 0220     		movs	r0, #2
+ 1478 029c FFF7FEFF 		bl	ErrorMgr_ClearError
+ 1479              	.LVL158:
+ 1480 02a0 F1E7     		b	.L121
+ 1481              	.L147:
+ 1482 02a2 00BF     		.align	2
+ 1483              	.L146:
+ 1484 02a4 00000000 		.word	temp_state
+ 1485 02a8 00000000 		.word	adc_channels
+ 1486 02ac 0000FEC2 		.word	-1023541248
+ 1487 02b0 0000FCC2 		.word	-1023672320
+ 1488 02b4 00007042 		.word	1114636288
+ 1489              	.LBE24:
+ 1490              	.LBE31:
+ 1491              		.cfi_endproc
+ 1492              	.LFE298:
+ 1494              		.section	.text.CellTemp_SendCANData,"ax",%progbits
+ 1495              		.align	1
+ 1496              		.global	CellTemp_SendCANData
+ 1497              		.syntax unified
+ 1498              		.thumb
+ 1499              		.thumb_func
+ 1501              	CellTemp_SendCANData:
+ 1502              	.LFB301:
+ 482:Core/Src/cell_temp_handler.c **** 
+ 483:Core/Src/cell_temp_handler.c **** /**
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 42
 
 
- 490:Core/Src/cell_temp_handler.c **** {
- 1497              		.loc 1 490 1 view -0
- 1498              		.cfi_startproc
- 1499              		@ args = 0, pretend = 0, frame = 0
- 1500              		@ frame_needed = 0, uses_anonymous_args = 0
- 1501 0000 38B5     		push	{r3, r4, r5, lr}
- 1502              		.cfi_def_cfa_offset 16
- 1503              		.cfi_offset 3, -16
- 1504              		.cfi_offset 4, -12
- 1505              		.cfi_offset 5, -8
- 1506              		.cfi_offset 14, -4
- 491:Core/Src/cell_temp_handler.c ****     HAL_StatusTypeDef result = HAL_OK;
- 1507              		.loc 1 491 5 view .LVU415
- 1508              	.LVL157:
- 492:Core/Src/cell_temp_handler.c ****     
- 493:Core/Src/cell_temp_handler.c ****     // Send 14 CAN messages to cover all 56 thermistors (4 per message)
- 494:Core/Src/cell_temp_handler.c ****     // Only enabled ADC channels will have their messages sent
- 495:Core/Src/cell_temp_handler.c ****     for (uint8_t msg = 0; msg < 14; msg++) {
- 1509              		.loc 1 495 5 view .LVU416
- 1510              	.LBB32:
- 1511              		.loc 1 495 10 view .LVU417
- 1512              		.loc 1 495 18 is_stmt 0 view .LVU418
- 1513 0002 0024     		movs	r4, #0
- 1514              	.LBE32:
- 491:Core/Src/cell_temp_handler.c ****     HAL_StatusTypeDef result = HAL_OK;
- 1515              		.loc 1 491 23 view .LVU419
- 1516 0004 2546     		mov	r5, r4
- 1517              	.LBB35:
- 1518              		.loc 1 495 5 view .LVU420
- 1519 0006 04E0     		b	.L149
- 1520              	.LVL158:
- 1521              	.L150:
- 1522              	.LBB33:
+ 484:Core/Src/cell_temp_handler.c ****   * @brief  Send temperature data over CAN bus (manual/on-demand)
+ 485:Core/Src/cell_temp_handler.c ****   * @note   In normal operation, CAN messages are sent automatically after each
+ 486:Core/Src/cell_temp_handler.c ****   *         ADC completes its 8 MUX readings (once per second per enabled ADC).
+ 487:Core/Src/cell_temp_handler.c ****   *         This function can be called manually to send all messages at once.
+ 488:Core/Src/cell_temp_handler.c ****   * @retval HAL_StatusTypeDef
+ 489:Core/Src/cell_temp_handler.c ****   */
+ 490:Core/Src/cell_temp_handler.c **** HAL_StatusTypeDef CellTemp_SendCANData(void)
+ 491:Core/Src/cell_temp_handler.c **** {
+ 1503              		.loc 1 491 1 view -0
+ 1504              		.cfi_startproc
+ 1505              		@ args = 0, pretend = 0, frame = 0
+ 1506              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1507 0000 38B5     		push	{r3, r4, r5, lr}
+ 1508              		.cfi_def_cfa_offset 16
+ 1509              		.cfi_offset 3, -16
+ 1510              		.cfi_offset 4, -12
+ 1511              		.cfi_offset 5, -8
+ 1512              		.cfi_offset 14, -4
+ 492:Core/Src/cell_temp_handler.c ****     HAL_StatusTypeDef result = HAL_OK;
+ 1513              		.loc 1 492 5 view .LVU417
+ 1514              	.LVL159:
+ 493:Core/Src/cell_temp_handler.c ****     
+ 494:Core/Src/cell_temp_handler.c ****     // Send 14 CAN messages to cover all 56 thermistors (4 per message)
+ 495:Core/Src/cell_temp_handler.c ****     // Only enabled ADC channels will have their messages sent
+ 496:Core/Src/cell_temp_handler.c ****     for (uint8_t msg = 0; msg < 14; msg++) {
+ 1515              		.loc 1 496 5 view .LVU418
+ 1516              	.LBB32:
+ 1517              		.loc 1 496 10 view .LVU419
+ 1518              		.loc 1 496 18 is_stmt 0 view .LVU420
+ 1519 0002 0024     		movs	r4, #0
+ 1520              	.LBE32:
+ 492:Core/Src/cell_temp_handler.c ****     HAL_StatusTypeDef result = HAL_OK;
+ 1521              		.loc 1 492 23 view .LVU421
+ 1522 0004 2546     		mov	r5, r4
+ 1523              	.LBB35:
+ 1524              		.loc 1 496 5 view .LVU422
+ 1525 0006 04E0     		b	.L149
+ 1526              	.LVL160:
+ 1527              	.L150:
+ 1528              	.LBB33:
+ 497:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
+ 498:Core/Src/cell_temp_handler.c ****         
+ 499:Core/Src/cell_temp_handler.c ****         if (CellTemp_SendTemperatureMessage(msg, start_idx) != HAL_OK) {
+ 500:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
+ 501:Core/Src/cell_temp_handler.c ****         }
+ 502:Core/Src/cell_temp_handler.c ****         
+ 503:Core/Src/cell_temp_handler.c ****         // Small delay between messages to avoid bus congestion (5ms)
+ 504:Core/Src/cell_temp_handler.c ****         osDelay(5);
+ 1529              		.loc 1 504 9 is_stmt 1 view .LVU423
+ 1530 0008 0520     		movs	r0, #5
+ 1531 000a FFF7FEFF 		bl	osDelay
+ 1532              	.LVL161:
+ 1533              	.LBE33:
  496:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
- 497:Core/Src/cell_temp_handler.c ****         
- 498:Core/Src/cell_temp_handler.c ****         if (CellTemp_SendTemperatureMessage(msg, start_idx) != HAL_OK) {
+ 1534              		.loc 1 496 40 discriminator 2 view .LVU424
+ 1535 000e 0134     		adds	r4, r4, #1
+ 1536              	.LVL162:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 43
+
+
+ 496:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
+ 1537              		.loc 1 496 40 is_stmt 0 discriminator 2 view .LVU425
+ 1538 0010 E4B2     		uxtb	r4, r4
+ 1539              	.LVL163:
+ 1540              	.L149:
+ 496:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
+ 1541              		.loc 1 496 31 is_stmt 1 discriminator 1 view .LVU426
+ 1542 0012 0D2C     		cmp	r4, #13
+ 1543 0014 09D8     		bhi	.L154
+ 1544              	.LBB34:
+ 497:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
+ 1545              		.loc 1 497 9 view .LVU427
+ 497:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
+ 1546              		.loc 1 497 17 is_stmt 0 view .LVU428
+ 1547 0016 A100     		lsls	r1, r4, #2
+ 1548              	.LVL164:
  499:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
+ 1549              		.loc 1 499 9 is_stmt 1 view .LVU429
+ 499:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
+ 1550              		.loc 1 499 13 is_stmt 0 view .LVU430
+ 1551 0018 01F0FC01 		and	r1, r1, #252
+ 1552              	.LVL165:
+ 499:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
+ 1553              		.loc 1 499 13 view .LVU431
+ 1554 001c 2046     		mov	r0, r4
+ 1555 001e FFF7FEFF 		bl	CellTemp_SendTemperatureMessage
+ 1556              	.LVL166:
+ 499:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
+ 1557              		.loc 1 499 12 discriminator 1 view .LVU432
+ 1558 0022 0028     		cmp	r0, #0
+ 1559 0024 F0D0     		beq	.L150
  500:Core/Src/cell_temp_handler.c ****         }
- 501:Core/Src/cell_temp_handler.c ****         
- 502:Core/Src/cell_temp_handler.c ****         // Small delay between messages to avoid bus congestion (5ms)
- 503:Core/Src/cell_temp_handler.c ****         osDelay(5);
- 1523              		.loc 1 503 9 is_stmt 1 view .LVU421
- 1524 0008 0520     		movs	r0, #5
- 1525 000a FFF7FEFF 		bl	osDelay
- 1526              	.LVL159:
- 1527              	.LBE33:
- 495:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
- 1528              		.loc 1 495 40 discriminator 2 view .LVU422
- 1529 000e 0134     		adds	r4, r4, #1
- 1530              	.LVL160:
- 495:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
- 1531              		.loc 1 495 40 is_stmt 0 discriminator 2 view .LVU423
- 1532 0010 E4B2     		uxtb	r4, r4
- 1533              	.LVL161:
- 1534              	.L149:
- 495:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
- 1535              		.loc 1 495 31 is_stmt 1 discriminator 1 view .LVU424
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 43
+ 1560              		.loc 1 500 20 view .LVU433
+ 1561 0026 0125     		movs	r5, #1
+ 1562              	.LVL167:
+ 500:Core/Src/cell_temp_handler.c ****         }
+ 1563              		.loc 1 500 20 view .LVU434
+ 1564 0028 EEE7     		b	.L150
+ 1565              	.LVL168:
+ 1566              	.L154:
+ 500:Core/Src/cell_temp_handler.c ****         }
+ 1567              		.loc 1 500 20 view .LVU435
+ 1568              	.LBE34:
+ 1569              	.LBE35:
+ 505:Core/Src/cell_temp_handler.c ****     }
+ 506:Core/Src/cell_temp_handler.c ****     
+ 507:Core/Src/cell_temp_handler.c ****     return result;
+ 1570              		.loc 1 507 5 is_stmt 1 view .LVU436
+ 508:Core/Src/cell_temp_handler.c **** }
+ 1571              		.loc 1 508 1 is_stmt 0 view .LVU437
+ 1572 002a 2846     		mov	r0, r5
+ 1573 002c 38BD     		pop	{r3, r4, r5, pc}
+ 1574              		.loc 1 508 1 view .LVU438
+ 1575              		.cfi_endproc
+ 1576              	.LFE301:
+ 1578              		.section	.text.CellTemp_GetTemperatures,"ax",%progbits
+ 1579              		.align	1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 44
 
 
- 1536 0012 0D2C     		cmp	r4, #13
- 1537 0014 09D8     		bhi	.L154
- 1538              	.LBB34:
- 496:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
- 1539              		.loc 1 496 9 view .LVU425
- 496:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
- 1540              		.loc 1 496 17 is_stmt 0 view .LVU426
- 1541 0016 A100     		lsls	r1, r4, #2
- 1542              	.LVL162:
- 498:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
- 1543              		.loc 1 498 9 is_stmt 1 view .LVU427
- 498:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
- 1544              		.loc 1 498 13 is_stmt 0 view .LVU428
- 1545 0018 01F0FC01 		and	r1, r1, #252
- 1546              	.LVL163:
- 498:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
- 1547              		.loc 1 498 13 view .LVU429
- 1548 001c 2046     		mov	r0, r4
- 1549 001e FFF7FEFF 		bl	CellTemp_SendTemperatureMessage
- 1550              	.LVL164:
- 498:Core/Src/cell_temp_handler.c ****             result = HAL_ERROR;
- 1551              		.loc 1 498 12 discriminator 1 view .LVU430
- 1552 0022 0028     		cmp	r0, #0
- 1553 0024 F0D0     		beq	.L150
- 499:Core/Src/cell_temp_handler.c ****         }
- 1554              		.loc 1 499 20 view .LVU431
- 1555 0026 0125     		movs	r5, #1
- 1556              	.LVL165:
- 499:Core/Src/cell_temp_handler.c ****         }
- 1557              		.loc 1 499 20 view .LVU432
- 1558 0028 EEE7     		b	.L150
- 1559              	.LVL166:
- 1560              	.L154:
- 499:Core/Src/cell_temp_handler.c ****         }
- 1561              		.loc 1 499 20 view .LVU433
- 1562              	.LBE34:
- 1563              	.LBE35:
- 504:Core/Src/cell_temp_handler.c ****     }
- 505:Core/Src/cell_temp_handler.c ****     
- 506:Core/Src/cell_temp_handler.c ****     return result;
- 1564              		.loc 1 506 5 is_stmt 1 view .LVU434
- 507:Core/Src/cell_temp_handler.c **** }
- 1565              		.loc 1 507 1 is_stmt 0 view .LVU435
- 1566 002a 2846     		mov	r0, r5
- 1567 002c 38BD     		pop	{r3, r4, r5, pc}
- 1568              		.loc 1 507 1 view .LVU436
- 1569              		.cfi_endproc
- 1570              	.LFE301:
- 1572              		.section	.text.CellTemp_GetTemperatures,"ax",%progbits
- 1573              		.align	1
- 1574              		.global	CellTemp_GetTemperatures
- 1575              		.syntax unified
- 1576              		.thumb
- 1577              		.thumb_func
- 1579              	CellTemp_GetTemperatures:
- 1580              	.LVL167:
- 1581              	.LFB302:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 44
-
-
- 508:Core/Src/cell_temp_handler.c **** 
- 509:Core/Src/cell_temp_handler.c **** /**
- 510:Core/Src/cell_temp_handler.c ****   * @brief  Get current temperature readings
- 511:Core/Src/cell_temp_handler.c ****   * @param  temperatures: Array to store temperature readings
- 512:Core/Src/cell_temp_handler.c ****   * @param  size: Size of array (should be TOTAL_THERMISTORS)
- 513:Core/Src/cell_temp_handler.c ****   * @retval Number of valid readings
- 514:Core/Src/cell_temp_handler.c ****   */
- 515:Core/Src/cell_temp_handler.c **** uint8_t CellTemp_GetTemperatures(float *temperatures, uint8_t size)
- 516:Core/Src/cell_temp_handler.c **** {
- 1582              		.loc 1 516 1 is_stmt 1 view -0
- 1583              		.cfi_startproc
- 1584              		@ args = 0, pretend = 0, frame = 0
- 1585              		@ frame_needed = 0, uses_anonymous_args = 0
- 1586              		.loc 1 516 1 is_stmt 0 view .LVU438
- 1587 0000 10B5     		push	{r4, lr}
- 1588              		.cfi_def_cfa_offset 8
- 1589              		.cfi_offset 4, -8
- 1590              		.cfi_offset 14, -4
- 1591 0002 8646     		mov	lr, r0
- 517:Core/Src/cell_temp_handler.c ****     uint8_t valid_count = 0;
- 1592              		.loc 1 517 5 is_stmt 1 view .LVU439
- 1593              	.LVL168:
+ 1580              		.global	CellTemp_GetTemperatures
+ 1581              		.syntax unified
+ 1582              		.thumb
+ 1583              		.thumb_func
+ 1585              	CellTemp_GetTemperatures:
+ 1586              	.LVL169:
+ 1587              	.LFB302:
+ 509:Core/Src/cell_temp_handler.c **** 
+ 510:Core/Src/cell_temp_handler.c **** /**
+ 511:Core/Src/cell_temp_handler.c ****   * @brief  Get current temperature readings
+ 512:Core/Src/cell_temp_handler.c ****   * @param  temperatures: Array to store temperature readings
+ 513:Core/Src/cell_temp_handler.c ****   * @param  size: Size of array (should be TOTAL_THERMISTORS)
+ 514:Core/Src/cell_temp_handler.c ****   * @retval Number of valid readings
+ 515:Core/Src/cell_temp_handler.c ****   */
+ 516:Core/Src/cell_temp_handler.c **** uint8_t CellTemp_GetTemperatures(float *temperatures, uint8_t size)
+ 517:Core/Src/cell_temp_handler.c **** {
+ 1588              		.loc 1 517 1 is_stmt 1 view -0
+ 1589              		.cfi_startproc
+ 1590              		@ args = 0, pretend = 0, frame = 0
+ 1591              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1592              		.loc 1 517 1 is_stmt 0 view .LVU440
+ 1593 0000 10B5     		push	{r4, lr}
+ 1594              		.cfi_def_cfa_offset 8
+ 1595              		.cfi_offset 4, -8
+ 1596              		.cfi_offset 14, -4
+ 1597 0002 8646     		mov	lr, r0
+ 518:Core/Src/cell_temp_handler.c ****     uint8_t valid_count = 0;
+ 1598              		.loc 1 518 5 is_stmt 1 view .LVU441
+ 1599              	.LVL170:
+ 519:Core/Src/cell_temp_handler.c ****     uint8_t max_count = (size < TOTAL_THERMISTORS) ? size : TOTAL_THERMISTORS;
+ 1600              		.loc 1 519 5 view .LVU442
+ 1601              		.loc 1 519 13 is_stmt 0 view .LVU443
+ 1602 0004 3829     		cmp	r1, #56
+ 1603 0006 28BF     		it	cs
+ 1604 0008 3821     		movcs	r1, #56
+ 1605              	.LVL171:
+ 520:Core/Src/cell_temp_handler.c ****     
+ 521:Core/Src/cell_temp_handler.c ****     for (uint8_t i = 0; i < max_count; i++) {
+ 1606              		.loc 1 521 5 is_stmt 1 view .LVU444
+ 1607              	.LBB36:
+ 1608              		.loc 1 521 10 view .LVU445
+ 1609              		.loc 1 521 18 is_stmt 0 view .LVU446
+ 1610 000a 0023     		movs	r3, #0
+ 1611              	.LBE36:
  518:Core/Src/cell_temp_handler.c ****     uint8_t max_count = (size < TOTAL_THERMISTORS) ? size : TOTAL_THERMISTORS;
- 1594              		.loc 1 518 5 view .LVU440
- 1595              		.loc 1 518 13 is_stmt 0 view .LVU441
- 1596 0004 3829     		cmp	r1, #56
- 1597 0006 28BF     		it	cs
- 1598 0008 3821     		movcs	r1, #56
- 1599              	.LVL169:
- 519:Core/Src/cell_temp_handler.c ****     
- 520:Core/Src/cell_temp_handler.c ****     for (uint8_t i = 0; i < max_count; i++) {
- 1600              		.loc 1 520 5 is_stmt 1 view .LVU442
- 1601              	.LBB36:
- 1602              		.loc 1 520 10 view .LVU443
- 1603              		.loc 1 520 18 is_stmt 0 view .LVU444
- 1604 000a 0023     		movs	r3, #0
- 1605              	.LBE36:
- 517:Core/Src/cell_temp_handler.c ****     uint8_t max_count = (size < TOTAL_THERMISTORS) ? size : TOTAL_THERMISTORS;
- 1606              		.loc 1 517 13 view .LVU445
- 1607 000c 1846     		mov	r0, r3
- 1608              	.LVL170:
- 1609              	.LBB37:
- 1610              		.loc 1 520 5 view .LVU446
- 1611 000e 01E0     		b	.L156
- 1612              	.LVL171:
- 1613              	.L157:
- 1614              		.loc 1 520 41 is_stmt 1 discriminator 2 view .LVU447
- 1615 0010 0133     		adds	r3, r3, #1
- 1616              	.LVL172:
- 1617              		.loc 1 520 41 is_stmt 0 discriminator 2 view .LVU448
- 1618 0012 DBB2     		uxtb	r3, r3
- 1619              	.LVL173:
- 1620              	.L156:
- 1621              		.loc 1 520 27 is_stmt 1 discriminator 1 view .LVU449
- 1622 0014 8B42     		cmp	r3, r1
- 1623 0016 14D2     		bcs	.L162
- 521:Core/Src/cell_temp_handler.c ****         temperatures[i] = temp_state.thermistors[i].temperature;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 45
+ 1612              		.loc 1 518 13 view .LVU447
+ 1613 000c 1846     		mov	r0, r3
+ 1614              	.LVL172:
+ 1615              	.LBB37:
+ 1616              		.loc 1 521 5 view .LVU448
+ 1617 000e 01E0     		b	.L156
+ 1618              	.LVL173:
+ 1619              	.L157:
+ 1620              		.loc 1 521 41 is_stmt 1 discriminator 2 view .LVU449
+ 1621 0010 0133     		adds	r3, r3, #1
+ 1622              	.LVL174:
+ 1623              		.loc 1 521 41 is_stmt 0 discriminator 2 view .LVU450
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 45
 
 
- 1624              		.loc 1 521 9 view .LVU450
- 1625              		.loc 1 521 21 is_stmt 0 view .LVU451
- 1626 0018 0EEB8302 		add	r2, lr, r3, lsl #2
- 1627              		.loc 1 521 52 view .LVU452
- 1628 001c 03EB430C 		add	ip, r3, r3, lsl #1
- 1629 0020 084C     		ldr	r4, .L163
- 1630 0022 04EBCC0C 		add	ip, r4, ip, lsl #3
- 1631 0026 DCED017A 		vldr.32	s15, [ip, #4]
- 1632              		.loc 1 521 25 view .LVU453
- 1633 002a C2ED007A 		vstr.32	s15, [r2]
- 522:Core/Src/cell_temp_handler.c ****         if (temperatures[i] > -126.0f) {
- 1634              		.loc 1 522 9 is_stmt 1 view .LVU454
- 1635              		.loc 1 522 12 is_stmt 0 view .LVU455
- 1636 002e 9FED067A 		vldr.32	s14, .L163+4
- 1637 0032 F4EEC77A 		vcmpe.f32	s15, s14
- 1638 0036 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1639 003a E9DD     		ble	.L157
- 523:Core/Src/cell_temp_handler.c ****             valid_count++;
- 1640              		.loc 1 523 13 is_stmt 1 view .LVU456
- 1641              		.loc 1 523 24 is_stmt 0 view .LVU457
- 1642 003c 0130     		adds	r0, r0, #1
- 1643              	.LVL174:
- 1644              		.loc 1 523 24 view .LVU458
- 1645 003e C0B2     		uxtb	r0, r0
- 1646              	.LVL175:
- 1647              		.loc 1 523 24 view .LVU459
- 1648 0040 E6E7     		b	.L157
+ 1624 0012 DBB2     		uxtb	r3, r3
+ 1625              	.LVL175:
+ 1626              	.L156:
+ 1627              		.loc 1 521 27 is_stmt 1 discriminator 1 view .LVU451
+ 1628 0014 8B42     		cmp	r3, r1
+ 1629 0016 14D2     		bcs	.L162
+ 522:Core/Src/cell_temp_handler.c ****         temperatures[i] = temp_state.thermistors[i].temperature;
+ 1630              		.loc 1 522 9 view .LVU452
+ 1631              		.loc 1 522 21 is_stmt 0 view .LVU453
+ 1632 0018 0EEB8302 		add	r2, lr, r3, lsl #2
+ 1633              		.loc 1 522 52 view .LVU454
+ 1634 001c 03EB430C 		add	ip, r3, r3, lsl #1
+ 1635 0020 084C     		ldr	r4, .L163
+ 1636 0022 04EBCC0C 		add	ip, r4, ip, lsl #3
+ 1637 0026 DCED017A 		vldr.32	s15, [ip, #4]
+ 1638              		.loc 1 522 25 view .LVU455
+ 1639 002a C2ED007A 		vstr.32	s15, [r2]
+ 523:Core/Src/cell_temp_handler.c ****         if (temperatures[i] > -126.0f) {
+ 1640              		.loc 1 523 9 is_stmt 1 view .LVU456
+ 1641              		.loc 1 523 12 is_stmt 0 view .LVU457
+ 1642 002e 9FED067A 		vldr.32	s14, .L163+4
+ 1643 0032 F4EEC77A 		vcmpe.f32	s15, s14
+ 1644 0036 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1645 003a E9DD     		ble	.L157
+ 524:Core/Src/cell_temp_handler.c ****             valid_count++;
+ 1646              		.loc 1 524 13 is_stmt 1 view .LVU458
+ 1647              		.loc 1 524 24 is_stmt 0 view .LVU459
+ 1648 003c 0130     		adds	r0, r0, #1
  1649              	.LVL176:
- 1650              	.L162:
- 1651              		.loc 1 523 24 view .LVU460
- 1652              	.LBE37:
- 524:Core/Src/cell_temp_handler.c ****         }
- 525:Core/Src/cell_temp_handler.c ****     }
- 526:Core/Src/cell_temp_handler.c ****     
- 527:Core/Src/cell_temp_handler.c ****     return valid_count;
- 1653              		.loc 1 527 5 is_stmt 1 view .LVU461
- 528:Core/Src/cell_temp_handler.c **** }
- 1654              		.loc 1 528 1 is_stmt 0 view .LVU462
- 1655 0042 10BD     		pop	{r4, pc}
- 1656              	.L164:
- 1657              		.align	2
- 1658              	.L163:
- 1659 0044 00000000 		.word	temp_state
- 1660 0048 0000FCC2 		.word	-1023672320
- 1661              		.cfi_endproc
- 1662              	.LFE302:
- 1664              		.section	.text.CellTemp_GetStats,"ax",%progbits
- 1665              		.align	1
- 1666              		.global	CellTemp_GetStats
- 1667              		.syntax unified
- 1668              		.thumb
- 1669              		.thumb_func
- 1671              	CellTemp_GetStats:
- 1672              	.LVL177:
- 1673              	.LFB303:
- 529:Core/Src/cell_temp_handler.c **** 
- 530:Core/Src/cell_temp_handler.c **** /**
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 46
+ 1650              		.loc 1 524 24 view .LVU460
+ 1651 003e C0B2     		uxtb	r0, r0
+ 1652              	.LVL177:
+ 1653              		.loc 1 524 24 view .LVU461
+ 1654 0040 E6E7     		b	.L157
+ 1655              	.LVL178:
+ 1656              	.L162:
+ 1657              		.loc 1 524 24 view .LVU462
+ 1658              	.LBE37:
+ 525:Core/Src/cell_temp_handler.c ****         }
+ 526:Core/Src/cell_temp_handler.c ****     }
+ 527:Core/Src/cell_temp_handler.c ****     
+ 528:Core/Src/cell_temp_handler.c ****     return valid_count;
+ 1659              		.loc 1 528 5 is_stmt 1 view .LVU463
+ 529:Core/Src/cell_temp_handler.c **** }
+ 1660              		.loc 1 529 1 is_stmt 0 view .LVU464
+ 1661 0042 10BD     		pop	{r4, pc}
+ 1662              	.L164:
+ 1663              		.align	2
+ 1664              	.L163:
+ 1665 0044 00000000 		.word	temp_state
+ 1666 0048 0000FCC2 		.word	-1023672320
+ 1667              		.cfi_endproc
+ 1668              	.LFE302:
+ 1670              		.section	.text.CellTemp_GetStats,"ax",%progbits
+ 1671              		.align	1
+ 1672              		.global	CellTemp_GetStats
+ 1673              		.syntax unified
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 46
 
 
- 531:Core/Src/cell_temp_handler.c ****   * @brief  Get monitoring statistics
- 532:Core/Src/cell_temp_handler.c ****   * @param  cycle_count: Pointer to store cycle count
- 533:Core/Src/cell_temp_handler.c ****   * @param  current_index: Pointer to store current thermistor index
- 534:Core/Src/cell_temp_handler.c ****   * @retval None
- 535:Core/Src/cell_temp_handler.c ****   */
- 536:Core/Src/cell_temp_handler.c **** void CellTemp_GetStats(uint32_t *cycle_count, uint8_t *current_index)
- 537:Core/Src/cell_temp_handler.c **** {
- 1674              		.loc 1 537 1 is_stmt 1 view -0
- 1675              		.cfi_startproc
- 1676              		@ args = 0, pretend = 0, frame = 0
- 1677              		@ frame_needed = 0, uses_anonymous_args = 0
- 1678              		@ link register save eliminated.
- 538:Core/Src/cell_temp_handler.c ****     if (cycle_count != NULL) {
- 1679              		.loc 1 538 5 view .LVU464
- 1680              		.loc 1 538 8 is_stmt 0 view .LVU465
- 1681 0000 18B1     		cbz	r0, .L166
- 539:Core/Src/cell_temp_handler.c ****         *cycle_count = temp_state.cycle_count;
- 1682              		.loc 1 539 9 is_stmt 1 view .LVU466
- 1683              		.loc 1 539 34 is_stmt 0 view .LVU467
- 1684 0002 054A     		ldr	r2, .L168
- 1685 0004 D2F84425 		ldr	r2, [r2, #1348]
- 1686              		.loc 1 539 22 view .LVU468
- 1687 0008 0260     		str	r2, [r0]
- 1688              	.L166:
- 540:Core/Src/cell_temp_handler.c ****     }
- 541:Core/Src/cell_temp_handler.c ****     
- 542:Core/Src/cell_temp_handler.c ****     if (current_index != NULL) {
- 1689              		.loc 1 542 5 is_stmt 1 view .LVU469
- 1690              		.loc 1 542 8 is_stmt 0 view .LVU470
- 1691 000a 19B1     		cbz	r1, .L165
- 543:Core/Src/cell_temp_handler.c ****         *current_index = temp_state.current_index;
- 1692              		.loc 1 543 9 is_stmt 1 view .LVU471
- 1693              		.loc 1 543 36 is_stmt 0 view .LVU472
- 1694 000c 024B     		ldr	r3, .L168
- 1695 000e 93F84235 		ldrb	r3, [r3, #1346]	@ zero_extendqisi2
- 1696              		.loc 1 543 24 view .LVU473
- 1697 0012 0B70     		strb	r3, [r1]
- 1698              	.L165:
- 544:Core/Src/cell_temp_handler.c ****     }
- 545:Core/Src/cell_temp_handler.c **** }...
- 1699              		.loc 1 545 1 view .LVU474
- 1700 0014 7047     		bx	lr
- 1701              	.L169:
- 1702 0016 00BF     		.align	2
- 1703              	.L168:
- 1704 0018 00000000 		.word	temp_state
- 1705              		.cfi_endproc
- 1706              	.LFE303:
- 1708              		.section	.rodata.adc_channel_enabled,"a"
- 1709              		.align	2
- 1712              	adc_channel_enabled:
- 1713 0000 01010101 		.ascii	"\001\001\001\001\001\001\001"
- 1713      010101
- 1714              		.section	.rodata.adc_channels,"a"
+ 1674              		.thumb
+ 1675              		.thumb_func
+ 1677              	CellTemp_GetStats:
+ 1678              	.LVL179:
+ 1679              	.LFB303:
+ 530:Core/Src/cell_temp_handler.c **** 
+ 531:Core/Src/cell_temp_handler.c **** /**
+ 532:Core/Src/cell_temp_handler.c ****   * @brief  Get monitoring statistics
+ 533:Core/Src/cell_temp_handler.c ****   * @param  cycle_count: Pointer to store cycle count
+ 534:Core/Src/cell_temp_handler.c ****   * @param  current_index: Pointer to store current thermistor index
+ 535:Core/Src/cell_temp_handler.c ****   * @retval None
+ 536:Core/Src/cell_temp_handler.c ****   */
+ 537:Core/Src/cell_temp_handler.c **** void CellTemp_GetStats(uint32_t *cycle_count, uint8_t *current_index)
+ 538:Core/Src/cell_temp_handler.c **** {
+ 1680              		.loc 1 538 1 is_stmt 1 view -0
+ 1681              		.cfi_startproc
+ 1682              		@ args = 0, pretend = 0, frame = 0
+ 1683              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1684              		@ link register save eliminated.
+ 539:Core/Src/cell_temp_handler.c ****     if (cycle_count != NULL) {
+ 1685              		.loc 1 539 5 view .LVU466
+ 1686              		.loc 1 539 8 is_stmt 0 view .LVU467
+ 1687 0000 18B1     		cbz	r0, .L166
+ 540:Core/Src/cell_temp_handler.c ****         *cycle_count = temp_state.cycle_count;
+ 1688              		.loc 1 540 9 is_stmt 1 view .LVU468
+ 1689              		.loc 1 540 34 is_stmt 0 view .LVU469
+ 1690 0002 054A     		ldr	r2, .L168
+ 1691 0004 D2F84425 		ldr	r2, [r2, #1348]
+ 1692              		.loc 1 540 22 view .LVU470
+ 1693 0008 0260     		str	r2, [r0]
+ 1694              	.L166:
+ 541:Core/Src/cell_temp_handler.c ****     }
+ 542:Core/Src/cell_temp_handler.c ****     
+ 543:Core/Src/cell_temp_handler.c ****     if (current_index != NULL) {
+ 1695              		.loc 1 543 5 is_stmt 1 view .LVU471
+ 1696              		.loc 1 543 8 is_stmt 0 view .LVU472
+ 1697 000a 19B1     		cbz	r1, .L165
+ 544:Core/Src/cell_temp_handler.c ****         *current_index = temp_state.current_index;
+ 1698              		.loc 1 544 9 is_stmt 1 view .LVU473
+ 1699              		.loc 1 544 36 is_stmt 0 view .LVU474
+ 1700 000c 024B     		ldr	r3, .L168
+ 1701 000e 93F84235 		ldrb	r3, [r3, #1346]	@ zero_extendqisi2
+ 1702              		.loc 1 544 24 view .LVU475
+ 1703 0012 0B70     		strb	r3, [r1]
+ 1704              	.L165:
+ 545:Core/Src/cell_temp_handler.c ****     }
+ 546:Core/Src/cell_temp_handler.c **** }...
+ 1705              		.loc 1 546 1 view .LVU476
+ 1706 0014 7047     		bx	lr
+ 1707              	.L169:
+ 1708 0016 00BF     		.align	2
+ 1709              	.L168:
+ 1710 0018 00000000 		.word	temp_state
+ 1711              		.cfi_endproc
+ 1712              	.LFE303:
+ 1714              		.section	.rodata.adc_channel_enabled,"a"
  1715              		.align	2
- 1718              	adc_channels:
- 1719 0000 2000F014 		.word	351272992
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 47
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 47
 
 
- 1720 0004 40002019 		.word	421527616
- 1721 0008 0008302E 		.word	774899712
- 1722 000c 00018021 		.word	562036992
- 1723 0010 0002B025 		.word	632291840
- 1724 0014 0004002A 		.word	704644096
- 1725 0018 0080F03E 		.word	1055948800
- 1726              		.section	.bss.temp_state,"aw",%nobits
- 1727              		.align	2
- 1730              	temp_state:
- 1731 0000 00000000 		.space	1356
- 1731      00000000 
- 1731      00000000 
- 1731      00000000 
- 1731      00000000 
- 1732              		.text
- 1733              	.Letext0:
- 1734              		.file 2 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1735              		.file 3 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1736              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l432xx.h"
- 1737              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h"
- 1738              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
- 1739              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_gpio.h"
- 1740              		.file 8 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_dma.h"
- 1741              		.file 9 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_adc.h"
- 1742              		.file 10 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
- 1743              		.file 11 "Core/Inc/cell_temp_handler.h"
- 1744              		.file 12 "Core/Inc/error_manager.h"
- 1745              		.file 13 "Core/Inc/can_manager.h"
- 1746              		.file 14 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
- 1747              		.file 15 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
- 1748              		.file 16 "<built-in>"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 48
+ 1718              	adc_channel_enabled:
+ 1719 0000 01010101 		.ascii	"\001\001\001\001\001\001\001"
+ 1719      010101
+ 1720              		.section	.rodata.adc_channels,"a"
+ 1721              		.align	2
+ 1724              	adc_channels:
+ 1725 0000 2000F014 		.word	351272992
+ 1726 0004 40002019 		.word	421527616
+ 1727 0008 0008302E 		.word	774899712
+ 1728 000c 00018021 		.word	562036992
+ 1729 0010 0002B025 		.word	632291840
+ 1730 0014 0004002A 		.word	704644096
+ 1731 0018 0080F03E 		.word	1055948800
+ 1732              		.section	.bss.temp_state,"aw",%nobits
+ 1733              		.align	2
+ 1736              	temp_state:
+ 1737 0000 00000000 		.space	1356
+ 1737      00000000 
+ 1737      00000000 
+ 1737      00000000 
+ 1737      00000000 
+ 1738              		.text
+ 1739              	.Letext0:
+ 1740              		.file 2 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 1741              		.file 3 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 1742              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l432xx.h"
+ 1743              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h"
+ 1744              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 1745              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_gpio.h"
+ 1746              		.file 8 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_dma.h"
+ 1747              		.file 9 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_adc.h"
+ 1748              		.file 10 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
+ 1749              		.file 11 "Core/Inc/cell_temp_handler.h"
+ 1750              		.file 12 "Core/Inc/can_ids.h"
+ 1751              		.file 13 "Core/Inc/error_manager.h"
+ 1752              		.file 14 "Core/Inc/can_manager.h"
+ 1753              		.file 15 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
+ 1754              		.file 16 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
+ 1755              		.file 17 "<built-in>"
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 48
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 cell_temp_handler.c
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:21     .text.CellTemp_IsADCEnabled:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:26     .text.CellTemp_IsADCEnabled:00000000 CellTemp_IsADCEnabled
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:55     .text.CellTemp_IsADCEnabled:00000010 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1712   .rodata.adc_channel_enabled:00000000 adc_channel_enabled
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:60     .text.CellTemp_ConfigureADCChannel:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:65     .text.CellTemp_ConfigureADCChannel:00000000 CellTemp_ConfigureADCChannel
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:123    .text.CellTemp_ConfigureADCChannel:00000034 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:128    .text.CellTemp_SendTemperatureMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:133    .text.CellTemp_SendTemperatureMessage:00000000 CellTemp_SendTemperatureMessage
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:331    .text.CellTemp_SendTemperatureMessage:000000b8 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1730   .bss.temp_state:00000000 temp_state
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:338    .text.CellTemp_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:344    .text.CellTemp_Init:00000000 CellTemp_Init
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:439    .text.CellTemp_Init:00000074 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:446    .text.CellTemp_ReadADC:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:452    .text.CellTemp_ReadADC:00000000 CellTemp_ReadADC
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:524    .text.CellTemp_ReadADC:0000003c $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:529    .text.CellTemp_SetMuxChannel:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:535    .text.CellTemp_SetMuxChannel:00000000 CellTemp_SetMuxChannel
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:630    .text.CellTemp_SetMuxChannel:00000070 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:635    .text.CellTemp_CalculateTemperature:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:641    .text.CellTemp_CalculateTemperature:00000000 CellTemp_CalculateTemperature
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:764    .text.CellTemp_CalculateTemperature:000000b0 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:779    .text.CellTemp_ReadThermistor:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:785    .text.CellTemp_ReadThermistor:00000000 CellTemp_ReadThermistor
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:843    .text.CellTemp_ReadThermistor:00000030 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1718   .rodata.adc_channels:00000000 adc_channels
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:849    .text.CellTemp_MonitorTask:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:855    .text.CellTemp_MonitorTask:00000000 CellTemp_MonitorTask
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1478   .text.CellTemp_MonitorTask:000002a4 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1489   .text.CellTemp_SendCANData:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1495   .text.CellTemp_SendCANData:00000000 CellTemp_SendCANData
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1573   .text.CellTemp_GetTemperatures:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1579   .text.CellTemp_GetTemperatures:00000000 CellTemp_GetTemperatures
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1659   .text.CellTemp_GetTemperatures:00000044 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1665   .text.CellTemp_GetStats:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1671   .text.CellTemp_GetStats:00000000 CellTemp_GetStats
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1704   .text.CellTemp_GetStats:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1709   .rodata.adc_channel_enabled:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1715   .rodata.adc_channels:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cchef7uC.s:1727   .bss.temp_state:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:21     .text.CellTemp_IsADCEnabled:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:26     .text.CellTemp_IsADCEnabled:00000000 CellTemp_IsADCEnabled
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:55     .text.CellTemp_IsADCEnabled:00000010 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1718   .rodata.adc_channel_enabled:00000000 adc_channel_enabled
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:60     .text.CellTemp_ConfigureADCChannel:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:65     .text.CellTemp_ConfigureADCChannel:00000000 CellTemp_ConfigureADCChannel
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:123    .text.CellTemp_ConfigureADCChannel:00000034 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:128    .text.CellTemp_SendTemperatureMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:133    .text.CellTemp_SendTemperatureMessage:00000000 CellTemp_SendTemperatureMessage
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:336    .text.CellTemp_SendTemperatureMessage:000000b4 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1736   .bss.temp_state:00000000 temp_state
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:344    .text.CellTemp_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:350    .text.CellTemp_Init:00000000 CellTemp_Init
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:445    .text.CellTemp_Init:00000074 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:452    .text.CellTemp_ReadADC:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:458    .text.CellTemp_ReadADC:00000000 CellTemp_ReadADC
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:530    .text.CellTemp_ReadADC:0000003c $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:535    .text.CellTemp_SetMuxChannel:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:541    .text.CellTemp_SetMuxChannel:00000000 CellTemp_SetMuxChannel
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:636    .text.CellTemp_SetMuxChannel:00000070 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:641    .text.CellTemp_CalculateTemperature:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:647    .text.CellTemp_CalculateTemperature:00000000 CellTemp_CalculateTemperature
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:770    .text.CellTemp_CalculateTemperature:000000b0 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:785    .text.CellTemp_ReadThermistor:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:791    .text.CellTemp_ReadThermistor:00000000 CellTemp_ReadThermistor
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:849    .text.CellTemp_ReadThermistor:00000030 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1724   .rodata.adc_channels:00000000 adc_channels
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:855    .text.CellTemp_MonitorTask:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:861    .text.CellTemp_MonitorTask:00000000 CellTemp_MonitorTask
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1484   .text.CellTemp_MonitorTask:000002a4 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1495   .text.CellTemp_SendCANData:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1501   .text.CellTemp_SendCANData:00000000 CellTemp_SendCANData
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1579   .text.CellTemp_GetTemperatures:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1585   .text.CellTemp_GetTemperatures:00000000 CellTemp_GetTemperatures
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1665   .text.CellTemp_GetTemperatures:00000044 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1671   .text.CellTemp_GetStats:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1677   .text.CellTemp_GetStats:00000000 CellTemp_GetStats
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1710   .text.CellTemp_GetStats:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1715   .rodata.adc_channel_enabled:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1721   .rodata.adc_channels:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s:1733   .bss.temp_state:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_ADC_ConfigChannel
 hadc1
 CAN_SendMessage
+CAN_TEMP_ID
 memset
 HAL_GPIO_WritePin
 HAL_ADC_Start
@@ -2851,9 +2860,9 @@ HAL_ADC_Stop
 HAL_ADC_GetValue
 osDelay
 logf
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccG1MyI9.s 			page 49
+
+
 osKernelGetTickCount
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cchef7uC.s 			page 49
-
-
 ErrorMgr_SetError
 ErrorMgr_ClearError
