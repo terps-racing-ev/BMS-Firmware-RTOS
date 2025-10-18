@@ -27,6 +27,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "can_ids.h"
 #include <string.h>
 
 /* Defines -------------------------------------------------------------------*/
@@ -34,6 +35,7 @@ extern "C" {
 #define CAN_RX_QUEUE_SIZE 32        // Number of received messages to buffer
 #define CAN_TX_TIMEOUT_MS 100       // Timeout for adding message to queue
 #define CAN_MAX_RETRIES 3           // Maximum transmission retry attempts
+#define CAN_HEARTBEAT_INTERVAL_MS 1000  // Heartbeat message interval (1 second)
 
 /* Message Priority Levels */
 #define CAN_PRIORITY_CRITICAL 0     // Safety-critical messages (highest)
@@ -141,6 +143,13 @@ uint32_t CAN_GetRxQueueCount(void);
   * @retval Number of messages flushed
   */
 uint32_t CAN_FlushTxQueue(void);
+
+/**
+  * @brief  Send BMS heartbeat message
+  * @note   Called periodically by CAN manager task
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendHeartbeat(void);
 
 #ifdef __cplusplus
 }

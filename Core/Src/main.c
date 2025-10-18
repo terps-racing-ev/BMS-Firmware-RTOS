@@ -24,6 +24,7 @@
 /* USER CODE BEGIN Includes */
 #include "cell_temp_handler.h"
 #include "can_manager.h"
+#include "error_manager.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -58,6 +59,8 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
+/* USER CODE BEGIN PV */
+
 /* Definitions for CellVoltage */
 osThreadId_t CellVoltageHandle;
 const osThreadAttr_t CellVoltage_attributes = {
@@ -77,7 +80,7 @@ osThreadId_t CANManagerHandle;
 const osThreadAttr_t CANManager_attributes = {
   .name = "CANManager",
   .stack_size = 256 * 4,
-  .priority = (osPriority_t) osPriorityHigh,
+  .priority = (osPriority_t) osPriorityRealtime,
 };
 /* Definitions for I2C1 */
 osMutexId_t I2C1Handle;
@@ -94,7 +97,6 @@ osMutexId_t CANHandle;
 const osMutexAttr_t CAN_attributes = {
   .name = "CAN"
 };
-/* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
 
@@ -107,10 +109,10 @@ static void MX_CRC_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_I2C3_Init(void);
 void StartDefaultTask(void *argument);
-void ReadCellVoltage(void *argument);
-void ReadCellTemps(void *argument);
 
 /* USER CODE BEGIN PFP */
+void ReadCellVoltage(void *argument);
+void ReadCellTemps(void *argument);
 
 /* USER CODE END PFP */
 
@@ -201,24 +203,33 @@ int main(void)
   /* USER CODE END RTOS_TIMERS */
 
   /* USER CODE BEGIN RTOS_QUEUES */
+  // Initialize Error Manager
+  if (ErrorMgr_Init() != HAL_OK)
+  {
+    Error_Handler();
+  }
+  
   // Initialize CAN Manager (creates TX and RX message queues)
   if (CAN_Manager_Init() != HAL_OK)
   {
     Error_Handler();
   }
+  
+  // Set initial BMS state to IDLE after initialization
+  ErrorMgr_SetState(BMS_STATE_IDLE);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
+  /* USER CODE BEGIN RTOS_THREADS */
   /* creation of CellVoltage */
   CellVoltageHandle = osThreadNew(ReadCellVoltage, NULL, &CellVoltage_attributes);
 
   /* creation of CellTemperature */
   CellTemperatureHandle = osThreadNew(ReadCellTemps, NULL, &CellTemperature_attributes);
 
-  /* USER CODE BEGIN RTOS_THREADS */
   /* creation of CANManager */
   CANManagerHandle = osThreadNew(CAN_ManagerTask, NULL, &CANManager_attributes);
   /* USER CODE END RTOS_THREADS */

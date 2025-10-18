@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "cell_temp_handler.h"
 #include "can_manager.h"
+#include "error_manager.h"
 #include <string.h>
 
 /* Private variables ---------------------------------------------------------*/
@@ -57,6 +58,8 @@ HAL_StatusTypeDef CellTemp_Init(void)
         temp_state.thermistors[i].temperature = -127.0f; // Invalid temperature marker
         temp_state.thermistors[i].raw_adc = 0;
         temp_state.thermistors[i].last_read_time = 0;
+        temp_state.thermistors[i].adc_accumulator = 0;
+        temp_state.thermistors[i].sample_count = 0;
     }
 
     // Note: ADC calibration is already done in main() before RTOS starts
@@ -246,76 +249,165 @@ void CellTemp_MonitorTask(void *argument)
         }
     }
     
-    // Note: CAN data is sent after each complete cycle automatically
+    // Strategy: Oversample each MUX channel for 125ms, then send CAN updates
+    // - Set MUX channel once
+    // - Sample all 7 ADC channels every 10ms for 125ms (12 samples each)
+    // - Average the samples to get accurate readings
+    // - Send CAN messages with updated values for all 7 ADCs
+    // - Move to next MUX channel and repeat
+    // Complete cycle time: 125ms × 8 MUX channels = 1 second
     
     /* Infinite loop */
     for(;;)
     {
-        uint32_t current_time = osKernelGetTickCount();
+        // Set the current MUX channel for all ADCs
+        CellTemp_SetMuxChannel(temp_state.current_mux);
         
-        // Check if current ADC channel is enabled
-        if (CellTemp_IsADCEnabled(temp_state.current_adc)) {
-            // Read current thermistor
-            thermistor_data_t *current_therm = &temp_state.thermistors[temp_state.current_index];
-            
-            // Set MUX channel
-            CellTemp_SetMuxChannel(temp_state.current_mux);
-            
-            // Read ADC value
-            current_therm->raw_adc = CellTemp_ReadADC(adc_channels[temp_state.current_adc]);
-            
-            // Calculate temperature
-            current_therm->temperature = CellTemp_CalculateTemperature(current_therm->raw_adc);
-            current_therm->last_read_time = current_time;
-        } else {
-            // ADC disabled - mark thermistor as invalid
-            temp_state.thermistors[temp_state.current_index].temperature = -127.0f;
-            temp_state.thermistors[temp_state.current_index].raw_adc = 0;
+        // Reset accumulators for this MUX channel (across all ADC channels)
+        for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
+            if (CellTemp_IsADCEnabled(adc)) {
+                uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
+                temp_state.thermistors[therm_idx].adc_accumulator = 0;
+                temp_state.thermistors[therm_idx].sample_count = 0;
+            }
         }
         
-        // Move to next thermistor
-        temp_state.current_index++;
-        temp_state.current_mux++;
-        
-        // Check if we need to move to next ADC channel
-        if (temp_state.current_mux >= MUX_CHANNELS) {
-            // Completed all 8 MUX channels for current ADC (took 1 second)
-            // Now send CAN messages for ALL enabled ADCs (not just the one we finished)
-            // This ensures every enabled ADC sends its data every second
-            
+        // Oversample for 500ms (50 samples at 10ms intervals)
+        for (uint16_t sample = 0; sample < TEMP_SAMPLES_PER_MUX; sample++) {
+            // Read all enabled ADC channels for current MUX channel
             for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
                 if (CellTemp_IsADCEnabled(adc)) {
-                    // Calculate which message(s) this ADC uses
-                    // Each ADC has 8 thermistors, each message has 4 thermistors
-                    // So each ADC uses 2 messages
-                    uint8_t start_msg_idx = adc * 2;
-                    uint8_t start_therm_idx = adc * MUX_CHANNELS;
+                    uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
+                    thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
                     
-                    // Send 2 messages for this ADC (4 thermistors per message)
-                    CellTemp_SendTemperatureMessage(start_msg_idx, start_therm_idx);
-                    osDelay(5); // Small delay between messages
-                    CellTemp_SendTemperatureMessage(start_msg_idx + 1, start_therm_idx + 4);
-                    osDelay(5); // Small delay before next ADC's messages
+                    // Read ADC value
+                    uint16_t adc_value = CellTemp_ReadADC(adc_channels[adc]);
+                    
+                    // Accumulate sample (ignore obviously invalid readings)
+                    if (adc_value >= 10) {  // Valid reading threshold
+                        therm->adc_accumulator += adc_value;
+                        therm->sample_count++;
+                    }
                 }
             }
             
-            temp_state.current_mux = 0;
-            temp_state.current_adc++;
-            
-            // Check if we completed full cycle of all ADCs
-            if (temp_state.current_adc >= NUM_ADC_CHANNELS) {
-                temp_state.current_adc = 0;
-                temp_state.current_index = 0;
-                temp_state.cycle_count++;
+            // Wait 10ms before next sample
+            osDelay(TEMP_SAMPLE_INTERVAL_MS);
+        }
+        
+        // Calculate averaged values and temperatures for this MUX channel
+        uint32_t current_time = osKernelGetTickCount();
+        
+        for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
+            if (CellTemp_IsADCEnabled(adc)) {
+                uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
+                thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
+                
+                // Calculate average ADC value
+                if (therm->sample_count > 0) {
+                    therm->raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
+                    therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
+                    therm->last_read_time = current_time;
+                    
+#if TEMP_FAULT_DETECTION_ENABLED
+                    // Check temperature limits and set error flags
+                    if (therm->temperature > -126.0f) {  // Valid temperature reading
+                        if (therm->temperature > TEMP_MAX_CELSIUS) {
+                            ErrorMgr_SetError(ERROR_OVER_TEMP);
+                        } else if (therm->temperature < TEMP_MIN_CELSIUS) {
+                            ErrorMgr_SetError(ERROR_UNDER_TEMP);
+                        }
+                    } else {
+                        ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
+                    }
+#endif
+                } else {
+                    // No valid samples collected - sensor fault
+                    therm->raw_adc = 0;
+                    therm->temperature = -127.0f;
+#if TEMP_FAULT_DETECTION_ENABLED
+                    ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
+#endif
+                }
+            } else {
+                // ADC disabled - mark thermistor as invalid
+                uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
+                temp_state.thermistors[therm_idx].temperature = -127.0f;
+                temp_state.thermistors[therm_idx].raw_adc = 0;
             }
         }
         
-        // Wait 125ms (TEMP_READ_DELAY_MS) before next reading (only if ADC enabled)
-        // With 8 MUX channels × 125ms = 1 second per ADC
-        if (CellTemp_IsADCEnabled(temp_state.current_adc)) {
-            osDelay(TEMP_READ_DELAY_MS);
-        } else {
-            osDelay(1); // 1ms delay for disabled channels to quickly skip
+        // Send CAN messages only when all 4 thermistors in the message have been updated
+        // Each message covers 4 consecutive thermistors from the same ADC
+        // Message updates happen when MUX channels 3 and 7 complete
+        
+        if (temp_state.current_mux == 3 || temp_state.current_mux == 7) {
+            // Just completed MUX 0-3 or MUX 4-7, so we have all 4 temps for a message
+            for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
+                if (CellTemp_IsADCEnabled(adc)) {
+                    // Determine which message to send based on current MUX
+                    if (temp_state.current_mux == 3) {
+                        // Send message 0 for this ADC (thermistors 0-3)
+                        uint8_t msg_idx = adc * 2;
+                        uint8_t start_therm_idx = adc * MUX_CHANNELS;
+                        CellTemp_SendTemperatureMessage(msg_idx, start_therm_idx);
+                        osDelay(2); // Small delay between messages
+                    } else {
+                        // Send message 1 for this ADC (thermistors 4-7)
+                        uint8_t msg_idx = adc * 2 + 1;
+                        uint8_t start_therm_idx = adc * MUX_CHANNELS + 4;
+                        CellTemp_SendTemperatureMessage(msg_idx, start_therm_idx);
+                        osDelay(2); // Small delay between messages
+                    }
+                }
+            }
+        }
+        
+        // Move to next MUX channel
+        temp_state.current_mux++;
+        
+        // Check if we completed full cycle of all MUX channels
+        if (temp_state.current_mux >= MUX_CHANNELS) {
+            temp_state.current_mux = 0;
+            temp_state.cycle_count++;
+            
+#if TEMP_FAULT_DETECTION_ENABLED
+            // After completing a full cycle, check if all thermistors are within limits
+            // If so, clear the error flags
+            uint8_t any_over_temp = 0;
+            uint8_t any_under_temp = 0;
+            uint8_t any_sensor_fault = 0;
+            
+            for (uint8_t i = 0; i < TOTAL_THERMISTORS; i++) {
+                // Only check enabled ADC channels
+                uint8_t therm_adc = i / MUX_CHANNELS;
+                if (CellTemp_IsADCEnabled(therm_adc)) {
+                    float temp = temp_state.thermistors[i].temperature;
+                    
+                    if (temp <= -126.0f) {
+                        // Invalid reading - sensor fault
+                        any_sensor_fault = 1;
+                    } else if (temp > TEMP_MAX_CELSIUS) {
+                        // Over temperature
+                        any_over_temp = 1;
+                    } else if (temp < TEMP_MIN_CELSIUS) {
+                        // Under temperature
+                        any_under_temp = 1;
+                    }
+                }
+            }
+            
+            // Clear error flags if all thermistors are within bounds
+            if (!any_over_temp) {
+                ErrorMgr_ClearError(ERROR_OVER_TEMP);
+            }
+            if (!any_under_temp) {
+                ErrorMgr_ClearError(ERROR_UNDER_TEMP);
+            }
+            if (!any_sensor_fault) {
+                ErrorMgr_ClearError(ERROR_TEMP_SENSOR_FAULT);
+            }
+#endif
         }
     }
 }

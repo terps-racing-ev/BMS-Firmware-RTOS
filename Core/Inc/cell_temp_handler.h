@@ -27,6 +27,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "can_ids.h"
 #include <math.h>
 
 /* Defines -------------------------------------------------------------------*/
@@ -62,12 +63,15 @@ extern "C" {
 #define PULLUP_RESISTOR 10000.0f    // Pull-up resistor value in ohms (to 3.3V)
 #define REFERENCE_TEMP_K 298.15f    // Reference temperature in Kelvin (25°C)
 
-// CAN message IDs for temperature data (29-bit extended IDs)
-#define CAN_TEMP_BASE_ID 0x18FF0000      // Base ID for temperature messages (extended)
-#define CAN_TEMP_RAW_BASE_ID 0x18FF0100  // Base ID for raw ADC diagnostic messages (extended)
+// Temperature fault detection
+#define TEMP_FAULT_DETECTION_ENABLED 1   // Set to 1 to enable, 0 to disable fault detection
+#define TEMP_MIN_CELSIUS -20.0f          // Minimum safe cell temperature (°C)
+#define TEMP_MAX_CELSIUS 60.0f           // Maximum safe cell temperature (°C)
 
-// Task timing
-#define TEMP_READ_DELAY_MS 125      // 1/8 second = 125ms delay between readings
+// Task timing - Oversampling configuration
+#define TEMP_OVERSAMPLE_PERIOD_MS 125    // Oversample each MUX channel for 125ms
+#define TEMP_SAMPLE_INTERVAL_MS 10       // Take a sample every 10ms (12-13 samples per MUX channel)
+#define TEMP_SAMPLES_PER_MUX (TEMP_OVERSAMPLE_PERIOD_MS / TEMP_SAMPLE_INTERVAL_MS)  // 12 samples
 
 /* ADC Channel Mapping */
 typedef enum {
@@ -85,8 +89,10 @@ typedef struct {
     uint8_t adc_index;        // ADC channel index (0-6)
     uint8_t mux_channel;      // MUX channel (0-7)
     float temperature;        // Temperature in Celsius
-    uint16_t raw_adc;        // Raw ADC value
-    uint32_t last_read_time; // Last reading timestamp
+    uint16_t raw_adc;         // Raw ADC value (averaged from oversampling)
+    uint32_t last_read_time;  // Last reading timestamp
+    uint32_t adc_accumulator; // Accumulator for oversampling
+    uint16_t sample_count;    // Number of samples accumulated
 } thermistor_data_t;
 
 typedef struct {
@@ -95,6 +101,7 @@ typedef struct {
     uint8_t current_mux;      // Current MUX channel (0-7)
     uint8_t current_index;    // Current thermistor index (0-55)
     uint32_t cycle_count;     // Number of complete cycles
+    uint8_t oversample_complete; // Flag indicating MUX channel oversampling is complete
 } temp_monitor_state_t;
 
 /* External variables --------------------------------------------------------*/

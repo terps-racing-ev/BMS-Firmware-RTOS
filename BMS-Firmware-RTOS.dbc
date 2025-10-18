@@ -1,5 +1,53 @@
 VERSION ""
 
+// ==============================================================================
+// DBC FILE FORMAT NOTES - EXTENDED CAN ID CONVENTION
+// ==============================================================================
+// 
+// CAN ID ENCODING FOR EXTENDED (29-BIT) IDENTIFIERS:
+// --------------------------------------------------
+// 
+// The DBC file format was originally designed for standard 11-bit CAN IDs.
+// For extended 29-bit CAN IDs, there are two approaches:
+// 
+// 1. ATTRIBUTE METHOD (doesn't work with cantools):
+//    - Use the actual 29-bit ID value in BO_ definition
+//    - Set VFrameFormat attribute to "ExtendedCAN" 
+//    - PROBLEM: cantools parses messages BEFORE attributes, causing errors
+// 
+// 2. BIT 31 FLAG METHOD (used in this file):
+//    - Set bit 31 (0x80000000) in the frame ID to indicate extended format
+//    - Formula: extended_id = actual_29bit_id | 0x80000000
+//    - Example: 0x08FF0000 becomes 0x88FF0000 in the DBC file
+//    - This is the standard convention used by CANdb++, Vector tools, etc.
+// 
+// CONVERSION EXAMPLES:
+// -------------------
+// Original ID (hex)    Decimal         Extended DBC ID     Extended Decimal
+// 0x08FF0000          150929408   ->   0x88FF0000          2298413056
+// 0x08FF0001          150929409   ->   0x88FF0001          2298413057
+// 0x08FF0100          150929664   ->   0x88FF0100          2298413312
+// 
+// WHY THIS MATTERS:
+// ----------------
+// - CAN hardware uses 29 bits for extended IDs (max 0x1FFFFFFF)
+// - DBC files use bit 31 as a flag, not part of the actual CAN ID
+// - When decoding: actual_id = dbc_id & 0x1FFFFFFF (mask off bit 31)
+// - When encoding for DBC: dbc_id = actual_id | 0x80000000 (set bit 31)
+// 
+// TOOLS COMPATIBILITY:
+// -------------------
+// Compatible: cantools, CANdb++, Vector CANalyzer, PCAN-View, Kvaser
+// NOT Compatible: VFrameFormat attribute alone does NOT work with cantools
+// 
+// BMS FIRMWARE CAN ID STRUCTURE (before bit 31 flag):
+// ---------------------------------------------------
+// Bits 28-24: Priority (0x08)
+// Bits 23-16: Message Type (0xFF = BMS data)
+// Bits 15-8:  Message Group (0x00 = temps, 0x01 = raw ADC)
+// Bits 7-0:   Message Index (0x00-0x0D for different sensor groups)
+// 
+// ==============================================================================
 
 NS_ : 
 	NS_DESC_
@@ -36,169 +84,178 @@ BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN";
 
 BA_DEF_DEF_  "VFrameFormat" "StandardCAN";
 
-BO_ 2566848512 BMS_Temp_Msg_00: 8 BMS_Controller
- SG_ Temp_Therm_0 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_1 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_2 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_3 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413824 BMS_Heartbeat: 8 BMS_Controller
+ SG_ BMS_State : 0|8@1+ (1,0) [0|7] ""  CAN_Receiver
+ SG_ Error_Flags_Byte0 : 8|8@1+ (1,0) [0|255] ""  CAN_Receiver
+ SG_ Error_Flags_Byte1 : 16|8@1+ (1,0) [0|255] ""  CAN_Receiver
+ SG_ Error_Flags_Byte2 : 24|8@1+ (1,0) [0|255] ""  CAN_Receiver
+ SG_ Error_Flags_Byte3 : 32|8@1+ (1,0) [0|255] ""  CAN_Receiver
+ SG_ Warning_Summary : 40|8@1+ (1,0) [0|255] ""  CAN_Receiver
+ SG_ Fault_Count : 48|16@1+ (1,0) [0|65535] ""  CAN_Receiver
 
-BO_ 2566848513 BMS_Temp_Msg_01: 8 BMS_Controller
- SG_ Temp_Therm_4 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_5 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_6 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_7 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413056 Cell_Temp_000: 8 BMS_Controller
+ SG_ Temp_000 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_001 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_002 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_003 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848514 BMS_Temp_Msg_02: 8 BMS_Controller
- SG_ Temp_Therm_8 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_9 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_10 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_11 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413057 Cell_Temp_001: 8 BMS_Controller
+ SG_ Temp_004 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_005 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_006 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_007 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848515 BMS_Temp_Msg_03: 8 BMS_Controller
- SG_ Temp_Therm_12 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_13 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_14 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_15 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413058 Cell_Temp_002: 8 BMS_Controller
+ SG_ Temp_008 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_009 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_010 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_011 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848516 BMS_Temp_Msg_04: 8 BMS_Controller
- SG_ Temp_Therm_16 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_17 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_18 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_19 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413059 Cell_Temp_003: 8 BMS_Controller
+ SG_ Temp_012 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_013 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_014 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_015 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848517 BMS_Temp_Msg_05: 8 BMS_Controller
- SG_ Temp_Therm_20 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_21 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_22 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_23 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413060 Cell_Temp_004: 8 BMS_Controller
+ SG_ Temp_016 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_017 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_018 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_019 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848518 BMS_Temp_Msg_06: 8 BMS_Controller
- SG_ Temp_Therm_24 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_25 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_26 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_27 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413061 Cell_Temp_005: 8 BMS_Controller
+ SG_ Temp_020 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_021 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_022 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_023 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848519 BMS_Temp_Msg_07: 8 BMS_Controller
- SG_ Temp_Therm_28 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_29 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_30 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_31 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413062 Cell_Temp_006: 8 BMS_Controller
+ SG_ Temp_024 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_025 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_026 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_027 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848520 BMS_Temp_Msg_08: 8 BMS_Controller
- SG_ Temp_Therm_32 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_33 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_34 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_35 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413063 Cell_Temp_007: 8 BMS_Controller
+ SG_ Temp_028 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_029 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_030 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_031 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848521 BMS_Temp_Msg_09: 8 BMS_Controller
- SG_ Temp_Therm_36 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_37 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_38 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_39 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413064 Cell_Temp_008: 8 BMS_Controller
+ SG_ Temp_032 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_033 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_034 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_035 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848522 BMS_Temp_Msg_10: 8 BMS_Controller
- SG_ Temp_Therm_40 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_41 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_42 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_43 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413065 Cell_Temp_009: 8 BMS_Controller
+ SG_ Temp_036 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_037 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_038 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_039 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848523 BMS_Temp_Msg_11: 8 BMS_Controller
- SG_ Temp_Therm_44 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_45 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_46 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_47 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413066 Cell_Temp_010: 8 BMS_Controller
+ SG_ Temp_040 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_041 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_042 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_043 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848524 BMS_Temp_Msg_12: 8 BMS_Controller
- SG_ Temp_Therm_48 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_49 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_50 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_51 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413067 Cell_Temp_011: 8 BMS_Controller
+ SG_ Temp_044 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_045 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_046 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_047 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848525 BMS_Temp_Msg_13: 8 BMS_Controller
- SG_ Temp_Therm_52 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_53 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_54 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
- SG_ Temp_Therm_55 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+BO_ 2298413068 Cell_Temp_012: 8 BMS_Controller
+ SG_ Temp_048 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_049 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_050 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_051 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
 
-BO_ 2566848768 BMS_Temp_Raw_Msg_00: 8 BMS_Controller
+BO_ 2298413069 Cell_Temp_013: 8 BMS_Controller
+ SG_ Temp_052 : 0|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_053 : 16|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_054 : 32|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+ SG_ Temp_055 : 48|16@1- (0.1,0) [-40|125] "degC"  CAN_Receiver
+
+BO_ 2298413312 BMS_Temp_Raw_Msg_00: 8 BMS_Controller
  SG_ Raw_ADC_Therm_0 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_1 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_2 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_3 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848769 BMS_Temp_Raw_Msg_01: 8 BMS_Controller
+BO_ 2298413313 BMS_Temp_Raw_Msg_01: 8 BMS_Controller
  SG_ Raw_ADC_Therm_4 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_5 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_6 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_7 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848770 BMS_Temp_Raw_Msg_02: 8 BMS_Controller
+BO_ 2298413314 BMS_Temp_Raw_Msg_02: 8 BMS_Controller
  SG_ Raw_ADC_Therm_8 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_9 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_10 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_11 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848771 BMS_Temp_Raw_Msg_03: 8 BMS_Controller
+BO_ 2298413315 BMS_Temp_Raw_Msg_03: 8 BMS_Controller
  SG_ Raw_ADC_Therm_12 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_13 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_14 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_15 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848772 BMS_Temp_Raw_Msg_04: 8 BMS_Controller
+BO_ 2298413316 BMS_Temp_Raw_Msg_04: 8 BMS_Controller
  SG_ Raw_ADC_Therm_16 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_17 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_18 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_19 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848773 BMS_Temp_Raw_Msg_05: 8 BMS_Controller
+BO_ 2298413317 BMS_Temp_Raw_Msg_05: 8 BMS_Controller
  SG_ Raw_ADC_Therm_20 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_21 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_22 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_23 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848774 BMS_Temp_Raw_Msg_06: 8 BMS_Controller
+BO_ 2298413318 BMS_Temp_Raw_Msg_06: 8 BMS_Controller
  SG_ Raw_ADC_Therm_24 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_25 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_26 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_27 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848775 BMS_Temp_Raw_Msg_07: 8 BMS_Controller
+BO_ 2298413319 BMS_Temp_Raw_Msg_07: 8 BMS_Controller
  SG_ Raw_ADC_Therm_28 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_29 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_30 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_31 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848776 BMS_Temp_Raw_Msg_08: 8 BMS_Controller
+BO_ 2298413320 BMS_Temp_Raw_Msg_08: 8 BMS_Controller
  SG_ Raw_ADC_Therm_32 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_33 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_34 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_35 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848777 BMS_Temp_Raw_Msg_09: 8 BMS_Controller
+BO_ 2298413321 BMS_Temp_Raw_Msg_09: 8 BMS_Controller
  SG_ Raw_ADC_Therm_36 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_37 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_38 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_39 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848778 BMS_Temp_Raw_Msg_10: 8 BMS_Controller
+BO_ 2298413322 BMS_Temp_Raw_Msg_10: 8 BMS_Controller
  SG_ Raw_ADC_Therm_40 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_41 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_42 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_43 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848779 BMS_Temp_Raw_Msg_11: 8 BMS_Controller
+BO_ 2298413323 BMS_Temp_Raw_Msg_11: 8 BMS_Controller
  SG_ Raw_ADC_Therm_44 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_45 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_46 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_47 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848780 BMS_Temp_Raw_Msg_12: 8 BMS_Controller
+BO_ 2298413324 BMS_Temp_Raw_Msg_12: 8 BMS_Controller
  SG_ Raw_ADC_Therm_48 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_49 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_50 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_51 : 48|16@1+ (1,0) [0|4095] ""  CAN_Receiver
 
-BO_ 2566848781 BMS_Temp_Raw_Msg_13: 8 BMS_Controller
+BO_ 2298413325 BMS_Temp_Raw_Msg_13: 8 BMS_Controller
  SG_ Raw_ADC_Therm_52 : 0|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_53 : 16|16@1+ (1,0) [0|4095] ""  CAN_Receiver
  SG_ Raw_ADC_Therm_54 : 32|16@1+ (1,0) [0|4095] ""  CAN_Receiver
@@ -206,80 +263,98 @@ BO_ 2566848781 BMS_Temp_Raw_Msg_13: 8 BMS_Controller
 
 
 
-CM_ BO_ 2566848512 "Temperature readings for thermistors 0-3. Each value is temperature * 10 (0.1C resolution). 0x8000 = invalid/no reading";
-CM_ BO_ 2566848513 "Temperature readings for thermistors 4-7";
-CM_ BO_ 2566848514 "Temperature readings for thermistors 8-11";
-CM_ BO_ 2566848515 "Temperature readings for thermistors 12-15";
-CM_ BO_ 2566848516 "Temperature readings for thermistors 16-19";
-CM_ BO_ 2566848517 "Temperature readings for thermistors 20-23";
-CM_ BO_ 2566848518 "Temperature readings for thermistors 24-27";
-CM_ BO_ 2566848519 "Temperature readings for thermistors 28-31";
-CM_ BO_ 2566848520 "Temperature readings for thermistors 32-35";
-CM_ BO_ 2566848521 "Temperature readings for thermistors 36-39";
-CM_ BO_ 2566848522 "Temperature readings for thermistors 40-43";
-CM_ BO_ 2566848523 "Temperature readings for thermistors 44-47";
-CM_ BO_ 2566848524 "Temperature readings for thermistors 48-51";
-CM_ BO_ 2566848525 "Temperature readings for thermistors 52-55";
-CM_ BO_ 2566848768 "Raw ADC readings for diagnostic purposes - thermistors 0-3 (12-bit ADC values)";
-CM_ BO_ 2566848769 "Raw ADC readings for diagnostic purposes - thermistors 4-7";
-CM_ BO_ 2566848770 "Raw ADC readings for diagnostic purposes - thermistors 8-11";
-CM_ BO_ 2566848771 "Raw ADC readings for diagnostic purposes - thermistors 12-15";
-CM_ BO_ 2566848772 "Raw ADC readings for diagnostic purposes - thermistors 16-19";
-CM_ BO_ 2566848773 "Raw ADC readings for diagnostic purposes - thermistors 20-23";
-CM_ BO_ 2566848774 "Raw ADC readings for diagnostic purposes - thermistors 24-27";
-CM_ BO_ 2566848775 "Raw ADC readings for diagnostic purposes - thermistors 28-31";
-CM_ BO_ 2566848776 "Raw ADC readings for diagnostic purposes - thermistors 32-35";
-CM_ BO_ 2566848777 "Raw ADC readings for diagnostic purposes - thermistors 36-39";
-CM_ BO_ 2566848778 "Raw ADC readings for diagnostic purposes - thermistors 40-43";
-CM_ BO_ 2566848779 "Raw ADC readings for diagnostic purposes - thermistors 44-47";
-CM_ BO_ 2566848780 "Raw ADC readings for diagnostic purposes - thermistors 48-51";
-CM_ BO_ 2566848781 "Raw ADC readings for diagnostic purposes - thermistors 52-55";
+CM_ BO_ 2298413824 "BMS Heartbeat - System status and error/warning flags. Sent every 1 second.";
+CM_ SG_ 2298413824 BMS_State "BMS State: 0=INIT, 1=IDLE, 2=CHARGING, 3=DISCHARGING, 4=BALANCING, 5=ERROR, 6=SHUTDOWN";
+CM_ SG_ 2298413824 Error_Flags_Byte0 "Temperature error flags (bit 0=over temp, bit 1=under temp, bit 2=sensor fault, bit 3=gradient)";
+CM_ SG_ 2298413824 Error_Flags_Byte1 "Voltage error flags (bit 0=over voltage, bit 1=under voltage, bit 2=imbalance, bit 3=sensor fault)";
+CM_ SG_ 2298413824 Error_Flags_Byte2 "Current error flags (bit 0=over current charge, bit 1=over current discharge, bit 2=sensor fault, bit 3=short circuit)";
+CM_ SG_ 2298413824 Error_Flags_Byte3 "Communication error flags (bit 0=CAN bus-off, bit 1=CAN TX timeout, bit 2=CAN RX overflow, bit 3=I2C timeout, bit 4=I2C fault, bit 7=watchdog)";
+CM_ SG_ 2298413824 Warning_Summary "Warning flags summary: 0x00=no warnings, 0xFF=warnings active";
+CM_ SG_ 2298413824 Fault_Count "Total fault count since power-on";
+CM_ BO_ 2298413056 "Temperature readings for thermistors 0-3. Each value is temperature * 10 (0.1C resolution). 0x8000 = invalid/no reading";
+CM_ BO_ 2298413057 "Temperature readings for thermistors 4-7";
+CM_ BO_ 2298413058 "Temperature readings for thermistors 8-11";
+CM_ BO_ 2298413059 "Temperature readings for thermistors 12-15";
+CM_ BO_ 2298413060 "Temperature readings for thermistors 16-19";
+CM_ BO_ 2298413061 "Temperature readings for thermistors 20-23";
+CM_ BO_ 2298413062 "Temperature readings for thermistors 24-27";
+CM_ BO_ 2298413063 "Temperature readings for thermistors 28-31";
+CM_ BO_ 2298413064 "Temperature readings for thermistors 32-35";
+CM_ BO_ 2298413065 "Temperature readings for thermistors 36-39";
+CM_ BO_ 2298413066 "Temperature readings for thermistors 40-43";
+CM_ BO_ 2298413067 "Temperature readings for thermistors 44-47";
+CM_ BO_ 2298413068 "Temperature readings for thermistors 48-51";
+CM_ BO_ 2298413069 "Temperature readings for thermistors 52-55";
+CM_ BO_ 2298413312 "Raw ADC readings for diagnostic purposes - thermistors 0-3 (12-bit ADC values)";
+CM_ BO_ 2298413313 "Raw ADC readings for diagnostic purposes - thermistors 4-7";
+CM_ BO_ 2298413314 "Raw ADC readings for diagnostic purposes - thermistors 8-11";
+CM_ BO_ 2298413315 "Raw ADC readings for diagnostic purposes - thermistors 12-15";
+CM_ BO_ 2298413316 "Raw ADC readings for diagnostic purposes - thermistors 16-19";
+CM_ BO_ 2298413317 "Raw ADC readings for diagnostic purposes - thermistors 20-23";
+CM_ BO_ 2298413318 "Raw ADC readings for diagnostic purposes - thermistors 24-27";
+CM_ BO_ 2298413319 "Raw ADC readings for diagnostic purposes - thermistors 28-31";
+CM_ BO_ 2298413320 "Raw ADC readings for diagnostic purposes - thermistors 32-35";
+CM_ BO_ 2298413321 "Raw ADC readings for diagnostic purposes - thermistors 36-39";
+CM_ BO_ 2298413322 "Raw ADC readings for diagnostic purposes - thermistors 40-43";
+CM_ BO_ 2298413323 "Raw ADC readings for diagnostic purposes - thermistors 44-47";
+CM_ BO_ 2298413324 "Raw ADC readings for diagnostic purposes - thermistors 48-51";
+CM_ BO_ 2298413325 "Raw ADC readings for diagnostic purposes - thermistors 52-55";
 
 BA_DEF_ "BusType" STRING ;
 BA_DEF_ BO_ "GenMsgCycleTime" INT 0 10000;
 BA_DEF_DEF_ "BusType" "CAN";
 BA_DEF_DEF_ "GenMsgCycleTime" 0;
 
-BA_ "GenMsgCycleTime" BO_ 2566848512 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848513 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848514 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848515 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848516 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848517 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848518 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848519 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848520 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848521 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848522 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848523 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848524 1000;
-BA_ "GenMsgCycleTime" BO_ 2566848525 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413824 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413056 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413057 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413058 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413059 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413060 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413061 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413062 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413063 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413064 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413065 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413066 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413067 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413068 1000;
+BA_ "GenMsgCycleTime" BO_ 2298413069 1000;
 
-BA_ "VFrameFormat" BO_ 2566848512 1;
-BA_ "VFrameFormat" BO_ 2566848513 1;
-BA_ "VFrameFormat" BO_ 2566848514 1;
-BA_ "VFrameFormat" BO_ 2566848515 1;
-BA_ "VFrameFormat" BO_ 2566848516 1;
-BA_ "VFrameFormat" BO_ 2566848517 1;
-BA_ "VFrameFormat" BO_ 2566848518 1;
-BA_ "VFrameFormat" BO_ 2566848519 1;
-BA_ "VFrameFormat" BO_ 2566848520 1;
-BA_ "VFrameFormat" BO_ 2566848521 1;
-BA_ "VFrameFormat" BO_ 2566848522 1;
-BA_ "VFrameFormat" BO_ 2566848523 1;
-BA_ "VFrameFormat" BO_ 2566848524 1;
-BA_ "VFrameFormat" BO_ 2566848525 1;
-BA_ "VFrameFormat" BO_ 2566848768 1;
-BA_ "VFrameFormat" BO_ 2566848769 1;
-BA_ "VFrameFormat" BO_ 2566848770 1;
-BA_ "VFrameFormat" BO_ 2566848771 1;
-BA_ "VFrameFormat" BO_ 2566848772 1;
-BA_ "VFrameFormat" BO_ 2566848773 1;
-BA_ "VFrameFormat" BO_ 2566848774 1;
-BA_ "VFrameFormat" BO_ 2566848775 1;
-BA_ "VFrameFormat" BO_ 2566848776 1;
-BA_ "VFrameFormat" BO_ 2566848777 1;
-BA_ "VFrameFormat" BO_ 2566848778 1;
-BA_ "VFrameFormat" BO_ 2566848779 1;
-BA_ "VFrameFormat" BO_ 2566848780 1;
-BA_ "VFrameFormat" BO_ 2566848781 1;
+BA_ "VFrameFormat" BO_ 2298413824 1;
+BA_ "VFrameFormat" BO_ 2298413056 1;
+BA_ "VFrameFormat" BO_ 2298413057 1;
+BA_ "VFrameFormat" BO_ 2298413058 1;
+BA_ "VFrameFormat" BO_ 2298413059 1;
+BA_ "VFrameFormat" BO_ 2298413060 1;
+BA_ "VFrameFormat" BO_ 2298413061 1;
+BA_ "VFrameFormat" BO_ 2298413062 1;
+BA_ "VFrameFormat" BO_ 2298413063 1;
+BA_ "VFrameFormat" BO_ 2298413064 1;
+BA_ "VFrameFormat" BO_ 2298413065 1;
+BA_ "VFrameFormat" BO_ 2298413066 1;
+BA_ "VFrameFormat" BO_ 2298413067 1;
+BA_ "VFrameFormat" BO_ 2298413068 1;
+BA_ "VFrameFormat" BO_ 2298413069 1;
+BA_ "VFrameFormat" BO_ 2298413312 1;
+BA_ "VFrameFormat" BO_ 2298413313 1;
+BA_ "VFrameFormat" BO_ 2298413314 1;
+BA_ "VFrameFormat" BO_ 2298413315 1;
+BA_ "VFrameFormat" BO_ 2298413316 1;
+BA_ "VFrameFormat" BO_ 2298413317 1;
+BA_ "VFrameFormat" BO_ 2298413318 1;
+BA_ "VFrameFormat" BO_ 2298413319 1;
+BA_ "VFrameFormat" BO_ 2298413320 1;
+BA_ "VFrameFormat" BO_ 2298413321 1;
+BA_ "VFrameFormat" BO_ 2298413322 1;
+BA_ "VFrameFormat" BO_ 2298413323 1;
+BA_ "VFrameFormat" BO_ 2298413324 1;
+BA_ "VFrameFormat" BO_ 2298413325 1;
+
+VAL_ 2298413824 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "ERROR" 6 "SHUTDOWN" 7 "RESERVED" ;
+VAL_ 2298413824 Error_Flags_Byte0 1 "OVER_TEMP" 2 "UNDER_TEMP" 4 "TEMP_SENSOR_FAULT" 8 "TEMP_GRADIENT" 16 "RESERVED_4" 32 "RESERVED_5" 64 "RESERVED_6" 128 "RESERVED_7" 0 "NO_TEMP_ERRORS" ;
+VAL_ 2298413824 Error_Flags_Byte1 1 "OVER_VOLTAGE" 2 "UNDER_VOLTAGE" 4 "VOLTAGE_IMBALANCE" 8 "VOLTAGE_SENSOR_FAULT" 16 "RESERVED_4" 32 "RESERVED_5" 64 "RESERVED_6" 128 "RESERVED_7" 0 "NO_VOLTAGE_ERRORS" ;
+VAL_ 2298413824 Error_Flags_Byte2 1 "OVER_CURRENT_CHARGE" 2 "OVER_CURRENT_DISCHARGE" 4 "CURRENT_SENSOR_FAULT" 8 "SHORT_CIRCUIT" 16 "RESERVED_4" 32 "RESERVED_5" 64 "RESERVED_6" 128 "RESERVED_7" 0 "NO_CURRENT_ERRORS" ;
+VAL_ 2298413824 Error_Flags_Byte3 1 "CAN_BUS_OFF" 2 "CAN_TX_TIMEOUT" 4 "CAN_RX_OVERFLOW" 8 "I2C_TIMEOUT" 16 "I2C_FAULT" 32 "RESERVED_5" 64 "RESERVED_6" 128 "WATCHDOG" 0 "NO_COMM_ERRORS" ;
+VAL_ 2298413824 Warning_Summary 0 "NO_WARNINGS" 255 "WARNINGS_ACTIVE" ;
+

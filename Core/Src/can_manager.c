@@ -19,6 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "can_manager.h"
+#include "error_manager.h"
 
 /* Private variables ---------------------------------------------------------*/
 osMessageQueueId_t CANTxQueueHandle = NULL;
@@ -247,13 +248,22 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
 void CAN_ManagerTask(void *argument)
 {
     CAN_Message_t rx_msg;
+    uint32_t last_heartbeat_tick = 0;
+    uint32_t last_uptime_tick = 0;
+    uint32_t current_tick = 0;
     
     // Wait 100ms for system to stabilize
     osDelay(100);
     
+    // Initialize heartbeat timing
+    last_heartbeat_tick = osKernelGetTickCount();
+    last_uptime_tick = osKernelGetTickCount();
+    
     /* Infinite loop */
     for(;;)
     {
+        current_tick = osKernelGetTickCount();
+        
         // Process any received messages from RX queue
         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
             CAN_ProcessRxMessage(&rx_msg);
@@ -261,6 +271,18 @@ void CAN_ManagerTask(void *argument)
         
         // Process TX queue and send pending messages
         CAN_ProcessTxQueue();
+        
+        // Send heartbeat message at regular intervals
+        if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
+            CAN_SendHeartbeat();
+            last_heartbeat_tick = current_tick;
+        }
+        
+        // Update uptime counter every second
+        if ((current_tick - last_uptime_tick) >= 1000) {
+            ErrorMgr_UpdateUptime();
+            last_uptime_tick = current_tick;
+        }
         
         // Small delay to prevent task from hogging CPU (10ms)
         // The task will wake up on new messages or periodically
@@ -398,9 +420,46 @@ void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
     if (error & HAL_CAN_ERROR_BOF) {
         can_stats.bus_off_count++;
         
+        // Set CAN bus-off error flag
+        ErrorMgr_SetError(ERROR_CAN_BUS_OFF);
+        
         // Attempt to recover from bus-off
         // Note: May need to stop and restart CAN peripheral
     }
     
     // Handle other errors as needed
+}
+
+/**
+  * @brief  Send BMS heartbeat message
+  * @note   Heartbeat format (8 bytes):
+  *         Byte 0: BMS State
+  *         Byte 1: Error flags byte 0 (Temperature errors)
+  *         Byte 2: Error flags byte 1 (Voltage errors)
+  *         Byte 3: Error flags byte 2 (Current errors)
+  *         Byte 4: Error flags byte 3 (Communication errors)
+  *         Byte 5: Warning flags summary (any warnings = 0xFF, none = 0x00)
+  *         Byte 6-7: Fault count (16-bit)
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendHeartbeat(void)
+{
+    Error_Manager_t status;
+    uint8_t heartbeat_data[8];
+    
+    // Get current error manager status
+    ErrorMgr_GetStatus(&status);
+    
+    // Pack heartbeat message
+    heartbeat_data[0] = (uint8_t)status.state;                    // BMS state
+    heartbeat_data[1] = (uint8_t)(status.error_flags & 0xFF);     // Error byte 0
+    heartbeat_data[2] = (uint8_t)((status.error_flags >> 8) & 0xFF);   // Error byte 1
+    heartbeat_data[3] = (uint8_t)((status.error_flags >> 16) & 0xFF);  // Error byte 2
+    heartbeat_data[4] = (uint8_t)((status.error_flags >> 24) & 0xFF);  // Error byte 3
+    heartbeat_data[5] = (status.warning_flags != 0) ? 0xFF : 0x00;     // Warning summary
+    heartbeat_data[6] = (uint8_t)(status.fault_count & 0xFF);          // Fault count low byte
+    heartbeat_data[7] = (uint8_t)((status.fault_count >> 8) & 0xFF);   // Fault count high byte
+    
+    // Send heartbeat with high priority
+    return CAN_SendMessage(CAN_BMS_HEARTBEAT_ID, heartbeat_data, 8, CAN_PRIORITY_HIGH);
 }
