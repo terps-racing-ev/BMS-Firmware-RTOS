@@ -68,10 +68,10 @@ extern "C" {
 #define ERROR_CAN_BUS_OFF           (1 << 24) /**< CAN bus-off state */
 #define ERROR_CAN_TX_TIMEOUT        (1 << 25) /**< CAN transmission timeout */
 #define ERROR_CAN_RX_OVERFLOW       (1 << 26) /**< CAN receive buffer overflow */
-#define ERROR_I2C_TIMEOUT           (1 << 27) /**< I2C communication timeout */
-#define ERROR_I2C_FAULT             (1 << 28) /**< I2C communication fault */
-#define ERROR_COMM_RESERVED_5       (1 << 29) /**< Reserved for future use */
-#define ERROR_COMM_RESERVED_6       (1 << 30) /**< Reserved for future use */
+#define ERROR_I2C_BMS1              (1 << 27) /**< I2C communication fault with BMS1 (I2C1) */
+#define ERROR_I2C_BMS2              (1 << 28) /**< I2C communication fault with BMS2 (I2C3) */
+#define ERROR_I2C_TIMEOUT           (1 << 29) /**< I2C communication timeout */
+#define ERROR_I2C_FAULT             (1 << 30) /**< General I2C communication fault */
 #define ERROR_WATCHDOG              (1 << 31) /**< Watchdog timer triggered */
 
 /* Warning Flag Bit Definitions ----------------------------------------------*/

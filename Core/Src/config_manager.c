@@ -33,9 +33,16 @@ static osMutexId_t config_mutex = NULL;
 /* CAN ID variables (initialized with module offset) */
 uint32_t CAN_TEMP_ID = 0;
 uint32_t CAN_TEMP_RAW_ID = 0;
+uint32_t CAN_VOLTAGE_0_ID = 0;
+uint32_t CAN_VOLTAGE_1_ID = 0;
+uint32_t CAN_VOLTAGE_2_ID = 0;
+uint32_t CAN_VOLTAGE_3_ID = 0;
+uint32_t CAN_VOLTAGE_4_ID = 0;
+uint32_t CAN_VOLTAGE_5_ID = 0;
 uint32_t CAN_BMS_HEARTBEAT_ID = 0;
 uint32_t CAN_BMS_STATS_ID = 0;
 uint32_t CAN_CONFIG_ACK_ID = 0;
+uint32_t CAN_RESET_CMD_ID = 0;
 uint32_t CAN_DEBUG_RESPONSE_ID = 0;
 
 /* Function Implementations --------------------------------------------------*/
@@ -195,9 +202,16 @@ void Config_InitCANIDs(void)
     // Initialize all CAN IDs with module offset
     CAN_TEMP_ID = CAN_ID(CAN_TEMP_BASE, mod_id);
     CAN_TEMP_RAW_ID = CAN_ID(CAN_TEMP_RAW_BASE, mod_id);
+    CAN_VOLTAGE_0_ID = CAN_ID(CAN_VOLTAGE_0_BASE, mod_id);
+    CAN_VOLTAGE_1_ID = CAN_ID(CAN_VOLTAGE_1_BASE, mod_id);
+    CAN_VOLTAGE_2_ID = CAN_ID(CAN_VOLTAGE_2_BASE, mod_id);
+    CAN_VOLTAGE_3_ID = CAN_ID(CAN_VOLTAGE_3_BASE, mod_id);
+    CAN_VOLTAGE_4_ID = CAN_ID(CAN_VOLTAGE_4_BASE, mod_id);
+    CAN_VOLTAGE_5_ID = CAN_ID(CAN_VOLTAGE_5_BASE, mod_id);
     CAN_BMS_HEARTBEAT_ID = CAN_ID(CAN_BMS_HEARTBEAT_BASE, mod_id);
     CAN_BMS_STATS_ID = CAN_ID(CAN_BMS_STATS_BASE, mod_id);
     CAN_CONFIG_ACK_ID = CAN_ID(CAN_CONFIG_ACK_BASE, mod_id);
+    CAN_RESET_CMD_ID = CAN_ID(CAN_RESET_CMD_BASE, mod_id);
     CAN_DEBUG_RESPONSE_ID = CAN_ID(CAN_DEBUG_RESPONSE_BASE, mod_id);
 }
 

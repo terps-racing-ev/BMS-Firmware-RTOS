@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "cell_temp_handler.h"
+#include "cell_voltage_handler.h"
 #include "can_manager.h"
 #include "config_manager.h"
 #include "error_manager.h"
@@ -62,10 +63,17 @@ const osThreadAttr_t defaultTask_attributes = {
 };
 /* USER CODE BEGIN PV */
 
-/* Definitions for CellVoltage */
-osThreadId_t CellVoltageHandle;
-const osThreadAttr_t CellVoltage_attributes = {
-  .name = "CellVoltage",
+/* Definitions for CellVoltageBMS1 */
+osThreadId_t CellVoltageBMS1Handle;
+const osThreadAttr_t CellVoltageBMS1_attributes = {
+  .name = "CellVoltageBMS1",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityHigh,
+};
+/* Definitions for CellVoltageBMS2 */
+osThreadId_t CellVoltageBMS2Handle;
+const osThreadAttr_t CellVoltageBMS2_attributes = {
+  .name = "CellVoltageBMS2",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityHigh,
 };
@@ -112,7 +120,8 @@ static void MX_I2C3_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-void ReadCellVoltage(void *argument);
+void ReadCellVoltageBMS1(void *argument);
+void ReadCellVoltageBMS2(void *argument);
 void ReadCellTemps(void *argument);
 
 /* USER CODE END PFP */
@@ -228,8 +237,11 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* creation of CellVoltage */
-  CellVoltageHandle = osThreadNew(ReadCellVoltage, NULL, &CellVoltage_attributes);
+  /* creation of CellVoltageBMS1 */
+  CellVoltageBMS1Handle = osThreadNew(ReadCellVoltageBMS1, NULL, &CellVoltageBMS1_attributes);
+
+  /* creation of CellVoltageBMS2 */
+  CellVoltageBMS2Handle = osThreadNew(ReadCellVoltageBMS2, NULL, &CellVoltageBMS2_attributes);
 
   /* creation of CellTemperature */
   CellTemperatureHandle = osThreadNew(ReadCellTemps, NULL, &CellTemperature_attributes);
@@ -642,16 +654,34 @@ void StartDefaultTask(void *argument)
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_ReadCellVoltage */
-void ReadCellVoltage(void *argument)
+/* USER CODE BEGIN Header_ReadCellVoltageBMS1 */
+/**
+* @brief Function implementing the CellVoltageBMS1 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_ReadCellVoltageBMS1 */
+void ReadCellVoltageBMS1(void *argument)
 {
-  /* USER CODE BEGIN ReadCellVoltage */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END ReadCellVoltage */
+  /* USER CODE BEGIN ReadCellVoltageBMS1 */
+  /* Call the BMS1 cell voltage monitoring task */
+  CellVoltage_MonitorTask(argument);
+  /* USER CODE END ReadCellVoltageBMS1 */
+}
+
+/* USER CODE BEGIN Header_ReadCellVoltageBMS2 */
+/**
+* @brief Function implementing the CellVoltageBMS2 thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_ReadCellVoltageBMS2 */
+void ReadCellVoltageBMS2(void *argument)
+{
+  /* USER CODE BEGIN ReadCellVoltageBMS2 */
+  /* Call the BMS2 cell voltage monitoring task */
+  CellVoltage_MonitorTask_BMS2(argument);
+  /* USER CODE END ReadCellVoltageBMS2 */
 }
 
 /* USER CODE BEGIN Header_ReadCellTemps */

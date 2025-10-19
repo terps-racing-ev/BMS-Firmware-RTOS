@@ -265,7 +265,16 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
     if (base_id == (CAN_CONFIG_CMD_BASE & 0xFFFF0FFF)) {
         Config_ProcessCANCommand(msg->data, msg->length);
         return;
-    }// Call registered callback if available
+    }
+    
+    // Check for reset command message
+    if (base_id == (CAN_RESET_CMD_BASE & 0xFFFF0FFF)) {
+        // Reset command - trigger NVIC system reset
+        NVIC_SystemReset();
+        return;  // Never reached, but good practice
+    }
+    
+    // Call registered callback if available
     if (rx_callback != NULL) {
         rx_callback(msg);
     }

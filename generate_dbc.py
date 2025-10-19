@@ -3,11 +3,14 @@
 Generate complete DBC file for BMS Firmware with all 6 modules
 Each module has:
 - 14 temperature messages (56 thermistors total per module)
+- 6 voltage messages (18 cells total per module, 3 cells per message)
 - 1 heartbeat message
 - 1 CAN stats message
+- 1 config command message
 - 1 config ACK message
+- 1 reset command message
 - 1 debug response message
-Plus 2 broadcast messages (config command, debug request)
+Plus 1 broadcast message (debug request)
 """
 
 def generate_dbc():
@@ -70,6 +73,7 @@ def generate_dbc():
     for module in range(6):
         module_offset = module << 12  # module_id << 12
         therm_base = module * 56  # Base thermistor number for this module
+        cell_base = module * 18   # Base cell number for this module (18 cells per module)
         
         lines.append(f'// ============== Module {module} (Thermistors {therm_base}-{therm_base+55}) ==============')
         lines.append('')
@@ -92,6 +96,14 @@ def generate_dbc():
         lines.append(' SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append(' SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host')
         lines.append(' SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host')
+        lines.append('')
+        
+        # Reset Command: base 0x08F00F02 + module_offset
+        can_id = 0x08F00F02 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS_Reset_Command_{module}: 1 CAN_Host')
+        lines.append(f' SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_{module}')
         lines.append('')
         
         # Debug Response: base 0x08F00F11 + module_offset
@@ -141,15 +153,35 @@ def generate_dbc():
             
             # Calculate thermistor numbers for this message (4 per message)
             therm_start = therm_base + (msg_idx * 4)
+            therm_end = therm_start + 3  # 4 thermistors total (start to start+3)
             
-            # Global message number (0-85 across all modules)
-            global_msg_num = (module * 14) + msg_idx
-            
-            lines.append(f'BO_ {dbc_id} Cell_Temp_{global_msg_num:02d}: 8 BMS_Module_{module}')
+            # Message name indicates thermistor range (e.g., Cell_Temp_0_3 for thermistors 0-3)
+            # Note: DBC format only allows alphanumeric and underscore in names, no hyphens
+            lines.append(f'BO_ {dbc_id} Cell_Temp_{therm_start}_{therm_end}: 8 BMS_Module_{module}')
             for i in range(4):
                 therm_num = therm_start + i
                 bit_start = i * 16
                 lines.append(f' SG_ Temp_{therm_num:03d} : {bit_start}|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+            lines.append('')
+        
+        # 6 Voltage messages (0x08F00200 through 0x08F00205 + module_offset)
+        # Each message contains 3 cell voltages (6 bytes)
+        for msg_idx in range(6):
+            can_id = 0x08F00200 + msg_idx + module_offset
+            dbc_id = can_id | 0x80000000
+            message_ids.append(dbc_id)
+            
+            # Calculate cell numbers for this message (3 per message)
+            cell_start = cell_base + (msg_idx * 3) + 1  # +1 because cells are 1-indexed
+            cell_end = cell_start + 2  # 3 cells total
+            
+            # Message name indicates cell range (e.g., Cell_Voltage_1_3 for cells 1-3)
+            # Note: DBC format only allows alphanumeric and underscore in names, no hyphens
+            lines.append(f'BO_ {dbc_id} Cell_Voltage_{cell_start}_{cell_end}: 6 BMS_Module_{module}')
+            for i in range(3):
+                cell_num = cell_start + i
+                bit_start = i * 16
+                lines.append(f' SG_ Cell_{cell_num:03d}_Voltage : {bit_start}|16@1+ (1,0) [0|5000] "mV" CAN_Host')
             lines.append('')
     
     # Comments
@@ -166,10 +198,13 @@ def generate_dbc():
     # Message cycle times
     lines.append('// Message cycle times (ms)')
     for msg_id in message_ids:
-        if msg_id & 0xFF00 == 0x0300:  # Heartbeat or CAN Stats
+        msg_base = msg_id & 0xFFFF
+        if msg_base >= 0x8300 and msg_base <= 0x8301:  # Heartbeat or CAN Stats
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 1000;')
-        elif msg_id & 0xFF00 == 0x0000:  # Temperature messages
+        elif msg_base >= 0x8000 and msg_base <= 0x800D:  # Temperature messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 1000;')
+        elif msg_base >= 0x8200 and msg_base <= 0x8205:  # Voltage messages
+            lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
     lines.append('')
     
     # Value tables
@@ -186,12 +221,48 @@ def generate_dbc():
         dbc_id = can_id | 0x80000000
         lines.append(f'VAL_ {dbc_id} BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "SHUTDOWN" 7 "RESERVED";')
     
+    lines.append('')
+    
+    # Error Flags Byte 0 - Temperature Errors (bit flags)
+    lines.append('// Error Flags Byte 0 - Temperature Errors (bit flags)')
+    for module in range(6):
+        can_id = 0x08F00300 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Error_Flags_Byte0 1 "OVER_TEMP" 2 "UNDER_TEMP" 4 "TEMP_SENSOR_FAULT" 8 "TEMP_GRADIENT" 16 "RESERVED_4" 32 "RESERVED_5" 64 "RESERVED_6" 128 "RESERVED_7";')
+    
+    lines.append('')
+    
+    # Error Flags Byte 1 - Voltage Errors (bit flags)
+    lines.append('// Error Flags Byte 1 - Voltage Errors (bit flags)')
+    for module in range(6):
+        can_id = 0x08F00300 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Error_Flags_Byte1 1 "OVER_VOLTAGE" 2 "UNDER_VOLTAGE" 4 "VOLTAGE_IMBALANCE" 8 "VOLTAGE_SENSOR_FAULT" 16 "RESERVED_4" 32 "RESERVED_5" 64 "RESERVED_6" 128 "RESERVED_7";')
+    
+    lines.append('')
+    
+    # Error Flags Byte 2 - Current Errors (bit flags)
+    lines.append('// Error Flags Byte 2 - Current Errors (bit flags)')
+    for module in range(6):
+        can_id = 0x08F00300 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Error_Flags_Byte2 1 "OVER_CURRENT_CHARGE" 2 "OVER_CURRENT_DISCHARGE" 4 "CURRENT_SENSOR_FAULT" 8 "SHORT_CIRCUIT" 16 "RESERVED_4" 32 "RESERVED_5" 64 "RESERVED_6" 128 "RESERVED_7";')
+    
+    lines.append('')
+    
+    # Error Flags Byte 3 - Communication Errors (bit flags)
+    lines.append('// Error Flags Byte 3 - Communication Errors (bit flags)')
+    for module in range(6):
+        can_id = 0x08F00300 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Error_Flags_Byte3 1 "CAN_BUS_OFF" 2 "CAN_TX_TIMEOUT" 4 "CAN_RX_OVERFLOW" 8 "I2C1_BMS1" 16 "I2C3_BMS2" 32 "I2C_TIMEOUT" 64 "I2C_FAULT" 128 "WATCHDOG";')
+    
     return '\n'.join(lines)
 
 if __name__ == '__main__':
     dbc_content = generate_dbc()
     
-    output_file = 'BMS-Firmware-RTOS-Modules-Complete.dbc'
+    output_file = 'BMS-Firmware-RTOS-Complete.dbc'
     with open(output_file, 'w') as f:
         f.write(dbc_content)
     
@@ -202,6 +273,13 @@ if __name__ == '__main__':
     message_count = dbc_content.count('BO_ ')
     print(f"Total messages: {message_count}")
     print(f"  - 1 broadcast message (Debug Request)")
-    print(f"  - 6 modules × 19 messages = 114 messages")
-    print(f"    (Config Command, Config ACK, Debug Response, Heartbeat, CAN Stats, 14 Temp)")
-    print(f"  - Total: 115 messages")
+    print(f"  - 6 modules × 26 messages = 156 messages")
+    print(f"    (Config Command, Config ACK, Reset Command, Debug Response, Heartbeat, CAN Stats, 14 Temp, 6 Voltage)")
+    print(f"  - Total: 157 messages")
+    print(f"")
+    print(f"Per module breakdown:")
+    print(f"  - 14 temperature messages (56 thermistors, 4 per message)")
+    print(f"  - 6 voltage messages (18 cells, 3 per message)")
+    print(f"  - 1 config command, 1 config ACK, 1 reset command, 1 debug response, 1 heartbeat, 1 CAN stats")
+    print(f"  - 1 heartbeat, 1 CAN stats, 1 config ACK, 1 debug response, 1 config command")
+
