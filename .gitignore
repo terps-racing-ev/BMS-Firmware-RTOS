@@ -1,5 +1,6 @@
 # Prerequisites
 *.d
+build/
 
 # Object files
 *.o
@@ -53,3 +54,4 @@ dkms.conf
 
 # debug information files
 *.dwo
+CLAUDE.md
