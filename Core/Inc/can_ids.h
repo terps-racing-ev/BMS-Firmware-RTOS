@@ -68,8 +68,8 @@ extern "C" {
 /* TODO: Add SOC CAN IDs here when defined */
 // #define CAN_SOC_BASE            0x08F00500  /**< Base for state of charge */
 
-/* Command/Control Messages (no module ID - broadcast/global) */
-#define CAN_CONFIG_CMD_ID       0x08F00F00  /**< Configuration command message (module ID, etc.) */
+/* Command/Control Messages */
+#define CAN_CONFIG_CMD_BASE     0x08F00F00  /**< Base for configuration command (module ID in bits 15:12, e.g. 0x08F00F00, 0x08F01F00, etc.) */
 #define CAN_CONFIG_ACK_BASE     0x08F00F01  /**< Base for configuration command acknowledgement */
 #define CAN_DEBUG_REQUEST_ID    0x08F00F10  /**< Debug info request (broadcast - no module ID) */
 #define CAN_DEBUG_RESPONSE_BASE 0x08F00F11  /**< Base for debug info response */

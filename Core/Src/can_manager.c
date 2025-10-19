@@ -239,24 +239,33 @@ static void CAN_ProcessTxQueue(void)
 static void CAN_ProcessRxMessage(CAN_Message_t *msg)
 {
     can_stats.rx_message_count++;
-    
-    // Check for configuration command message
-    // Hardware filter already ensures this is for our module ID
-    uint32_t base_id = msg->id & 0xFFFF0FFF;  // Strip module ID to get base ID
-    if (base_id == (CAN_CONFIG_CMD_ID & 0xFFFF0FFF)) {
-        // Process configuration command
-        Config_ProcessCANCommand(msg->data, msg->length);
-        return;
-    }
-    
-    // Check for debug info request (broadcast message - no module ID)
+
+    // Check for debug info request FIRST (broadcast message - no module ID check)
     if (msg->id == CAN_DEBUG_REQUEST_ID) {
         // Send debug info response
         CAN_SendDebugInfo();
         return;
     }
-    
-    // Call registered callback if available
+
+    // Extract module ID from received message (bits 15:12)
+    uint8_t rx_module_id = (msg->id >> 12) & 0x0F;
+    uint8_t our_module_id = Config_GetModuleID();
+
+    // **MODULE ID FILTERING: Reject all messages not addressed to our module**
+    // All messages except broadcast (already handled above) must match our module ID
+    if (rx_module_id != our_module_id) {
+        // Message is for a different module - ignore it
+        return;
+    }
+
+    // Strip module ID to get base message ID (for message type identification)
+    uint32_t base_id = msg->id & 0xFFFF0FFF;
+
+    // Check for configuration command message
+    if (base_id == (CAN_CONFIG_CMD_BASE & 0xFFFF0FFF)) {
+        Config_ProcessCANCommand(msg->data, msg->length);
+        return;
+    }// Call registered callback if available
     if (rx_callback != NULL) {
         rx_callback(msg);
     }
@@ -558,24 +567,28 @@ HAL_StatusTypeDef CAN_SendStatistics(void)
 HAL_StatusTypeDef CAN_SendDebugInfo(void)
 {
     uint8_t debug_data[8];
-    
+
     // Get current module ID
     extern uint8_t Config_GetModuleID(void);
     uint8_t module_id = Config_GetModuleID();
-    
+
+    // Get heap memory statistics (in bytes)
+    size_t free_heap = xPortGetFreeHeapSize();
+    size_t min_free_heap = xPortGetMinimumEverFreeHeapSize();
+
     // Get uptime in seconds (convert from milliseconds)
     uint32_t uptime_sec = osKernelGetTickCount() / 1000;
-    
+
     // Pack debug information message
-    debug_data[0] = module_id;          // Byte 0: Module ID
-    debug_data[1] = 1;                  // Byte 1: Firmware version major (TODO: define these)
-    debug_data[2] = 0;                  // Byte 2: Firmware version minor
-    debug_data[3] = 0;                  // Byte 3: Firmware version patch
+    debug_data[0] = module_id;                              // Byte 0: Module ID
+    debug_data[1] = (uint8_t)((free_heap >> 8) & 0xFF);     // Byte 1: Free heap MSB (in 256-byte units)
+    debug_data[2] = (uint8_t)((min_free_heap >> 8) & 0xFF); // Byte 2: Min free heap MSB (in 256-byte units)
+    debug_data[3] = 0;                                      // Byte 3: Reserved (could be CPU usage if implemented)
     debug_data[4] = (uint8_t)(uptime_sec & 0xFF);           // Byte 4: Uptime LSB
     debug_data[5] = (uint8_t)((uptime_sec >> 8) & 0xFF);    // Byte 5: Uptime
     debug_data[6] = (uint8_t)((uptime_sec >> 16) & 0xFF);   // Byte 6: Uptime
     debug_data[7] = (uint8_t)((uptime_sec >> 24) & 0xFF);   // Byte 7: Uptime MSB
-    
+
     // Send debug info with high priority
     return CAN_SendMessage(CAN_DEBUG_RESPONSE_ID, debug_data, 8, CAN_PRIORITY_HIGH);
 }

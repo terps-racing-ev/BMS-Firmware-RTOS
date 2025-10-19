@@ -58,15 +58,7 @@ def generate_dbc():
     lines.append('')
     
     # Broadcast messages
-    # Config Command: 0x08F00F00
-    can_id = 0x08F00F00
-    dbc_id = can_id | 0x80000000
-    lines.append(f'BO_ {dbc_id} BMS_Config_Command: 8 CAN_Host')
-    lines.append(' SG_ Command : 0|8@1+ (1,0) [0|255] "" BMS_Module_0,BMS_Module_1,BMS_Module_2,BMS_Module_3,BMS_Module_4,BMS_Module_5')
-    lines.append(' SG_ Value : 8|8@1+ (1,0) [0|255] "" BMS_Module_0,BMS_Module_1,BMS_Module_2,BMS_Module_3,BMS_Module_4,BMS_Module_5')
-    lines.append('')
-    
-    # Debug Request: 0x08F00F10
+    # Debug Request: 0x08F00F10 (only this one is truly broadcast)
     can_id = 0x08F00F10
     dbc_id = can_id | 0x80000000
     lines.append(f'BO_ {dbc_id} BMS_Debug_Request: 8 CAN_Host')
@@ -80,6 +72,15 @@ def generate_dbc():
         therm_base = module * 56  # Base thermistor number for this module
         
         lines.append(f'// ============== Module {module} (Thermistors {therm_base}-{therm_base+55}) ==============')
+        lines.append('')
+        
+        # Config Command: base 0x08F00F00 + module_offset
+        can_id = 0x08F00F00 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS_Config_Command_{module}: 8 CAN_Host')
+        lines.append(f' SG_ Command : 0|8@1+ (1,0) [0|255] "" BMS_Module_{module}')
+        lines.append(f' SG_ Value : 8|8@1+ (1,0) [0|255] "" BMS_Module_{module}')
         lines.append('')
         
         # Config ACK: base 0x08F00F01 + module_offset
@@ -99,9 +100,9 @@ def generate_dbc():
         message_ids.append(dbc_id)
         lines.append(f'BO_ {dbc_id} BMS_Debug_Response_{module}: 8 BMS_Module_{module}')
         lines.append(' SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host')
-        lines.append(' SG_ FW_Version_Major : 8|8@1+ (1,0) [0|255] "" CAN_Host')
-        lines.append(' SG_ FW_Version_Minor : 16|8@1+ (1,0) [0|255] "" CAN_Host')
-        lines.append(' SG_ FW_Version_Patch : 24|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append(' SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host')
+        lines.append(' SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host')
+        lines.append(' SG_ CPU_Usage_Percent : 24|8@1+ (1,0) [0|100] "%" CAN_Host')
         lines.append(' SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host')
         lines.append('')
         
@@ -152,14 +153,11 @@ def generate_dbc():
             lines.append('')
     
     # Comments
-    lines.append('CM_ BO_ 2297433856 "Config command broadcast to all modules - sets module ID";')
-    lines.append('CM_ SG_ 2297433856 Command "0x01=Set Module ID";')
     lines.append('CM_ BO_ 2297433872 "Debug info request broadcast to all modules";')
     lines.append('')
     
     # VFrameFormat attributes for all messages
     lines.append('// Extended CAN ID markers')
-    lines.append('BA_ "VFrameFormat" BO_ 2297433856 1;')
     lines.append('BA_ "VFrameFormat" BO_ 2297433872 1;')
     for msg_id in message_ids:
         lines.append(f'BA_ "VFrameFormat" BO_ {msg_id} 1;')
@@ -176,7 +174,11 @@ def generate_dbc():
     
     # Value tables
     lines.append('// Enumerations')
-    lines.append('VAL_ 2297433857 Status 0 "Success" 1 "Invalid_Value" 2 "Flash_Error" 3 "Reset_Required";')
+    # Config ACK Status for all modules
+    for module in range(6):
+        can_id = 0x08F00F01 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Status 0 "Success" 1 "Invalid_Value" 2 "Flash_Error" 3 "Reset_Required";')
     
     # BMS State for all heartbeat messages
     for module in range(6):
@@ -199,6 +201,7 @@ if __name__ == '__main__':
     # Count messages
     message_count = dbc_content.count('BO_ ')
     print(f"Total messages: {message_count}")
-    print(f"  - 2 broadcast messages")
-    print(f"  - 6 modules × 18 messages = 108 messages")
-    print(f"  - Total: 110 messages")
+    print(f"  - 1 broadcast message (Debug Request)")
+    print(f"  - 6 modules × 19 messages = 114 messages")
+    print(f"    (Config Command, Config ACK, Debug Response, Heartbeat, CAN Stats, 14 Temp)")
+    print(f"  - Total: 115 messages")

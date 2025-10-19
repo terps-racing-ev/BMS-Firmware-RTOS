@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
   29:Core/Src/can_manager.c **** static CAN_RxCallback_t rx_callback = NULL;
   30:Core/Src/can_manager.c **** static CAN_Statistics_t can_stats = {0};
   31:Core/Src/can_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 2
 
 
   32:Core/Src/can_manager.c **** /* Private function prototypes -----------------------------------------------*/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
   30              		@ args = 0, pretend = 0, frame = 40
   31              		@ frame_needed = 0, uses_anonymous_args = 0
   32 0000 00B5     		push	{lr}
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 3
 
 
   33              		.cfi_def_cfa_offset 4
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
   69              		.loc 1 101 39 is_stmt 0 view .LVU21
   70 001c 0E23     		movs	r3, #14
   71 001e 0993     		str	r3, [sp, #36]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 4
 
 
  102:Core/Src/can_manager.c ****     
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  132:Core/Src/can_manager.c ****         return HAL_ERROR;
  133:Core/Src/can_manager.c ****     }
  134:Core/Src/can_manager.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 5
 
 
  135:Core/Src/can_manager.c ****     // ID is already configured with module offset at startup
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  107              		.cfi_offset 14, -4
  108 0002 89B0     		sub	sp, sp, #36
  109              		.cfi_def_cfa_offset 48
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 6
 
 
  110 0004 0546     		mov	r5, r0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  148 0020 01AB     		add	r3, sp, #4
  149 0022 2A1D     		adds	r2, r5, #4
  150 0024 02A9     		add	r1, sp, #8
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 7
 
 
  151 0026 0D48     		ldr	r0, .L13
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  189              	.LVL10:
  190              	.L9:
  207:Core/Src/can_manager.c ****         }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 8
 
 
  208:Core/Src/can_manager.c ****     }
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  234              		.cfi_def_cfa_offset 32
  221:Core/Src/can_manager.c ****     CAN_Message_t msg;
  235              		.loc 1 221 5 view .LVU71
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 9
 
 
  222:Core/Src/can_manager.c ****     
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  280              		.cfi_startproc
  281              		@ args = 0, pretend = 0, frame = 0
  282              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 10
 
 
  283 0000 08B5     		push	{r3, lr}
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  330 0012 02D3     		bcc	.L34
  132:Core/Src/can_manager.c ****     }
  331              		.loc 1 132 16 view .LVU90
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 11
 
 
  332 0014 0120     		movs	r0, #1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  371 0036 0068     		ldr	r0, [r0]
  372 0038 FFF7FEFF 		bl	osMessageQueuePut
  373              	.LVL19:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 12
 
 
  150:Core/Src/can_manager.c ****         can_stats.tx_queue_full_count++;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  419              		.section	.text.CAN_SendMessageExt,"ax",%progbits
  420              		.align	1
  421              		.global	CAN_SendMessageExt
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 13
 
 
  422              		.syntax unified
@@ -767,130 +767,142 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  239:Core/Src/can_manager.c **** static void CAN_ProcessRxMessage(CAN_Message_t *msg)
  240:Core/Src/can_manager.c **** {
  241:Core/Src/can_manager.c ****     can_stats.rx_message_count++;
- 242:Core/Src/can_manager.c ****     
- 243:Core/Src/can_manager.c ****     // Check for configuration command message
- 244:Core/Src/can_manager.c ****     // Hardware filter already ensures this is for our module ID
- 245:Core/Src/can_manager.c ****     uint32_t base_id = msg->id & 0xFFFF0FFF;  // Strip module ID to get base ID
- 246:Core/Src/can_manager.c ****     if (base_id == (CAN_CONFIG_CMD_ID & 0xFFFF0FFF)) {
- 247:Core/Src/can_manager.c ****         // Process configuration command
- 248:Core/Src/can_manager.c ****         Config_ProcessCANCommand(msg->data, msg->length);
- 249:Core/Src/can_manager.c ****         return;
- 250:Core/Src/can_manager.c ****     }
- 251:Core/Src/can_manager.c ****     
- 252:Core/Src/can_manager.c ****     // Check for debug info request (broadcast message - no module ID)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 14
+ 242:Core/Src/can_manager.c **** 
+ 243:Core/Src/can_manager.c ****     // Check for debug info request FIRST (broadcast message - no module ID check)
+ 244:Core/Src/can_manager.c ****     if (msg->id == CAN_DEBUG_REQUEST_ID) {
+ 245:Core/Src/can_manager.c ****         // Send debug info response
+ 246:Core/Src/can_manager.c ****         CAN_SendDebugInfo();
+ 247:Core/Src/can_manager.c ****         return;
+ 248:Core/Src/can_manager.c ****     }
+ 249:Core/Src/can_manager.c **** 
+ 250:Core/Src/can_manager.c ****     // Extract module ID from received message (bits 15:12)
+ 251:Core/Src/can_manager.c ****     uint8_t rx_module_id = (msg->id >> 12) & 0x0F;
+ 252:Core/Src/can_manager.c ****     uint8_t our_module_id = Config_GetModuleID();
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 14
 
 
- 253:Core/Src/can_manager.c ****     if (msg->id == CAN_DEBUG_REQUEST_ID) {
- 254:Core/Src/can_manager.c ****         // Send debug info response
- 255:Core/Src/can_manager.c ****         CAN_SendDebugInfo();
- 256:Core/Src/can_manager.c ****         return;
- 257:Core/Src/can_manager.c ****     }
- 258:Core/Src/can_manager.c ****     
- 259:Core/Src/can_manager.c ****     // Call registered callback if available
- 260:Core/Src/can_manager.c ****     if (rx_callback != NULL) {
- 261:Core/Src/can_manager.c ****         rx_callback(msg);
- 262:Core/Src/can_manager.c ****     }
- 263:Core/Src/can_manager.c ****     
- 264:Core/Src/can_manager.c ****     // Add your message processing logic here
- 265:Core/Src/can_manager.c ****     // Example: Switch based on message ID
- 266:Core/Src/can_manager.c ****     switch (msg->id) {
- 267:Core/Src/can_manager.c ****         case 0x100:
- 268:Core/Src/can_manager.c ****             // Handle message ID 0x100
- 269:Core/Src/can_manager.c ****             // TODO: Add your message handling logic
- 270:Core/Src/can_manager.c ****             break;
- 271:Core/Src/can_manager.c ****             
- 272:Core/Src/can_manager.c ****         case 0x200:
- 273:Core/Src/can_manager.c ****             // Handle message ID 0x200
- 274:Core/Src/can_manager.c ****             // TODO: Add your message handling logic
- 275:Core/Src/can_manager.c ****             break;
- 276:Core/Src/can_manager.c ****             
- 277:Core/Src/can_manager.c ****         default:
- 278:Core/Src/can_manager.c ****             // Unknown message ID
+ 253:Core/Src/can_manager.c **** 
+ 254:Core/Src/can_manager.c ****     // **MODULE ID FILTERING: Reject all messages not addressed to our module**
+ 255:Core/Src/can_manager.c ****     // All messages except broadcast (already handled above) must match our module ID
+ 256:Core/Src/can_manager.c ****     if (rx_module_id != our_module_id) {
+ 257:Core/Src/can_manager.c ****         // Message is for a different module - ignore it
+ 258:Core/Src/can_manager.c ****         return;
+ 259:Core/Src/can_manager.c ****     }
+ 260:Core/Src/can_manager.c **** 
+ 261:Core/Src/can_manager.c ****     // Strip module ID to get base message ID (for message type identification)
+ 262:Core/Src/can_manager.c ****     uint32_t base_id = msg->id & 0xFFFF0FFF;
+ 263:Core/Src/can_manager.c **** 
+ 264:Core/Src/can_manager.c ****     // Check for configuration command message
+ 265:Core/Src/can_manager.c ****     if (base_id == (CAN_CONFIG_CMD_BASE & 0xFFFF0FFF)) {
+ 266:Core/Src/can_manager.c ****         Config_ProcessCANCommand(msg->data, msg->length);
+ 267:Core/Src/can_manager.c ****         return;
+ 268:Core/Src/can_manager.c ****     }// Call registered callback if available
+ 269:Core/Src/can_manager.c ****     if (rx_callback != NULL) {
+ 270:Core/Src/can_manager.c ****         rx_callback(msg);
+ 271:Core/Src/can_manager.c ****     }
+ 272:Core/Src/can_manager.c ****     
+ 273:Core/Src/can_manager.c ****     // Add your message processing logic here
+ 274:Core/Src/can_manager.c ****     // Example: Switch based on message ID
+ 275:Core/Src/can_manager.c ****     switch (msg->id) {
+ 276:Core/Src/can_manager.c ****         case 0x100:
+ 277:Core/Src/can_manager.c ****             // Handle message ID 0x100
+ 278:Core/Src/can_manager.c ****             // TODO: Add your message handling logic
  279:Core/Src/can_manager.c ****             break;
- 280:Core/Src/can_manager.c ****     }
- 281:Core/Src/can_manager.c **** }
- 282:Core/Src/can_manager.c **** 
- 283:Core/Src/can_manager.c **** /**
- 284:Core/Src/can_manager.c ****   * @brief  Main CAN manager task
- 285:Core/Src/can_manager.c ****   * @param  argument: Not used
- 286:Core/Src/can_manager.c ****   * @retval None
- 287:Core/Src/can_manager.c ****   */
- 288:Core/Src/can_manager.c **** void CAN_ManagerTask(void *argument)
- 289:Core/Src/can_manager.c **** {
- 290:Core/Src/can_manager.c ****     CAN_Message_t rx_msg;
- 291:Core/Src/can_manager.c ****     uint32_t last_heartbeat_tick = 0;
- 292:Core/Src/can_manager.c ****     uint32_t last_stats_tick = 0;
- 293:Core/Src/can_manager.c ****     uint32_t last_uptime_tick = 0;
- 294:Core/Src/can_manager.c ****     uint32_t current_tick = 0;
- 295:Core/Src/can_manager.c ****     
- 296:Core/Src/can_manager.c ****     // Wait 100ms for system to stabilize
- 297:Core/Src/can_manager.c ****     osDelay(100);
- 298:Core/Src/can_manager.c ****     
- 299:Core/Src/can_manager.c ****     // Initialize timing
- 300:Core/Src/can_manager.c ****     last_heartbeat_tick = osKernelGetTickCount();
- 301:Core/Src/can_manager.c ****     last_stats_tick = osKernelGetTickCount();
- 302:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
- 303:Core/Src/can_manager.c ****     
- 304:Core/Src/can_manager.c ****     /* Infinite loop */
- 305:Core/Src/can_manager.c ****     for(;;)
- 306:Core/Src/can_manager.c ****     {
- 307:Core/Src/can_manager.c ****         current_tick = osKernelGetTickCount();
- 308:Core/Src/can_manager.c ****         
- 309:Core/Src/can_manager.c ****         // Process any received messages from RX queue
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 15
+ 280:Core/Src/can_manager.c ****             
+ 281:Core/Src/can_manager.c ****         case 0x200:
+ 282:Core/Src/can_manager.c ****             // Handle message ID 0x200
+ 283:Core/Src/can_manager.c ****             // TODO: Add your message handling logic
+ 284:Core/Src/can_manager.c ****             break;
+ 285:Core/Src/can_manager.c ****             
+ 286:Core/Src/can_manager.c ****         default:
+ 287:Core/Src/can_manager.c ****             // Unknown message ID
+ 288:Core/Src/can_manager.c ****             break;
+ 289:Core/Src/can_manager.c ****     }
+ 290:Core/Src/can_manager.c **** }
+ 291:Core/Src/can_manager.c **** 
+ 292:Core/Src/can_manager.c **** /**
+ 293:Core/Src/can_manager.c ****   * @brief  Main CAN manager task
+ 294:Core/Src/can_manager.c ****   * @param  argument: Not used
+ 295:Core/Src/can_manager.c ****   * @retval None
+ 296:Core/Src/can_manager.c ****   */
+ 297:Core/Src/can_manager.c **** void CAN_ManagerTask(void *argument)
+ 298:Core/Src/can_manager.c **** {
+ 299:Core/Src/can_manager.c ****     CAN_Message_t rx_msg;
+ 300:Core/Src/can_manager.c ****     uint32_t last_heartbeat_tick = 0;
+ 301:Core/Src/can_manager.c ****     uint32_t last_stats_tick = 0;
+ 302:Core/Src/can_manager.c ****     uint32_t last_uptime_tick = 0;
+ 303:Core/Src/can_manager.c ****     uint32_t current_tick = 0;
+ 304:Core/Src/can_manager.c ****     
+ 305:Core/Src/can_manager.c ****     // Wait 100ms for system to stabilize
+ 306:Core/Src/can_manager.c ****     osDelay(100);
+ 307:Core/Src/can_manager.c ****     
+ 308:Core/Src/can_manager.c ****     // Initialize timing
+ 309:Core/Src/can_manager.c ****     last_heartbeat_tick = osKernelGetTickCount();
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 15
 
 
- 310:Core/Src/can_manager.c ****         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
- 311:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
- 312:Core/Src/can_manager.c ****         }
- 313:Core/Src/can_manager.c ****         
- 314:Core/Src/can_manager.c ****         // Process TX queue and send pending messages
- 315:Core/Src/can_manager.c ****         CAN_ProcessTxQueue();
- 316:Core/Src/can_manager.c ****         
- 317:Core/Src/can_manager.c ****         // Send heartbeat message at regular intervals
- 318:Core/Src/can_manager.c ****         if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
- 319:Core/Src/can_manager.c ****             CAN_SendHeartbeat();
- 320:Core/Src/can_manager.c ****             last_heartbeat_tick = current_tick;
+ 310:Core/Src/can_manager.c ****     last_stats_tick = osKernelGetTickCount();
+ 311:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
+ 312:Core/Src/can_manager.c ****     
+ 313:Core/Src/can_manager.c ****     /* Infinite loop */
+ 314:Core/Src/can_manager.c ****     for(;;)
+ 315:Core/Src/can_manager.c ****     {
+ 316:Core/Src/can_manager.c ****         current_tick = osKernelGetTickCount();
+ 317:Core/Src/can_manager.c ****         
+ 318:Core/Src/can_manager.c ****         // Process any received messages from RX queue
+ 319:Core/Src/can_manager.c ****         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
+ 320:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
  321:Core/Src/can_manager.c ****         }
  322:Core/Src/can_manager.c ****         
- 323:Core/Src/can_manager.c ****         // Send statistics message at regular intervals (every 1 second)
- 324:Core/Src/can_manager.c ****         if ((current_tick - last_stats_tick) >= 1000) {
- 325:Core/Src/can_manager.c ****             CAN_SendStatistics();
- 326:Core/Src/can_manager.c ****             last_stats_tick = current_tick;
- 327:Core/Src/can_manager.c ****         }
- 328:Core/Src/can_manager.c ****         
- 329:Core/Src/can_manager.c ****         // Update uptime counter every second
- 330:Core/Src/can_manager.c ****         if ((current_tick - last_uptime_tick) >= 1000) {
- 331:Core/Src/can_manager.c ****             ErrorMgr_UpdateUptime();
- 332:Core/Src/can_manager.c ****             last_uptime_tick = current_tick;
- 333:Core/Src/can_manager.c ****         }
- 334:Core/Src/can_manager.c ****         
- 335:Core/Src/can_manager.c ****         // Small delay to prevent task from hogging CPU (10ms)
- 336:Core/Src/can_manager.c ****         // The task will wake up on new messages or periodically
- 337:Core/Src/can_manager.c ****         osDelay(10);
- 338:Core/Src/can_manager.c ****     }
- 339:Core/Src/can_manager.c **** }
- 340:Core/Src/can_manager.c **** 
- 341:Core/Src/can_manager.c **** /**
- 342:Core/Src/can_manager.c ****   * @brief  Register callback for received CAN messages
- 343:Core/Src/can_manager.c ****   * @param  callback: Function to call when message is received
- 344:Core/Src/can_manager.c ****   * @retval None
- 345:Core/Src/can_manager.c ****   */
- 346:Core/Src/can_manager.c **** void CAN_RegisterRxCallback(CAN_RxCallback_t callback)
- 347:Core/Src/can_manager.c **** {
- 457              		.loc 1 347 1 is_stmt 1 view -0
+ 323:Core/Src/can_manager.c ****         // Process TX queue and send pending messages
+ 324:Core/Src/can_manager.c ****         CAN_ProcessTxQueue();
+ 325:Core/Src/can_manager.c ****         
+ 326:Core/Src/can_manager.c ****         // Send heartbeat message at regular intervals
+ 327:Core/Src/can_manager.c ****         if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
+ 328:Core/Src/can_manager.c ****             CAN_SendHeartbeat();
+ 329:Core/Src/can_manager.c ****             last_heartbeat_tick = current_tick;
+ 330:Core/Src/can_manager.c ****         }
+ 331:Core/Src/can_manager.c ****         
+ 332:Core/Src/can_manager.c ****         // Send statistics message at regular intervals (every 1 second)
+ 333:Core/Src/can_manager.c ****         if ((current_tick - last_stats_tick) >= 1000) {
+ 334:Core/Src/can_manager.c ****             CAN_SendStatistics();
+ 335:Core/Src/can_manager.c ****             last_stats_tick = current_tick;
+ 336:Core/Src/can_manager.c ****         }
+ 337:Core/Src/can_manager.c ****         
+ 338:Core/Src/can_manager.c ****         // Update uptime counter every second
+ 339:Core/Src/can_manager.c ****         if ((current_tick - last_uptime_tick) >= 1000) {
+ 340:Core/Src/can_manager.c ****             ErrorMgr_UpdateUptime();
+ 341:Core/Src/can_manager.c ****             last_uptime_tick = current_tick;
+ 342:Core/Src/can_manager.c ****         }
+ 343:Core/Src/can_manager.c ****         
+ 344:Core/Src/can_manager.c ****         // Small delay to prevent task from hogging CPU (10ms)
+ 345:Core/Src/can_manager.c ****         // The task will wake up on new messages or periodically
+ 346:Core/Src/can_manager.c ****         osDelay(10);
+ 347:Core/Src/can_manager.c ****     }
+ 348:Core/Src/can_manager.c **** }
+ 349:Core/Src/can_manager.c **** 
+ 350:Core/Src/can_manager.c **** /**
+ 351:Core/Src/can_manager.c ****   * @brief  Register callback for received CAN messages
+ 352:Core/Src/can_manager.c ****   * @param  callback: Function to call when message is received
+ 353:Core/Src/can_manager.c ****   * @retval None
+ 354:Core/Src/can_manager.c ****   */
+ 355:Core/Src/can_manager.c **** void CAN_RegisterRxCallback(CAN_RxCallback_t callback)
+ 356:Core/Src/can_manager.c **** {
+ 457              		.loc 1 356 1 is_stmt 1 view -0
  458              		.cfi_startproc
  459              		@ args = 0, pretend = 0, frame = 0
  460              		@ frame_needed = 0, uses_anonymous_args = 0
  461              		@ link register save eliminated.
- 348:Core/Src/can_manager.c ****     rx_callback = callback;
- 462              		.loc 1 348 5 view .LVU122
- 463              		.loc 1 348 17 is_stmt 0 view .LVU123
+ 357:Core/Src/can_manager.c ****     rx_callback = callback;
+ 462              		.loc 1 357 5 view .LVU122
+ 463              		.loc 1 357 17 is_stmt 0 view .LVU123
  464 0000 014B     		ldr	r3, .L42
  465 0002 1860     		str	r0, [r3]
- 349:Core/Src/can_manager.c **** }
- 466              		.loc 1 349 1 view .LVU124
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 16
+
+
+ 358:Core/Src/can_manager.c **** }
+ 466              		.loc 1 358 1 view .LVU124
  467 0004 7047     		bx	lr
  468              	.L43:
  469 0006 00BF     		.align	2
@@ -898,9 +910,6 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  471 0008 00000000 		.word	rx_callback
  472              		.cfi_endproc
  473              	.LFE301:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 16
-
-
  475              		.section	.text.CAN_GetStatistics,"ax",%progbits
  476              		.align	1
  477              		.global	CAN_GetStatistics
@@ -910,35 +919,35 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  482              	CAN_GetStatistics:
  483              	.LVL26:
  484              	.LFB302:
- 350:Core/Src/can_manager.c **** 
- 351:Core/Src/can_manager.c **** /**
- 352:Core/Src/can_manager.c ****   * @brief  Get CAN statistics
- 353:Core/Src/can_manager.c ****   * @param  stats: Pointer to statistics structure
- 354:Core/Src/can_manager.c ****   * @retval None
- 355:Core/Src/can_manager.c ****   */
- 356:Core/Src/can_manager.c **** void CAN_GetStatistics(CAN_Statistics_t *stats)
- 357:Core/Src/can_manager.c **** {
- 485              		.loc 1 357 1 is_stmt 1 view -0
+ 359:Core/Src/can_manager.c **** 
+ 360:Core/Src/can_manager.c **** /**
+ 361:Core/Src/can_manager.c ****   * @brief  Get CAN statistics
+ 362:Core/Src/can_manager.c ****   * @param  stats: Pointer to statistics structure
+ 363:Core/Src/can_manager.c ****   * @retval None
+ 364:Core/Src/can_manager.c ****   */
+ 365:Core/Src/can_manager.c **** void CAN_GetStatistics(CAN_Statistics_t *stats)
+ 366:Core/Src/can_manager.c **** {
+ 485              		.loc 1 366 1 is_stmt 1 view -0
  486              		.cfi_startproc
  487              		@ args = 0, pretend = 0, frame = 0
  488              		@ frame_needed = 0, uses_anonymous_args = 0
  489              		@ link register save eliminated.
- 358:Core/Src/can_manager.c ****     if (stats != NULL) {
- 490              		.loc 1 358 5 view .LVU126
- 491              		.loc 1 358 8 is_stmt 0 view .LVU127
+ 367:Core/Src/can_manager.c ****     if (stats != NULL) {
+ 490              		.loc 1 367 5 view .LVU126
+ 491              		.loc 1 367 8 is_stmt 0 view .LVU127
  492 0000 98B1     		cbz	r0, .L47
- 357:Core/Src/can_manager.c ****     if (stats != NULL) {
- 493              		.loc 1 357 1 view .LVU128
+ 366:Core/Src/can_manager.c ****     if (stats != NULL) {
+ 493              		.loc 1 366 1 view .LVU128
  494 0002 10B4     		push	{r4}
  495              		.cfi_def_cfa_offset 4
  496              		.cfi_offset 4, -4
  497 0004 8446     		mov	ip, r0
- 359:Core/Src/can_manager.c ****         memcpy(stats, &can_stats, sizeof(CAN_Statistics_t));
- 498              		.loc 1 359 9 is_stmt 1 view .LVU129
+ 368:Core/Src/can_manager.c ****         memcpy(stats, &can_stats, sizeof(CAN_Statistics_t));
+ 498              		.loc 1 368 9 is_stmt 1 view .LVU129
  499 0006 094C     		ldr	r4, .L50
  500 0008 0FCC     		ldmia	r4!, {r0, r1, r2, r3}
  501              	.LVL27:
- 502              		.loc 1 359 9 is_stmt 0 view .LVU130
+ 502              		.loc 1 368 9 is_stmt 0 view .LVU130
  503 000a CCF80000 		str	r0, [ip]	@ unaligned
  504 000e CCF80410 		str	r1, [ip, #4]	@ unaligned
  505 0012 CCF80820 		str	r2, [ip, #8]	@ unaligned
@@ -946,21 +955,21 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  507 001a 03CC     		ldmia	r4!, {r0, r1}
  508 001c CCF81000 		str	r0, [ip, #16]	@ unaligned
  509 0020 CCF81410 		str	r1, [ip, #20]	@ unaligned
- 360:Core/Src/can_manager.c ****     }
- 361:Core/Src/can_manager.c **** }
- 510              		.loc 1 361 1 view .LVU131
+ 369:Core/Src/can_manager.c ****     }
+ 370:Core/Src/can_manager.c **** }
+ 510              		.loc 1 370 1 view .LVU131
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 17
+
+
  511 0024 5DF8044B 		ldr	r4, [sp], #4
  512              		.cfi_restore 4
  513              		.cfi_def_cfa_offset 0
  514 0028 7047     		bx	lr
  515              	.LVL28:
  516              	.L47:
- 517              		.loc 1 361 1 view .LVU132
+ 517              		.loc 1 370 1 view .LVU132
  518 002a 7047     		bx	lr
  519              	.L51:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 17
-
-
  520              		.align	2
  521              	.L50:
  522 002c 00000000 		.word	can_stats
@@ -974,20 +983,20 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  531              		.thumb_func
  533              	CAN_ResetStatistics:
  534              	.LFB303:
- 362:Core/Src/can_manager.c **** 
- 363:Core/Src/can_manager.c **** /**
- 364:Core/Src/can_manager.c ****   * @brief  Reset CAN statistics
- 365:Core/Src/can_manager.c ****   * @retval None
- 366:Core/Src/can_manager.c ****   */
- 367:Core/Src/can_manager.c **** void CAN_ResetStatistics(void)
- 368:Core/Src/can_manager.c **** {
- 535              		.loc 1 368 1 is_stmt 1 view -0
+ 371:Core/Src/can_manager.c **** 
+ 372:Core/Src/can_manager.c **** /**
+ 373:Core/Src/can_manager.c ****   * @brief  Reset CAN statistics
+ 374:Core/Src/can_manager.c ****   * @retval None
+ 375:Core/Src/can_manager.c ****   */
+ 376:Core/Src/can_manager.c **** void CAN_ResetStatistics(void)
+ 377:Core/Src/can_manager.c **** {
+ 535              		.loc 1 377 1 is_stmt 1 view -0
  536              		.cfi_startproc
  537              		@ args = 0, pretend = 0, frame = 0
  538              		@ frame_needed = 0, uses_anonymous_args = 0
  539              		@ link register save eliminated.
- 369:Core/Src/can_manager.c ****     memset(&can_stats, 0, sizeof(CAN_Statistics_t));
- 540              		.loc 1 369 5 view .LVU134
+ 378:Core/Src/can_manager.c ****     memset(&can_stats, 0, sizeof(CAN_Statistics_t));
+ 540              		.loc 1 378 5 view .LVU134
  541 0000 044B     		ldr	r3, .L53
  542 0002 0022     		movs	r2, #0
  543 0004 1A60     		str	r2, [r3]
@@ -996,8 +1005,8 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  546 000a DA60     		str	r2, [r3, #12]
  547 000c 1A61     		str	r2, [r3, #16]
  548 000e 5A61     		str	r2, [r3, #20]
- 370:Core/Src/can_manager.c **** }
- 549              		.loc 1 370 1 is_stmt 0 view .LVU135
+ 379:Core/Src/can_manager.c **** }
+ 549              		.loc 1 379 1 is_stmt 0 view .LVU135
  550 0010 7047     		bx	lr
  551              	.L54:
  552 0012 00BF     		.align	2
@@ -1009,6 +1018,9 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  559              		.align	1
  560              		.global	CAN_Manager_Init
  561              		.syntax unified
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 18
+
+
  562              		.thumb
  563              		.thumb_func
  565              	CAN_Manager_Init:
@@ -1018,9 +1030,6 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  568              		.cfi_startproc
  569              		@ args = 0, pretend = 0, frame = 0
  570              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 18
-
-
  571 0000 10B5     		push	{r4, lr}
  572              		.cfi_def_cfa_offset 8
  573              		.cfi_offset 4, -8
@@ -1069,6 +1078,9 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  604 0026 0948     		ldr	r0, .L62+8
  605 0028 FFF7FEFF 		bl	HAL_CAN_ActivateNotification
  606              	.LVL31:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 19
+
+
   63:Core/Src/can_manager.c ****                                               CAN_IT_RX_FIFO1_MSG_PENDING |
  607              		.loc 1 63 8 discriminator 1 view .LVU149
  608 002c 0446     		mov	r4, r0
@@ -1078,9 +1090,6 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  611 0030 0124     		movs	r4, #1
  612 0032 03E0     		b	.L56
  613              	.L61:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 19
-
-
   71:Core/Src/can_manager.c ****     
  614              		.loc 1 71 5 is_stmt 1 view .LVU151
  615 0034 FFF7FEFF 		bl	CAN_ResetStatistics
@@ -1120,33 +1129,33 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  645              		.thumb_func
  647              	CAN_GetTxQueueCount:
  648              	.LFB304:
- 371:Core/Src/can_manager.c **** 
- 372:Core/Src/can_manager.c **** /**
- 373:Core/Src/can_manager.c ****   * @brief  Get TX queue fill level
- 374:Core/Src/can_manager.c ****   * @retval Number of messages waiting in TX queue
- 375:Core/Src/can_manager.c ****   */
- 376:Core/Src/can_manager.c **** uint32_t CAN_GetTxQueueCount(void)
- 377:Core/Src/can_manager.c **** {
- 649              		.loc 1 377 1 is_stmt 1 view -0
+ 380:Core/Src/can_manager.c **** 
+ 381:Core/Src/can_manager.c **** /**
+ 382:Core/Src/can_manager.c ****   * @brief  Get TX queue fill level
+ 383:Core/Src/can_manager.c ****   * @retval Number of messages waiting in TX queue
+ 384:Core/Src/can_manager.c ****   */
+ 385:Core/Src/can_manager.c **** uint32_t CAN_GetTxQueueCount(void)
+ 386:Core/Src/can_manager.c **** {
+ 649              		.loc 1 386 1 is_stmt 1 view -0
  650              		.cfi_startproc
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 20
+
+
  651              		@ args = 0, pretend = 0, frame = 0
  652              		@ frame_needed = 0, uses_anonymous_args = 0
  653 0000 08B5     		push	{r3, lr}
  654              		.cfi_def_cfa_offset 8
  655              		.cfi_offset 3, -8
  656              		.cfi_offset 14, -4
- 378:Core/Src/can_manager.c ****     return osMessageQueueGetCount(CANTxQueueHandle);
- 657              		.loc 1 378 5 view .LVU158
- 658              		.loc 1 378 12 is_stmt 0 view .LVU159
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 20
-
-
+ 387:Core/Src/can_manager.c ****     return osMessageQueueGetCount(CANTxQueueHandle);
+ 657              		.loc 1 387 5 view .LVU158
+ 658              		.loc 1 387 12 is_stmt 0 view .LVU159
  659 0002 024B     		ldr	r3, .L66
  660 0004 1868     		ldr	r0, [r3]
  661 0006 FFF7FEFF 		bl	osMessageQueueGetCount
  662              	.LVL33:
- 379:Core/Src/can_manager.c **** }
- 663              		.loc 1 379 1 view .LVU160
+ 388:Core/Src/can_manager.c **** }
+ 663              		.loc 1 388 1 view .LVU160
  664 000a 08BD     		pop	{r3, pc}
  665              	.L67:
  666              		.align	2
@@ -1162,14 +1171,14 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  677              		.thumb_func
  679              	CAN_GetRxQueueCount:
  680              	.LFB305:
- 380:Core/Src/can_manager.c **** 
- 381:Core/Src/can_manager.c **** /**
- 382:Core/Src/can_manager.c ****   * @brief  Get RX queue fill level
- 383:Core/Src/can_manager.c ****   * @retval Number of unprocessed received messages
- 384:Core/Src/can_manager.c ****   */
- 385:Core/Src/can_manager.c **** uint32_t CAN_GetRxQueueCount(void)
- 386:Core/Src/can_manager.c **** {
- 681              		.loc 1 386 1 is_stmt 1 view -0
+ 389:Core/Src/can_manager.c **** 
+ 390:Core/Src/can_manager.c **** /**
+ 391:Core/Src/can_manager.c ****   * @brief  Get RX queue fill level
+ 392:Core/Src/can_manager.c ****   * @retval Number of unprocessed received messages
+ 393:Core/Src/can_manager.c ****   */
+ 394:Core/Src/can_manager.c **** uint32_t CAN_GetRxQueueCount(void)
+ 395:Core/Src/can_manager.c **** {
+ 681              		.loc 1 395 1 is_stmt 1 view -0
  682              		.cfi_startproc
  683              		@ args = 0, pretend = 0, frame = 0
  684              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1177,18 +1186,21 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  686              		.cfi_def_cfa_offset 8
  687              		.cfi_offset 3, -8
  688              		.cfi_offset 14, -4
- 387:Core/Src/can_manager.c ****     return osMessageQueueGetCount(CANRxQueueHandle);
- 689              		.loc 1 387 5 view .LVU162
- 690              		.loc 1 387 12 is_stmt 0 view .LVU163
+ 396:Core/Src/can_manager.c ****     return osMessageQueueGetCount(CANRxQueueHandle);
+ 689              		.loc 1 396 5 view .LVU162
+ 690              		.loc 1 396 12 is_stmt 0 view .LVU163
  691 0002 024B     		ldr	r3, .L70
  692 0004 1868     		ldr	r0, [r3]
  693 0006 FFF7FEFF 		bl	osMessageQueueGetCount
  694              	.LVL34:
- 388:Core/Src/can_manager.c **** }
- 695              		.loc 1 388 1 view .LVU164
+ 397:Core/Src/can_manager.c **** }
+ 695              		.loc 1 397 1 view .LVU164
  696 000a 08BD     		pop	{r3, pc}
  697              	.L71:
  698              		.align	2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 21
+
+
  699              	.L70:
  700 000c 00000000 		.word	CANRxQueueHandle
  701              		.cfi_endproc
@@ -1198,20 +1210,17 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  706              		.global	CAN_FlushTxQueue
  707              		.syntax unified
  708              		.thumb
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 21
-
-
  709              		.thumb_func
  711              	CAN_FlushTxQueue:
  712              	.LFB306:
- 389:Core/Src/can_manager.c **** 
- 390:Core/Src/can_manager.c **** /**
- 391:Core/Src/can_manager.c ****   * @brief  Flush TX queue (clear all pending messages)
- 392:Core/Src/can_manager.c ****   * @retval Number of messages flushed
- 393:Core/Src/can_manager.c ****   */
- 394:Core/Src/can_manager.c **** uint32_t CAN_FlushTxQueue(void)
- 395:Core/Src/can_manager.c **** {
- 713              		.loc 1 395 1 is_stmt 1 view -0
+ 398:Core/Src/can_manager.c **** 
+ 399:Core/Src/can_manager.c **** /**
+ 400:Core/Src/can_manager.c ****   * @brief  Flush TX queue (clear all pending messages)
+ 401:Core/Src/can_manager.c ****   * @retval Number of messages flushed
+ 402:Core/Src/can_manager.c ****   */
+ 403:Core/Src/can_manager.c **** uint32_t CAN_FlushTxQueue(void)
+ 404:Core/Src/can_manager.c **** {
+ 713              		.loc 1 404 1 is_stmt 1 view -0
  714              		.cfi_startproc
  715              		@ args = 0, pretend = 0, frame = 24
  716              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1221,51 +1230,51 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  720              		.cfi_offset 14, -4
  721 0002 86B0     		sub	sp, sp, #24
  722              		.cfi_def_cfa_offset 32
- 396:Core/Src/can_manager.c ****     CAN_Message_t dummy_msg;
- 723              		.loc 1 396 5 view .LVU166
- 397:Core/Src/can_manager.c ****     uint32_t count = 0;
- 724              		.loc 1 397 5 view .LVU167
+ 405:Core/Src/can_manager.c ****     CAN_Message_t dummy_msg;
+ 723              		.loc 1 405 5 view .LVU166
+ 406:Core/Src/can_manager.c ****     uint32_t count = 0;
+ 724              		.loc 1 406 5 view .LVU167
  725              	.LVL35:
- 398:Core/Src/can_manager.c ****     
- 399:Core/Src/can_manager.c ****     while (osMessageQueueGet(CANTxQueueHandle, &dummy_msg, NULL, 0) == osOK) {
- 726              		.loc 1 399 5 view .LVU168
- 397:Core/Src/can_manager.c ****     uint32_t count = 0;
- 727              		.loc 1 397 14 is_stmt 0 view .LVU169
+ 407:Core/Src/can_manager.c ****     
+ 408:Core/Src/can_manager.c ****     while (osMessageQueueGet(CANTxQueueHandle, &dummy_msg, NULL, 0) == osOK) {
+ 726              		.loc 1 408 5 view .LVU168
+ 406:Core/Src/can_manager.c ****     uint32_t count = 0;
+ 727              		.loc 1 406 14 is_stmt 0 view .LVU169
  728 0004 0024     		movs	r4, #0
- 729              		.loc 1 399 11 view .LVU170
+ 729              		.loc 1 408 11 view .LVU170
  730 0006 00E0     		b	.L73
  731              	.LVL36:
  732              	.L74:
- 400:Core/Src/can_manager.c ****         count++;
- 733              		.loc 1 400 9 is_stmt 1 view .LVU171
- 734              		.loc 1 400 14 is_stmt 0 view .LVU172
+ 409:Core/Src/can_manager.c ****         count++;
+ 733              		.loc 1 409 9 is_stmt 1 view .LVU171
+ 734              		.loc 1 409 14 is_stmt 0 view .LVU172
  735 0008 0134     		adds	r4, r4, #1
  736              	.LVL37:
  737              	.L73:
- 399:Core/Src/can_manager.c ****         count++;
- 738              		.loc 1 399 69 is_stmt 1 view .LVU173
- 399:Core/Src/can_manager.c ****         count++;
- 739              		.loc 1 399 12 is_stmt 0 view .LVU174
+ 408:Core/Src/can_manager.c ****         count++;
+ 738              		.loc 1 408 69 is_stmt 1 view .LVU173
+ 408:Core/Src/can_manager.c ****         count++;
+ 739              		.loc 1 408 12 is_stmt 0 view .LVU174
  740 000a 0023     		movs	r3, #0
  741 000c 1A46     		mov	r2, r3
  742 000e 01A9     		add	r1, sp, #4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 22
+
+
  743 0010 0448     		ldr	r0, .L76
  744 0012 0068     		ldr	r0, [r0]
  745 0014 FFF7FEFF 		bl	osMessageQueueGet
  746              	.LVL38:
- 399:Core/Src/can_manager.c ****         count++;
- 747              		.loc 1 399 69 discriminator 1 view .LVU175
+ 408:Core/Src/can_manager.c ****         count++;
+ 747              		.loc 1 408 69 discriminator 1 view .LVU175
  748 0018 0028     		cmp	r0, #0
  749 001a F5D0     		beq	.L74
- 401:Core/Src/can_manager.c ****     }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 22
-
-
- 402:Core/Src/can_manager.c ****     
- 403:Core/Src/can_manager.c ****     return count;
- 750              		.loc 1 403 5 is_stmt 1 view .LVU176
- 404:Core/Src/can_manager.c **** }
- 751              		.loc 1 404 1 is_stmt 0 view .LVU177
+ 410:Core/Src/can_manager.c ****     }
+ 411:Core/Src/can_manager.c ****     
+ 412:Core/Src/can_manager.c ****     return count;
+ 750              		.loc 1 412 5 is_stmt 1 view .LVU176
+ 413:Core/Src/can_manager.c **** }
+ 751              		.loc 1 413 1 is_stmt 0 view .LVU177
  752 001c 2046     		mov	r0, r4
  753 001e 06B0     		add	sp, sp, #24
  754              		.cfi_def_cfa_offset 8
@@ -1273,7 +1282,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  756 0020 10BD     		pop	{r4, pc}
  757              	.LVL39:
  758              	.L77:
- 759              		.loc 1 404 1 view .LVU178
+ 759              		.loc 1 413 1 view .LVU178
  760 0022 00BF     		.align	2
  761              	.L76:
  762 0024 00000000 		.word	CANTxQueueHandle
@@ -1288,60 +1297,60 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  773              	HAL_CAN_RxFifo0MsgPendingCallback:
  774              	.LVL40:
  775              	.LFB307:
- 405:Core/Src/can_manager.c **** 
- 406:Core/Src/can_manager.c **** /* CAN RX Interrupt Callbacks ------------------------------------------------*/
- 407:Core/Src/can_manager.c **** 
- 408:Core/Src/can_manager.c **** /**
- 409:Core/Src/can_manager.c ****   * @brief  CAN RX FIFO 0 message pending callback
- 410:Core/Src/can_manager.c ****   * @param  hcan: pointer to CAN handle
- 411:Core/Src/can_manager.c ****   * @retval None
- 412:Core/Src/can_manager.c ****   */
- 413:Core/Src/can_manager.c **** void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
- 414:Core/Src/can_manager.c **** {
- 776              		.loc 1 414 1 is_stmt 1 view -0
+ 414:Core/Src/can_manager.c **** 
+ 415:Core/Src/can_manager.c **** /* CAN RX Interrupt Callbacks ------------------------------------------------*/
+ 416:Core/Src/can_manager.c **** 
+ 417:Core/Src/can_manager.c **** /**
+ 418:Core/Src/can_manager.c ****   * @brief  CAN RX FIFO 0 message pending callback
+ 419:Core/Src/can_manager.c ****   * @param  hcan: pointer to CAN handle
+ 420:Core/Src/can_manager.c ****   * @retval None
+ 421:Core/Src/can_manager.c ****   */
+ 422:Core/Src/can_manager.c **** void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
+ 423:Core/Src/can_manager.c **** {
+ 776              		.loc 1 423 1 is_stmt 1 view -0
  777              		.cfi_startproc
  778              		@ args = 0, pretend = 0, frame = 48
  779              		@ frame_needed = 0, uses_anonymous_args = 0
- 780              		.loc 1 414 1 is_stmt 0 view .LVU180
+ 780              		.loc 1 423 1 is_stmt 0 view .LVU180
  781 0000 10B5     		push	{r4, lr}
  782              		.cfi_def_cfa_offset 8
  783              		.cfi_offset 4, -8
  784              		.cfi_offset 14, -4
  785 0002 8CB0     		sub	sp, sp, #48
  786              		.cfi_def_cfa_offset 56
- 415:Core/Src/can_manager.c ****     CAN_RxHeaderTypeDef RxHeader;
- 787              		.loc 1 415 5 is_stmt 1 view .LVU181
- 416:Core/Src/can_manager.c ****     CAN_Message_t msg;
- 788              		.loc 1 416 5 view .LVU182
- 417:Core/Src/can_manager.c ****     
- 418:Core/Src/can_manager.c ****     // Get message from FIFO
- 419:Core/Src/can_manager.c ****     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, msg.data) == HAL_OK) {
- 789              		.loc 1 419 5 view .LVU183
- 790              		.loc 1 419 9 is_stmt 0 view .LVU184
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 23
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 23
 
 
+ 424:Core/Src/can_manager.c ****     CAN_RxHeaderTypeDef RxHeader;
+ 787              		.loc 1 424 5 is_stmt 1 view .LVU181
+ 425:Core/Src/can_manager.c ****     CAN_Message_t msg;
+ 788              		.loc 1 425 5 view .LVU182
+ 426:Core/Src/can_manager.c ****     
+ 427:Core/Src/can_manager.c ****     // Get message from FIFO
+ 428:Core/Src/can_manager.c ****     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, msg.data) == HAL_OK) {
+ 789              		.loc 1 428 5 view .LVU183
+ 790              		.loc 1 428 9 is_stmt 0 view .LVU184
  791 0004 01AB     		add	r3, sp, #4
  792 0006 05AA     		add	r2, sp, #20
  793 0008 0021     		movs	r1, #0
  794 000a FFF7FEFF 		bl	HAL_CAN_GetRxMessage
  795              	.LVL41:
- 796              		.loc 1 419 8 discriminator 1 view .LVU185
+ 796              		.loc 1 428 8 discriminator 1 view .LVU185
  797 000e 08B1     		cbz	r0, .L81
  798              	.L78:
- 420:Core/Src/can_manager.c ****         // Store message details (all messages are extended ID)
- 421:Core/Src/can_manager.c ****         msg.id = RxHeader.ExtId;
- 422:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 423:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 424:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
- 425:Core/Src/can_manager.c ****         
- 426:Core/Src/can_manager.c ****         // Add to RX queue (from ISR context)
- 427:Core/Src/can_manager.c ****         if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
- 428:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 429:Core/Src/can_manager.c ****         }
- 430:Core/Src/can_manager.c ****     }
- 431:Core/Src/can_manager.c **** }
- 799              		.loc 1 431 1 view .LVU186
+ 429:Core/Src/can_manager.c ****         // Store message details (all messages are extended ID)
+ 430:Core/Src/can_manager.c ****         msg.id = RxHeader.ExtId;
+ 431:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 432:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 433:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
+ 434:Core/Src/can_manager.c ****         
+ 435:Core/Src/can_manager.c ****         // Add to RX queue (from ISR context)
+ 436:Core/Src/can_manager.c ****         if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
+ 437:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 438:Core/Src/can_manager.c ****         }
+ 439:Core/Src/can_manager.c ****     }
+ 440:Core/Src/can_manager.c **** }
+ 799              		.loc 1 440 1 view .LVU186
  800 0010 0CB0     		add	sp, sp, #48
  801              		.cfi_remember_state
  802              		.cfi_def_cfa_offset 8
@@ -1349,44 +1358,44 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  804 0012 10BD     		pop	{r4, pc}
  805              	.L81:
  806              		.cfi_restore_state
- 421:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 807              		.loc 1 421 9 is_stmt 1 view .LVU187
- 421:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 808              		.loc 1 421 26 is_stmt 0 view .LVU188
+ 430:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 807              		.loc 1 430 9 is_stmt 1 view .LVU187
+ 430:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 808              		.loc 1 430 26 is_stmt 0 view .LVU188
  809 0014 069B     		ldr	r3, [sp, #24]
- 421:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 810              		.loc 1 421 16 view .LVU189
+ 430:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 810              		.loc 1 430 16 view .LVU189
  811 0016 0093     		str	r3, [sp]
- 422:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 812              		.loc 1 422 9 is_stmt 1 view .LVU190
- 422:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 813              		.loc 1 422 30 is_stmt 0 view .LVU191
+ 431:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 812              		.loc 1 431 9 is_stmt 1 view .LVU190
+ 431:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 813              		.loc 1 431 30 is_stmt 0 view .LVU191
  814 0018 099B     		ldr	r3, [sp, #36]
- 422:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 815              		.loc 1 422 20 view .LVU192
+ 431:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 815              		.loc 1 431 20 view .LVU192
  816 001a 8DF80C30 		strb	r3, [sp, #12]
- 423:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
- 817              		.loc 1 423 9 is_stmt 1 view .LVU193
- 423:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
- 818              		.loc 1 423 22 is_stmt 0 view .LVU194
+ 432:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
+ 817              		.loc 1 432 9 is_stmt 1 view .LVU193
+ 432:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
+ 818              		.loc 1 432 22 is_stmt 0 view .LVU194
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 24
+
+
  819 001e 0024     		movs	r4, #0
  820 0020 8DF80D40 		strb	r4, [sp, #13]
- 424:Core/Src/can_manager.c ****         
- 821              		.loc 1 424 9 is_stmt 1 view .LVU195
- 424:Core/Src/can_manager.c ****         
- 822              		.loc 1 424 25 is_stmt 0 view .LVU196
+ 433:Core/Src/can_manager.c ****         
+ 821              		.loc 1 433 9 is_stmt 1 view .LVU195
+ 433:Core/Src/can_manager.c ****         
+ 822              		.loc 1 433 25 is_stmt 0 view .LVU196
  823 0024 FFF7FEFF 		bl	osKernelGetTickCount
  824              	.LVL42:
- 424:Core/Src/can_manager.c ****         
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 24
-
-
- 825              		.loc 1 424 23 discriminator 1 view .LVU197
+ 433:Core/Src/can_manager.c ****         
+ 825              		.loc 1 433 23 discriminator 1 view .LVU197
  826 0028 0490     		str	r0, [sp, #16]
- 427:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 827              		.loc 1 427 9 is_stmt 1 view .LVU198
- 427:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 828              		.loc 1 427 13 is_stmt 0 view .LVU199
+ 436:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 827              		.loc 1 436 9 is_stmt 1 view .LVU198
+ 436:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 828              		.loc 1 436 13 is_stmt 0 view .LVU199
  829 002a 2346     		mov	r3, r4
  830 002c 2246     		mov	r2, r4
  831 002e 6946     		mov	r1, sp
@@ -1394,21 +1403,21 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  833 0032 0068     		ldr	r0, [r0]
  834 0034 FFF7FEFF 		bl	osMessageQueuePut
  835              	.LVL43:
- 427:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 836              		.loc 1 427 12 discriminator 1 view .LVU200
+ 436:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 836              		.loc 1 436 12 discriminator 1 view .LVU200
  837 0038 0028     		cmp	r0, #0
  838 003a E9D0     		beq	.L78
- 428:Core/Src/can_manager.c ****         }
- 839              		.loc 1 428 13 is_stmt 1 view .LVU201
- 428:Core/Src/can_manager.c ****         }
- 840              		.loc 1 428 22 is_stmt 0 view .LVU202
+ 437:Core/Src/can_manager.c ****         }
+ 839              		.loc 1 437 13 is_stmt 1 view .LVU201
+ 437:Core/Src/can_manager.c ****         }
+ 840              		.loc 1 437 22 is_stmt 0 view .LVU202
  841 003c 034A     		ldr	r2, .L82+4
  842 003e 1369     		ldr	r3, [r2, #16]
- 428:Core/Src/can_manager.c ****         }
- 843              		.loc 1 428 42 view .LVU203
+ 437:Core/Src/can_manager.c ****         }
+ 843              		.loc 1 437 42 view .LVU203
  844 0040 0133     		adds	r3, r3, #1
  845 0042 1361     		str	r3, [r2, #16]
- 846              		.loc 1 431 1 view .LVU204
+ 846              		.loc 1 440 1 view .LVU204
  847 0044 E4E7     		b	.L78
  848              	.L83:
  849 0046 00BF     		.align	2
@@ -1426,58 +1435,58 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  863              	HAL_CAN_RxFifo1MsgPendingCallback:
  864              	.LVL44:
  865              	.LFB308:
- 432:Core/Src/can_manager.c **** 
- 433:Core/Src/can_manager.c **** /**
- 434:Core/Src/can_manager.c ****   * @brief  CAN RX FIFO 1 message pending callback
- 435:Core/Src/can_manager.c ****   * @param  hcan: pointer to CAN handle
- 436:Core/Src/can_manager.c ****   * @retval None
- 437:Core/Src/can_manager.c ****   */
- 438:Core/Src/can_manager.c **** void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
- 439:Core/Src/can_manager.c **** {
- 866              		.loc 1 439 1 is_stmt 1 view -0
+ 441:Core/Src/can_manager.c **** 
+ 442:Core/Src/can_manager.c **** /**
+ 443:Core/Src/can_manager.c ****   * @brief  CAN RX FIFO 1 message pending callback
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 25
+
+
+ 444:Core/Src/can_manager.c ****   * @param  hcan: pointer to CAN handle
+ 445:Core/Src/can_manager.c ****   * @retval None
+ 446:Core/Src/can_manager.c ****   */
+ 447:Core/Src/can_manager.c **** void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
+ 448:Core/Src/can_manager.c **** {
+ 866              		.loc 1 448 1 is_stmt 1 view -0
  867              		.cfi_startproc
  868              		@ args = 0, pretend = 0, frame = 48
  869              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 25
-
-
- 870              		.loc 1 439 1 is_stmt 0 view .LVU206
+ 870              		.loc 1 448 1 is_stmt 0 view .LVU206
  871 0000 10B5     		push	{r4, lr}
  872              		.cfi_def_cfa_offset 8
  873              		.cfi_offset 4, -8
  874              		.cfi_offset 14, -4
  875 0002 8CB0     		sub	sp, sp, #48
  876              		.cfi_def_cfa_offset 56
- 440:Core/Src/can_manager.c ****     CAN_RxHeaderTypeDef RxHeader;
- 877              		.loc 1 440 5 is_stmt 1 view .LVU207
- 441:Core/Src/can_manager.c ****     CAN_Message_t msg;
- 878              		.loc 1 441 5 view .LVU208
- 442:Core/Src/can_manager.c ****     
- 443:Core/Src/can_manager.c ****     // Get message from FIFO
- 444:Core/Src/can_manager.c ****     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, msg.data) == HAL_OK) {
- 879              		.loc 1 444 5 view .LVU209
- 880              		.loc 1 444 9 is_stmt 0 view .LVU210
+ 449:Core/Src/can_manager.c ****     CAN_RxHeaderTypeDef RxHeader;
+ 877              		.loc 1 449 5 is_stmt 1 view .LVU207
+ 450:Core/Src/can_manager.c ****     CAN_Message_t msg;
+ 878              		.loc 1 450 5 view .LVU208
+ 451:Core/Src/can_manager.c ****     
+ 452:Core/Src/can_manager.c ****     // Get message from FIFO
+ 453:Core/Src/can_manager.c ****     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, msg.data) == HAL_OK) {
+ 879              		.loc 1 453 5 view .LVU209
+ 880              		.loc 1 453 9 is_stmt 0 view .LVU210
  881 0004 01AB     		add	r3, sp, #4
  882 0006 05AA     		add	r2, sp, #20
  883 0008 0121     		movs	r1, #1
  884 000a FFF7FEFF 		bl	HAL_CAN_GetRxMessage
  885              	.LVL45:
- 886              		.loc 1 444 8 discriminator 1 view .LVU211
+ 886              		.loc 1 453 8 discriminator 1 view .LVU211
  887 000e 08B1     		cbz	r0, .L87
  888              	.L84:
- 445:Core/Src/can_manager.c ****         // Store message details (all messages are extended ID)
- 446:Core/Src/can_manager.c ****         msg.id = RxHeader.ExtId;
- 447:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 448:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 449:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
- 450:Core/Src/can_manager.c ****         
- 451:Core/Src/can_manager.c ****         // Add to RX queue (from ISR context)
- 452:Core/Src/can_manager.c ****         if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
- 453:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 454:Core/Src/can_manager.c ****         }
- 455:Core/Src/can_manager.c ****     }
- 456:Core/Src/can_manager.c **** }
- 889              		.loc 1 456 1 view .LVU212
+ 454:Core/Src/can_manager.c ****         // Store message details (all messages are extended ID)
+ 455:Core/Src/can_manager.c ****         msg.id = RxHeader.ExtId;
+ 456:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 457:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 458:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
+ 459:Core/Src/can_manager.c ****         
+ 460:Core/Src/can_manager.c ****         // Add to RX queue (from ISR context)
+ 461:Core/Src/can_manager.c ****         if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
+ 462:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 463:Core/Src/can_manager.c ****         }
+ 464:Core/Src/can_manager.c ****     }
+ 465:Core/Src/can_manager.c **** }
+ 889              		.loc 1 465 1 view .LVU212
  890 0010 0CB0     		add	sp, sp, #48
  891              		.cfi_remember_state
  892              		.cfi_def_cfa_offset 8
@@ -1485,44 +1494,44 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  894 0012 10BD     		pop	{r4, pc}
  895              	.L87:
  896              		.cfi_restore_state
- 446:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 897              		.loc 1 446 9 is_stmt 1 view .LVU213
- 446:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 898              		.loc 1 446 26 is_stmt 0 view .LVU214
+ 455:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 897              		.loc 1 455 9 is_stmt 1 view .LVU213
+ 455:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 898              		.loc 1 455 26 is_stmt 0 view .LVU214
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 26
+
+
  899 0014 069B     		ldr	r3, [sp, #24]
- 446:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
- 900              		.loc 1 446 16 view .LVU215
+ 455:Core/Src/can_manager.c ****         msg.length = RxHeader.DLC;
+ 900              		.loc 1 455 16 view .LVU215
  901 0016 0093     		str	r3, [sp]
- 447:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 902              		.loc 1 447 9 is_stmt 1 view .LVU216
- 447:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 903              		.loc 1 447 30 is_stmt 0 view .LVU217
+ 456:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 902              		.loc 1 456 9 is_stmt 1 view .LVU216
+ 456:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 903              		.loc 1 456 30 is_stmt 0 view .LVU217
  904 0018 099B     		ldr	r3, [sp, #36]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 26
-
-
- 447:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
- 905              		.loc 1 447 20 view .LVU218
+ 456:Core/Src/can_manager.c ****         msg.priority = 0;  // RX messages don't have priority
+ 905              		.loc 1 456 20 view .LVU218
  906 001a 8DF80C30 		strb	r3, [sp, #12]
- 448:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
- 907              		.loc 1 448 9 is_stmt 1 view .LVU219
- 448:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
- 908              		.loc 1 448 22 is_stmt 0 view .LVU220
+ 457:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
+ 907              		.loc 1 457 9 is_stmt 1 view .LVU219
+ 457:Core/Src/can_manager.c ****         msg.timestamp = osKernelGetTickCount();
+ 908              		.loc 1 457 22 is_stmt 0 view .LVU220
  909 001e 0024     		movs	r4, #0
  910 0020 8DF80D40 		strb	r4, [sp, #13]
- 449:Core/Src/can_manager.c ****         
- 911              		.loc 1 449 9 is_stmt 1 view .LVU221
- 449:Core/Src/can_manager.c ****         
- 912              		.loc 1 449 25 is_stmt 0 view .LVU222
+ 458:Core/Src/can_manager.c ****         
+ 911              		.loc 1 458 9 is_stmt 1 view .LVU221
+ 458:Core/Src/can_manager.c ****         
+ 912              		.loc 1 458 25 is_stmt 0 view .LVU222
  913 0024 FFF7FEFF 		bl	osKernelGetTickCount
  914              	.LVL46:
- 449:Core/Src/can_manager.c ****         
- 915              		.loc 1 449 23 discriminator 1 view .LVU223
+ 458:Core/Src/can_manager.c ****         
+ 915              		.loc 1 458 23 discriminator 1 view .LVU223
  916 0028 0490     		str	r0, [sp, #16]
- 452:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 917              		.loc 1 452 9 is_stmt 1 view .LVU224
- 452:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 918              		.loc 1 452 13 is_stmt 0 view .LVU225
+ 461:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 917              		.loc 1 461 9 is_stmt 1 view .LVU224
+ 461:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 918              		.loc 1 461 13 is_stmt 0 view .LVU225
  919 002a 2346     		mov	r3, r4
  920 002c 2246     		mov	r2, r4
  921 002e 6946     		mov	r1, sp
@@ -1530,25 +1539,28 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  923 0032 0068     		ldr	r0, [r0]
  924 0034 FFF7FEFF 		bl	osMessageQueuePut
  925              	.LVL47:
- 452:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
- 926              		.loc 1 452 12 discriminator 1 view .LVU226
+ 461:Core/Src/can_manager.c ****             can_stats.rx_queue_full_count++;
+ 926              		.loc 1 461 12 discriminator 1 view .LVU226
  927 0038 0028     		cmp	r0, #0
  928 003a E9D0     		beq	.L84
- 453:Core/Src/can_manager.c ****         }
- 929              		.loc 1 453 13 is_stmt 1 view .LVU227
- 453:Core/Src/can_manager.c ****         }
- 930              		.loc 1 453 22 is_stmt 0 view .LVU228
+ 462:Core/Src/can_manager.c ****         }
+ 929              		.loc 1 462 13 is_stmt 1 view .LVU227
+ 462:Core/Src/can_manager.c ****         }
+ 930              		.loc 1 462 22 is_stmt 0 view .LVU228
  931 003c 034A     		ldr	r2, .L88+4
  932 003e 1369     		ldr	r3, [r2, #16]
- 453:Core/Src/can_manager.c ****         }
- 933              		.loc 1 453 42 view .LVU229
+ 462:Core/Src/can_manager.c ****         }
+ 933              		.loc 1 462 42 view .LVU229
  934 0040 0133     		adds	r3, r3, #1
  935 0042 1361     		str	r3, [r2, #16]
- 936              		.loc 1 456 1 view .LVU230
+ 936              		.loc 1 465 1 view .LVU230
  937 0044 E4E7     		b	.L84
  938              	.L89:
  939 0046 00BF     		.align	2
  940              	.L88:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 27
+
+
  941 0048 00000000 		.word	CANRxQueueHandle
  942 004c 00000000 		.word	can_stats
  943              		.cfi_endproc
@@ -1558,81 +1570,78 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  948              		.global	HAL_CAN_ErrorCallback
  949              		.syntax unified
  950              		.thumb
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 27
-
-
  951              		.thumb_func
  953              	HAL_CAN_ErrorCallback:
  954              	.LVL48:
  955              	.LFB309:
- 457:Core/Src/can_manager.c **** 
- 458:Core/Src/can_manager.c **** /**
- 459:Core/Src/can_manager.c ****   * @brief  CAN error callback
- 460:Core/Src/can_manager.c ****   * @param  hcan: pointer to CAN handle
- 461:Core/Src/can_manager.c ****   * @retval None
- 462:Core/Src/can_manager.c ****   */
- 463:Core/Src/can_manager.c **** void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
- 464:Core/Src/can_manager.c **** {
- 956              		.loc 1 464 1 is_stmt 1 view -0
+ 466:Core/Src/can_manager.c **** 
+ 467:Core/Src/can_manager.c **** /**
+ 468:Core/Src/can_manager.c ****   * @brief  CAN error callback
+ 469:Core/Src/can_manager.c ****   * @param  hcan: pointer to CAN handle
+ 470:Core/Src/can_manager.c ****   * @retval None
+ 471:Core/Src/can_manager.c ****   */
+ 472:Core/Src/can_manager.c **** void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
+ 473:Core/Src/can_manager.c **** {
+ 956              		.loc 1 473 1 is_stmt 1 view -0
  957              		.cfi_startproc
  958              		@ args = 0, pretend = 0, frame = 0
  959              		@ frame_needed = 0, uses_anonymous_args = 0
- 960              		.loc 1 464 1 is_stmt 0 view .LVU232
+ 960              		.loc 1 473 1 is_stmt 0 view .LVU232
  961 0000 08B5     		push	{r3, lr}
  962              		.cfi_def_cfa_offset 8
  963              		.cfi_offset 3, -8
  964              		.cfi_offset 14, -4
- 465:Core/Src/can_manager.c ****     uint32_t error = HAL_CAN_GetError(hcan);
- 965              		.loc 1 465 5 is_stmt 1 view .LVU233
- 966              		.loc 1 465 22 is_stmt 0 view .LVU234
+ 474:Core/Src/can_manager.c ****     uint32_t error = HAL_CAN_GetError(hcan);
+ 965              		.loc 1 474 5 is_stmt 1 view .LVU233
+ 966              		.loc 1 474 22 is_stmt 0 view .LVU234
  967 0002 FFF7FEFF 		bl	HAL_CAN_GetError
  968              	.LVL49:
- 466:Core/Src/can_manager.c ****     
- 467:Core/Src/can_manager.c ****     // Check for bus-off condition
- 468:Core/Src/can_manager.c ****     if (error & HAL_CAN_ERROR_BOF) {
- 969              		.loc 1 468 5 is_stmt 1 view .LVU235
- 970              		.loc 1 468 8 is_stmt 0 view .LVU236
+ 475:Core/Src/can_manager.c ****     
+ 476:Core/Src/can_manager.c ****     // Check for bus-off condition
+ 477:Core/Src/can_manager.c ****     if (error & HAL_CAN_ERROR_BOF) {
+ 969              		.loc 1 477 5 is_stmt 1 view .LVU235
+ 970              		.loc 1 477 8 is_stmt 0 view .LVU236
  971 0006 10F0040F 		tst	r0, #4
  972 000a 00D1     		bne	.L93
  973              	.LVL50:
  974              	.L90:
- 469:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
- 470:Core/Src/can_manager.c ****         
- 471:Core/Src/can_manager.c ****         // Set CAN bus-off error flag
- 472:Core/Src/can_manager.c ****         ErrorMgr_SetError(ERROR_CAN_BUS_OFF);
- 473:Core/Src/can_manager.c ****         
- 474:Core/Src/can_manager.c ****         // Attempt to recover from bus-off
- 475:Core/Src/can_manager.c ****         // Note: May need to stop and restart CAN peripheral
- 476:Core/Src/can_manager.c ****     }
- 477:Core/Src/can_manager.c ****     
- 478:Core/Src/can_manager.c ****     // Handle other errors as needed
- 479:Core/Src/can_manager.c **** }
- 975              		.loc 1 479 1 view .LVU237
+ 478:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
+ 479:Core/Src/can_manager.c ****         
+ 480:Core/Src/can_manager.c ****         // Set CAN bus-off error flag
+ 481:Core/Src/can_manager.c ****         ErrorMgr_SetError(ERROR_CAN_BUS_OFF);
+ 482:Core/Src/can_manager.c ****         
+ 483:Core/Src/can_manager.c ****         // Attempt to recover from bus-off
+ 484:Core/Src/can_manager.c ****         // Note: May need to stop and restart CAN peripheral
+ 485:Core/Src/can_manager.c ****     }
+ 486:Core/Src/can_manager.c ****     
+ 487:Core/Src/can_manager.c ****     // Handle other errors as needed
+ 488:Core/Src/can_manager.c **** }
+ 975              		.loc 1 488 1 view .LVU237
  976 000c 08BD     		pop	{r3, pc}
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 28
+
+
  977              	.LVL51:
  978              	.L93:
- 469:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
- 979              		.loc 1 469 9 is_stmt 1 view .LVU238
- 469:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
- 980              		.loc 1 469 18 is_stmt 0 view .LVU239
+ 478:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
+ 979              		.loc 1 478 9 is_stmt 1 view .LVU238
+ 478:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
+ 980              		.loc 1 478 18 is_stmt 0 view .LVU239
  981 000e 044A     		ldr	r2, .L94
  982 0010 5369     		ldr	r3, [r2, #20]
- 469:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 28
-
-
- 983              		.loc 1 469 32 view .LVU240
+ 478:Core/Src/can_manager.c ****         can_stats.bus_off_count++;
+ 983              		.loc 1 478 32 view .LVU240
  984 0012 0133     		adds	r3, r3, #1
  985 0014 5361     		str	r3, [r2, #20]
- 472:Core/Src/can_manager.c ****         
- 986              		.loc 1 472 9 is_stmt 1 view .LVU241
+ 481:Core/Src/can_manager.c ****         
+ 986              		.loc 1 481 9 is_stmt 1 view .LVU241
  987 0016 4FF08070 		mov	r0, #16777216
  988              	.LVL52:
- 472:Core/Src/can_manager.c ****         
- 989              		.loc 1 472 9 is_stmt 0 view .LVU242
+ 481:Core/Src/can_manager.c ****         
+ 989              		.loc 1 481 9 is_stmt 0 view .LVU242
  990 001a FFF7FEFF 		bl	ErrorMgr_SetError
  991              	.LVL53:
- 992              		.loc 1 479 1 view .LVU243
+ 992              		.loc 1 488 1 view .LVU243
  993 001e F5E7     		b	.L90
  994              	.L95:
  995              		.align	2
@@ -1648,115 +1657,115 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  1006              		.thumb_func
  1008              	CAN_SendHeartbeat:
  1009              	.LFB310:
- 480:Core/Src/can_manager.c **** 
- 481:Core/Src/can_manager.c **** /**
- 482:Core/Src/can_manager.c ****   * @brief  Send BMS heartbeat message
- 483:Core/Src/can_manager.c ****   * @note   Heartbeat format (8 bytes):
- 484:Core/Src/can_manager.c ****   *         Byte 0: BMS State
- 485:Core/Src/can_manager.c ****   *         Byte 1: Error flags byte 0 (Temperature errors)
- 486:Core/Src/can_manager.c ****   *         Byte 2: Error flags byte 1 (Voltage errors)
- 487:Core/Src/can_manager.c ****   *         Byte 3: Error flags byte 2 (Current errors)
- 488:Core/Src/can_manager.c ****   *         Byte 4: Error flags byte 3 (Communication errors)
- 489:Core/Src/can_manager.c ****   *         Byte 5: Warning flags summary (any warnings = 0xFF, none = 0x00)
- 490:Core/Src/can_manager.c ****   *         Byte 6-7: Fault count (16-bit)
- 491:Core/Src/can_manager.c ****   * @retval HAL_StatusTypeDef
- 492:Core/Src/can_manager.c ****   */
- 493:Core/Src/can_manager.c **** HAL_StatusTypeDef CAN_SendHeartbeat(void)
- 494:Core/Src/can_manager.c **** {
- 1010              		.loc 1 494 1 is_stmt 1 view -0
+ 489:Core/Src/can_manager.c **** 
+ 490:Core/Src/can_manager.c **** /**
+ 491:Core/Src/can_manager.c ****   * @brief  Send BMS heartbeat message
+ 492:Core/Src/can_manager.c ****   * @note   Heartbeat format (8 bytes):
+ 493:Core/Src/can_manager.c ****   *         Byte 0: BMS State
+ 494:Core/Src/can_manager.c ****   *         Byte 1: Error flags byte 0 (Temperature errors)
+ 495:Core/Src/can_manager.c ****   *         Byte 2: Error flags byte 1 (Voltage errors)
+ 496:Core/Src/can_manager.c ****   *         Byte 3: Error flags byte 2 (Current errors)
+ 497:Core/Src/can_manager.c ****   *         Byte 4: Error flags byte 3 (Communication errors)
+ 498:Core/Src/can_manager.c ****   *         Byte 5: Warning flags summary (any warnings = 0xFF, none = 0x00)
+ 499:Core/Src/can_manager.c ****   *         Byte 6-7: Fault count (16-bit)
+ 500:Core/Src/can_manager.c ****   * @retval HAL_StatusTypeDef
+ 501:Core/Src/can_manager.c ****   */
+ 502:Core/Src/can_manager.c **** HAL_StatusTypeDef CAN_SendHeartbeat(void)
+ 503:Core/Src/can_manager.c **** {
+ 1010              		.loc 1 503 1 is_stmt 1 view -0
  1011              		.cfi_startproc
  1012              		@ args = 0, pretend = 0, frame = 32
  1013              		@ frame_needed = 0, uses_anonymous_args = 0
  1014 0000 00B5     		push	{lr}
  1015              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 29
+
+
  1016              		.cfi_offset 14, -4
  1017 0002 89B0     		sub	sp, sp, #36
  1018              		.cfi_def_cfa_offset 40
- 495:Core/Src/can_manager.c ****     Error_Manager_t status;
- 1019              		.loc 1 495 5 view .LVU245
- 496:Core/Src/can_manager.c ****     uint8_t heartbeat_data[8];
- 1020              		.loc 1 496 5 view .LVU246
- 497:Core/Src/can_manager.c ****     
- 498:Core/Src/can_manager.c ****     // Get current error manager status
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 29
-
-
- 499:Core/Src/can_manager.c ****     ErrorMgr_GetStatus(&status);
- 1021              		.loc 1 499 5 view .LVU247
+ 504:Core/Src/can_manager.c ****     Error_Manager_t status;
+ 1019              		.loc 1 504 5 view .LVU245
+ 505:Core/Src/can_manager.c ****     uint8_t heartbeat_data[8];
+ 1020              		.loc 1 505 5 view .LVU246
+ 506:Core/Src/can_manager.c ****     
+ 507:Core/Src/can_manager.c ****     // Get current error manager status
+ 508:Core/Src/can_manager.c ****     ErrorMgr_GetStatus(&status);
+ 1021              		.loc 1 508 5 view .LVU247
  1022 0004 03A8     		add	r0, sp, #12
  1023 0006 FFF7FEFF 		bl	ErrorMgr_GetStatus
  1024              	.LVL54:
- 500:Core/Src/can_manager.c ****     
- 501:Core/Src/can_manager.c ****     // Pack heartbeat message
- 502:Core/Src/can_manager.c ****     heartbeat_data[0] = (uint8_t)status.state;                    // BMS state
- 1025              		.loc 1 502 5 view .LVU248
- 1026              		.loc 1 502 40 is_stmt 0 view .LVU249
+ 509:Core/Src/can_manager.c ****     
+ 510:Core/Src/can_manager.c ****     // Pack heartbeat message
+ 511:Core/Src/can_manager.c ****     heartbeat_data[0] = (uint8_t)status.state;                    // BMS state
+ 1025              		.loc 1 511 5 view .LVU248
+ 1026              		.loc 1 511 40 is_stmt 0 view .LVU249
  1027 000a 9DF81430 		ldrb	r3, [sp, #20]	@ zero_extendqisi2
- 1028              		.loc 1 502 23 view .LVU250
+ 1028              		.loc 1 511 23 view .LVU250
  1029 000e 8DF80430 		strb	r3, [sp, #4]
- 503:Core/Src/can_manager.c ****     heartbeat_data[1] = (uint8_t)(status.error_flags & 0xFF);     // Error byte 0
- 1030              		.loc 1 503 5 is_stmt 1 view .LVU251
- 1031              		.loc 1 503 41 is_stmt 0 view .LVU252
+ 512:Core/Src/can_manager.c ****     heartbeat_data[1] = (uint8_t)(status.error_flags & 0xFF);     // Error byte 0
+ 1030              		.loc 1 512 5 is_stmt 1 view .LVU251
+ 1031              		.loc 1 512 41 is_stmt 0 view .LVU252
  1032 0012 039B     		ldr	r3, [sp, #12]
- 1033              		.loc 1 503 23 view .LVU253
+ 1033              		.loc 1 512 23 view .LVU253
  1034 0014 8DF80530 		strb	r3, [sp, #5]
- 504:Core/Src/can_manager.c ****     heartbeat_data[2] = (uint8_t)((status.error_flags >> 8) & 0xFF);   // Error byte 1
- 1035              		.loc 1 504 5 is_stmt 1 view .LVU254
- 1036              		.loc 1 504 25 is_stmt 0 view .LVU255
+ 513:Core/Src/can_manager.c ****     heartbeat_data[2] = (uint8_t)((status.error_flags >> 8) & 0xFF);   // Error byte 1
+ 1035              		.loc 1 513 5 is_stmt 1 view .LVU254
+ 1036              		.loc 1 513 25 is_stmt 0 view .LVU255
  1037 0018 C3F30722 		ubfx	r2, r3, #8, #8
- 1038              		.loc 1 504 23 view .LVU256
+ 1038              		.loc 1 513 23 view .LVU256
  1039 001c 8DF80620 		strb	r2, [sp, #6]
- 505:Core/Src/can_manager.c ****     heartbeat_data[3] = (uint8_t)((status.error_flags >> 16) & 0xFF);  // Error byte 2
- 1040              		.loc 1 505 5 is_stmt 1 view .LVU257
- 1041              		.loc 1 505 25 is_stmt 0 view .LVU258
+ 514:Core/Src/can_manager.c ****     heartbeat_data[3] = (uint8_t)((status.error_flags >> 16) & 0xFF);  // Error byte 2
+ 1040              		.loc 1 514 5 is_stmt 1 view .LVU257
+ 1041              		.loc 1 514 25 is_stmt 0 view .LVU258
  1042 0020 C3F30742 		ubfx	r2, r3, #16, #8
- 1043              		.loc 1 505 23 view .LVU259
+ 1043              		.loc 1 514 23 view .LVU259
  1044 0024 8DF80720 		strb	r2, [sp, #7]
- 506:Core/Src/can_manager.c ****     heartbeat_data[4] = (uint8_t)((status.error_flags >> 24) & 0xFF);  // Error byte 3
- 1045              		.loc 1 506 5 is_stmt 1 view .LVU260
- 1046              		.loc 1 506 25 is_stmt 0 view .LVU261
+ 515:Core/Src/can_manager.c ****     heartbeat_data[4] = (uint8_t)((status.error_flags >> 24) & 0xFF);  // Error byte 3
+ 1045              		.loc 1 515 5 is_stmt 1 view .LVU260
+ 1046              		.loc 1 515 25 is_stmt 0 view .LVU261
  1047 0028 1B0E     		lsrs	r3, r3, #24
- 1048              		.loc 1 506 23 view .LVU262
+ 1048              		.loc 1 515 23 view .LVU262
  1049 002a 8DF80830 		strb	r3, [sp, #8]
- 507:Core/Src/can_manager.c ****     heartbeat_data[5] = (status.warning_flags != 0) ? 0xFF : 0x00;     // Warning summary
- 1050              		.loc 1 507 5 is_stmt 1 view .LVU263
- 1051              		.loc 1 507 32 is_stmt 0 view .LVU264
+ 516:Core/Src/can_manager.c ****     heartbeat_data[5] = (status.warning_flags != 0) ? 0xFF : 0x00;     // Warning summary
+ 1050              		.loc 1 516 5 is_stmt 1 view .LVU263
+ 1051              		.loc 1 516 32 is_stmt 0 view .LVU264
  1052 002e 049B     		ldr	r3, [sp, #16]
- 1053              		.loc 1 507 23 view .LVU265
+ 1053              		.loc 1 516 23 view .LVU265
  1054 0030 93B1     		cbz	r3, .L98
- 1055              		.loc 1 507 23 discriminator 1 view .LVU266
+ 1055              		.loc 1 516 23 discriminator 1 view .LVU266
  1056 0032 FF23     		movs	r3, #255
  1057              	.L97:
- 1058              		.loc 1 507 23 discriminator 4 view .LVU267
+ 1058              		.loc 1 516 23 discriminator 4 view .LVU267
  1059 0034 8DF80930 		strb	r3, [sp, #9]
- 508:Core/Src/can_manager.c ****     heartbeat_data[6] = (uint8_t)(status.fault_count & 0xFF);          // Fault count low byte
- 1060              		.loc 1 508 5 is_stmt 1 view .LVU268
- 1061              		.loc 1 508 41 is_stmt 0 view .LVU269
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 30
+
+
+ 517:Core/Src/can_manager.c ****     heartbeat_data[6] = (uint8_t)(status.fault_count & 0xFF);          // Fault count low byte
+ 1060              		.loc 1 517 5 is_stmt 1 view .LVU268
+ 1061              		.loc 1 517 41 is_stmt 0 view .LVU269
  1062 0038 9DF81530 		ldrb	r3, [sp, #21]	@ zero_extendqisi2
- 1063              		.loc 1 508 23 view .LVU270
+ 1063              		.loc 1 517 23 view .LVU270
  1064 003c 8DF80A30 		strb	r3, [sp, #10]
- 509:Core/Src/can_manager.c ****     heartbeat_data[7] = (uint8_t)((status.fault_count >> 8) & 0xFF);   // Fault count high byte
- 1065              		.loc 1 509 5 is_stmt 1 view .LVU271
- 1066              		.loc 1 509 25 is_stmt 0 view .LVU272
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 30
-
-
+ 518:Core/Src/can_manager.c ****     heartbeat_data[7] = (uint8_t)((status.fault_count >> 8) & 0xFF);   // Fault count high byte
+ 1065              		.loc 1 518 5 is_stmt 1 view .LVU271
+ 1066              		.loc 1 518 25 is_stmt 0 view .LVU272
  1067 0040 0023     		movs	r3, #0
- 1068              		.loc 1 509 23 view .LVU273
+ 1068              		.loc 1 518 23 view .LVU273
  1069 0042 8DF80B30 		strb	r3, [sp, #11]
- 510:Core/Src/can_manager.c ****     
- 511:Core/Src/can_manager.c ****     // Send heartbeat with high priority
- 512:Core/Src/can_manager.c ****     return CAN_SendMessage(CAN_BMS_HEARTBEAT_ID, heartbeat_data, 8, CAN_PRIORITY_CRITICAL);
- 1070              		.loc 1 512 5 is_stmt 1 view .LVU274
- 1071              		.loc 1 512 12 is_stmt 0 view .LVU275
+ 519:Core/Src/can_manager.c ****     
+ 520:Core/Src/can_manager.c ****     // Send heartbeat with high priority
+ 521:Core/Src/can_manager.c ****     return CAN_SendMessage(CAN_BMS_HEARTBEAT_ID, heartbeat_data, 8, CAN_PRIORITY_CRITICAL);
+ 1070              		.loc 1 521 5 is_stmt 1 view .LVU274
+ 1071              		.loc 1 521 12 is_stmt 0 view .LVU275
  1072 0046 0822     		movs	r2, #8
  1073 0048 01A9     		add	r1, sp, #4
  1074 004a 0448     		ldr	r0, .L100
  1075 004c 0068     		ldr	r0, [r0]
  1076 004e FFF7FEFF 		bl	CAN_SendMessage
  1077              	.LVL55:
- 513:Core/Src/can_manager.c **** }
- 1078              		.loc 1 513 1 view .LVU276
+ 522:Core/Src/can_manager.c **** }
+ 1078              		.loc 1 522 1 view .LVU276
  1079 0052 09B0     		add	sp, sp, #36
  1080              		.cfi_remember_state
  1081              		.cfi_def_cfa_offset 4
@@ -1764,8 +1773,8 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  1083 0054 5DF804FB 		ldr	pc, [sp], #4
  1084              	.L98:
  1085              		.cfi_restore_state
- 507:Core/Src/can_manager.c ****     heartbeat_data[6] = (uint8_t)(status.fault_count & 0xFF);          // Fault count low byte
- 1086              		.loc 1 507 23 discriminator 2 view .LVU277
+ 516:Core/Src/can_manager.c ****     heartbeat_data[6] = (uint8_t)(status.fault_count & 0xFF);          // Fault count low byte
+ 1086              		.loc 1 516 23 discriminator 2 view .LVU277
  1087 0058 0023     		movs	r3, #0
  1088 005a EBE7     		b	.L97
  1089              	.L101:
@@ -1782,14 +1791,17 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  1101              		.thumb_func
  1103              	CAN_SendStatistics:
  1104              	.LFB311:
- 514:Core/Src/can_manager.c **** 
- 515:Core/Src/can_manager.c **** /**
- 516:Core/Src/can_manager.c ****   * @brief  Send CAN statistics message for diagnostics
- 517:Core/Src/can_manager.c ****   * @retval HAL_StatusTypeDef
- 518:Core/Src/can_manager.c ****   */
- 519:Core/Src/can_manager.c **** HAL_StatusTypeDef CAN_SendStatistics(void)
- 520:Core/Src/can_manager.c **** {
- 1105              		.loc 1 520 1 is_stmt 1 view -0
+ 523:Core/Src/can_manager.c **** 
+ 524:Core/Src/can_manager.c **** /**
+ 525:Core/Src/can_manager.c ****   * @brief  Send CAN statistics message for diagnostics
+ 526:Core/Src/can_manager.c ****   * @retval HAL_StatusTypeDef
+ 527:Core/Src/can_manager.c ****   */
+ 528:Core/Src/can_manager.c **** HAL_StatusTypeDef CAN_SendStatistics(void)
+ 529:Core/Src/can_manager.c **** {
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 31
+
+
+ 1105              		.loc 1 529 1 is_stmt 1 view -0
  1106              		.cfi_startproc
  1107              		@ args = 0, pretend = 0, frame = 8
  1108              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1798,81 +1810,78 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  1111              		.cfi_offset 14, -4
  1112 0002 83B0     		sub	sp, sp, #12
  1113              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 31
-
-
- 521:Core/Src/can_manager.c ****     uint8_t stats_data[8];
- 1114              		.loc 1 521 5 view .LVU279
- 522:Core/Src/can_manager.c ****     
- 523:Core/Src/can_manager.c ****     // Pack CAN statistics message
- 524:Core/Src/can_manager.c ****     // Bytes 0-1: RX message count (16-bit)
- 525:Core/Src/can_manager.c ****     stats_data[0] = (uint8_t)(can_stats.rx_message_count & 0xFF);
- 1115              		.loc 1 525 5 view .LVU280
- 1116              		.loc 1 525 40 is_stmt 0 view .LVU281
+ 530:Core/Src/can_manager.c ****     uint8_t stats_data[8];
+ 1114              		.loc 1 530 5 view .LVU279
+ 531:Core/Src/can_manager.c ****     
+ 532:Core/Src/can_manager.c ****     // Pack CAN statistics message
+ 533:Core/Src/can_manager.c ****     // Bytes 0-1: RX message count (16-bit)
+ 534:Core/Src/can_manager.c ****     stats_data[0] = (uint8_t)(can_stats.rx_message_count & 0xFF);
+ 1115              		.loc 1 534 5 view .LVU280
+ 1116              		.loc 1 534 40 is_stmt 0 view .LVU281
  1117 0004 124B     		ldr	r3, .L104
  1118 0006 DA68     		ldr	r2, [r3, #12]
- 1119              		.loc 1 525 19 view .LVU282
+ 1119              		.loc 1 534 19 view .LVU282
  1120 0008 8DF80020 		strb	r2, [sp]
- 526:Core/Src/can_manager.c ****     stats_data[1] = (uint8_t)((can_stats.rx_message_count >> 8) & 0xFF);
- 1121              		.loc 1 526 5 is_stmt 1 view .LVU283
- 1122              		.loc 1 526 21 is_stmt 0 view .LVU284
+ 535:Core/Src/can_manager.c ****     stats_data[1] = (uint8_t)((can_stats.rx_message_count >> 8) & 0xFF);
+ 1121              		.loc 1 535 5 is_stmt 1 view .LVU283
+ 1122              		.loc 1 535 21 is_stmt 0 view .LVU284
  1123 000c C2F30722 		ubfx	r2, r2, #8, #8
- 1124              		.loc 1 526 19 view .LVU285
+ 1124              		.loc 1 535 19 view .LVU285
  1125 0010 8DF80120 		strb	r2, [sp, #1]
- 527:Core/Src/can_manager.c ****     
- 528:Core/Src/can_manager.c ****     // Bytes 2-3: TX success count (16-bit)
- 529:Core/Src/can_manager.c ****     stats_data[2] = (uint8_t)(can_stats.tx_success_count & 0xFF);
- 1126              		.loc 1 529 5 is_stmt 1 view .LVU286
- 1127              		.loc 1 529 40 is_stmt 0 view .LVU287
+ 536:Core/Src/can_manager.c ****     
+ 537:Core/Src/can_manager.c ****     // Bytes 2-3: TX success count (16-bit)
+ 538:Core/Src/can_manager.c ****     stats_data[2] = (uint8_t)(can_stats.tx_success_count & 0xFF);
+ 1126              		.loc 1 538 5 is_stmt 1 view .LVU286
+ 1127              		.loc 1 538 40 is_stmt 0 view .LVU287
  1128 0014 1A68     		ldr	r2, [r3]
- 1129              		.loc 1 529 19 view .LVU288
+ 1129              		.loc 1 538 19 view .LVU288
  1130 0016 8DF80220 		strb	r2, [sp, #2]
- 530:Core/Src/can_manager.c ****     stats_data[3] = (uint8_t)((can_stats.tx_success_count >> 8) & 0xFF);
- 1131              		.loc 1 530 5 is_stmt 1 view .LVU289
- 1132              		.loc 1 530 21 is_stmt 0 view .LVU290
+ 539:Core/Src/can_manager.c ****     stats_data[3] = (uint8_t)((can_stats.tx_success_count >> 8) & 0xFF);
+ 1131              		.loc 1 539 5 is_stmt 1 view .LVU289
+ 1132              		.loc 1 539 21 is_stmt 0 view .LVU290
  1133 001a C2F30722 		ubfx	r2, r2, #8, #8
- 1134              		.loc 1 530 19 view .LVU291
+ 1134              		.loc 1 539 19 view .LVU291
  1135 001e 8DF80320 		strb	r2, [sp, #3]
- 531:Core/Src/can_manager.c ****     
- 532:Core/Src/can_manager.c ****     // Byte 4: TX error count
- 533:Core/Src/can_manager.c ****     stats_data[4] = (uint8_t)(can_stats.tx_error_count & 0xFF);
- 1136              		.loc 1 533 5 is_stmt 1 view .LVU292
- 1137              		.loc 1 533 21 is_stmt 0 view .LVU293
- 1138 0022 1A79     		ldrb	r2, [r3, #4]	@ zero_extendqisi2
- 1139              		.loc 1 533 19 view .LVU294
- 1140 0024 8DF80420 		strb	r2, [sp, #4]
- 534:Core/Src/can_manager.c ****     
- 535:Core/Src/can_manager.c ****     // Byte 5: RX queue full count
- 536:Core/Src/can_manager.c ****     stats_data[5] = (uint8_t)(can_stats.rx_queue_full_count & 0xFF);
- 1141              		.loc 1 536 5 is_stmt 1 view .LVU295
- 1142              		.loc 1 536 21 is_stmt 0 view .LVU296
- 1143 0028 1A7C     		ldrb	r2, [r3, #16]	@ zero_extendqisi2
- 1144              		.loc 1 536 19 view .LVU297
- 1145 002a 8DF80520 		strb	r2, [sp, #5]
- 537:Core/Src/can_manager.c ****     
- 538:Core/Src/can_manager.c ****     // Byte 6: Bus-off count
- 539:Core/Src/can_manager.c ****     stats_data[6] = (uint8_t)(can_stats.bus_off_count & 0xFF);
- 1146              		.loc 1 539 5 is_stmt 1 view .LVU298
- 1147              		.loc 1 539 21 is_stmt 0 view .LVU299
- 1148 002e 1A7D     		ldrb	r2, [r3, #20]	@ zero_extendqisi2
- 1149              		.loc 1 539 19 view .LVU300
- 1150 0030 8DF80620 		strb	r2, [sp, #6]
  540:Core/Src/can_manager.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 32
-
-
- 541:Core/Src/can_manager.c ****     // Byte 7: TX queue full count
- 542:Core/Src/can_manager.c ****     stats_data[7] = (uint8_t)(can_stats.tx_queue_full_count & 0xFF);
- 1151              		.loc 1 542 5 is_stmt 1 view .LVU301
- 1152              		.loc 1 542 21 is_stmt 0 view .LVU302
- 1153 0034 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
- 1154              		.loc 1 542 19 view .LVU303
- 1155 0036 8DF80730 		strb	r3, [sp, #7]
+ 541:Core/Src/can_manager.c ****     // Byte 4: TX error count
+ 542:Core/Src/can_manager.c ****     stats_data[4] = (uint8_t)(can_stats.tx_error_count & 0xFF);
+ 1136              		.loc 1 542 5 is_stmt 1 view .LVU292
+ 1137              		.loc 1 542 21 is_stmt 0 view .LVU293
+ 1138 0022 1A79     		ldrb	r2, [r3, #4]	@ zero_extendqisi2
+ 1139              		.loc 1 542 19 view .LVU294
+ 1140 0024 8DF80420 		strb	r2, [sp, #4]
  543:Core/Src/can_manager.c ****     
- 544:Core/Src/can_manager.c ****     // Send statistics with normal priority
- 545:Core/Src/can_manager.c ****     return CAN_SendMessage(CAN_BMS_STATS_ID, stats_data, 8, CAN_PRIORITY_NORMAL);
- 1156              		.loc 1 545 5 is_stmt 1 view .LVU304
- 1157              		.loc 1 545 12 is_stmt 0 view .LVU305
+ 544:Core/Src/can_manager.c ****     // Byte 5: RX queue full count
+ 545:Core/Src/can_manager.c ****     stats_data[5] = (uint8_t)(can_stats.rx_queue_full_count & 0xFF);
+ 1141              		.loc 1 545 5 is_stmt 1 view .LVU295
+ 1142              		.loc 1 545 21 is_stmt 0 view .LVU296
+ 1143 0028 1A7C     		ldrb	r2, [r3, #16]	@ zero_extendqisi2
+ 1144              		.loc 1 545 19 view .LVU297
+ 1145 002a 8DF80520 		strb	r2, [sp, #5]
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 32
+
+
+ 546:Core/Src/can_manager.c ****     
+ 547:Core/Src/can_manager.c ****     // Byte 6: Bus-off count
+ 548:Core/Src/can_manager.c ****     stats_data[6] = (uint8_t)(can_stats.bus_off_count & 0xFF);
+ 1146              		.loc 1 548 5 is_stmt 1 view .LVU298
+ 1147              		.loc 1 548 21 is_stmt 0 view .LVU299
+ 1148 002e 1A7D     		ldrb	r2, [r3, #20]	@ zero_extendqisi2
+ 1149              		.loc 1 548 19 view .LVU300
+ 1150 0030 8DF80620 		strb	r2, [sp, #6]
+ 549:Core/Src/can_manager.c ****     
+ 550:Core/Src/can_manager.c ****     // Byte 7: TX queue full count
+ 551:Core/Src/can_manager.c ****     stats_data[7] = (uint8_t)(can_stats.tx_queue_full_count & 0xFF);
+ 1151              		.loc 1 551 5 is_stmt 1 view .LVU301
+ 1152              		.loc 1 551 21 is_stmt 0 view .LVU302
+ 1153 0034 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 1154              		.loc 1 551 19 view .LVU303
+ 1155 0036 8DF80730 		strb	r3, [sp, #7]
+ 552:Core/Src/can_manager.c ****     
+ 553:Core/Src/can_manager.c ****     // Send statistics with normal priority
+ 554:Core/Src/can_manager.c ****     return CAN_SendMessage(CAN_BMS_STATS_ID, stats_data, 8, CAN_PRIORITY_NORMAL);
+ 1156              		.loc 1 554 5 is_stmt 1 view .LVU304
+ 1157              		.loc 1 554 12 is_stmt 0 view .LVU305
  1158 003a 0223     		movs	r3, #2
  1159 003c 0822     		movs	r2, #8
  1160 003e 6946     		mov	r1, sp
@@ -1880,8 +1889,8 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  1162 0042 0068     		ldr	r0, [r0]
  1163 0044 FFF7FEFF 		bl	CAN_SendMessage
  1164              	.LVL56:
- 546:Core/Src/can_manager.c **** }
- 1165              		.loc 1 546 1 view .LVU306
+ 555:Core/Src/can_manager.c **** }
+ 1165              		.loc 1 555 1 view .LVU306
  1166 0048 03B0     		add	sp, sp, #12
  1167              		.cfi_def_cfa_offset 4
  1168              		@ sp needed
@@ -1901,565 +1910,623 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 1
  1183              		.thumb_func
  1185              	CAN_SendDebugInfo:
  1186              	.LFB312:
- 547:Core/Src/can_manager.c **** 
- 548:Core/Src/can_manager.c **** /**
- 549:Core/Src/can_manager.c ****   * @brief  Send debug information message
- 550:Core/Src/can_manager.c ****   * @note   Debug info format (8 bytes):
- 551:Core/Src/can_manager.c ****   *         Byte 0: Module ID (0-15)
- 552:Core/Src/can_manager.c ****   *         Byte 1: Firmware version major
- 553:Core/Src/can_manager.c ****   *         Byte 2: Firmware version minor
- 554:Core/Src/can_manager.c ****   *         Byte 3: Firmware version patch
- 555:Core/Src/can_manager.c ****   *         Bytes 4-7: Uptime in seconds (32-bit)
- 556:Core/Src/can_manager.c ****   * @retval HAL_StatusTypeDef
- 557:Core/Src/can_manager.c ****   */
- 558:Core/Src/can_manager.c **** HAL_StatusTypeDef CAN_SendDebugInfo(void)
- 559:Core/Src/can_manager.c **** {
- 1187              		.loc 1 559 1 is_stmt 1 view -0
+ 556:Core/Src/can_manager.c **** 
+ 557:Core/Src/can_manager.c **** /**
+ 558:Core/Src/can_manager.c ****   * @brief  Send debug information message
+ 559:Core/Src/can_manager.c ****   * @note   Debug info format (8 bytes):
+ 560:Core/Src/can_manager.c ****   *         Byte 0: Module ID (0-15)
+ 561:Core/Src/can_manager.c ****   *         Byte 1: Firmware version major
+ 562:Core/Src/can_manager.c ****   *         Byte 2: Firmware version minor
+ 563:Core/Src/can_manager.c ****   *         Byte 3: Firmware version patch
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 33
+
+
+ 564:Core/Src/can_manager.c ****   *         Bytes 4-7: Uptime in seconds (32-bit)
+ 565:Core/Src/can_manager.c ****   * @retval HAL_StatusTypeDef
+ 566:Core/Src/can_manager.c ****   */
+ 567:Core/Src/can_manager.c **** HAL_StatusTypeDef CAN_SendDebugInfo(void)
+ 568:Core/Src/can_manager.c **** {
+ 1187              		.loc 1 568 1 is_stmt 1 view -0
  1188              		.cfi_startproc
  1189              		@ args = 0, pretend = 0, frame = 8
  1190              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 33
-
-
- 1191 0000 10B5     		push	{r4, lr}
- 1192              		.cfi_def_cfa_offset 8
- 1193              		.cfi_offset 4, -8
- 1194              		.cfi_offset 14, -4
- 1195 0002 82B0     		sub	sp, sp, #8
- 1196              		.cfi_def_cfa_offset 16
- 560:Core/Src/can_manager.c ****     uint8_t debug_data[8];
- 1197              		.loc 1 560 5 view .LVU308
- 561:Core/Src/can_manager.c ****     
- 562:Core/Src/can_manager.c ****     // Get current module ID
- 563:Core/Src/can_manager.c ****     extern uint8_t Config_GetModuleID(void);
- 1198              		.loc 1 563 5 view .LVU309
- 564:Core/Src/can_manager.c ****     uint8_t module_id = Config_GetModuleID();
- 1199              		.loc 1 564 5 view .LVU310
- 1200              		.loc 1 564 25 is_stmt 0 view .LVU311
- 1201 0004 FFF7FEFF 		bl	Config_GetModuleID
- 1202              	.LVL57:
- 1203 0008 0446     		mov	r4, r0
- 1204              	.LVL58:
- 565:Core/Src/can_manager.c ****     
- 566:Core/Src/can_manager.c ****     // Get uptime in seconds (convert from milliseconds)
- 567:Core/Src/can_manager.c ****     uint32_t uptime_sec = osKernelGetTickCount() / 1000;
- 1205              		.loc 1 567 5 is_stmt 1 view .LVU312
- 1206              		.loc 1 567 27 is_stmt 0 view .LVU313
- 1207 000a FFF7FEFF 		bl	osKernelGetTickCount
- 1208              	.LVL59:
- 1209              		.loc 1 567 14 discriminator 1 view .LVU314
- 1210 000e 114B     		ldr	r3, .L108
- 1211 0010 A3FB0032 		umull	r3, r2, r3, r0
+ 1191 0000 70B5     		push	{r4, r5, r6, lr}
+ 1192              		.cfi_def_cfa_offset 16
+ 1193              		.cfi_offset 4, -16
+ 1194              		.cfi_offset 5, -12
+ 1195              		.cfi_offset 6, -8
+ 1196              		.cfi_offset 14, -4
+ 1197 0002 82B0     		sub	sp, sp, #8
+ 1198              		.cfi_def_cfa_offset 24
+ 569:Core/Src/can_manager.c ****     uint8_t debug_data[8];
+ 1199              		.loc 1 569 5 view .LVU308
+ 570:Core/Src/can_manager.c **** 
+ 571:Core/Src/can_manager.c ****     // Get current module ID
+ 572:Core/Src/can_manager.c ****     extern uint8_t Config_GetModuleID(void);
+ 1200              		.loc 1 572 5 view .LVU309
+ 573:Core/Src/can_manager.c ****     uint8_t module_id = Config_GetModuleID();
+ 1201              		.loc 1 573 5 view .LVU310
+ 1202              		.loc 1 573 25 is_stmt 0 view .LVU311
+ 1203 0004 FFF7FEFF 		bl	Config_GetModuleID
+ 1204              	.LVL57:
+ 1205 0008 0646     		mov	r6, r0
+ 1206              	.LVL58:
+ 574:Core/Src/can_manager.c **** 
+ 575:Core/Src/can_manager.c ****     // Get heap memory statistics (in bytes)
+ 576:Core/Src/can_manager.c ****     size_t free_heap = xPortGetFreeHeapSize();
+ 1207              		.loc 1 576 5 is_stmt 1 view .LVU312
+ 1208              		.loc 1 576 24 is_stmt 0 view .LVU313
+ 1209 000a FFF7FEFF 		bl	xPortGetFreeHeapSize
+ 1210              	.LVL59:
+ 1211 000e 0546     		mov	r5, r0
  1212              	.LVL60:
- 568:Core/Src/can_manager.c ****     
- 569:Core/Src/can_manager.c ****     // Pack debug information message
- 570:Core/Src/can_manager.c ****     debug_data[0] = module_id;          // Byte 0: Module ID
- 1213              		.loc 1 570 5 is_stmt 1 view .LVU315
- 1214              		.loc 1 570 19 is_stmt 0 view .LVU316
- 1215 0014 8DF80040 		strb	r4, [sp]
- 571:Core/Src/can_manager.c ****     debug_data[1] = 1;                  // Byte 1: Firmware version major (TODO: define these)
- 1216              		.loc 1 571 5 is_stmt 1 view .LVU317
- 1217              		.loc 1 571 19 is_stmt 0 view .LVU318
- 1218 0018 0123     		movs	r3, #1
- 1219 001a 8DF80130 		strb	r3, [sp, #1]
- 572:Core/Src/can_manager.c ****     debug_data[2] = 0;                  // Byte 2: Firmware version minor
- 1220              		.loc 1 572 5 is_stmt 1 view .LVU319
- 1221              		.loc 1 572 19 is_stmt 0 view .LVU320
- 1222 001e 0021     		movs	r1, #0
- 1223 0020 8DF80210 		strb	r1, [sp, #2]
- 573:Core/Src/can_manager.c ****     debug_data[3] = 0;                  // Byte 3: Firmware version patch
- 1224              		.loc 1 573 5 is_stmt 1 view .LVU321
- 1225              		.loc 1 573 19 is_stmt 0 view .LVU322
- 1226 0024 8DF80310 		strb	r1, [sp, #3]
- 574:Core/Src/can_manager.c ****     debug_data[4] = (uint8_t)(uptime_sec & 0xFF);           // Byte 4: Uptime LSB
- 1227              		.loc 1 574 5 is_stmt 1 view .LVU323
- 1228              		.loc 1 574 21 is_stmt 0 view .LVU324
- 1229 0028 C2F38711 		ubfx	r1, r2, #6, #8
- 1230              		.loc 1 574 19 view .LVU325
- 1231 002c 8DF80410 		strb	r1, [sp, #4]
- 575:Core/Src/can_manager.c ****     debug_data[5] = (uint8_t)((uptime_sec >> 8) & 0xFF);    // Byte 5: Uptime
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 34
+ 577:Core/Src/can_manager.c ****     size_t min_free_heap = xPortGetMinimumEverFreeHeapSize();
+ 1213              		.loc 1 577 5 is_stmt 1 view .LVU314
+ 1214              		.loc 1 577 28 is_stmt 0 view .LVU315
+ 1215 0010 FFF7FEFF 		bl	xPortGetMinimumEverFreeHeapSize
+ 1216              	.LVL61:
+ 1217              		.loc 1 577 28 view .LVU316
+ 1218 0014 0446     		mov	r4, r0
+ 1219              	.LVL62:
+ 578:Core/Src/can_manager.c **** 
+ 579:Core/Src/can_manager.c ****     // Get uptime in seconds (convert from milliseconds)
+ 580:Core/Src/can_manager.c ****     uint32_t uptime_sec = osKernelGetTickCount() / 1000;
+ 1220              		.loc 1 580 5 is_stmt 1 view .LVU317
+ 1221              		.loc 1 580 27 is_stmt 0 view .LVU318
+ 1222 0016 FFF7FEFF 		bl	osKernelGetTickCount
+ 1223              	.LVL63:
+ 1224              		.loc 1 580 14 discriminator 1 view .LVU319
+ 1225 001a 134A     		ldr	r2, .L108
+ 1226 001c A2FB0023 		umull	r2, r3, r2, r0
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 34
 
 
- 1232              		.loc 1 575 5 is_stmt 1 view .LVU326
- 1233              		.loc 1 575 21 is_stmt 0 view .LVU327
- 1234 0030 C2F38731 		ubfx	r1, r2, #14, #8
- 1235              		.loc 1 575 19 view .LVU328
- 1236 0034 8DF80510 		strb	r1, [sp, #5]
- 576:Core/Src/can_manager.c ****     debug_data[6] = (uint8_t)((uptime_sec >> 16) & 0xFF);   // Byte 6: Uptime
- 1237              		.loc 1 576 5 is_stmt 1 view .LVU329
- 1238              		.loc 1 576 21 is_stmt 0 view .LVU330
- 1239 0038 920D     		lsrs	r2, r2, #22
- 1240              	.LVL61:
- 1241              		.loc 1 576 19 view .LVU331
- 1242 003a 8DF80620 		strb	r2, [sp, #6]
- 577:Core/Src/can_manager.c ****     debug_data[7] = (uint8_t)((uptime_sec >> 24) & 0xFF);   // Byte 7: Uptime MSB
- 1243              		.loc 1 577 5 is_stmt 1 view .LVU332
- 1244              		.loc 1 577 21 is_stmt 0 view .LVU333
- 1245 003e 0022     		movs	r2, #0
- 1246              		.loc 1 577 19 view .LVU334
- 1247 0040 8DF80720 		strb	r2, [sp, #7]
- 578:Core/Src/can_manager.c ****     
- 579:Core/Src/can_manager.c ****     // Send debug info with high priority
- 580:Core/Src/can_manager.c ****     return CAN_SendMessage(CAN_DEBUG_RESPONSE_ID, debug_data, 8, CAN_PRIORITY_HIGH);
- 1248              		.loc 1 580 5 is_stmt 1 view .LVU335
- 1249              		.loc 1 580 12 is_stmt 0 view .LVU336
- 1250 0044 0822     		movs	r2, #8
- 1251 0046 6946     		mov	r1, sp
- 1252 0048 0348     		ldr	r0, .L108+4
- 1253              	.LVL62:
- 1254              		.loc 1 580 12 view .LVU337
- 1255 004a 0068     		ldr	r0, [r0]
- 1256 004c FFF7FEFF 		bl	CAN_SendMessage
- 1257              	.LVL63:
- 581:Core/Src/can_manager.c **** }
- 1258              		.loc 1 581 1 view .LVU338
- 1259 0050 02B0     		add	sp, sp, #8
- 1260              		.cfi_def_cfa_offset 8
- 1261              		@ sp needed
- 1262 0052 10BD     		pop	{r4, pc}
- 1263              	.LVL64:
- 1264              	.L109:
- 1265              		.loc 1 581 1 view .LVU339
- 1266              		.align	2
- 1267              	.L108:
- 1268 0054 D34D6210 		.word	274877907
- 1269 0058 00000000 		.word	CAN_DEBUG_RESPONSE_ID
- 1270              		.cfi_endproc
- 1271              	.LFE312:
- 1273              		.section	.text.CAN_ProcessRxMessage,"ax",%progbits
- 1274              		.align	1
- 1275              		.syntax unified
- 1276              		.thumb
- 1277              		.thumb_func
- 1279              	CAN_ProcessRxMessage:
- 1280              	.LVL65:
- 1281              	.LFB299:
- 240:Core/Src/can_manager.c ****     can_stats.rx_message_count++;
- 1282              		.loc 1 240 1 is_stmt 1 view -0
- 1283              		.cfi_startproc
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 35
+ 1227              	.LVL64:
+ 581:Core/Src/can_manager.c **** 
+ 582:Core/Src/can_manager.c ****     // Pack debug information message
+ 583:Core/Src/can_manager.c ****     debug_data[0] = module_id;                              // Byte 0: Module ID
+ 1228              		.loc 1 583 5 is_stmt 1 view .LVU320
+ 1229              		.loc 1 583 19 is_stmt 0 view .LVU321
+ 1230 0020 8DF80060 		strb	r6, [sp]
+ 584:Core/Src/can_manager.c ****     debug_data[1] = (uint8_t)((free_heap >> 8) & 0xFF);     // Byte 1: Free heap MSB (in 256-byte u
+ 1231              		.loc 1 584 5 is_stmt 1 view .LVU322
+ 1232              		.loc 1 584 21 is_stmt 0 view .LVU323
+ 1233 0024 C5F30725 		ubfx	r5, r5, #8, #8
+ 1234              	.LVL65:
+ 1235              		.loc 1 584 19 view .LVU324
+ 1236 0028 8DF80150 		strb	r5, [sp, #1]
+ 585:Core/Src/can_manager.c ****     debug_data[2] = (uint8_t)((min_free_heap >> 8) & 0xFF); // Byte 2: Min free heap MSB (in 256-by
+ 1237              		.loc 1 585 5 is_stmt 1 view .LVU325
+ 1238              		.loc 1 585 21 is_stmt 0 view .LVU326
+ 1239 002c C4F30724 		ubfx	r4, r4, #8, #8
+ 1240              	.LVL66:
+ 1241              		.loc 1 585 19 view .LVU327
+ 1242 0030 8DF80240 		strb	r4, [sp, #2]
+ 586:Core/Src/can_manager.c ****     debug_data[3] = 0;                                      // Byte 3: Reserved (could be CPU usage
+ 1243              		.loc 1 586 5 is_stmt 1 view .LVU328
+ 1244              		.loc 1 586 19 is_stmt 0 view .LVU329
+ 1245 0034 0022     		movs	r2, #0
+ 1246 0036 8DF80320 		strb	r2, [sp, #3]
+ 587:Core/Src/can_manager.c ****     debug_data[4] = (uint8_t)(uptime_sec & 0xFF);           // Byte 4: Uptime LSB
+ 1247              		.loc 1 587 5 is_stmt 1 view .LVU330
+ 1248              		.loc 1 587 21 is_stmt 0 view .LVU331
+ 1249 003a C3F38712 		ubfx	r2, r3, #6, #8
+ 1250              		.loc 1 587 19 view .LVU332
+ 1251 003e 8DF80420 		strb	r2, [sp, #4]
+ 588:Core/Src/can_manager.c ****     debug_data[5] = (uint8_t)((uptime_sec >> 8) & 0xFF);    // Byte 5: Uptime
+ 1252              		.loc 1 588 5 is_stmt 1 view .LVU333
+ 1253              		.loc 1 588 21 is_stmt 0 view .LVU334
+ 1254 0042 C3F38732 		ubfx	r2, r3, #14, #8
+ 1255              		.loc 1 588 19 view .LVU335
+ 1256 0046 8DF80520 		strb	r2, [sp, #5]
+ 589:Core/Src/can_manager.c ****     debug_data[6] = (uint8_t)((uptime_sec >> 16) & 0xFF);   // Byte 6: Uptime
+ 1257              		.loc 1 589 5 is_stmt 1 view .LVU336
+ 1258              		.loc 1 589 21 is_stmt 0 view .LVU337
+ 1259 004a 9B0D     		lsrs	r3, r3, #22
+ 1260              	.LVL67:
+ 1261              		.loc 1 589 19 view .LVU338
+ 1262 004c 8DF80630 		strb	r3, [sp, #6]
+ 590:Core/Src/can_manager.c ****     debug_data[7] = (uint8_t)((uptime_sec >> 24) & 0xFF);   // Byte 7: Uptime MSB
+ 1263              		.loc 1 590 5 is_stmt 1 view .LVU339
+ 1264              		.loc 1 590 21 is_stmt 0 view .LVU340
+ 1265 0050 0023     		movs	r3, #0
+ 1266              		.loc 1 590 19 view .LVU341
+ 1267 0052 8DF80730 		strb	r3, [sp, #7]
+ 591:Core/Src/can_manager.c **** 
+ 592:Core/Src/can_manager.c ****     // Send debug info with high priority
+ 593:Core/Src/can_manager.c ****     return CAN_SendMessage(CAN_DEBUG_RESPONSE_ID, debug_data, 8, CAN_PRIORITY_HIGH);
+ 1268              		.loc 1 593 5 is_stmt 1 view .LVU342
+ 1269              		.loc 1 593 12 is_stmt 0 view .LVU343
+ 1270 0056 0123     		movs	r3, #1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 35
 
 
- 1284              		@ args = 0, pretend = 0, frame = 0
- 1285              		@ frame_needed = 0, uses_anonymous_args = 0
- 240:Core/Src/can_manager.c ****     can_stats.rx_message_count++;
- 1286              		.loc 1 240 1 is_stmt 0 view .LVU341
- 1287 0000 08B5     		push	{r3, lr}
- 1288              		.cfi_def_cfa_offset 8
- 1289              		.cfi_offset 3, -8
- 1290              		.cfi_offset 14, -4
- 241:Core/Src/can_manager.c ****     
- 1291              		.loc 1 241 5 is_stmt 1 view .LVU342
- 241:Core/Src/can_manager.c ****     
- 1292              		.loc 1 241 14 is_stmt 0 view .LVU343
- 1293 0002 0D4A     		ldr	r2, .L118
- 1294 0004 D368     		ldr	r3, [r2, #12]
- 241:Core/Src/can_manager.c ****     
- 1295              		.loc 1 241 31 view .LVU344
- 1296 0006 0133     		adds	r3, r3, #1
- 1297 0008 D360     		str	r3, [r2, #12]
- 245:Core/Src/can_manager.c ****     if (base_id == (CAN_CONFIG_CMD_ID & 0xFFFF0FFF)) {
- 1298              		.loc 1 245 5 is_stmt 1 view .LVU345
- 245:Core/Src/can_manager.c ****     if (base_id == (CAN_CONFIG_CMD_ID & 0xFFFF0FFF)) {
- 1299              		.loc 1 245 27 is_stmt 0 view .LVU346
- 1300 000a 0368     		ldr	r3, [r0]
- 245:Core/Src/can_manager.c ****     if (base_id == (CAN_CONFIG_CMD_ID & 0xFFFF0FFF)) {
- 1301              		.loc 1 245 14 view .LVU347
- 1302 000c 23F47041 		bic	r1, r3, #61440
- 1303              	.LVL66:
- 246:Core/Src/can_manager.c ****         // Process configuration command
- 1304              		.loc 1 246 5 is_stmt 1 view .LVU348
- 246:Core/Src/can_manager.c ****         // Process configuration command
- 1305              		.loc 1 246 8 is_stmt 0 view .LVU349
- 1306 0010 0A4A     		ldr	r2, .L118+4
- 1307 0012 9142     		cmp	r1, r2
- 1308 0014 07D0     		beq	.L116
- 253:Core/Src/can_manager.c ****         // Send debug info response
- 1309              		.loc 1 253 5 is_stmt 1 view .LVU350
- 253:Core/Src/can_manager.c ****         // Send debug info response
- 1310              		.loc 1 253 8 is_stmt 0 view .LVU351
- 1311 0016 0A4A     		ldr	r2, .L118+8
- 1312 0018 9342     		cmp	r3, r2
- 1313 001a 09D0     		beq	.L117
- 260:Core/Src/can_manager.c ****         rx_callback(msg);
- 1314              		.loc 1 260 5 is_stmt 1 view .LVU352
- 260:Core/Src/can_manager.c ****         rx_callback(msg);
- 1315              		.loc 1 260 21 is_stmt 0 view .LVU353
- 1316 001c 094B     		ldr	r3, .L118+12
- 1317 001e 1B68     		ldr	r3, [r3]
- 260:Core/Src/can_manager.c ****         rx_callback(msg);
- 1318              		.loc 1 260 8 view .LVU354
- 1319 0020 03B1     		cbz	r3, .L110
- 261:Core/Src/can_manager.c ****     }
- 1320              		.loc 1 261 9 is_stmt 1 view .LVU355
- 1321 0022 9847     		blx	r3
- 1322              	.LVL67:
- 266:Core/Src/can_manager.c ****         case 0x100:
- 1323              		.loc 1 266 5 view .LVU356
- 279:Core/Src/can_manager.c ****     }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 36
+ 1271 0058 0822     		movs	r2, #8
+ 1272 005a 6946     		mov	r1, sp
+ 1273 005c 0348     		ldr	r0, .L108+4
+ 1274              	.LVL68:
+ 1275              		.loc 1 593 12 view .LVU344
+ 1276 005e 0068     		ldr	r0, [r0]
+ 1277 0060 FFF7FEFF 		bl	CAN_SendMessage
+ 1278              	.LVL69:
+ 594:Core/Src/can_manager.c **** }...
+ 1279              		.loc 1 594 1 view .LVU345
+ 1280 0064 02B0     		add	sp, sp, #8
+ 1281              		.cfi_def_cfa_offset 16
+ 1282              		@ sp needed
+ 1283 0066 70BD     		pop	{r4, r5, r6, pc}
+ 1284              	.LVL70:
+ 1285              	.L109:
+ 1286              		.loc 1 594 1 view .LVU346
+ 1287              		.align	2
+ 1288              	.L108:
+ 1289 0068 D34D6210 		.word	274877907
+ 1290 006c 00000000 		.word	CAN_DEBUG_RESPONSE_ID
+ 1291              		.cfi_endproc
+ 1292              	.LFE312:
+ 1294              		.section	.text.CAN_ProcessRxMessage,"ax",%progbits
+ 1295              		.align	1
+ 1296              		.syntax unified
+ 1297              		.thumb
+ 1298              		.thumb_func
+ 1300              	CAN_ProcessRxMessage:
+ 1301              	.LVL71:
+ 1302              	.LFB299:
+ 240:Core/Src/can_manager.c **** {
+ 1303              		.loc 1 240 1 is_stmt 1 view -0
+ 1304              		.cfi_startproc
+ 1305              		@ args = 0, pretend = 0, frame = 0
+ 1306              		@ frame_needed = 0, uses_anonymous_args = 0
+ 240:Core/Src/can_manager.c **** {
+ 1307              		.loc 1 240 1 is_stmt 0 view .LVU348
+ 1308 0000 38B5     		push	{r3, r4, r5, lr}
+ 1309              		.cfi_def_cfa_offset 16
+ 1310              		.cfi_offset 3, -16
+ 1311              		.cfi_offset 4, -12
+ 1312              		.cfi_offset 5, -8
+ 1313              		.cfi_offset 14, -4
+ 241:Core/Src/can_manager.c ****     can_stats.rx_message_count++;
+ 1314              		.loc 1 241 5 is_stmt 1 view .LVU349
+ 241:Core/Src/can_manager.c ****     can_stats.rx_message_count++;
+ 1315              		.loc 1 241 14 is_stmt 0 view .LVU350
+ 1316 0002 114A     		ldr	r2, .L118
+ 1317 0004 D368     		ldr	r3, [r2, #12]
+ 241:Core/Src/can_manager.c ****     can_stats.rx_message_count++;
+ 1318              		.loc 1 241 31 view .LVU351
+ 1319 0006 0133     		adds	r3, r3, #1
+ 1320 0008 D360     		str	r3, [r2, #12]
+ 244:Core/Src/can_manager.c ****     if (msg->id == CAN_DEBUG_REQUEST_ID) {
+ 1321              		.loc 1 244 5 is_stmt 1 view .LVU352
+ 244:Core/Src/can_manager.c ****     if (msg->id == CAN_DEBUG_REQUEST_ID) {
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 36
 
 
- 1324              		.loc 1 279 13 view .LVU357
- 1325              	.L110:
- 281:Core/Src/can_manager.c **** 
- 1326              		.loc 1 281 1 is_stmt 0 view .LVU358
- 1327 0024 08BD     		pop	{r3, pc}
- 1328              	.LVL68:
- 1329              	.L116:
- 248:Core/Src/can_manager.c ****         return;
- 1330              		.loc 1 248 9 is_stmt 1 view .LVU359
- 1331 0026 017B     		ldrb	r1, [r0, #12]	@ zero_extendqisi2
- 1332              	.LVL69:
- 248:Core/Src/can_manager.c ****         return;
- 1333              		.loc 1 248 9 is_stmt 0 view .LVU360
- 1334 0028 0430     		adds	r0, r0, #4
- 1335              	.LVL70:
- 248:Core/Src/can_manager.c ****         return;
- 1336              		.loc 1 248 9 view .LVU361
- 1337 002a FFF7FEFF 		bl	Config_ProcessCANCommand
- 1338              	.LVL71:
- 249:Core/Src/can_manager.c ****     }
- 1339              		.loc 1 249 9 is_stmt 1 view .LVU362
- 1340 002e F9E7     		b	.L110
- 1341              	.LVL72:
- 1342              	.L117:
- 255:Core/Src/can_manager.c ****         return;
- 1343              		.loc 1 255 9 view .LVU363
- 1344 0030 FFF7FEFF 		bl	CAN_SendDebugInfo
- 1345              	.LVL73:
- 256:Core/Src/can_manager.c ****     }
- 1346              		.loc 1 256 9 view .LVU364
- 1347 0034 F6E7     		b	.L110
- 1348              	.L119:
- 1349 0036 00BF     		.align	2
- 1350              	.L118:
- 1351 0038 00000000 		.word	can_stats
- 1352 003c 000FF008 		.word	149950208
- 1353 0040 100FF008 		.word	149950224
- 1354 0044 00000000 		.word	rx_callback
- 1355              		.cfi_endproc
- 1356              	.LFE299:
- 1358              		.section	.text.CAN_ManagerTask,"ax",%progbits
- 1359              		.align	1
- 1360              		.global	CAN_ManagerTask
- 1361              		.syntax unified
- 1362              		.thumb
- 1363              		.thumb_func
- 1365              	CAN_ManagerTask:
- 1366              	.LVL74:
- 1367              	.LFB300:
- 289:Core/Src/can_manager.c ****     CAN_Message_t rx_msg;
- 1368              		.loc 1 289 1 view -0
- 1369              		.cfi_startproc
- 1370              		@ args = 0, pretend = 0, frame = 24
- 1371              		@ frame_needed = 0, uses_anonymous_args = 0
- 289:Core/Src/can_manager.c ****     CAN_Message_t rx_msg;
- 1372              		.loc 1 289 1 is_stmt 0 view .LVU366
- 1373 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 37
+ 1322              		.loc 1 244 12 is_stmt 0 view .LVU353
+ 1323 000a 0568     		ldr	r5, [r0]
+ 244:Core/Src/can_manager.c ****     if (msg->id == CAN_DEBUG_REQUEST_ID) {
+ 1324              		.loc 1 244 8 view .LVU354
+ 1325 000c 0F4A     		ldr	r2, .L118+4
+ 1326 000e 9542     		cmp	r5, r2
+ 1327 0010 12D0     		beq	.L116
+ 1328 0012 0446     		mov	r4, r0
+ 251:Core/Src/can_manager.c ****     uint8_t rx_module_id = (msg->id >> 12) & 0x0F;
+ 1329              		.loc 1 251 5 is_stmt 1 view .LVU355
+ 251:Core/Src/can_manager.c ****     uint8_t rx_module_id = (msg->id >> 12) & 0x0F;
+ 1330              		.loc 1 251 13 is_stmt 0 view .LVU356
+ 1331 0014 C5F30335 		ubfx	r5, r5, #12, #4
+ 1332              	.LVL72:
+ 252:Core/Src/can_manager.c ****     uint8_t our_module_id = Config_GetModuleID();
+ 1333              		.loc 1 252 5 is_stmt 1 view .LVU357
+ 252:Core/Src/can_manager.c ****     uint8_t our_module_id = Config_GetModuleID();
+ 1334              		.loc 1 252 29 is_stmt 0 view .LVU358
+ 1335 0018 FFF7FEFF 		bl	Config_GetModuleID
+ 1336              	.LVL73:
+ 256:Core/Src/can_manager.c ****     if (rx_module_id != our_module_id) {
+ 1337              		.loc 1 256 5 is_stmt 1 view .LVU359
+ 256:Core/Src/can_manager.c ****     if (rx_module_id != our_module_id) {
+ 1338              		.loc 1 256 8 is_stmt 0 view .LVU360
+ 1339 001c 8542     		cmp	r5, r0
+ 1340 001e 0AD1     		bne	.L110
+ 262:Core/Src/can_manager.c ****     uint32_t base_id = msg->id & 0xFFFF0FFF;
+ 1341              		.loc 1 262 5 is_stmt 1 view .LVU361
+ 262:Core/Src/can_manager.c ****     uint32_t base_id = msg->id & 0xFFFF0FFF;
+ 1342              		.loc 1 262 27 is_stmt 0 view .LVU362
+ 1343 0020 2368     		ldr	r3, [r4]
+ 262:Core/Src/can_manager.c ****     uint32_t base_id = msg->id & 0xFFFF0FFF;
+ 1344              		.loc 1 262 14 view .LVU363
+ 1345 0022 23F47043 		bic	r3, r3, #61440
+ 1346              	.LVL74:
+ 265:Core/Src/can_manager.c ****     if (base_id == (CAN_CONFIG_CMD_BASE & 0xFFFF0FFF)) {
+ 1347              		.loc 1 265 5 is_stmt 1 view .LVU364
+ 265:Core/Src/can_manager.c ****     if (base_id == (CAN_CONFIG_CMD_BASE & 0xFFFF0FFF)) {
+ 1348              		.loc 1 265 8 is_stmt 0 view .LVU365
+ 1349 0026 0A4A     		ldr	r2, .L118+8
+ 1350 0028 9342     		cmp	r3, r2
+ 1351 002a 08D0     		beq	.L117
+ 269:Core/Src/can_manager.c ****     if (rx_callback != NULL) {
+ 1352              		.loc 1 269 5 is_stmt 1 view .LVU366
+ 269:Core/Src/can_manager.c ****     if (rx_callback != NULL) {
+ 1353              		.loc 1 269 21 is_stmt 0 view .LVU367
+ 1354 002c 094B     		ldr	r3, .L118+12
+ 1355              	.LVL75:
+ 269:Core/Src/can_manager.c ****     if (rx_callback != NULL) {
+ 1356              		.loc 1 269 21 view .LVU368
+ 1357 002e 1B68     		ldr	r3, [r3]
+ 269:Core/Src/can_manager.c ****     if (rx_callback != NULL) {
+ 1358              		.loc 1 269 8 view .LVU369
+ 1359 0030 0BB1     		cbz	r3, .L110
+ 270:Core/Src/can_manager.c ****         rx_callback(msg);
+ 1360              		.loc 1 270 9 is_stmt 1 view .LVU370
+ 1361 0032 2046     		mov	r0, r4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 37
 
 
- 1374              		.cfi_def_cfa_offset 24
- 1375              		.cfi_offset 4, -24
- 1376              		.cfi_offset 5, -20
- 1377              		.cfi_offset 6, -16
- 1378              		.cfi_offset 7, -12
- 1379              		.cfi_offset 8, -8
- 1380              		.cfi_offset 14, -4
- 1381 0004 86B0     		sub	sp, sp, #24
- 1382              		.cfi_def_cfa_offset 48
- 290:Core/Src/can_manager.c ****     uint32_t last_heartbeat_tick = 0;
- 1383              		.loc 1 290 5 is_stmt 1 view .LVU367
- 291:Core/Src/can_manager.c ****     uint32_t last_stats_tick = 0;
- 1384              		.loc 1 291 5 view .LVU368
- 1385              	.LVL75:
- 292:Core/Src/can_manager.c ****     uint32_t last_uptime_tick = 0;
- 1386              		.loc 1 292 5 view .LVU369
- 293:Core/Src/can_manager.c ****     uint32_t current_tick = 0;
- 1387              		.loc 1 293 5 view .LVU370
- 294:Core/Src/can_manager.c ****     
- 1388              		.loc 1 294 5 view .LVU371
- 297:Core/Src/can_manager.c ****     
- 1389              		.loc 1 297 5 view .LVU372
- 1390 0006 6420     		movs	r0, #100
- 1391              	.LVL76:
- 297:Core/Src/can_manager.c ****     
- 1392              		.loc 1 297 5 is_stmt 0 view .LVU373
- 1393 0008 FFF7FEFF 		bl	osDelay
- 1394              	.LVL77:
- 300:Core/Src/can_manager.c ****     last_stats_tick = osKernelGetTickCount();
- 1395              		.loc 1 300 5 is_stmt 1 view .LVU374
- 300:Core/Src/can_manager.c ****     last_stats_tick = osKernelGetTickCount();
- 1396              		.loc 1 300 27 is_stmt 0 view .LVU375
- 1397 000c FFF7FEFF 		bl	osKernelGetTickCount
- 1398              	.LVL78:
- 1399 0010 8046     		mov	r8, r0
- 1400              	.LVL79:
- 301:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
- 1401              		.loc 1 301 5 is_stmt 1 view .LVU376
- 301:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
- 1402              		.loc 1 301 23 is_stmt 0 view .LVU377
- 1403 0012 FFF7FEFF 		bl	osKernelGetTickCount
- 1404              	.LVL80:
- 301:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
- 1405              		.loc 1 301 23 view .LVU378
- 1406 0016 0746     		mov	r7, r0
- 1407              	.LVL81:
- 302:Core/Src/can_manager.c ****     
- 1408              		.loc 1 302 5 is_stmt 1 view .LVU379
- 302:Core/Src/can_manager.c ****     
- 1409              		.loc 1 302 24 is_stmt 0 view .LVU380
- 1410 0018 FFF7FEFF 		bl	osKernelGetTickCount
- 1411              	.LVL82:
- 302:Core/Src/can_manager.c ****     
- 1412              		.loc 1 302 24 view .LVU381
- 1413 001c 0646     		mov	r6, r0
- 1414 001e 20E0     		b	.L126
- 1415              	.LVL83:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 38
+ 1362              	.LVL76:
+ 270:Core/Src/can_manager.c ****         rx_callback(msg);
+ 1363              		.loc 1 270 9 is_stmt 0 view .LVU371
+ 1364 0034 9847     		blx	r3
+ 1365              	.LVL77:
+ 275:Core/Src/can_manager.c ****     switch (msg->id) {
+ 1366              		.loc 1 275 5 is_stmt 1 view .LVU372
+ 288:Core/Src/can_manager.c ****             break;
+ 1367              		.loc 1 288 13 view .LVU373
+ 1368              	.L110:
+ 290:Core/Src/can_manager.c **** }
+ 1369              		.loc 1 290 1 is_stmt 0 view .LVU374
+ 1370 0036 38BD     		pop	{r3, r4, r5, pc}
+ 1371              	.LVL78:
+ 1372              	.L116:
+ 246:Core/Src/can_manager.c ****         CAN_SendDebugInfo();
+ 1373              		.loc 1 246 9 is_stmt 1 view .LVU375
+ 1374 0038 FFF7FEFF 		bl	CAN_SendDebugInfo
+ 1375              	.LVL79:
+ 247:Core/Src/can_manager.c ****         return;
+ 1376              		.loc 1 247 9 view .LVU376
+ 1377 003c FBE7     		b	.L110
+ 1378              	.LVL80:
+ 1379              	.L117:
+ 266:Core/Src/can_manager.c ****         Config_ProcessCANCommand(msg->data, msg->length);
+ 1380              		.loc 1 266 9 view .LVU377
+ 1381 003e 217B     		ldrb	r1, [r4, #12]	@ zero_extendqisi2
+ 1382 0040 201D     		adds	r0, r4, #4
+ 1383              	.LVL81:
+ 266:Core/Src/can_manager.c ****         Config_ProcessCANCommand(msg->data, msg->length);
+ 1384              		.loc 1 266 9 is_stmt 0 view .LVU378
+ 1385 0042 FFF7FEFF 		bl	Config_ProcessCANCommand
+ 1386              	.LVL82:
+ 267:Core/Src/can_manager.c ****         return;
+ 1387              		.loc 1 267 9 is_stmt 1 view .LVU379
+ 1388 0046 F6E7     		b	.L110
+ 1389              	.L119:
+ 1390              		.align	2
+ 1391              	.L118:
+ 1392 0048 00000000 		.word	can_stats
+ 1393 004c 100FF008 		.word	149950224
+ 1394 0050 000FF008 		.word	149950208
+ 1395 0054 00000000 		.word	rx_callback
+ 1396              		.cfi_endproc
+ 1397              	.LFE299:
+ 1399              		.section	.text.CAN_ManagerTask,"ax",%progbits
+ 1400              		.align	1
+ 1401              		.global	CAN_ManagerTask
+ 1402              		.syntax unified
+ 1403              		.thumb
+ 1404              		.thumb_func
+ 1406              	CAN_ManagerTask:
+ 1407              	.LVL83:
+ 1408              	.LFB300:
+ 298:Core/Src/can_manager.c **** {
+ 1409              		.loc 1 298 1 view -0
+ 1410              		.cfi_startproc
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 38
 
 
- 1416              	.L122:
- 311:Core/Src/can_manager.c ****         }
- 1417              		.loc 1 311 13 is_stmt 1 view .LVU382
- 1418 0020 01A8     		add	r0, sp, #4
- 1419 0022 FFF7FEFF 		bl	CAN_ProcessRxMessage
- 1420              	.LVL84:
- 1421              	.L121:
- 310:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
- 1422              		.loc 1 310 70 view .LVU383
- 310:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
- 1423              		.loc 1 310 16 is_stmt 0 view .LVU384
- 1424 0026 0023     		movs	r3, #0
- 1425 0028 1A46     		mov	r2, r3
- 1426 002a 01A9     		add	r1, sp, #4
- 1427 002c 134C     		ldr	r4, .L130
- 1428 002e 2068     		ldr	r0, [r4]
- 1429 0030 FFF7FEFF 		bl	osMessageQueueGet
- 1430              	.LVL85:
- 310:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
- 1431              		.loc 1 310 70 discriminator 1 view .LVU385
- 1432 0034 0028     		cmp	r0, #0
- 1433 0036 F3D0     		beq	.L122
- 315:Core/Src/can_manager.c ****         
- 1434              		.loc 1 315 9 is_stmt 1 view .LVU386
- 1435 0038 FFF7FEFF 		bl	CAN_ProcessTxQueue
- 1436              	.LVL86:
- 318:Core/Src/can_manager.c ****             CAN_SendHeartbeat();
- 1437              		.loc 1 318 9 view .LVU387
- 318:Core/Src/can_manager.c ****             CAN_SendHeartbeat();
- 1438              		.loc 1 318 27 is_stmt 0 view .LVU388
- 1439 003c A5EB0803 		sub	r3, r5, r8
- 318:Core/Src/can_manager.c ****             CAN_SendHeartbeat();
- 1440              		.loc 1 318 12 view .LVU389
- 1441 0040 B3F57A7F 		cmp	r3, #1000
- 1442 0044 11D2     		bcs	.L128
- 1443              	.L123:
- 324:Core/Src/can_manager.c ****             CAN_SendStatistics();
- 1444              		.loc 1 324 9 is_stmt 1 view .LVU390
- 324:Core/Src/can_manager.c ****             CAN_SendStatistics();
- 1445              		.loc 1 324 27 is_stmt 0 view .LVU391
- 1446 0046 EB1B     		subs	r3, r5, r7
- 324:Core/Src/can_manager.c ****             CAN_SendStatistics();
- 1447              		.loc 1 324 12 view .LVU392
- 1448 0048 B3F57A7F 		cmp	r3, #1000
- 1449 004c 11D2     		bcs	.L129
- 1450              	.L124:
- 330:Core/Src/can_manager.c ****             ErrorMgr_UpdateUptime();
- 1451              		.loc 1 330 9 is_stmt 1 view .LVU393
- 330:Core/Src/can_manager.c ****             ErrorMgr_UpdateUptime();
- 1452              		.loc 1 330 27 is_stmt 0 view .LVU394
- 1453 004e AB1B     		subs	r3, r5, r6
- 330:Core/Src/can_manager.c ****             ErrorMgr_UpdateUptime();
- 1454              		.loc 1 330 12 view .LVU395
- 1455 0050 B3F57A7F 		cmp	r3, #1000
- 1456 0054 02D3     		bcc	.L125
- 331:Core/Src/can_manager.c ****             last_uptime_tick = current_tick;
- 1457              		.loc 1 331 13 is_stmt 1 view .LVU396
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 39
+ 1411              		@ args = 0, pretend = 0, frame = 24
+ 1412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 298:Core/Src/can_manager.c **** {
+ 1413              		.loc 1 298 1 is_stmt 0 view .LVU381
+ 1414 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1415              		.cfi_def_cfa_offset 24
+ 1416              		.cfi_offset 4, -24
+ 1417              		.cfi_offset 5, -20
+ 1418              		.cfi_offset 6, -16
+ 1419              		.cfi_offset 7, -12
+ 1420              		.cfi_offset 8, -8
+ 1421              		.cfi_offset 14, -4
+ 1422 0004 86B0     		sub	sp, sp, #24
+ 1423              		.cfi_def_cfa_offset 48
+ 299:Core/Src/can_manager.c ****     CAN_Message_t rx_msg;
+ 1424              		.loc 1 299 5 is_stmt 1 view .LVU382
+ 300:Core/Src/can_manager.c ****     uint32_t last_heartbeat_tick = 0;
+ 1425              		.loc 1 300 5 view .LVU383
+ 1426              	.LVL84:
+ 301:Core/Src/can_manager.c ****     uint32_t last_stats_tick = 0;
+ 1427              		.loc 1 301 5 view .LVU384
+ 302:Core/Src/can_manager.c ****     uint32_t last_uptime_tick = 0;
+ 1428              		.loc 1 302 5 view .LVU385
+ 303:Core/Src/can_manager.c ****     uint32_t current_tick = 0;
+ 1429              		.loc 1 303 5 view .LVU386
+ 306:Core/Src/can_manager.c ****     osDelay(100);
+ 1430              		.loc 1 306 5 view .LVU387
+ 1431 0006 6420     		movs	r0, #100
+ 1432              	.LVL85:
+ 306:Core/Src/can_manager.c ****     osDelay(100);
+ 1433              		.loc 1 306 5 is_stmt 0 view .LVU388
+ 1434 0008 FFF7FEFF 		bl	osDelay
+ 1435              	.LVL86:
+ 309:Core/Src/can_manager.c ****     last_heartbeat_tick = osKernelGetTickCount();
+ 1436              		.loc 1 309 5 is_stmt 1 view .LVU389
+ 309:Core/Src/can_manager.c ****     last_heartbeat_tick = osKernelGetTickCount();
+ 1437              		.loc 1 309 27 is_stmt 0 view .LVU390
+ 1438 000c FFF7FEFF 		bl	osKernelGetTickCount
+ 1439              	.LVL87:
+ 1440 0010 8046     		mov	r8, r0
+ 1441              	.LVL88:
+ 310:Core/Src/can_manager.c ****     last_stats_tick = osKernelGetTickCount();
+ 1442              		.loc 1 310 5 is_stmt 1 view .LVU391
+ 310:Core/Src/can_manager.c ****     last_stats_tick = osKernelGetTickCount();
+ 1443              		.loc 1 310 23 is_stmt 0 view .LVU392
+ 1444 0012 FFF7FEFF 		bl	osKernelGetTickCount
+ 1445              	.LVL89:
+ 310:Core/Src/can_manager.c ****     last_stats_tick = osKernelGetTickCount();
+ 1446              		.loc 1 310 23 view .LVU393
+ 1447 0016 0746     		mov	r7, r0
+ 1448              	.LVL90:
+ 311:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
+ 1449              		.loc 1 311 5 is_stmt 1 view .LVU394
+ 311:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
+ 1450              		.loc 1 311 24 is_stmt 0 view .LVU395
+ 1451 0018 FFF7FEFF 		bl	osKernelGetTickCount
+ 1452              	.LVL91:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 39
 
 
- 1458 0056 FFF7FEFF 		bl	ErrorMgr_UpdateUptime
- 1459              	.LVL87:
- 332:Core/Src/can_manager.c ****         }
- 1460              		.loc 1 332 13 view .LVU397
- 332:Core/Src/can_manager.c ****         }
- 1461              		.loc 1 332 30 is_stmt 0 view .LVU398
- 1462 005a 2E46     		mov	r6, r5
- 1463              	.LVL88:
- 1464              	.L125:
- 337:Core/Src/can_manager.c ****     }
- 1465              		.loc 1 337 9 is_stmt 1 view .LVU399
- 1466 005c 0A20     		movs	r0, #10
- 1467 005e FFF7FEFF 		bl	osDelay
- 1468              	.LVL89:
- 305:Core/Src/can_manager.c ****     {
- 1469              		.loc 1 305 5 view .LVU400
- 1470              	.L126:
- 305:Core/Src/can_manager.c ****     {
- 1471              		.loc 1 305 5 view .LVU401
- 307:Core/Src/can_manager.c ****         
- 1472              		.loc 1 307 9 view .LVU402
- 307:Core/Src/can_manager.c ****         
- 1473              		.loc 1 307 24 is_stmt 0 view .LVU403
- 1474 0062 FFF7FEFF 		bl	osKernelGetTickCount
- 1475              	.LVL90:
- 1476 0066 0546     		mov	r5, r0
- 1477              	.LVL91:
- 310:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
- 1478              		.loc 1 310 9 is_stmt 1 view .LVU404
- 310:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
- 1479              		.loc 1 310 15 is_stmt 0 view .LVU405
- 1480 0068 DDE7     		b	.L121
- 1481              	.LVL92:
- 1482              	.L128:
- 319:Core/Src/can_manager.c ****             last_heartbeat_tick = current_tick;
- 1483              		.loc 1 319 13 is_stmt 1 view .LVU406
- 1484 006a FFF7FEFF 		bl	CAN_SendHeartbeat
- 1485              	.LVL93:
- 320:Core/Src/can_manager.c ****         }
- 1486              		.loc 1 320 13 view .LVU407
- 320:Core/Src/can_manager.c ****         }
- 1487              		.loc 1 320 33 is_stmt 0 view .LVU408
- 1488 006e A846     		mov	r8, r5
- 1489 0070 E9E7     		b	.L123
- 1490              	.LVL94:
- 1491              	.L129:
- 325:Core/Src/can_manager.c ****             last_stats_tick = current_tick;
- 1492              		.loc 1 325 13 is_stmt 1 view .LVU409
- 1493 0072 FFF7FEFF 		bl	CAN_SendStatistics
- 1494              	.LVL95:
- 326:Core/Src/can_manager.c ****         }
- 1495              		.loc 1 326 13 view .LVU410
- 326:Core/Src/can_manager.c ****         }
- 1496              		.loc 1 326 29 is_stmt 0 view .LVU411
- 1497 0076 2F46     		mov	r7, r5
- 1498 0078 E9E7     		b	.L124
- 1499              	.L131:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 40
+ 311:Core/Src/can_manager.c ****     last_uptime_tick = osKernelGetTickCount();
+ 1453              		.loc 1 311 24 view .LVU396
+ 1454 001c 0646     		mov	r6, r0
+ 1455 001e 20E0     		b	.L126
+ 1456              	.LVL92:
+ 1457              	.L122:
+ 320:Core/Src/can_manager.c ****             CAN_ProcessRxMessage(&rx_msg);
+ 1458              		.loc 1 320 13 is_stmt 1 view .LVU397
+ 1459 0020 01A8     		add	r0, sp, #4
+ 1460 0022 FFF7FEFF 		bl	CAN_ProcessRxMessage
+ 1461              	.LVL93:
+ 1462              	.L121:
+ 319:Core/Src/can_manager.c ****         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
+ 1463              		.loc 1 319 70 view .LVU398
+ 319:Core/Src/can_manager.c ****         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
+ 1464              		.loc 1 319 16 is_stmt 0 view .LVU399
+ 1465 0026 0023     		movs	r3, #0
+ 1466 0028 1A46     		mov	r2, r3
+ 1467 002a 01A9     		add	r1, sp, #4
+ 1468 002c 134C     		ldr	r4, .L130
+ 1469 002e 2068     		ldr	r0, [r4]
+ 1470 0030 FFF7FEFF 		bl	osMessageQueueGet
+ 1471              	.LVL94:
+ 319:Core/Src/can_manager.c ****         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
+ 1472              		.loc 1 319 70 discriminator 1 view .LVU400
+ 1473 0034 0028     		cmp	r0, #0
+ 1474 0036 F3D0     		beq	.L122
+ 324:Core/Src/can_manager.c ****         CAN_ProcessTxQueue();
+ 1475              		.loc 1 324 9 is_stmt 1 view .LVU401
+ 1476 0038 FFF7FEFF 		bl	CAN_ProcessTxQueue
+ 1477              	.LVL95:
+ 327:Core/Src/can_manager.c ****         if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
+ 1478              		.loc 1 327 9 view .LVU402
+ 327:Core/Src/can_manager.c ****         if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
+ 1479              		.loc 1 327 27 is_stmt 0 view .LVU403
+ 1480 003c A5EB0803 		sub	r3, r5, r8
+ 327:Core/Src/can_manager.c ****         if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
+ 1481              		.loc 1 327 12 view .LVU404
+ 1482 0040 B3F57A7F 		cmp	r3, #1000
+ 1483 0044 11D2     		bcs	.L128
+ 1484              	.L123:
+ 333:Core/Src/can_manager.c ****         if ((current_tick - last_stats_tick) >= 1000) {
+ 1485              		.loc 1 333 9 is_stmt 1 view .LVU405
+ 333:Core/Src/can_manager.c ****         if ((current_tick - last_stats_tick) >= 1000) {
+ 1486              		.loc 1 333 27 is_stmt 0 view .LVU406
+ 1487 0046 EB1B     		subs	r3, r5, r7
+ 333:Core/Src/can_manager.c ****         if ((current_tick - last_stats_tick) >= 1000) {
+ 1488              		.loc 1 333 12 view .LVU407
+ 1489 0048 B3F57A7F 		cmp	r3, #1000
+ 1490 004c 11D2     		bcs	.L129
+ 1491              	.L124:
+ 339:Core/Src/can_manager.c ****         if ((current_tick - last_uptime_tick) >= 1000) {
+ 1492              		.loc 1 339 9 is_stmt 1 view .LVU408
+ 339:Core/Src/can_manager.c ****         if ((current_tick - last_uptime_tick) >= 1000) {
+ 1493              		.loc 1 339 27 is_stmt 0 view .LVU409
+ 1494 004e AB1B     		subs	r3, r5, r6
+ 339:Core/Src/can_manager.c ****         if ((current_tick - last_uptime_tick) >= 1000) {
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 40
 
 
- 1500 007a 00BF     		.align	2
- 1501              	.L130:
- 1502 007c 00000000 		.word	CANRxQueueHandle
- 1503              		.cfi_endproc
- 1504              	.LFE300:
- 1506              		.section	.bss.can_stats,"aw",%nobits
- 1507              		.align	2
- 1510              	can_stats:
- 1511 0000 00000000 		.space	24
- 1511      00000000 
- 1511      00000000 
- 1511      00000000 
- 1511      00000000 
- 1512              		.section	.bss.rx_callback,"aw",%nobits
- 1513              		.align	2
- 1516              	rx_callback:
- 1517 0000 00000000 		.space	4
- 1518              		.global	CANRxQueueHandle
- 1519              		.section	.bss.CANRxQueueHandle,"aw",%nobits
- 1520              		.align	2
- 1523              	CANRxQueueHandle:
- 1524 0000 00000000 		.space	4
- 1525              		.global	CANTxQueueHandle
- 1526              		.section	.bss.CANTxQueueHandle,"aw",%nobits
- 1527              		.align	2
- 1530              	CANTxQueueHandle:
- 1531 0000 00000000 		.space	4
- 1532              		.text
- 1533              	.Letext0:
- 1534              		.file 2 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1535              		.file 3 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1536              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l432xx.h"
- 1537              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h"
- 1538              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
- 1539              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_can.h"
- 1540              		.file 8 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
- 1541              		.file 9 "Core/Inc/can_ids.h"
- 1542              		.file 10 "Core/Inc/can_manager.h"
- 1543              		.file 11 "Core/Inc/error_manager.h"
- 1544              		.file 12 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
- 1545              		.file 13 "Core/Inc/config_manager.h"
- 1546              		.file 14 "<built-in>"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 41
+ 1495              		.loc 1 339 12 view .LVU410
+ 1496 0050 B3F57A7F 		cmp	r3, #1000
+ 1497 0054 02D3     		bcc	.L125
+ 340:Core/Src/can_manager.c ****             ErrorMgr_UpdateUptime();
+ 1498              		.loc 1 340 13 is_stmt 1 view .LVU411
+ 1499 0056 FFF7FEFF 		bl	ErrorMgr_UpdateUptime
+ 1500              	.LVL96:
+ 341:Core/Src/can_manager.c ****             last_uptime_tick = current_tick;
+ 1501              		.loc 1 341 13 view .LVU412
+ 341:Core/Src/can_manager.c ****             last_uptime_tick = current_tick;
+ 1502              		.loc 1 341 30 is_stmt 0 view .LVU413
+ 1503 005a 2E46     		mov	r6, r5
+ 1504              	.LVL97:
+ 1505              	.L125:
+ 346:Core/Src/can_manager.c ****         osDelay(10);
+ 1506              		.loc 1 346 9 is_stmt 1 view .LVU414
+ 1507 005c 0A20     		movs	r0, #10
+ 1508 005e FFF7FEFF 		bl	osDelay
+ 1509              	.LVL98:
+ 314:Core/Src/can_manager.c ****     for(;;)
+ 1510              		.loc 1 314 5 view .LVU415
+ 1511              	.L126:
+ 314:Core/Src/can_manager.c ****     for(;;)
+ 1512              		.loc 1 314 5 view .LVU416
+ 316:Core/Src/can_manager.c ****         current_tick = osKernelGetTickCount();
+ 1513              		.loc 1 316 9 view .LVU417
+ 316:Core/Src/can_manager.c ****         current_tick = osKernelGetTickCount();
+ 1514              		.loc 1 316 24 is_stmt 0 view .LVU418
+ 1515 0062 FFF7FEFF 		bl	osKernelGetTickCount
+ 1516              	.LVL99:
+ 1517 0066 0546     		mov	r5, r0
+ 1518              	.LVL100:
+ 319:Core/Src/can_manager.c ****         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
+ 1519              		.loc 1 319 9 is_stmt 1 view .LVU419
+ 319:Core/Src/can_manager.c ****         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
+ 1520              		.loc 1 319 15 is_stmt 0 view .LVU420
+ 1521 0068 DDE7     		b	.L121
+ 1522              	.LVL101:
+ 1523              	.L128:
+ 328:Core/Src/can_manager.c ****             CAN_SendHeartbeat();
+ 1524              		.loc 1 328 13 is_stmt 1 view .LVU421
+ 1525 006a FFF7FEFF 		bl	CAN_SendHeartbeat
+ 1526              	.LVL102:
+ 329:Core/Src/can_manager.c ****             last_heartbeat_tick = current_tick;
+ 1527              		.loc 1 329 13 view .LVU422
+ 329:Core/Src/can_manager.c ****             last_heartbeat_tick = current_tick;
+ 1528              		.loc 1 329 33 is_stmt 0 view .LVU423
+ 1529 006e A846     		mov	r8, r5
+ 1530 0070 E9E7     		b	.L123
+ 1531              	.LVL103:
+ 1532              	.L129:
+ 334:Core/Src/can_manager.c ****             CAN_SendStatistics();
+ 1533              		.loc 1 334 13 is_stmt 1 view .LVU424
+ 1534 0072 FFF7FEFF 		bl	CAN_SendStatistics
+ 1535              	.LVL104:
+ 335:Core/Src/can_manager.c ****             last_stats_tick = current_tick;
+ 1536              		.loc 1 335 13 view .LVU425
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 41
+
+
+ 335:Core/Src/can_manager.c ****             last_stats_tick = current_tick;
+ 1537              		.loc 1 335 29 is_stmt 0 view .LVU426
+ 1538 0076 2F46     		mov	r7, r5
+ 1539 0078 E9E7     		b	.L124
+ 1540              	.L131:
+ 1541 007a 00BF     		.align	2
+ 1542              	.L130:
+ 1543 007c 00000000 		.word	CANRxQueueHandle
+ 1544              		.cfi_endproc
+ 1545              	.LFE300:
+ 1547              		.section	.bss.can_stats,"aw",%nobits
+ 1548              		.align	2
+ 1551              	can_stats:
+ 1552 0000 00000000 		.space	24
+ 1552      00000000 
+ 1552      00000000 
+ 1552      00000000 
+ 1552      00000000 
+ 1553              		.section	.bss.rx_callback,"aw",%nobits
+ 1554              		.align	2
+ 1557              	rx_callback:
+ 1558 0000 00000000 		.space	4
+ 1559              		.global	CANRxQueueHandle
+ 1560              		.section	.bss.CANRxQueueHandle,"aw",%nobits
+ 1561              		.align	2
+ 1564              	CANRxQueueHandle:
+ 1565 0000 00000000 		.space	4
+ 1566              		.global	CANTxQueueHandle
+ 1567              		.section	.bss.CANTxQueueHandle,"aw",%nobits
+ 1568              		.align	2
+ 1571              	CANTxQueueHandle:
+ 1572 0000 00000000 		.space	4
+ 1573              		.text
+ 1574              	.Letext0:
+ 1575              		.file 2 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 1576              		.file 3 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 1577              		.file 4 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l432xx.h"
+ 1578              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l4xx.h"
+ 1579              		.file 6 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 1580              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 1581              		.file 8 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_can.h"
+ 1582              		.file 9 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
+ 1583              		.file 10 "Core/Inc/can_ids.h"
+ 1584              		.file 11 "Core/Inc/can_manager.h"
+ 1585              		.file 12 "Core/Inc/error_manager.h"
+ 1586              		.file 13 "Middlewares/Third_Party/FreeRTOS/Source/include/portable.h"
+ 1587              		.file 14 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
+ 1588              		.file 15 "Core/Inc/config_manager.h"
+ 1589              		.file 16 "<built-in>"
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 42
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 can_manager.c
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:21     .text.CAN_ConfigureFilters:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:26     .text.CAN_ConfigureFilters:00000000 CAN_ConfigureFilters
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:85     .text.CAN_ConfigureFilters:00000030 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:90     .text.CAN_TransmitMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:95     .text.CAN_TransmitMessage:00000000 CAN_TransmitMessage
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:213    .text.CAN_TransmitMessage:0000005c $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1510   .bss.can_stats:00000000 can_stats
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:219    .text.CAN_ProcessTxQueue:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:224    .text.CAN_ProcessTxQueue:00000000 CAN_ProcessTxQueue
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:266    .text.CAN_ProcessTxQueue:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1530   .bss.CANTxQueueHandle:00000000 CANTxQueueHandle
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:271    .text.CAN_ReconfigureFilters:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:277    .text.CAN_ReconfigureFilters:00000000 CAN_ReconfigureFilters
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:298    .text.CAN_SendMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:304    .text.CAN_SendMessage:00000000 CAN_SendMessage
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:414    .text.CAN_SendMessage:00000060 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:420    .text.CAN_SendMessageExt:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:426    .text.CAN_SendMessageExt:00000000 CAN_SendMessageExt
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:448    .text.CAN_RegisterRxCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:454    .text.CAN_RegisterRxCallback:00000000 CAN_RegisterRxCallback
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:471    .text.CAN_RegisterRxCallback:00000008 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1516   .bss.rx_callback:00000000 rx_callback
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:476    .text.CAN_GetStatistics:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:482    .text.CAN_GetStatistics:00000000 CAN_GetStatistics
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:522    .text.CAN_GetStatistics:0000002c $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:527    .text.CAN_ResetStatistics:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:533    .text.CAN_ResetStatistics:00000000 CAN_ResetStatistics
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:554    .text.CAN_ResetStatistics:00000014 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:559    .text.CAN_Manager_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:565    .text.CAN_Manager_Init:00000000 CAN_Manager_Init
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:634    .text.CAN_Manager_Init:00000044 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1523   .bss.CANRxQueueHandle:00000000 CANRxQueueHandle
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:641    .text.CAN_GetTxQueueCount:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:647    .text.CAN_GetTxQueueCount:00000000 CAN_GetTxQueueCount
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:668    .text.CAN_GetTxQueueCount:0000000c $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:673    .text.CAN_GetRxQueueCount:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:679    .text.CAN_GetRxQueueCount:00000000 CAN_GetRxQueueCount
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:700    .text.CAN_GetRxQueueCount:0000000c $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:705    .text.CAN_FlushTxQueue:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:711    .text.CAN_FlushTxQueue:00000000 CAN_FlushTxQueue
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:762    .text.CAN_FlushTxQueue:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:767    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:773    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 HAL_CAN_RxFifo0MsgPendingCallback
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:851    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000048 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:857    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:863    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 HAL_CAN_RxFifo1MsgPendingCallback
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:941    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000048 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:947    .text.HAL_CAN_ErrorCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:953    .text.HAL_CAN_ErrorCallback:00000000 HAL_CAN_ErrorCallback
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:997    .text.HAL_CAN_ErrorCallback:00000020 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1002   .text.CAN_SendHeartbeat:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1008   .text.CAN_SendHeartbeat:00000000 CAN_SendHeartbeat
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1092   .text.CAN_SendHeartbeat:0000005c $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1097   .text.CAN_SendStatistics:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1103   .text.CAN_SendStatistics:00000000 CAN_SendStatistics
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s 			page 42
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:21     .text.CAN_ConfigureFilters:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:26     .text.CAN_ConfigureFilters:00000000 CAN_ConfigureFilters
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:85     .text.CAN_ConfigureFilters:00000030 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:90     .text.CAN_TransmitMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:95     .text.CAN_TransmitMessage:00000000 CAN_TransmitMessage
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:213    .text.CAN_TransmitMessage:0000005c $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1551   .bss.can_stats:00000000 can_stats
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:219    .text.CAN_ProcessTxQueue:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:224    .text.CAN_ProcessTxQueue:00000000 CAN_ProcessTxQueue
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:266    .text.CAN_ProcessTxQueue:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1571   .bss.CANTxQueueHandle:00000000 CANTxQueueHandle
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:271    .text.CAN_ReconfigureFilters:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:277    .text.CAN_ReconfigureFilters:00000000 CAN_ReconfigureFilters
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:298    .text.CAN_SendMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:304    .text.CAN_SendMessage:00000000 CAN_SendMessage
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:414    .text.CAN_SendMessage:00000060 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:420    .text.CAN_SendMessageExt:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:426    .text.CAN_SendMessageExt:00000000 CAN_SendMessageExt
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:448    .text.CAN_RegisterRxCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:454    .text.CAN_RegisterRxCallback:00000000 CAN_RegisterRxCallback
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:471    .text.CAN_RegisterRxCallback:00000008 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1557   .bss.rx_callback:00000000 rx_callback
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:476    .text.CAN_GetStatistics:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:482    .text.CAN_GetStatistics:00000000 CAN_GetStatistics
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:522    .text.CAN_GetStatistics:0000002c $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:527    .text.CAN_ResetStatistics:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:533    .text.CAN_ResetStatistics:00000000 CAN_ResetStatistics
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:554    .text.CAN_ResetStatistics:00000014 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:559    .text.CAN_Manager_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:565    .text.CAN_Manager_Init:00000000 CAN_Manager_Init
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:634    .text.CAN_Manager_Init:00000044 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1564   .bss.CANRxQueueHandle:00000000 CANRxQueueHandle
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:641    .text.CAN_GetTxQueueCount:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:647    .text.CAN_GetTxQueueCount:00000000 CAN_GetTxQueueCount
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:668    .text.CAN_GetTxQueueCount:0000000c $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:673    .text.CAN_GetRxQueueCount:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:679    .text.CAN_GetRxQueueCount:00000000 CAN_GetRxQueueCount
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:700    .text.CAN_GetRxQueueCount:0000000c $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:705    .text.CAN_FlushTxQueue:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:711    .text.CAN_FlushTxQueue:00000000 CAN_FlushTxQueue
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:762    .text.CAN_FlushTxQueue:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:767    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:773    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000000 HAL_CAN_RxFifo0MsgPendingCallback
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:851    .text.HAL_CAN_RxFifo0MsgPendingCallback:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:857    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:863    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000000 HAL_CAN_RxFifo1MsgPendingCallback
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:941    .text.HAL_CAN_RxFifo1MsgPendingCallback:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:947    .text.HAL_CAN_ErrorCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:953    .text.HAL_CAN_ErrorCallback:00000000 HAL_CAN_ErrorCallback
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:997    .text.HAL_CAN_ErrorCallback:00000020 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1002   .text.CAN_SendHeartbeat:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1008   .text.CAN_SendHeartbeat:00000000 CAN_SendHeartbeat
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1092   .text.CAN_SendHeartbeat:0000005c $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1097   .text.CAN_SendStatistics:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1103   .text.CAN_SendStatistics:00000000 CAN_SendStatistics
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s 			page 43
 
 
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1173   .text.CAN_SendStatistics:00000050 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1179   .text.CAN_SendDebugInfo:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1185   .text.CAN_SendDebugInfo:00000000 CAN_SendDebugInfo
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1268   .text.CAN_SendDebugInfo:00000054 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1274   .text.CAN_ProcessRxMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1279   .text.CAN_ProcessRxMessage:00000000 CAN_ProcessRxMessage
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1351   .text.CAN_ProcessRxMessage:00000038 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1359   .text.CAN_ManagerTask:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1365   .text.CAN_ManagerTask:00000000 CAN_ManagerTask
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1502   .text.CAN_ManagerTask:0000007c $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1507   .bss.can_stats:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1513   .bss.rx_callback:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1520   .bss.CANRxQueueHandle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc4pL5T6.s:1527   .bss.CANTxQueueHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1173   .text.CAN_SendStatistics:00000050 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1179   .text.CAN_SendDebugInfo:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1185   .text.CAN_SendDebugInfo:00000000 CAN_SendDebugInfo
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1289   .text.CAN_SendDebugInfo:00000068 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1295   .text.CAN_ProcessRxMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1300   .text.CAN_ProcessRxMessage:00000000 CAN_ProcessRxMessage
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1392   .text.CAN_ProcessRxMessage:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1400   .text.CAN_ManagerTask:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1406   .text.CAN_ManagerTask:00000000 CAN_ManagerTask
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1543   .text.CAN_ManagerTask:0000007c $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1548   .bss.can_stats:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1554   .bss.rx_callback:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1561   .bss.CANRxQueueHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\cc5thnsl.s:1568   .bss.CANTxQueueHandle:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_CAN_ConfigFilter
@@ -2480,6 +2547,8 @@ ErrorMgr_GetStatus
 CAN_BMS_HEARTBEAT_ID
 CAN_BMS_STATS_ID
 Config_GetModuleID
+xPortGetFreeHeapSize
+xPortGetMinimumEverFreeHeapSize
 CAN_DEBUG_RESPONSE_ID
 Config_ProcessCANCommand
 ErrorMgr_UpdateUptime

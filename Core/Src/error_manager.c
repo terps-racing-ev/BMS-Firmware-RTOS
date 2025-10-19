@@ -221,14 +221,18 @@ void ErrorMgr_GetStatus(Error_Manager_t *mgr)
     if (mgr == NULL) {
         return;
     }
-    
+
     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
         memcpy(mgr, &error_mgr, sizeof(Error_Manager_t));
+        
+        // Override state to ERROR if any faults exist
+        if (error_mgr.fault_count > 0) {
+            mgr->state = BMS_STATE_ERROR;
+        }
+        
         osMutexRelease(error_mutex);
     }
-}
-
-/**
+}/**
   * @brief  Update system uptime (call every second)
   * @retval None
   */
