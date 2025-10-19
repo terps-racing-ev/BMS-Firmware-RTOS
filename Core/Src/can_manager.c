@@ -238,23 +238,15 @@ static void CAN_ProcessTxQueue(void)
   */
 static void CAN_ProcessRxMessage(CAN_Message_t *msg)
 {
+    // RX messages not for this module are filtered out
+    // in the HAL callback function
+
     can_stats.rx_message_count++;
 
-    // Check for debug info request FIRST (broadcast message - no module ID check)
+    // Check for debug info request FIRST (broadcast message)
     if (msg->id == CAN_DEBUG_REQUEST_ID) {
         // Send debug info response
         CAN_SendDebugInfo();
-        return;
-    }
-
-    // Extract module ID from received message (bits 15:12)
-    uint8_t rx_module_id = (msg->id >> 12) & 0x0F;
-    uint8_t our_module_id = Config_GetModuleID();
-
-    // **MODULE ID FILTERING: Reject all messages not addressed to our module**
-    // All messages except broadcast (already handled above) must match our module ID
-    if (rx_module_id != our_module_id) {
-        // Message is for a different module - ignore it
         return;
     }
 
@@ -279,23 +271,6 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
         rx_callback(msg);
     }
     
-    // Add your message processing logic here
-    // Example: Switch based on message ID
-    switch (msg->id) {
-        case 0x100:
-            // Handle message ID 0x100
-            // TODO: Add your message handling logic
-            break;
-            
-        case 0x200:
-            // Handle message ID 0x200
-            // TODO: Add your message handling logic
-            break;
-            
-        default:
-            // Unknown message ID
-            break;
-    }
 }
 
 /**
@@ -441,9 +416,12 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)
         msg.priority = 0;  // RX messages don't have priority
         msg.timestamp = osKernelGetTickCount();
         
-        // Add to RX queue (from ISR context)
-        if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
-            can_stats.rx_queue_full_count++;
+        // Ignore all messages not for this module
+        if (CAN_IsMessageForThisModule(msg.id)) {
+                // Add to RX queue (from ISR context)
+            if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
+                can_stats.rx_queue_full_count++;
+            }
         }
     }
 }
@@ -457,7 +435,8 @@ void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
 {
     CAN_RxHeaderTypeDef RxHeader;
     CAN_Message_t msg;
-    
+
+
     // Get message from FIFO
     if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, &RxHeader, msg.data) == HAL_OK) {
         // Store message details (all messages are extended ID)
@@ -466,11 +445,32 @@ void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan)
         msg.priority = 0;  // RX messages don't have priority
         msg.timestamp = osKernelGetTickCount();
         
-        // Add to RX queue (from ISR context)
-        if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
-            can_stats.rx_queue_full_count++;
+        // Ignore all messages not for this module
+        if (CAN_IsMessageForThisModule(msg.id)) {
+            // Add to RX queue (from ISR context)
+            if (osMessageQueuePut(CANRxQueueHandle, &msg, 0, 0) != osOK) {
+                can_stats.rx_queue_full_count++;
+            }
         }
+
     }
+}
+
+/**
+  * @brief  Check if CAN message is meant for this module through ID
+  * @param  hcan: pointer to CAN handle
+  * @retval None
+  */
+bool CAN_IsMessageForThisModule(uint32_t can_id) {
+    // Module ID is encoded in bits 12:15 of rx can id
+    // TODO: handle messages that might not have this format?
+    uint8_t this_module_id = Config_GetModuleID();
+    uint8_t rx_module_id = (can_id >> 12) & 0x0F;
+    
+    return (
+        rx_module_id == this_module_id ||   // Specifically for this module
+        can_id == CAN_DEBUG_REQUEST_ID      // Debug ID (all modules)
+    );
 }
 
 /**
