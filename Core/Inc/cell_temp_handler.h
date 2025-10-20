@@ -59,7 +59,7 @@ extern "C" {
 
 // Thermistor parameters (NTC 10k ohm @ 25°C, B-value 4300K)
 #define THERMISTOR_R25 10000.0f     // Resistance at 25°C in ohms
-#define THERMISTOR_B_VALUE 4300.0f  // B25/85 value of thermistor
+#define THERMISTOR_B_VALUE 3435.0f  // B25/85 value of thermistor
 #define PULLUP_RESISTOR 10000.0f    // Pull-up resistor value in ohms (to 3.3V)
 #define REFERENCE_TEMP_K 298.15f    // Reference temperature in Kelvin (25°C)
 

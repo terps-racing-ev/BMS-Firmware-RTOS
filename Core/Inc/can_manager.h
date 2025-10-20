@@ -29,6 +29,7 @@ extern "C" {
 #include "cmsis_os.h"
 #include "can_ids.h"
 #include <string.h>
+#include <stdbool.h>
 
 /* Defines -------------------------------------------------------------------*/
 #define CAN_TX_QUEUE_SIZE 64        // Number of messages that can be queued
@@ -150,6 +151,14 @@ uint32_t CAN_GetRxQueueCount(void);
   * @retval Number of messages flushed
   */
 uint32_t CAN_FlushTxQueue(void);
+
+/**
+  * @brief  Check if a CAN message is intended for this module
+  * @param  can_id: CAN message ID to check
+  * @retval true if message is for this module, false otherwise
+  * @note   Used in HAL callbacks to filter messages before queuing
+  */
+bool CAN_IsMessageForThisModule(uint32_t can_id);
 
 /**
   * @brief  Send BMS heartbeat message
