@@ -1,7 +1,7 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : cell_voltage_handler.c
+  * @file           : bq_handler.c
   * @brief          : Cell voltage monitoring task implementation
   ******************************************************************************
   * @attention
@@ -21,7 +21,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
-#include "cell_voltage_handler.h"
+#include "bq_handler.h"
 #include "can_manager.h"
 #include "error_manager.h"
 #include <string.h>
@@ -37,8 +37,8 @@ extern uint32_t CAN_VOLTAGE_4_ID;
 extern uint32_t CAN_VOLTAGE_5_ID;
 
 /* Private variables ---------------------------------------------------------*/
-static CellVoltage_Data_t voltage_data_bms1 = {0};
-static CellVoltage_Data_BMS2_t voltage_data_bms2 = {0};
+static BQ_Data_t voltage_data_bms1 = {0};
+static BQ_Data_BMS2_t voltage_data_bms2 = {0};
 static osMutexId_t voltage_mutex = NULL;
 static osMutexId_t voltage_mutex_bms2 = NULL;
 
@@ -53,7 +53,7 @@ static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t
   * @param  argument: Not used
   * @retval None
   */
-void CellVoltage_MonitorTask(void *argument)
+void BQ_MonitorTask(void *argument)
 {
     HAL_StatusTypeDef status;
     uint32_t last_read_tick = 0;
@@ -85,7 +85,7 @@ void CellVoltage_MonitorTask(void *argument)
         // Read cell voltages at specified interval
         if ((current_tick - last_read_tick) >= VOLTAGE_READ_INTERVAL_MS) {
             // Read BMS1 (cells 1-9 on I2C1)
-            status = CellVoltage_ReadBMS1(&voltage_data_bms1);
+            status = BQ_ReadBMS1(&voltage_data_bms1);
             
             if (status != HAL_OK) {
                 // Set I2C error flag
@@ -110,7 +110,7 @@ void CellVoltage_MonitorTask(void *argument)
                 ErrorMgr_ClearError(ERROR_I2C_BMS1);
                 
                 // Check voltage limits and set error/warning flags
-                CellVoltage_CheckLimits(&voltage_data_bms1);
+                BQ_CheckLimits(&voltage_data_bms1);
             }
             
             last_read_tick = current_tick;
@@ -120,7 +120,7 @@ void CellVoltage_MonitorTask(void *argument)
         if ((current_tick - last_can_tick) >= VOLTAGE_CAN_INTERVAL_MS) {
             // Send voltage data via CAN (send even if invalid for debugging)
             // When I2C fails, the voltages will be 0 or old data
-            CellVoltage_SendCANMessage(&voltage_data_bms1);
+            BQ_SendCANMessage(&voltage_data_bms1);
             
             last_can_tick = current_tick;
         }
@@ -135,7 +135,7 @@ void CellVoltage_MonitorTask(void *argument)
   * @param  data: Pointer to structure to store voltage data
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
-HAL_StatusTypeDef CellVoltage_ReadBMS1(CellVoltage_Data_t *data)
+HAL_StatusTypeDef BQ_ReadBMS1(BQ_Data_t *data)
 {
     HAL_StatusTypeDef status = HAL_OK;
     
@@ -154,7 +154,7 @@ HAL_StatusTypeDef CellVoltage_ReadBMS1(CellVoltage_Data_t *data)
     for (uint8_t i = 0; i < BMS1_NUM_CELLS; i++) {
         uint16_t voltage_mv = 0;
         
-        status = CellVoltage_ReadCell(&hi2c1, BQ76952_I2C_ADDR_BMS1, i + 1, &voltage_mv);
+        status = BQ_ReadCell(&hi2c1, BQ76952_I2C_ADDR_BMS1, i + 1, &voltage_mv);
         
         if (status == HAL_OK) {
             data->cell_voltage_mv[i] = voltage_mv;
@@ -201,7 +201,7 @@ HAL_StatusTypeDef CellVoltage_ReadBMS1(CellVoltage_Data_t *data)
   * @note   Cell voltage registers are 16-bit, LSB first
   *         Voltage = raw_value * 1 mV (direct millivolt reading)
   */
-HAL_StatusTypeDef CellVoltage_ReadCell(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+HAL_StatusTypeDef BQ_ReadCell(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
                                        uint8_t cell_num, uint16_t *voltage_mv)
 {
     HAL_StatusTypeDef status;
@@ -290,7 +290,7 @@ static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t
   *         - Cell_Voltage_1: Cells 4-6 (6 bytes)
   *         - Cell_Voltage_2: Cells 7-9 (6 bytes)
   */
-HAL_StatusTypeDef CellVoltage_SendCANMessage(CellVoltage_Data_t *data)
+HAL_StatusTypeDef BQ_SendCANMessage(BQ_Data_t *data)
 {
     HAL_StatusTypeDef status = HAL_OK;
     uint8_t can_data[8];
@@ -349,7 +349,7 @@ HAL_StatusTypeDef CellVoltage_SendCANMessage(CellVoltage_Data_t *data)
   * @param  data: Pointer to structure to copy data into
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
-HAL_StatusTypeDef CellVoltage_GetData(CellVoltage_Data_t *data)
+HAL_StatusTypeDef BQ_GetData(BQ_Data_t *data)
 {
     if (data == NULL) {
         return HAL_ERROR;
@@ -360,7 +360,7 @@ HAL_StatusTypeDef CellVoltage_GetData(CellVoltage_Data_t *data)
         osMutexAcquire(voltage_mutex, osWaitForever);
     }
     
-    memcpy(data, &voltage_data_bms1, sizeof(CellVoltage_Data_t));
+    memcpy(data, &voltage_data_bms1, sizeof(BQ_Data_t));
     
     if (voltage_mutex != NULL) {
         osMutexRelease(voltage_mutex);
@@ -376,7 +376,7 @@ HAL_StatusTypeDef CellVoltage_GetData(CellVoltage_Data_t *data)
   * @note   Sets ERROR_OVER_VOLTAGE or ERROR_UNDER_VOLTAGE if out of range
   *         Sets WARNING_HIGH_VOLTAGE or WARNING_LOW_VOLTAGE if approaching limits
   */
-void CellVoltage_CheckLimits(CellVoltage_Data_t *data)
+void BQ_CheckLimits(BQ_Data_t *data)
 {
     if (data == NULL || !data->valid) {
         return;
@@ -450,7 +450,7 @@ void CellVoltage_CheckLimits(CellVoltage_Data_t *data)
   * @param  argument: Not used
   * @retval None
   */
-void CellVoltage_MonitorTask_BMS2(void *argument)
+void BQ_MonitorTask_BMS2(void *argument)
 {
     HAL_StatusTypeDef status;
     uint32_t last_read_tick = 0;
@@ -482,7 +482,7 @@ void CellVoltage_MonitorTask_BMS2(void *argument)
         // Read cell voltages at specified interval
         if ((current_tick - last_read_tick) >= VOLTAGE_READ_INTERVAL_MS) {
             // Read BMS2 (cells 10-18 on I2C3)
-            status = CellVoltage_ReadBMS2(&voltage_data_bms2);
+            status = BQ_ReadBMS2(&voltage_data_bms2);
             
             if (status != HAL_OK) {
                 // Set I2C error flag
@@ -507,7 +507,7 @@ void CellVoltage_MonitorTask_BMS2(void *argument)
                 ErrorMgr_ClearError(ERROR_I2C_BMS2);
                 
                 // Check voltage limits and set error/warning flags
-                CellVoltage_CheckLimits_BMS2(&voltage_data_bms2);
+                BQ_CheckLimits_BMS2(&voltage_data_bms2);
             }
             
             last_read_tick = current_tick;
@@ -517,7 +517,7 @@ void CellVoltage_MonitorTask_BMS2(void *argument)
         if ((current_tick - last_can_tick) >= VOLTAGE_CAN_INTERVAL_MS) {
             // Send voltage data via CAN (send even if invalid for debugging)
             // When I2C fails, the voltages will be 0 or old data
-            CellVoltage_SendCANMessage_BMS2(&voltage_data_bms2);
+            BQ_SendCANMessage_BMS2(&voltage_data_bms2);
             
             last_can_tick = current_tick;
         }
@@ -532,7 +532,7 @@ void CellVoltage_MonitorTask_BMS2(void *argument)
   * @param  data: Pointer to structure to store voltage data
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
-HAL_StatusTypeDef CellVoltage_ReadBMS2(CellVoltage_Data_BMS2_t *data)
+HAL_StatusTypeDef BQ_ReadBMS2(BQ_Data_BMS2_t *data)
 {
     HAL_StatusTypeDef status = HAL_OK;
     
@@ -552,7 +552,7 @@ HAL_StatusTypeDef CellVoltage_ReadBMS2(CellVoltage_Data_BMS2_t *data)
         uint16_t voltage_mv = 0;
         
         // Read from BQ76952 cells 1-9 (physical cells 10-18)
-        status = CellVoltage_ReadCell(&hi2c3, BQ76952_I2C_ADDR_BMS2, i + 1, &voltage_mv);
+        status = BQ_ReadCell(&hi2c3, BQ76952_I2C_ADDR_BMS2, i + 1, &voltage_mv);
         
         if (status == HAL_OK) {
             data->cell_voltage_mv[i] = voltage_mv;
@@ -598,7 +598,7 @@ HAL_StatusTypeDef CellVoltage_ReadBMS2(CellVoltage_Data_BMS2_t *data)
   *         - Cell_Voltage_4: Cells 13-15 (6 bytes)
   *         - Cell_Voltage_5: Cells 16-18 (6 bytes)
   */
-HAL_StatusTypeDef CellVoltage_SendCANMessage_BMS2(CellVoltage_Data_BMS2_t *data)
+HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
 {
     HAL_StatusTypeDef status = HAL_OK;
     uint8_t can_data[8];
@@ -657,7 +657,7 @@ HAL_StatusTypeDef CellVoltage_SendCANMessage_BMS2(CellVoltage_Data_BMS2_t *data)
   * @param  data: Pointer to structure to copy BMS2 data into
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
-HAL_StatusTypeDef CellVoltage_GetData_BMS2(CellVoltage_Data_BMS2_t *data)
+HAL_StatusTypeDef BQ_GetData_BMS2(BQ_Data_BMS2_t *data)
 {
     if (data == NULL) {
         return HAL_ERROR;
@@ -668,7 +668,7 @@ HAL_StatusTypeDef CellVoltage_GetData_BMS2(CellVoltage_Data_BMS2_t *data)
         osMutexAcquire(voltage_mutex_bms2, osWaitForever);
     }
     
-    memcpy(data, &voltage_data_bms2, sizeof(CellVoltage_Data_BMS2_t));
+    memcpy(data, &voltage_data_bms2, sizeof(BQ_Data_BMS2_t));
     
     if (voltage_mutex_bms2 != NULL) {
         osMutexRelease(voltage_mutex_bms2);
@@ -684,7 +684,7 @@ HAL_StatusTypeDef CellVoltage_GetData_BMS2(CellVoltage_Data_BMS2_t *data)
   * @note   Sets ERROR_OVER_VOLTAGE or ERROR_UNDER_VOLTAGE if out of range
   *         Sets WARNING_HIGH_VOLTAGE or WARNING_LOW_VOLTAGE if approaching limits
   */
-void CellVoltage_CheckLimits_BMS2(CellVoltage_Data_BMS2_t *data)
+void BQ_CheckLimits_BMS2(BQ_Data_BMS2_t *data)
 {
     if (data == NULL || !data->valid) {
         return;

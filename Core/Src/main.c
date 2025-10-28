@@ -23,7 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "cell_temp_handler.h"
-#include "cell_voltage_handler.h"
+#include "bq_handler.h"
 #include "can_manager.h"
 #include "config_manager.h"
 #include "error_manager.h"
@@ -120,8 +120,8 @@ static void MX_I2C3_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
-void ReadCellVoltageBMS1(void *argument);
-void ReadCellVoltageBMS2(void *argument);
+void ReadBQBMS1(void *argument);
+void ReadBQBMS2(void *argument);
 void ReadCellTemps(void *argument);
 
 /* USER CODE END PFP */
@@ -238,10 +238,10 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* creation of CellVoltageBMS1 */
-  CellVoltageBMS1Handle = osThreadNew(ReadCellVoltageBMS1, NULL, &CellVoltageBMS1_attributes);
+  CellVoltageBMS1Handle = osThreadNew(ReadBQBMS1, NULL, &CellVoltageBMS1_attributes);
 
   /* creation of CellVoltageBMS2 */
-  CellVoltageBMS2Handle = osThreadNew(ReadCellVoltageBMS2, NULL, &CellVoltageBMS2_attributes);
+  CellVoltageBMS2Handle = osThreadNew(ReadBQBMS2, NULL, &CellVoltageBMS2_attributes);
 
   /* creation of CellTemperature */
   CellTemperatureHandle = osThreadNew(ReadCellTemps, NULL, &CellTemperature_attributes);
@@ -661,11 +661,11 @@ void StartDefaultTask(void *argument)
 * @retval None
 */
 /* USER CODE END Header_ReadCellVoltageBMS1 */
-void ReadCellVoltageBMS1(void *argument)
+void ReadBQBMS1(void *argument)
 {
   /* USER CODE BEGIN ReadCellVoltageBMS1 */
   /* Call the BMS1 cell voltage monitoring task */
-  CellVoltage_MonitorTask(argument);
+  BQ_MonitorTask(argument);
   /* USER CODE END ReadCellVoltageBMS1 */
 }
 
@@ -676,11 +676,11 @@ void ReadCellVoltageBMS1(void *argument)
 * @retval None
 */
 /* USER CODE END Header_ReadCellVoltageBMS2 */
-void ReadCellVoltageBMS2(void *argument)
+void ReadBQBMS2(void *argument)
 {
   /* USER CODE BEGIN ReadCellVoltageBMS2 */
   /* Call the BMS2 cell voltage monitoring task */
-  CellVoltage_MonitorTask_BMS2(argument);
+  BQ_MonitorTask_BMS2(argument);
   /* USER CODE END ReadCellVoltageBMS2 */
 }
 

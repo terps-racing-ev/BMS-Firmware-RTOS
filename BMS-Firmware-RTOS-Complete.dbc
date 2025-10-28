@@ -54,6 +54,19 @@ BO_ 2297433857 BMS_Config_ACK_0: 8 BMS_Module_0
 BO_ 2297433858 BMS_Reset_Command_0: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_0
 
+BO_ 2297433859 BMS_BQ76952_Config_Command_0: 8 CAN_Host
+ SG_ Chip_Number : 0|8@1+ (1,0) [0|1] "" BMS_Module_0
+
+BO_ 2297433860 BMS_BQ76952_Config_ACK_0: 8 BMS_Module_0
+ SG_ Chip_Number_Echo : 0|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG12_Config_Value : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG0_Config_Value : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HWD_Regulator_Options : 32|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Is_Configured : 40|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Error_Phase : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HAL_I2C_Error : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297433873 BMS_Debug_Response_0: 8 BMS_Module_0
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
@@ -206,6 +219,19 @@ BO_ 2297437953 BMS_Config_ACK_1: 8 BMS_Module_1
 
 BO_ 2297437954 BMS_Reset_Command_1: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_1
+
+BO_ 2297437955 BMS_BQ76952_Config_Command_1: 8 CAN_Host
+ SG_ Chip_Number : 0|8@1+ (1,0) [0|1] "" BMS_Module_1
+
+BO_ 2297437956 BMS_BQ76952_Config_ACK_1: 8 BMS_Module_1
+ SG_ Chip_Number_Echo : 0|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG12_Config_Value : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG0_Config_Value : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HWD_Regulator_Options : 32|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Is_Configured : 40|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Error_Phase : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HAL_I2C_Error : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297437969 BMS_Debug_Response_1: 8 BMS_Module_1
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
@@ -360,6 +386,19 @@ BO_ 2297442049 BMS_Config_ACK_2: 8 BMS_Module_2
 BO_ 2297442050 BMS_Reset_Command_2: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_2
 
+BO_ 2297442051 BMS_BQ76952_Config_Command_2: 8 CAN_Host
+ SG_ Chip_Number : 0|8@1+ (1,0) [0|1] "" BMS_Module_2
+
+BO_ 2297442052 BMS_BQ76952_Config_ACK_2: 8 BMS_Module_2
+ SG_ Chip_Number_Echo : 0|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG12_Config_Value : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG0_Config_Value : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HWD_Regulator_Options : 32|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Is_Configured : 40|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Error_Phase : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HAL_I2C_Error : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297442065 BMS_Debug_Response_2: 8 BMS_Module_2
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
@@ -512,6 +551,19 @@ BO_ 2297446145 BMS_Config_ACK_3: 8 BMS_Module_3
 
 BO_ 2297446146 BMS_Reset_Command_3: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_3
+
+BO_ 2297446147 BMS_BQ76952_Config_Command_3: 8 CAN_Host
+ SG_ Chip_Number : 0|8@1+ (1,0) [0|1] "" BMS_Module_3
+
+BO_ 2297446148 BMS_BQ76952_Config_ACK_3: 8 BMS_Module_3
+ SG_ Chip_Number_Echo : 0|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG12_Config_Value : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG0_Config_Value : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HWD_Regulator_Options : 32|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Is_Configured : 40|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Error_Phase : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HAL_I2C_Error : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297446161 BMS_Debug_Response_3: 8 BMS_Module_3
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
@@ -666,6 +718,19 @@ BO_ 2297450241 BMS_Config_ACK_4: 8 BMS_Module_4
 BO_ 2297450242 BMS_Reset_Command_4: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_4
 
+BO_ 2297450243 BMS_BQ76952_Config_Command_4: 8 CAN_Host
+ SG_ Chip_Number : 0|8@1+ (1,0) [0|1] "" BMS_Module_4
+
+BO_ 2297450244 BMS_BQ76952_Config_ACK_4: 8 BMS_Module_4
+ SG_ Chip_Number_Echo : 0|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG12_Config_Value : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG0_Config_Value : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HWD_Regulator_Options : 32|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Is_Configured : 40|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Error_Phase : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HAL_I2C_Error : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297450257 BMS_Debug_Response_4: 8 BMS_Module_4
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
@@ -819,6 +884,19 @@ BO_ 2297454337 BMS_Config_ACK_5: 8 BMS_Module_5
 BO_ 2297454338 BMS_Reset_Command_5: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_5
 
+BO_ 2297454339 BMS_BQ76952_Config_Command_5: 8 CAN_Host
+ SG_ Chip_Number : 0|8@1+ (1,0) [0|1] "" BMS_Module_5
+
+BO_ 2297454340 BMS_BQ76952_Config_ACK_5: 8 BMS_Module_5
+ SG_ Chip_Number_Echo : 0|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG12_Config_Value : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ REG0_Config_Value : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HWD_Regulator_Options : 32|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Is_Configured : 40|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Error_Phase : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ HAL_I2C_Error : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297454353 BMS_Debug_Response_5: 8 BMS_Module_5
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
@@ -964,6 +1042,8 @@ BA_ "VFrameFormat" BO_ 2297433872 1;
 BA_ "VFrameFormat" BO_ 2297433856 1;
 BA_ "VFrameFormat" BO_ 2297433857 1;
 BA_ "VFrameFormat" BO_ 2297433858 1;
+BA_ "VFrameFormat" BO_ 2297433859 1;
+BA_ "VFrameFormat" BO_ 2297433860 1;
 BA_ "VFrameFormat" BO_ 2297433873 1;
 BA_ "VFrameFormat" BO_ 2297430784 1;
 BA_ "VFrameFormat" BO_ 2297430785 1;
@@ -990,6 +1070,8 @@ BA_ "VFrameFormat" BO_ 2297430533 1;
 BA_ "VFrameFormat" BO_ 2297437952 1;
 BA_ "VFrameFormat" BO_ 2297437953 1;
 BA_ "VFrameFormat" BO_ 2297437954 1;
+BA_ "VFrameFormat" BO_ 2297437955 1;
+BA_ "VFrameFormat" BO_ 2297437956 1;
 BA_ "VFrameFormat" BO_ 2297437969 1;
 BA_ "VFrameFormat" BO_ 2297434880 1;
 BA_ "VFrameFormat" BO_ 2297434881 1;
@@ -1016,6 +1098,8 @@ BA_ "VFrameFormat" BO_ 2297434629 1;
 BA_ "VFrameFormat" BO_ 2297442048 1;
 BA_ "VFrameFormat" BO_ 2297442049 1;
 BA_ "VFrameFormat" BO_ 2297442050 1;
+BA_ "VFrameFormat" BO_ 2297442051 1;
+BA_ "VFrameFormat" BO_ 2297442052 1;
 BA_ "VFrameFormat" BO_ 2297442065 1;
 BA_ "VFrameFormat" BO_ 2297438976 1;
 BA_ "VFrameFormat" BO_ 2297438977 1;
@@ -1042,6 +1126,8 @@ BA_ "VFrameFormat" BO_ 2297438725 1;
 BA_ "VFrameFormat" BO_ 2297446144 1;
 BA_ "VFrameFormat" BO_ 2297446145 1;
 BA_ "VFrameFormat" BO_ 2297446146 1;
+BA_ "VFrameFormat" BO_ 2297446147 1;
+BA_ "VFrameFormat" BO_ 2297446148 1;
 BA_ "VFrameFormat" BO_ 2297446161 1;
 BA_ "VFrameFormat" BO_ 2297443072 1;
 BA_ "VFrameFormat" BO_ 2297443073 1;
@@ -1068,6 +1154,8 @@ BA_ "VFrameFormat" BO_ 2297442821 1;
 BA_ "VFrameFormat" BO_ 2297450240 1;
 BA_ "VFrameFormat" BO_ 2297450241 1;
 BA_ "VFrameFormat" BO_ 2297450242 1;
+BA_ "VFrameFormat" BO_ 2297450243 1;
+BA_ "VFrameFormat" BO_ 2297450244 1;
 BA_ "VFrameFormat" BO_ 2297450257 1;
 BA_ "VFrameFormat" BO_ 2297447168 1;
 BA_ "VFrameFormat" BO_ 2297447169 1;
@@ -1094,6 +1182,8 @@ BA_ "VFrameFormat" BO_ 2297446917 1;
 BA_ "VFrameFormat" BO_ 2297454336 1;
 BA_ "VFrameFormat" BO_ 2297454337 1;
 BA_ "VFrameFormat" BO_ 2297454338 1;
+BA_ "VFrameFormat" BO_ 2297454339 1;
+BA_ "VFrameFormat" BO_ 2297454340 1;
 BA_ "VFrameFormat" BO_ 2297454353 1;
 BA_ "VFrameFormat" BO_ 2297451264 1;
 BA_ "VFrameFormat" BO_ 2297451265 1;
@@ -1127,6 +1217,24 @@ VAL_ 2297442049 Status 0 "Success" 1 "Invalid_Value" 2 "Flash_Error" 3 "Reset_Re
 VAL_ 2297446145 Status 0 "Success" 1 "Invalid_Value" 2 "Flash_Error" 3 "Reset_Required";
 VAL_ 2297450241 Status 0 "Success" 1 "Invalid_Value" 2 "Flash_Error" 3 "Reset_Required";
 VAL_ 2297454337 Status 0 "Success" 1 "Invalid_Value" 2 "Flash_Error" 3 "Reset_Required";
+VAL_ 2297433860 Status 0 "Success" 1 "I2C_Error" 2 "Invalid_Param" 3 "Invalid_Chip" 4 "Checksum_Error" 5 "Timeout";
+VAL_ 2297437956 Status 0 "Success" 1 "I2C_Error" 2 "Invalid_Param" 3 "Invalid_Chip" 4 "Checksum_Error" 5 "Timeout";
+VAL_ 2297442052 Status 0 "Success" 1 "I2C_Error" 2 "Invalid_Param" 3 "Invalid_Chip" 4 "Checksum_Error" 5 "Timeout";
+VAL_ 2297446148 Status 0 "Success" 1 "I2C_Error" 2 "Invalid_Param" 3 "Invalid_Chip" 4 "Checksum_Error" 5 "Timeout";
+VAL_ 2297450244 Status 0 "Success" 1 "I2C_Error" 2 "Invalid_Param" 3 "Invalid_Chip" 4 "Checksum_Error" 5 "Timeout";
+VAL_ 2297454340 Status 0 "Success" 1 "I2C_Error" 2 "Invalid_Param" 3 "Invalid_Chip" 4 "Checksum_Error" 5 "Timeout";
+VAL_ 2297433860 Error_Phase 0 "No_Error" 16 "Enter_CFG" 32 "Write_REG12" 48 "Write_REG0" 64 "Write_HWD" 80 "Read_REG12" 96 "Read_REG0" 112 "Read_HWD" 128 "Exit_CFG";
+VAL_ 2297437956 Error_Phase 0 "No_Error" 16 "Enter_CFG" 32 "Write_REG12" 48 "Write_REG0" 64 "Write_HWD" 80 "Read_REG12" 96 "Read_REG0" 112 "Read_HWD" 128 "Exit_CFG";
+VAL_ 2297442052 Error_Phase 0 "No_Error" 16 "Enter_CFG" 32 "Write_REG12" 48 "Write_REG0" 64 "Write_HWD" 80 "Read_REG12" 96 "Read_REG0" 112 "Read_HWD" 128 "Exit_CFG";
+VAL_ 2297446148 Error_Phase 0 "No_Error" 16 "Enter_CFG" 32 "Write_REG12" 48 "Write_REG0" 64 "Write_HWD" 80 "Read_REG12" 96 "Read_REG0" 112 "Read_HWD" 128 "Exit_CFG";
+VAL_ 2297450244 Error_Phase 0 "No_Error" 16 "Enter_CFG" 32 "Write_REG12" 48 "Write_REG0" 64 "Write_HWD" 80 "Read_REG12" 96 "Read_REG0" 112 "Read_HWD" 128 "Exit_CFG";
+VAL_ 2297454340 Error_Phase 0 "No_Error" 16 "Enter_CFG" 32 "Write_REG12" 48 "Write_REG0" 64 "Write_HWD" 80 "Read_REG12" 96 "Read_REG0" 112 "Read_HWD" 128 "Exit_CFG";
+VAL_ 2297433860 HAL_I2C_Error 0 "HAL_OK" 1 "HAL_ERROR" 2 "HAL_BUSY" 3 "HAL_TIMEOUT";
+VAL_ 2297437956 HAL_I2C_Error 0 "HAL_OK" 1 "HAL_ERROR" 2 "HAL_BUSY" 3 "HAL_TIMEOUT";
+VAL_ 2297442052 HAL_I2C_Error 0 "HAL_OK" 1 "HAL_ERROR" 2 "HAL_BUSY" 3 "HAL_TIMEOUT";
+VAL_ 2297446148 HAL_I2C_Error 0 "HAL_OK" 1 "HAL_ERROR" 2 "HAL_BUSY" 3 "HAL_TIMEOUT";
+VAL_ 2297450244 HAL_I2C_Error 0 "HAL_OK" 1 "HAL_ERROR" 2 "HAL_BUSY" 3 "HAL_TIMEOUT";
+VAL_ 2297454340 HAL_I2C_Error 0 "HAL_OK" 1 "HAL_ERROR" 2 "HAL_BUSY" 3 "HAL_TIMEOUT";
 VAL_ 2297430784 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "SHUTDOWN" 7 "RESERVED";
 VAL_ 2297434880 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "SHUTDOWN" 7 "RESERVED";
 VAL_ 2297438976 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "SHUTDOWN" 7 "RESERVED";
