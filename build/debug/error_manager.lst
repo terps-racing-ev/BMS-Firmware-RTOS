@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
   28:Core/Src/error_manager.c ****     .name = "ErrorMutex"
   29:Core/Src/error_manager.c **** };
   30:Core/Src/error_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 2
 
 
   31:Core/Src/error_manager.c **** /* Function Implementations --------------------------------------------------*/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
   85:Core/Src/error_manager.c ****   */
   86:Core/Src/error_manager.c **** void ErrorMgr_ClearError(uint32_t error_flag)
   87:Core/Src/error_manager.c **** {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 3
 
 
   88:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  142:Core/Src/error_manager.c ****     }
  143:Core/Src/error_manager.c **** }
  144:Core/Src/error_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 4
 
 
  145:Core/Src/error_manager.c **** /**
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  199:Core/Src/error_manager.c ****   */
  200:Core/Src/error_manager.c **** void ErrorMgr_SetState(BMS_State_t state)
  201:Core/Src/error_manager.c **** {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 5
 
 
  202:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  247:Core/Src/error_manager.c ****     uint8_t active_bit_count = 0;
  248:Core/Src/error_manager.c ****     for (uint8_t bit = 0; bit < 8; bit++) {
   38              		.loc 1 248 18 view .LVU3
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 6
 
 
   39 0004 0023     		movs	r3, #0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
   85              		.loc 1 250 29 view .LVU20
   86              	.LBE3:
  251:Core/Src/error_manager.c ****         }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 7
 
 
  252:Core/Src/error_manager.c ****     }
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  259:Core/Src/error_manager.c ****                     // Update rotation for next call
  122              		.loc 1 259 17 is_stmt 1 view .LVU31
  259:Core/Src/error_manager.c ****                     // Update rotation for next call
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 8
 
 
  123              		.loc 1 259 38 is_stmt 0 view .LVU32
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  161              		.cfi_restore 14
  162              	.LBB8:
  163              	.LBB6:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 9
 
 
  257:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
   40:Core/Src/error_manager.c ****     
  213              		.loc 1 40 5 view .LVU53
  214 0002 0A4C     		ldr	r4, .L25
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 10
 
 
  215 0004 0023     		movs	r3, #0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  255 0034 00000000 		.word	error_mutex
  256              		.cfi_endproc
  257              	.LFE292:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 11
 
 
  259              		.section	.text.ErrorMgr_SetError,"ax",%progbits
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  302 001e 0132     		adds	r2, r2, #1
  303 0020 4A72     		strb	r2, [r1, #9]
   70:Core/Src/error_manager.c ****                               ERROR_OVER_VOLTAGE | ERROR_SHORT_CIRCUIT)) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 12
 
 
  304              		.loc 1 70 13 is_stmt 1 view .LVU80
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  351              		@ args = 0, pretend = 0, frame = 0
  352              		@ frame_needed = 0, uses_anonymous_args = 0
   87:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 13
 
 
  353              		.loc 1 87 1 is_stmt 0 view .LVU90
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  393 002c 114B     		ldr	r3, .L45
  394 002e 1868     		ldr	r0, [r3]
  395 0030 FFF7FEFF 		bl	osMutexRelease
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 14
 
 
  396              	.LVL32:
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  437 0052 F2E7     		b	.L35
  438              	.LVL39:
  439              	.L44:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 15
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 15
 
 
  101:Core/Src/error_manager.c ****                 error_mgr.fault_count -= cleared_count;
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  484              		.thumb
  485              		.thumb_func
  487              	ErrorMgr_SetWarning:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 16
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 16
 
 
  488              	.LVL42:
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  530              	.L52:
  531 0026 00BF     		.align	2
  532              	.L51:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 17
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 17
 
 
  533 0028 00000000 		.word	error_mutex
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  579 0018 23EA0403 		bic	r3, r3, r4
  580 001c 5360     		str	r3, [r2, #4]
  141:Core/Src/error_manager.c ****     }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 18
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 18
 
 
  581              		.loc 1 141 9 is_stmt 1 view .LVU151
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  159:Core/Src/error_manager.c **** 
  629              		.loc 1 159 1 is_stmt 0 view .LVU160
  630 0012 2046     		mov	r0, r4
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 19
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 19
 
 
  631 0014 10BD     		pop	{r4, pc}
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  679              		.loc 1 169 8 discriminator 1 view .LVU168
  680 000e 10B1     		cbz	r0, .L70
  167:Core/Src/error_manager.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 20
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 20
 
 
  681              		.loc 1 167 14 view .LVU169
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  729 0002 FFF7FEFF 		bl	ErrorMgr_GetErrors
  730              	.LVL64:
  184:Core/Src/error_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 21
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 21
 
 
  731              		.loc 1 184 1 view .LVU178
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  783 0000 10B5     		push	{r4, lr}
  784              		.cfi_def_cfa_offset 8
  785              		.cfi_offset 4, -8
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 22
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 22
 
 
  786              		.cfi_offset 14, -4
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  825 002e 1868     		ldr	r0, [r3]
  826 0030 FFF7FEFF 		bl	osMutexRelease
  827              	.LVL69:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 23
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 23
 
 
  828              	.L77:
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  223:Core/Src/error_manager.c ****     
  876              		.loc 1 223 17 view .LVU208
  877 0010 0024     		movs	r4, #0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 24
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 24
 
 
  878              	.LVL74:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  281:Core/Src/error_manager.c ****     static uint8_t byte0_rotation = 0;
  919              		.loc 1 281 5 view .LVU215
  282:Core/Src/error_manager.c ****     static uint8_t byte1_rotation = 0;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 25
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 25
 
 
  920              		.loc 1 282 5 view .LVU216
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  947              		.loc 1 308 1 view .LVU226
  948 0016 38BD     		pop	{r3, r4, r5, pc}
  949              	.LVL81:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 26
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 26
 
 
  950              	.L98:
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  990              		.loc 1 302 24 discriminator 1 view .LVU240
  991 004a 6070     		strb	r0, [r4, #1]
  303:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 27
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 27
 
 
  992              		.loc 1 303 9 is_stmt 1 view .LVU241
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  1040              		.thumb
  1041              		.thumb_func
  1043              	ErrorMgr_UpdateUptime:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 28
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 28
 
 
  1044              	.LFB305:
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  1084 0028 00000000 		.word	error_mgr
  1085              		.cfi_endproc
  1086              	.LFE305:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 29
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 29
 
 
  1088              		.section	.bss.byte3_rotation.0,"aw",%nobits
@@ -1726,67 +1726,67 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 1
  1136              		.file 5 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
  1137              		.file 6 "Core/Inc/error_manager.h"
  1138              		.file 7 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 30
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 30
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 error_manager.c
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:21     .text.RotateByteBits:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:26     .text.RotateByteBits:00000000 RotateByteBits
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:197    .text.ErrorMgr_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:203    .text.ErrorMgr_Init:00000000 ErrorMgr_Init
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:253    .text.ErrorMgr_Init:0000002c $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1129   .bss.error_mgr:00000000 error_mgr
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1116   .rodata.error_mutex_attributes:00000000 error_mutex_attributes
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1123   .bss.error_mutex:00000000 error_mutex
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:260    .text.ErrorMgr_SetError:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:266    .text.ErrorMgr_SetError:00000000 ErrorMgr_SetError
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:333    .text.ErrorMgr_SetError:00000040 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:340    .text.ErrorMgr_ClearError:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:346    .text.ErrorMgr_ClearError:00000000 ErrorMgr_ClearError
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:475    .text.ErrorMgr_ClearError:00000074 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:481    .text.ErrorMgr_SetWarning:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:487    .text.ErrorMgr_SetWarning:00000000 ErrorMgr_SetWarning
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:533    .text.ErrorMgr_SetWarning:00000028 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:539    .text.ErrorMgr_ClearWarning:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:545    .text.ErrorMgr_ClearWarning:00000000 ErrorMgr_ClearWarning
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:591    .text.ErrorMgr_ClearWarning:00000028 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:597    .text.ErrorMgr_GetErrors:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:603    .text.ErrorMgr_GetErrors:00000000 ErrorMgr_GetErrors
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:648    .text.ErrorMgr_GetErrors:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:654    .text.ErrorMgr_GetWarnings:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:660    .text.ErrorMgr_GetWarnings:00000000 ErrorMgr_GetWarnings
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:705    .text.ErrorMgr_GetWarnings:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:711    .text.ErrorMgr_HasErrors:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:717    .text.ErrorMgr_HasErrors:00000000 ErrorMgr_HasErrors
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:740    .text.ErrorMgr_HasWarnings:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:746    .text.ErrorMgr_HasWarnings:00000000 ErrorMgr_HasWarnings
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:769    .text.ErrorMgr_SetState:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:775    .text.ErrorMgr_SetState:00000000 ErrorMgr_SetState
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:843    .text.ErrorMgr_SetState:00000040 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:849    .text.ErrorMgr_GetState:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:855    .text.ErrorMgr_GetState:00000000 ErrorMgr_GetState
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:900    .text.ErrorMgr_GetState:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:906    .text.ErrorMgr_GetStatus:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:912    .text.ErrorMgr_GetStatus:00000000 ErrorMgr_GetStatus
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1026   .text.ErrorMgr_GetStatus:0000006c $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1106   .bss.byte0_rotation.3:00000000 byte0_rotation.3
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1101   .bss.byte1_rotation.2:00000000 byte1_rotation.2
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1096   .bss.byte2_rotation.1:00000000 byte2_rotation.1
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1091   .bss.byte3_rotation.0:00000000 byte3_rotation.0
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1037   .text.ErrorMgr_UpdateUptime:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1043   .text.ErrorMgr_UpdateUptime:00000000 ErrorMgr_UpdateUptime
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1083   .text.ErrorMgr_UpdateUptime:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1092   .bss.byte3_rotation.0:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1097   .bss.byte2_rotation.1:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1102   .bss.byte1_rotation.2:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1107   .bss.byte0_rotation.3:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1109   .rodata.str1.4:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1113   .rodata.error_mutex_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1120   .bss.error_mutex:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc5y354k.s:1126   .bss.error_mgr:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:21     .text.RotateByteBits:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:26     .text.RotateByteBits:00000000 RotateByteBits
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:197    .text.ErrorMgr_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:203    .text.ErrorMgr_Init:00000000 ErrorMgr_Init
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:253    .text.ErrorMgr_Init:0000002c $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1129   .bss.error_mgr:00000000 error_mgr
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1116   .rodata.error_mutex_attributes:00000000 error_mutex_attributes
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1123   .bss.error_mutex:00000000 error_mutex
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:260    .text.ErrorMgr_SetError:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:266    .text.ErrorMgr_SetError:00000000 ErrorMgr_SetError
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:333    .text.ErrorMgr_SetError:00000040 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:340    .text.ErrorMgr_ClearError:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:346    .text.ErrorMgr_ClearError:00000000 ErrorMgr_ClearError
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:475    .text.ErrorMgr_ClearError:00000074 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:481    .text.ErrorMgr_SetWarning:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:487    .text.ErrorMgr_SetWarning:00000000 ErrorMgr_SetWarning
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:533    .text.ErrorMgr_SetWarning:00000028 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:539    .text.ErrorMgr_ClearWarning:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:545    .text.ErrorMgr_ClearWarning:00000000 ErrorMgr_ClearWarning
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:591    .text.ErrorMgr_ClearWarning:00000028 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:597    .text.ErrorMgr_GetErrors:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:603    .text.ErrorMgr_GetErrors:00000000 ErrorMgr_GetErrors
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:648    .text.ErrorMgr_GetErrors:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:654    .text.ErrorMgr_GetWarnings:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:660    .text.ErrorMgr_GetWarnings:00000000 ErrorMgr_GetWarnings
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:705    .text.ErrorMgr_GetWarnings:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:711    .text.ErrorMgr_HasErrors:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:717    .text.ErrorMgr_HasErrors:00000000 ErrorMgr_HasErrors
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:740    .text.ErrorMgr_HasWarnings:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:746    .text.ErrorMgr_HasWarnings:00000000 ErrorMgr_HasWarnings
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:769    .text.ErrorMgr_SetState:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:775    .text.ErrorMgr_SetState:00000000 ErrorMgr_SetState
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:843    .text.ErrorMgr_SetState:00000040 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:849    .text.ErrorMgr_GetState:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:855    .text.ErrorMgr_GetState:00000000 ErrorMgr_GetState
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:900    .text.ErrorMgr_GetState:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:906    .text.ErrorMgr_GetStatus:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:912    .text.ErrorMgr_GetStatus:00000000 ErrorMgr_GetStatus
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1026   .text.ErrorMgr_GetStatus:0000006c $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1106   .bss.byte0_rotation.3:00000000 byte0_rotation.3
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1101   .bss.byte1_rotation.2:00000000 byte1_rotation.2
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1096   .bss.byte2_rotation.1:00000000 byte2_rotation.1
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1091   .bss.byte3_rotation.0:00000000 byte3_rotation.0
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1037   .text.ErrorMgr_UpdateUptime:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1043   .text.ErrorMgr_UpdateUptime:00000000 ErrorMgr_UpdateUptime
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1083   .text.ErrorMgr_UpdateUptime:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1092   .bss.byte3_rotation.0:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1097   .bss.byte2_rotation.1:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1102   .bss.byte1_rotation.2:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1107   .bss.byte0_rotation.3:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1109   .rodata.str1.4:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1113   .rodata.error_mutex_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1120   .bss.error_mutex:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s:1126   .bss.error_mgr:00000000 $d
 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc5y354k.s 			page 31
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccHf5KtA.s 			page 31
 
 
 UNDEFINED SYMBOLS

@@ -182,6 +182,13 @@ HAL_StatusTypeDef CAN_SendStatistics(void);
   */
 HAL_StatusTypeDef CAN_SendDebugInfo(void);
 
+/**
+  * @brief  Send I2C diagnostics message
+  * @note   Sent in response to CAN_DEBUG_REQUEST_ID (along with debug info)
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendI2CDiagnostics(void);
+
 #ifdef __cplusplus
 }
 #endif

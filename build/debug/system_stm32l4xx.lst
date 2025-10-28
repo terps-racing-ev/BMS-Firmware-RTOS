@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
   28:Core/Src/system_stm32l4xx.c ****   *        System Clock source                    | MSI
   29:Core/Src/system_stm32l4xx.c ****   *-----------------------------------------------------------------------------
   30:Core/Src/system_stm32l4xx.c ****   *        SYSCLK(Hz)                             | 4000000
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 2
 
 
   31:Core/Src/system_stm32l4xx.c ****   *-----------------------------------------------------------------------------
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
   85:Core/Src/system_stm32l4xx.c ****   */
   86:Core/Src/system_stm32l4xx.c **** 
   87:Core/Src/system_stm32l4xx.c **** /** @addtogroup STM32L4xx_System_Private_Includes
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 3
 
 
   88:Core/Src/system_stm32l4xx.c ****   * @{
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  142:Core/Src/system_stm32l4xx.c ****                                                      This value must be a multiple of 0x200. */
  143:Core/Src/system_stm32l4xx.c **** #endif /* VECT_TAB_SRAM */
  144:Core/Src/system_stm32l4xx.c **** #endif /* USER_VECT_TAB_ADDRESS */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 4
 
 
  145:Core/Src/system_stm32l4xx.c **** 
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
   29              		.loc 1 198 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 5
 
 
   32              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  220:Core/Src/system_stm32l4xx.c ****   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;
   65              		.loc 1 220 3 is_stmt 1 view .LVU16
   66              		.loc 1 220 13 is_stmt 0 view .LVU17
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 6
 
 
   67 002a 064B     		ldr	r3, .L2+4
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  248:Core/Src/system_stm32l4xx.c ****   *
  249:Core/Src/system_stm32l4xx.c ****   *           - If SYSCLK source is PLL, SystemCoreClock will contain the HSE_VALUE(***)
  250:Core/Src/system_stm32l4xx.c ****   *             or HSI_VALUE(*) or MSI_VALUE(*) multiplied/divided by the PLL factors.
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 7
 
 
  251:Core/Src/system_stm32l4xx.c ****   *
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  284:Core/Src/system_stm32l4xx.c ****   msirange = MSIRangeTable[msirange];
  117              		.loc 1 284 3 is_stmt 1 view .LVU30
  118              		.loc 1 284 12 is_stmt 0 view .LVU31
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 8
 
 
  119 0014 2B4A     		ldr	r2, .L19+4
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  163 0046 2FE0     		b	.L13
  164              	.L11:
  292:Core/Src/system_stm32l4xx.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 9
 
 
  293:Core/Src/system_stm32l4xx.c ****     case 0x04:  /* HSI used as system clock source */
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  203 0068 0229     		cmp	r1, #2
  204 006a 04D0     		beq	.L14
  205 006c 0329     		cmp	r1, #3
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 10
 
 
  206 006e 15D0     		beq	.L15
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  241              		.loc 1 323 58 view .LVU73
  242 008e 0132     		adds	r2, r2, #1
  243              		.loc 1 323 12 view .LVU74
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 11
 
 
  244 0090 5200     		lsls	r2, r2, #1
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  284 00b0 084A     		ldr	r2, .L19+20
  285 00b2 D15C     		ldrb	r1, [r2, r3]	@ zero_extendqisi2
  286              	.LVL25:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 12
 
 
  334:Core/Src/system_stm32l4xx.c ****   /* HCLK clock frequency */
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  341              		.section	.data.SystemCoreClock,"aw"
  342              		.align	2
  345              	SystemCoreClock:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 13
 
 
  346 0000 00093D00 		.word	4000000
@@ -729,27 +729,27 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 1
  351              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
  352              		.file 5 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/system_stm32l4xx.h"
  353              		.file 6 "Drivers/CMSIS/Device/ST/STM32L4xx/Include/stm32l432xx.h"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc816SBB.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 system_stm32l4xx.c
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:21     .text.SystemInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:27     .text.SystemInit:00000000 SystemInit
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:81     .text.SystemInit:00000040 $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:88     .text.SystemCoreClockUpdate:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:94     .text.SystemCoreClockUpdate:00000000 SystemCoreClockUpdate
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:133    .text.SystemCoreClockUpdate:0000002a $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:298    .text.SystemCoreClockUpdate:000000c0 $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:312    .rodata.MSIRangeTable:00000000 MSIRangeTable
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:345    .data.SystemCoreClock:00000000 SystemCoreClock
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:337    .rodata.AHBPrescTable:00000000 AHBPrescTable
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:309    .rodata.MSIRangeTable:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:330    .rodata.APBPrescTable:00000000 APBPrescTable
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:327    .rodata.APBPrescTable:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:334    .rodata.AHBPrescTable:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:342    .data.SystemCoreClock:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:147    .text.SystemCoreClockUpdate:00000037 $d
-C:\Users\Ali\AppData\Local\Temp\cc816SBB.s:147    .text.SystemCoreClockUpdate:00000038 $t
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:21     .text.SystemInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:27     .text.SystemInit:00000000 SystemInit
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:81     .text.SystemInit:00000040 $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:88     .text.SystemCoreClockUpdate:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:94     .text.SystemCoreClockUpdate:00000000 SystemCoreClockUpdate
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:133    .text.SystemCoreClockUpdate:0000002a $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:298    .text.SystemCoreClockUpdate:000000c0 $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:312    .rodata.MSIRangeTable:00000000 MSIRangeTable
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:345    .data.SystemCoreClock:00000000 SystemCoreClock
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:337    .rodata.AHBPrescTable:00000000 AHBPrescTable
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:309    .rodata.MSIRangeTable:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:330    .rodata.APBPrescTable:00000000 APBPrescTable
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:327    .rodata.APBPrescTable:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:334    .rodata.AHBPrescTable:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:342    .data.SystemCoreClock:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:147    .text.SystemCoreClockUpdate:00000037 $d
+C:\Users\Ali\AppData\Local\Temp\ccWJqkV2.s:147    .text.SystemCoreClockUpdate:00000038 $t
 
 NO UNDEFINED SYMBOLS

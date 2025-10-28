@@ -34,7 +34,7 @@ extern "C" {
 
 /* Defines -------------------------------------------------------------------*/
 #define BQ76952_I2C_ADDR_BMS1       0x08    /**< BQ76952 I2C address for BMS1 (7-bit, default address) */
-#define BQ76952_I2C_ADDR_BMS2       0x09    /**< BQ76952 I2C address for BMS2 (alternative address) */
+#define BQ76952_I2C_ADDR_BMS2       0x08    /**< BQ76952 I2C address for BMS2 (alternative address) */
 
 #define BMS1_NUM_CELLS              9       /**< Number of cells monitored by BMS1 (cells 1-9) */
 #define BMS2_NUM_CELLS              9       /**< Number of cells monitored by BMS2 (cells 10-18) */
@@ -98,6 +98,12 @@ void BQ_MonitorTask_BMS2(void *argument);
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
 HAL_StatusTypeDef BQ_ReadBMS1(BQ_Data_t *data);
+
+/**
+  * @brief  Get last I2C3 error code for diagnostics
+  * @retval uint32_t: HAL I2C error code
+  */
+uint32_t BQ_GetLastI2C3Error(void);
 
 /**
   * @brief  Read cell voltages from BQ76952 chip on I2C3 (BMS2)
@@ -164,6 +170,23 @@ void BQ_CheckLimits(BQ_Data_t *data);
   *         Sets WARNING_HIGH_VOLTAGE or WARNING_LOW_VOLTAGE if approaching limits
   */
 void BQ_CheckLimits_BMS2(BQ_Data_BMS2_t *data);
+
+/**
+  * @brief  Reset BQ76952 chips by pulsing PB6 (BMS_RESET) high for 500ms
+  * @retval HAL_StatusTypeDef: HAL_OK on success
+  * @note   This function pulses the hardware reset pin connected to both BQ76952 chips.
+  *         The reset pin is active-high and should be held high for at least 500ms.
+  */
+HAL_StatusTypeDef BQ_ResetChips(void);
+
+/**
+  * @brief  Send BMS chip status via CAN (stack voltage, alarm status, TS2 temperature)
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address
+  * @param  can_id: CAN message ID to use
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_SendChipStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint32_t can_id);
 
 #ifdef __cplusplus
 }

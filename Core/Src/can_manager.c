@@ -19,8 +19,10 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "can_manager.h"
+#include "main.h"
 #include "error_manager.h"
 #include "config_manager.h"
+#include "bq_handler.h"
 
 /* Private variables ---------------------------------------------------------*/
 osMessageQueueId_t CANTxQueueHandle = NULL;
@@ -247,6 +249,8 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
     if (msg->id == CAN_DEBUG_REQUEST_ID) {
         // Send debug info response
         CAN_SendDebugInfo();
+        // Also send I2C diagnostics
+        CAN_SendI2CDiagnostics();
         return;
     }
 
@@ -264,6 +268,37 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
         // Reset command - trigger NVIC system reset
         NVIC_SystemReset();
         return;  // Never reached, but good practice
+    }
+    
+    // Check for BMS chip reset command message
+    if (base_id == (CAN_BMS_RESET_CMD_BASE & 0xFFFF0FFF)) {
+        // BMS chip reset command - signal reset handler task via semaphore
+        // This prevents blocking the CAN manager during the 600ms reset sequence
+        uint8_t ack_data[8] = {0};
+        osStatus_t sem_result = osOK;
+        
+        // Signal the BMS reset handler task (non-blocking)
+        if (BMSResetSemHandle != NULL) {
+            sem_result = osSemaphoreRelease(BMSResetSemHandle);
+        } else {
+            sem_result = osError;
+        }
+        
+        // Prepare acknowledgement message
+        // Byte 0: Status (0x00 = success/queued, 0x01 = fail/already pending)
+        // Bytes 1-7: Reserved
+        ack_data[0] = (sem_result == osOK) ? 0x00 : 0x01;
+        ack_data[1] = 0x00;
+        ack_data[2] = 0x00;
+        ack_data[3] = 0x00;
+        ack_data[4] = 0x00;
+        ack_data[5] = 0x00;
+        ack_data[6] = 0x00;
+        ack_data[7] = 0x00;
+        
+        // Send acknowledgement
+        CAN_SendMessage(CAN_BMS_RESET_ACK_ID, ack_data, 8, CAN_PRIORITY_HIGH);
+        return;
     }
     
     // Call registered callback if available
@@ -567,9 +602,9 @@ HAL_StatusTypeDef CAN_SendStatistics(void)
   * @brief  Send debug information message
   * @note   Debug info format (8 bytes):
   *         Byte 0: Module ID (0-15)
-  *         Byte 1: Firmware version major
-  *         Byte 2: Firmware version minor
-  *         Byte 3: Firmware version patch
+  *         Byte 1: Free heap MSB (in 256-byte units)
+  *         Byte 2: Min free heap MSB (in 256-byte units)
+  *         Byte 3: Reserved (CPU usage if implemented)
   *         Bytes 4-7: Uptime in seconds (32-bit)
   * @retval HAL_StatusTypeDef
   */
@@ -592,7 +627,7 @@ HAL_StatusTypeDef CAN_SendDebugInfo(void)
     debug_data[0] = module_id;                              // Byte 0: Module ID
     debug_data[1] = (uint8_t)((free_heap >> 8) & 0xFF);     // Byte 1: Free heap MSB (in 256-byte units)
     debug_data[2] = (uint8_t)((min_free_heap >> 8) & 0xFF); // Byte 2: Min free heap MSB (in 256-byte units)
-    debug_data[3] = 0;                                      // Byte 3: Reserved (could be CPU usage if implemented)
+    debug_data[3] = 0;                                      // Byte 3: Reserved
     debug_data[4] = (uint8_t)(uptime_sec & 0xFF);           // Byte 4: Uptime LSB
     debug_data[5] = (uint8_t)((uptime_sec >> 8) & 0xFF);    // Byte 5: Uptime
     debug_data[6] = (uint8_t)((uptime_sec >> 16) & 0xFF);   // Byte 6: Uptime
@@ -600,4 +635,43 @@ HAL_StatusTypeDef CAN_SendDebugInfo(void)
 
     // Send debug info with high priority
     return CAN_SendMessage(CAN_DEBUG_RESPONSE_ID, debug_data, 8, CAN_PRIORITY_HIGH);
+}
+
+/**
+  * @brief  Send I2C diagnostics message
+  * @note   I2C Diagnostics format (8 bytes):
+  *         Byte 0: I2C1 error code (HAL_I2C_ERROR_*)
+  *         Byte 1: I2C3 error code (HAL_I2C_ERROR_*)
+  *         Byte 2: I2C1 state (HAL_I2C_STATE_*)
+  *         Byte 3: I2C3 state (HAL_I2C_STATE_*)
+  *         Bytes 4-7: Reserved for future use
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef CAN_SendI2CDiagnostics(void)
+{
+    uint8_t diag_data[8] = {0};
+    
+    // Get I2C error codes for diagnostics
+    extern I2C_HandleTypeDef hi2c1;
+    extern I2C_HandleTypeDef hi2c3;
+    extern uint32_t BQ_GetLastI2C3Error(void);
+    
+    uint32_t i2c1_error = HAL_I2C_GetError(&hi2c1);
+    uint32_t i2c3_error = BQ_GetLastI2C3Error();
+    
+    HAL_I2C_StateTypeDef i2c1_state = HAL_I2C_GetState(&hi2c1);
+    HAL_I2C_StateTypeDef i2c3_state = HAL_I2C_GetState(&hi2c3);
+    
+    // Pack I2C diagnostics message
+    diag_data[0] = (uint8_t)(i2c1_error & 0xFF);        // Byte 0: I2C1 error code
+    diag_data[1] = (uint8_t)(i2c3_error & 0xFF);        // Byte 1: I2C3 error code
+    diag_data[2] = (uint8_t)(i2c1_state & 0xFF);        // Byte 2: I2C1 state
+    diag_data[3] = (uint8_t)(i2c3_state & 0xFF);        // Byte 3: I2C3 state
+    diag_data[4] = 0;                                   // Byte 4: Reserved
+    diag_data[5] = 0;                                   // Byte 5: Reserved
+    diag_data[6] = 0;                                   // Byte 6: Reserved
+    diag_data[7] = 0;                                   // Byte 7: Reserved
+    
+    // Send I2C diagnostics with high priority
+    return CAN_SendMessage(CAN_I2C_DIAG_ID, diag_data, 8, CAN_PRIORITY_HIGH);
 }

@@ -35,12 +35,17 @@ extern uint32_t CAN_VOLTAGE_2_ID;
 extern uint32_t CAN_VOLTAGE_3_ID;
 extern uint32_t CAN_VOLTAGE_4_ID;
 extern uint32_t CAN_VOLTAGE_5_ID;
+extern uint32_t CAN_BMS1_STATUS_ID;
+extern uint32_t CAN_BMS2_STATUS_ID;
 
 /* Private variables ---------------------------------------------------------*/
 static BQ_Data_t voltage_data_bms1 = {0};
 static BQ_Data_BMS2_t voltage_data_bms2 = {0};
 static osMutexId_t voltage_mutex = NULL;
 static osMutexId_t voltage_mutex_bms2 = NULL;
+
+// Store last I2C3 error for diagnostics
+static uint32_t g_last_i2c3_error = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
@@ -121,6 +126,9 @@ void BQ_MonitorTask(void *argument)
             // Send voltage data via CAN (send even if invalid for debugging)
             // When I2C fails, the voltages will be 0 or old data
             BQ_SendCANMessage(&voltage_data_bms1);
+            
+            // Send BMS1 chip status (stack voltage, alarm, temp)
+            BQ_SendChipStatus(&hi2c1, BQ76952_I2C_ADDR_BMS1, CAN_BMS1_STATUS_ID);
             
             last_can_tick = current_tick;
         }
@@ -470,6 +478,22 @@ void BQ_MonitorTask_BMS2(void *argument)
     // Wait for system initialization
     osDelay(500);
     
+    // Diagnostic: Check if I2C3 bus is operational by scanning for BMS2 device
+    if (I2C3Handle != NULL) {
+        osMutexAcquire(I2C3Handle, osWaitForever);
+    }
+    
+    // Try to detect BMS2 device at expected address
+    status = HAL_I2C_IsDeviceReady(&hi2c3, (BQ76952_I2C_ADDR_BMS2 << 1), 3, 100);
+    if (status != HAL_OK) {
+        // Device not found - set error and continue trying
+        ErrorMgr_SetError(ERROR_I2C_BMS2);
+    }
+    
+    if (I2C3Handle != NULL) {
+        osMutexRelease(I2C3Handle);
+    }
+    
     // Initialize timestamps
     last_read_tick = osKernelGetTickCount();
     last_can_tick = osKernelGetTickCount();
@@ -519,6 +543,9 @@ void BQ_MonitorTask_BMS2(void *argument)
             // When I2C fails, the voltages will be 0 or old data
             BQ_SendCANMessage_BMS2(&voltage_data_bms2);
             
+            // Send BMS2 chip status (stack voltage, alarm, temp)
+            BQ_SendChipStatus(&hi2c3, BQ76952_I2C_ADDR_BMS2, CAN_BMS2_STATUS_ID);
+            
             last_can_tick = current_tick;
         }
         
@@ -545,6 +572,15 @@ HAL_StatusTypeDef BQ_ReadBMS2(BQ_Data_BMS2_t *data)
         if (osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS) != osOK) {
             return HAL_ERROR;
         }
+    }
+    
+    // Check I2C3 error state for diagnostics
+    g_last_i2c3_error = HAL_I2C_GetError(&hi2c3);
+    
+    // If I2C3 has errors, try to clear them
+    if (g_last_i2c3_error != HAL_I2C_ERROR_NONE) {
+        __HAL_I2C_CLEAR_FLAG(&hi2c3, I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_AF | I2C_FLAG_OVR);
+        hi2c3.ErrorCode = HAL_I2C_ERROR_NONE;
     }
     
     // Read cells 10-18 (map to BQ76952 cells 1-9 on second chip)
@@ -653,6 +689,56 @@ HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
 }
 
 /**
+  * @brief  Send BMS chip status via CAN (stack voltage, alarm status, TS2 temperature)
+  * @param  device_addr: BQ76952 I2C device address (0x08 for BMS1, 0x09 for BMS2)
+  * @param  hi2c: I2C handle
+  * @param  can_id: CAN message ID to use
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_SendChipStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint32_t can_id)
+{
+    HAL_StatusTypeDef status;
+    uint16_t stack_voltage = 0;
+    uint16_t alarm_status = 0;
+    int16_t ts2_temp = 0;
+    uint8_t can_data[8];
+    
+    // Read Stack Voltage (0x34)
+    status = BQ76952_ReadRegister16(hi2c, device_addr, StackVoltage, &stack_voltage);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Read Alarm Status (0x62)
+    status = BQ76952_ReadRegister16(hi2c, device_addr, AlarmStatus, &alarm_status);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Read TS2 Temperature (0x72)
+    status = BQ76952_ReadRegister16(hi2c, device_addr, TS2Temperature, (uint16_t*)&ts2_temp);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Pack CAN message:
+    // Bytes 0-1: Stack Voltage (mV, unsigned 16-bit)
+    // Bytes 2-3: Alarm Status (unsigned 16-bit)
+    // Bytes 4-5: TS2 Temperature (0.1°C, signed 16-bit)
+    // Bytes 6-7: Reserved
+    can_data[0] = (uint8_t)(stack_voltage & 0xFF);
+    can_data[1] = (uint8_t)((stack_voltage >> 8) & 0xFF);
+    can_data[2] = (uint8_t)(alarm_status & 0xFF);
+    can_data[3] = (uint8_t)((alarm_status >> 8) & 0xFF);
+    can_data[4] = (uint8_t)(ts2_temp & 0xFF);
+    can_data[5] = (uint8_t)((ts2_temp >> 8) & 0xFF);
+    can_data[6] = 0x00;  // Reserved
+    can_data[7] = 0x00;  // Reserved
+    
+    return CAN_SendMessage(can_id, can_data, 8, CAN_PRIORITY_NORMAL);
+}
+
+/**
   * @brief  Get current BMS2 cell voltage data (thread-safe)
   * @param  data: Pointer to structure to copy BMS2 data into
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
@@ -748,3 +834,37 @@ void BQ_CheckLimits_BMS2(BQ_Data_BMS2_t *data)
         ErrorMgr_ClearWarning(WARNING_LOW_VOLTAGE);
     }
 }
+
+/**
+  * @brief  Reset BQ76952 chips by pulsing PB6 (BMS_RESET) high for 500ms
+  * @retval HAL_StatusTypeDef: HAL_OK on success
+  * @note   This function pulses the hardware reset pin connected to both BQ76952 chips.
+  *         The reset pin is active-high and should be held high for at least 500ms.
+  *         Both BMS1 and BMS2 chips share the same reset line.
+  */
+HAL_StatusTypeDef BQ_ResetChips(void)
+{
+    // Set BMS_RESET pin high to trigger reset
+    HAL_GPIO_WritePin(BMS_RESET_GPIO_Port, BMS_RESET_Pin, GPIO_PIN_SET);
+    
+    // Hold reset high for 500ms (as specified)
+    osDelay(500);
+    
+    // Release reset by setting pin low
+    HAL_GPIO_WritePin(BMS_RESET_GPIO_Port, BMS_RESET_Pin, GPIO_PIN_RESET);
+    
+    // Brief delay to allow chips to complete reset sequence
+    osDelay(100);
+    
+    return HAL_OK;
+}
+
+/**
+  * @brief  Get last I2C3 error code for diagnostics
+  * @retval uint32_t: HAL I2C error code
+  */
+uint32_t BQ_GetLastI2C3Error(void)
+{
+    return g_last_i2c3_error;
+}
+

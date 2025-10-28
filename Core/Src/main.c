@@ -107,6 +107,20 @@ const osMutexAttr_t CAN_attributes = {
   .name = "CAN"
 };
 
+/* USER CODE BEGIN PV */
+/* Definitions for BMS Reset Semaphore */
+osSemaphoreId_t BMSResetSemHandle;
+const osSemaphoreAttr_t BMSResetSem_attributes = {
+  .name = "BMSResetSem"
+};
+
+/* Definitions for BMSResetHandler task */
+osThreadId_t BMSResetHandlerHandle;
+const osThreadAttr_t BMSResetHandler_attributes = {
+  .name = "BMSResetHandler",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityLow,
+};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -123,7 +137,7 @@ void StartDefaultTask(void *argument);
 void ReadBQBMS1(void *argument);
 void ReadBQBMS2(void *argument);
 void ReadCellTemps(void *argument);
-
+void BMSResetHandlerTask(void *argument);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -205,7 +219,12 @@ int main(void)
   /* USER CODE END RTOS_MUTEX */
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
-  /* add semaphores, ... */
+  /* Create BMS reset semaphore (binary semaphore for reset signaling) */
+  BMSResetSemHandle = osSemaphoreNew(1, 0, &BMSResetSem_attributes);
+  if (BMSResetSemHandle == NULL)
+  {
+    Error_Handler();
+  }
   /* USER CODE END RTOS_SEMAPHORES */
 
   /* USER CODE BEGIN RTOS_TIMERS */
@@ -248,6 +267,9 @@ int main(void)
 
   /* creation of CANManager */
   CANManagerHandle = osThreadNew(CAN_ManagerTask, NULL, &CANManager_attributes);
+
+  /* creation of BMSResetHandler */
+  BMSResetHandlerHandle = osThreadNew(BMSResetHandlerTask, NULL, &BMSResetHandler_attributes);
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -697,6 +719,32 @@ void ReadCellTemps(void *argument)
   /* Call the cell temperature monitoring task */
   CellTemp_MonitorTask(argument);
   /* USER CODE END ReadCellTemps */
+}
+
+/* USER CODE BEGIN Header_BMSResetHandlerTask */
+/**
+* @brief Function implementing the BMSResetHandler thread.
+* @param argument: Not used
+* @retval None
+* @note  This task waits for a semaphore signal to perform BMS chip reset.
+*        Using a dedicated task prevents blocking the CAN manager during
+*        the 600ms reset sequence (500ms + 100ms delays).
+*/
+/* USER CODE END Header_BMSResetHandlerTask */
+void BMSResetHandlerTask(void *argument)
+{
+  /* USER CODE BEGIN BMSResetHandlerTask */
+  /* Infinite loop */
+  for(;;)
+  {
+    // Wait indefinitely for reset semaphore signal
+    if (osSemaphoreAcquire(BMSResetSemHandle, osWaitForever) == osOK)
+    {
+      // Perform the chip reset (blocks for 600ms total)
+      BQ_ResetChips();
+    }
+  }
+  /* USER CODE END BMSResetHandlerTask */
 }
 
 /**

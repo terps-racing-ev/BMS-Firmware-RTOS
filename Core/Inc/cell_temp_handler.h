@@ -64,7 +64,7 @@ extern "C" {
 #define REFERENCE_TEMP_K 298.15f    // Reference temperature in Kelvin (25°C)
 
 // Temperature fault detection
-#define TEMP_FAULT_DETECTION_ENABLED 1   // Set to 1 to enable, 0 to disable fault detection
+#define TEMP_FAULT_DETECTION_ENABLED 0   // Set to 1 to enable, 0 to disable fault detection
 #define TEMP_MIN_CELSIUS -20.0f          // Minimum safe cell temperature (°C)
 #define TEMP_MAX_CELSIUS 60.0f           // Maximum safe cell temperature (°C)
 

@@ -31,12 +31,13 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "cmsis_os.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+/* BMS Reset Semaphore - used to signal reset request to BMSResetHandler task */
+extern osSemaphoreId_t BMSResetSemHandle;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
