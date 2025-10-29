@@ -93,8 +93,9 @@ void BQ_MonitorTask(void *argument)
             status = BQ_ReadBMS1(&voltage_data_bms1);
             
             if (status != HAL_OK) {
-                // Set I2C error flag
+                // Set I2C error flags
                 ErrorMgr_SetError(ERROR_I2C_BMS1);
+                ErrorMgr_SetError(ERROR_I2C_FAULT);  // General I2C fault flag
                 
                 // Clear all voltage readings to 0V during I2C fault
                 if (voltage_mutex != NULL) {
@@ -113,6 +114,12 @@ void BQ_MonitorTask(void *argument)
             } else {
                 // Clear I2C error flag on successful read
                 ErrorMgr_ClearError(ERROR_I2C_BMS1);
+                
+                // Only clear general I2C fault if BMS2 is also OK
+                // Check if BMS2 error flag is not set
+                if (!(ErrorMgr_GetErrors() & ERROR_I2C_BMS2)) {
+                    ErrorMgr_ClearError(ERROR_I2C_FAULT);
+                }
                 
                 // Check voltage limits and set error/warning flags
                 BQ_CheckLimits(&voltage_data_bms1);
@@ -509,8 +516,9 @@ void BQ_MonitorTask_BMS2(void *argument)
             status = BQ_ReadBMS2(&voltage_data_bms2);
             
             if (status != HAL_OK) {
-                // Set I2C error flag
+                // Set I2C error flags
                 ErrorMgr_SetError(ERROR_I2C_BMS2);
+                ErrorMgr_SetError(ERROR_I2C_FAULT);  // General I2C fault flag
                 
                 // Clear all voltage readings to 0V during I2C fault
                 if (voltage_mutex_bms2 != NULL) {
@@ -529,6 +537,12 @@ void BQ_MonitorTask_BMS2(void *argument)
             } else {
                 // Clear I2C error flag on successful read
                 ErrorMgr_ClearError(ERROR_I2C_BMS2);
+                
+                // Only clear general I2C fault if BMS1 is also OK
+                // Check if BMS1 error flag is not set
+                if (!(ErrorMgr_GetErrors() & ERROR_I2C_BMS1)) {
+                    ErrorMgr_ClearError(ERROR_I2C_FAULT);
+                }
                 
                 // Check voltage limits and set error/warning flags
                 BQ_CheckLimits_BMS2(&voltage_data_bms2);

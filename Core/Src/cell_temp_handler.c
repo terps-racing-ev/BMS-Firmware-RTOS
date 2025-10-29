@@ -25,6 +25,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 static temp_monitor_state_t temp_state = {0};
+static uint64_t thermistor_fault_mask = THERMISTOR_FAULT_MASK_DEFAULT;
 static const uint32_t adc_channels[NUM_ADC_CHANNELS] = {
     ADC_CH_1, ADC_CH_2, ADC_CH_3, ADC_CH_4, ADC_CH_5, ADC_CH_6, ADC_CH_7
 };
@@ -39,6 +40,7 @@ static const uint8_t adc_channel_enabled[NUM_ADC_CHANNELS] = {
 static HAL_StatusTypeDef CellTemp_ConfigureADCChannel(uint32_t channel);
 static HAL_StatusTypeDef CellTemp_SendTemperatureMessage(uint8_t msg_index, uint8_t start_therm_idx);
 static uint8_t CellTemp_IsADCEnabled(uint8_t adc_index);
+static uint8_t CellTemp_IsFaultDetectionEnabled(uint8_t thermistor_index);
 
 /* Function Implementations --------------------------------------------------*/
 
@@ -309,25 +311,26 @@ void CellTemp_MonitorTask(void *argument)
                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
                     therm->last_read_time = current_time;
                     
-#if TEMP_FAULT_DETECTION_ENABLED
-                    // Check temperature limits and set error flags
-                    if (therm->temperature > -126.0f) {  // Valid temperature reading
-                        if (therm->temperature > TEMP_MAX_CELSIUS) {
-                            ErrorMgr_SetError(ERROR_OVER_TEMP);
-                        } else if (therm->temperature < TEMP_MIN_CELSIUS) {
-                            ErrorMgr_SetError(ERROR_UNDER_TEMP);
+                    // Check temperature limits and set error flags (only if fault detection is enabled for this thermistor)
+                    if (CellTemp_IsFaultDetectionEnabled(therm_idx)) {
+                        if (therm->temperature > -126.0f) {  // Valid temperature reading
+                            if (therm->temperature > TEMP_MAX_CELSIUS) {
+                                ErrorMgr_SetError(ERROR_OVER_TEMP);
+                            } else if (therm->temperature < TEMP_MIN_CELSIUS) {
+                                ErrorMgr_SetError(ERROR_UNDER_TEMP);
+                            }
+                        } else {
+                            ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
                         }
-                    } else {
-                        ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
                     }
-#endif
                 } else {
                     // No valid samples collected - sensor fault
                     therm->raw_adc = 0;
                     therm->temperature = -127.0f;
-#if TEMP_FAULT_DETECTION_ENABLED
-                    ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
-#endif
+                    // Only report sensor fault if fault detection is enabled for this thermistor
+                    if (CellTemp_IsFaultDetectionEnabled(therm_idx)) {
+                        ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
+                    }
                 }
             } else {
                 // ADC disabled - mark thermistor as invalid
@@ -371,7 +374,6 @@ void CellTemp_MonitorTask(void *argument)
             temp_state.current_mux = 0;
             temp_state.cycle_count++;
             
-#if TEMP_FAULT_DETECTION_ENABLED
             // After completing a full cycle, check if all thermistors are within limits
             // If so, clear the error flags
             uint8_t any_over_temp = 0;
@@ -379,9 +381,9 @@ void CellTemp_MonitorTask(void *argument)
             uint8_t any_sensor_fault = 0;
             
             for (uint8_t i = 0; i < TOTAL_THERMISTORS; i++) {
-                // Only check enabled ADC channels
+                // Only check enabled ADC channels and thermistors with fault detection enabled
                 uint8_t therm_adc = i / MUX_CHANNELS;
-                if (CellTemp_IsADCEnabled(therm_adc)) {
+                if (CellTemp_IsADCEnabled(therm_adc) && CellTemp_IsFaultDetectionEnabled(i)) {
                     float temp = temp_state.thermistors[i].temperature;
                     
                     if (temp <= -126.0f) {
@@ -407,7 +409,6 @@ void CellTemp_MonitorTask(void *argument)
             if (!any_sensor_fault) {
                 ErrorMgr_ClearError(ERROR_TEMP_SENSOR_FAULT);
             }
-#endif
         }
     }
 }
@@ -423,6 +424,20 @@ static uint8_t CellTemp_IsADCEnabled(uint8_t adc_index)
         return 0;
     }
     return adc_channel_enabled[adc_index];
+}
+
+/**
+  * @brief  Check if fault detection is enabled for a specific thermistor
+  * @param  thermistor_index: Thermistor index (0-55)
+  * @retval 1 if fault detection enabled, 0 if disabled
+  */
+static uint8_t CellTemp_IsFaultDetectionEnabled(uint8_t thermistor_index)
+{
+    if (thermistor_index >= TOTAL_THERMISTORS) {
+        return 0;
+    }
+    // Check if the corresponding bit is set in the fault mask
+    return (thermistor_fault_mask & (1ULL << thermistor_index)) ? 1 : 0;
 }
 
 /**
@@ -543,4 +558,26 @@ void CellTemp_GetStats(uint32_t *cycle_count, uint8_t *current_index)
     if (current_index != NULL) {
         *current_index = temp_state.current_index;
     }
+}
+
+/**
+  * @brief  Set thermistor fault detection mask
+  * @param  mask: 64-bit mask where each bit enables (1) or disables (0) fault detection for that thermistor
+  * @note   Bit 0 = thermistor 0, bit 55 = thermistor 55. Bits 56-63 are ignored.
+  *         Thermistors with fault detection disabled will still be measured and reported,
+  *         but will not trigger temperature fault errors.
+  * @retval None
+  */
+void CellTemp_SetFaultMask(uint64_t mask)
+{
+    thermistor_fault_mask = mask;
+}
+
+/**
+  * @brief  Get current thermistor fault detection mask
+  * @retval 64-bit mask showing which thermistors have fault detection enabled (1) or disabled (0)
+  */
+uint64_t CellTemp_GetFaultMask(void)
+{
+    return thermistor_fault_mask;
 }

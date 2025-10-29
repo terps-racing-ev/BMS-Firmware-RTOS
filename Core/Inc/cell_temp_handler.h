@@ -64,7 +64,10 @@ extern "C" {
 #define REFERENCE_TEMP_K 298.15f    // Reference temperature in Kelvin (25°C)
 
 // Temperature fault detection
-#define TEMP_FAULT_DETECTION_ENABLED 0   // Set to 1 to enable, 0 to disable fault detection
+// Each bit corresponds to one thermistor (bit 0 = thermistor 0, bit 55 = thermistor 55)
+// Set bit to 1 to enable fault detection, 0 to disable (temperature still measured but ignored for faults)
+// Default: all thermistors enabled for fault detection (0xFFFFFFFFFFFFFFFF)
+#define THERMISTOR_FAULT_MASK_DEFAULT 0xFFFFFFFFFFFFFFFFULL
 #define TEMP_MIN_CELSIUS -20.0f          // Minimum safe cell temperature (°C)
 #define TEMP_MAX_CELSIUS 60.0f           // Maximum safe cell temperature (°C)
 
@@ -174,6 +177,19 @@ uint8_t CellTemp_GetTemperatures(float *temperatures, uint8_t size);
   * @retval None
   */
 void CellTemp_GetStats(uint32_t *cycle_count, uint8_t *current_index);
+
+/**
+  * @brief  Set thermistor fault detection mask
+  * @param  mask: 64-bit mask where each bit enables (1) or disables (0) fault detection for that thermistor
+  * @retval None
+  */
+void CellTemp_SetFaultMask(uint64_t mask);
+
+/**
+  * @brief  Get current thermistor fault detection mask
+  * @retval 64-bit mask showing which thermistors have fault detection enabled
+  */
+uint64_t CellTemp_GetFaultMask(void);
 
 #ifdef __cplusplus
 }
