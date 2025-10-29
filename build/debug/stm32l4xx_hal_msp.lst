@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
   28:Core/Src/stm32l4xx_hal_msp.c **** /* USER CODE BEGIN TD */
   29:Core/Src/stm32l4xx_hal_msp.c **** 
   30:Core/Src/stm32l4xx_hal_msp.c **** /* USER CODE END TD */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 2
 
 
   31:Core/Src/stm32l4xx_hal_msp.c **** 
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
   43 0006 1A6E     		ldr	r2, [r3, #96]
   44 0008 42F00102 		orr	r2, r2, #1
   45 000c 1A66     		str	r2, [r3, #96]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 3
 
 
   46              		.loc 1 70 3 view .LVU4
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
   91              		.thumb
   92              		.thumb_func
   94              	HAL_ADC_MspInit:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 4
 
 
   95              	.LVL1:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
   94:Core/Src/stm32l4xx_hal_msp.c ****     /* USER CODE BEGIN ADC1_MspInit 0 */
   95:Core/Src/stm32l4xx_hal_msp.c **** 
   96:Core/Src/stm32l4xx_hal_msp.c ****     /* USER CODE END ADC1_MspInit 0 */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 5
 
 
   97:Core/Src/stm32l4xx_hal_msp.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  141 0024 70BD     		pop	{r4, r5, r6, pc}
  142              	.LVL5:
  143              	.L9:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 6
 
 
  144              		.cfi_restore_state
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  109:Core/Src/stm32l4xx_hal_msp.c ****     {
  179              		.loc 1 109 9 is_stmt 0 view .LVU45
  180 004a 04A8     		add	r0, sp, #16
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 7
 
 
  181 004c FFF7FEFF 		bl	HAL_RCCEx_PeriphCLKConfig
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  220              		.loc 1 118 5 view .LVU60
  118:Core/Src/stm32l4xx_hal_msp.c ****     /**ADC1 GPIO Configuration
  221              		.loc 1 118 5 view .LVU61
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 8
 
 
  222 007a DA6C     		ldr	r2, [r3, #76]
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  260              		.loc 1 136 5 is_stmt 1 view .LVU77
  136:Core/Src/stm32l4xx_hal_msp.c ****     HAL_GPIO_Init(ADC7_GPIO_Port, &GPIO_InitStruct);
  261              		.loc 1 136 26 is_stmt 0 view .LVU78
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 9
 
 
  262 00aa 1B95     		str	r5, [sp, #108]
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  306 0002 0268     		ldr	r2, [r0]
  307              		.loc 1 155 5 view .LVU86
  308 0004 094B     		ldr	r3, .L17
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 10
 
 
  309 0006 9A42     		cmp	r2, r3
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  332 0024 FFF7FEFF 		bl	HAL_GPIO_DeInit
  333              	.LVL17:
  334              		.loc 1 182 1 is_stmt 0 view .LVU92
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 11
 
 
  335 0028 EFE7     		b	.L13
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  380              	.LVL19:
  381              	.L19:
  194:Core/Src/stm32l4xx_hal_msp.c ****   {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 12
 
 
  195:Core/Src/stm32l4xx_hal_msp.c ****     /* USER CODE BEGIN CAN1_MspInit 0 */
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  398 0028 9A65     		str	r2, [r3, #88]
  199:Core/Src/stm32l4xx_hal_msp.c **** 
  399              		.loc 1 199 5 view .LVU104
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 13
 
 
  400 002a 9A6D     		ldr	r2, [r3, #88]
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  437 0054 0923     		movs	r3, #9
  438 0056 0793     		str	r3, [sp, #28]
  211:Core/Src/stm32l4xx_hal_msp.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 14
 
 
  439              		.loc 1 211 5 is_stmt 1 view .LVU122
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  484 009e FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
  485              	.LVL30:
  486              		.loc 1 229 1 is_stmt 0 view .LVU132
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 15
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 15
 
 
  487 00a2 B9E7     		b	.L19
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  250:Core/Src/stm32l4xx_hal_msp.c ****     */
  251:Core/Src/stm32l4xx_hal_msp.c ****     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_11|GPIO_PIN_12);
  252:Core/Src/stm32l4xx_hal_msp.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 16
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 16
 
 
  253:Core/Src/stm32l4xx_hal_msp.c ****     /* USER CODE BEGIN CAN1_MspDeInit 1 */
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  561              		@ args = 0, pretend = 0, frame = 8
  562              		@ frame_needed = 0, uses_anonymous_args = 0
  563              		@ link register save eliminated.
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 17
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 17
 
 
  268:Core/Src/stm32l4xx_hal_msp.c ****   if(hcrc->Instance==CRC)
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  604              		.section	.text.HAL_CRC_MspDeInit,"ax",%progbits
  605              		.align	1
  606              		.global	HAL_CRC_MspDeInit
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 18
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 18
 
 
  607              		.syntax unified
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  639              	.L43:
  640 0018 00300240 		.word	1073885184
  641 001c 00100240 		.word	1073876992
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 19
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 19
 
 
  642              		.cfi_endproc
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  315:Core/Src/stm32l4xx_hal_msp.c ****   if(hi2c->Instance==I2C1)
  687              		.loc 1 315 3 is_stmt 1 view .LVU169
  688              		.loc 1 315 10 is_stmt 0 view .LVU170
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 20
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 20
 
 
  689 001c 2368     		ldr	r3, [r4]
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  358:Core/Src/stm32l4xx_hal_msp.c ****     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
  359:Core/Src/stm32l4xx_hal_msp.c ****     {
  360:Core/Src/stm32l4xx_hal_msp.c ****       Error_Handler();
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 21
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 21
 
 
  361:Core/Src/stm32l4xx_hal_msp.c ****     }
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  325:Core/Src/stm32l4xx_hal_msp.c ****     {
  719              		.loc 1 325 9 is_stmt 0 view .LVU180
  720 003a 06A8     		add	r0, sp, #24
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 22
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 22
 
 
  721 003c FFF7FEFF 		bl	HAL_RCCEx_PeriphCLKConfig
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  759 0066 1E93     		str	r3, [sp, #120]
  339:Core/Src/stm32l4xx_hal_msp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
  760              		.loc 1 339 5 is_stmt 1 view .LVU197
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 23
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 23
 
 
  339:Core/Src/stm32l4xx_hal_msp.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  358:Core/Src/stm32l4xx_hal_msp.c ****     {
  801              		.loc 1 358 9 is_stmt 0 view .LVU212
  802 009c 06A8     		add	r0, sp, #24
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 24
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 24
 
 
  803 009e FFF7FEFF 		bl	HAL_RCCEx_PeriphCLKConfig
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  842              		.loc 1 367 5 view .LVU227
  367:Core/Src/stm32l4xx_hal_msp.c ****     /**I2C3 GPIO Configuration
  843              		.loc 1 367 5 view .LVU228
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 25
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 25
 
 
  844 00cc DA6C     		ldr	r2, [r3, #76]
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  379:Core/Src/stm32l4xx_hal_msp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
  883              		.loc 1 379 5 is_stmt 1 view .LVU244
  379:Core/Src/stm32l4xx_hal_msp.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 26
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 26
 
 
  884              		.loc 1 379 25 is_stmt 0 view .LVU245
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  930              	.LVL54:
  931              	.LFB300:
  392:Core/Src/stm32l4xx_hal_msp.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 27
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 27
 
 
  393:Core/Src/stm32l4xx_hal_msp.c **** /**
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  424:Core/Src/stm32l4xx_hal_msp.c **** 
  425:Core/Src/stm32l4xx_hal_msp.c ****     /* USER CODE END I2C3_MspDeInit 0 */
  426:Core/Src/stm32l4xx_hal_msp.c ****     /* Peripheral clock disable */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 28
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 28
 
 
  427:Core/Src/stm32l4xx_hal_msp.c ****     __HAL_RCC_I2C3_CLK_DISABLE();
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  987              	.LVL61:
  433:Core/Src/stm32l4xx_hal_msp.c **** 
  988              		.loc 1 433 5 is_stmt 0 view .LVU271
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 29
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 29
 
 
  989 004a FFF7FEFF 		bl	HAL_GPIO_DeInit
@@ -1716,38 +1716,38 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 1
  1021              		.file 14 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_cortex.h"
  1022              		.file 15 "Core/Inc/main.h"
  1023              		.file 16 "<built-in>"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s 			page 30
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s 			page 30
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 stm32l4xx_hal_msp.c
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:21     .text.HAL_MspInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:83     .text.HAL_MspInit:0000003c $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:88     .text.HAL_ADC_MspInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:94     .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:279    .text.HAL_ADC_MspInit:000000bc $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:286    .text.HAL_ADC_MspDeInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:292    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:339    .text.HAL_ADC_MspDeInit:0000002c $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:346    .text.HAL_CAN_MspInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:352    .text.HAL_CAN_MspInit:00000000 HAL_CAN_MspInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:491    .text.HAL_CAN_MspInit:000000a4 $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:496    .text.HAL_CAN_MspDeInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:502    .text.HAL_CAN_MspDeInit:00000000 HAL_CAN_MspDeInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:544    .text.HAL_CAN_MspDeInit:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:550    .text.HAL_CRC_MspInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:556    .text.HAL_CRC_MspInit:00000000 HAL_CRC_MspInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:600    .text.HAL_CRC_MspInit:00000028 $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:605    .text.HAL_CRC_MspDeInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:611    .text.HAL_CRC_MspDeInit:00000000 HAL_CRC_MspDeInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:640    .text.HAL_CRC_MspDeInit:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:646    .text.HAL_I2C_MspInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:652    .text.HAL_I2C_MspInit:00000000 HAL_I2C_MspInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:915    .text.HAL_I2C_MspInit:00000120 $d
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:923    .text.HAL_I2C_MspDeInit:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:929    .text.HAL_I2C_MspDeInit:00000000 HAL_I2C_MspDeInit
-C:\Users\Ali\AppData\Local\Temp\ccZI0QsI.s:1001   .text.HAL_I2C_MspDeInit:00000058 $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:21     .text.HAL_MspInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:27     .text.HAL_MspInit:00000000 HAL_MspInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:83     .text.HAL_MspInit:0000003c $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:88     .text.HAL_ADC_MspInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:94     .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:279    .text.HAL_ADC_MspInit:000000bc $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:286    .text.HAL_ADC_MspDeInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:292    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:339    .text.HAL_ADC_MspDeInit:0000002c $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:346    .text.HAL_CAN_MspInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:352    .text.HAL_CAN_MspInit:00000000 HAL_CAN_MspInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:491    .text.HAL_CAN_MspInit:000000a4 $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:496    .text.HAL_CAN_MspDeInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:502    .text.HAL_CAN_MspDeInit:00000000 HAL_CAN_MspDeInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:544    .text.HAL_CAN_MspDeInit:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:550    .text.HAL_CRC_MspInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:556    .text.HAL_CRC_MspInit:00000000 HAL_CRC_MspInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:600    .text.HAL_CRC_MspInit:00000028 $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:605    .text.HAL_CRC_MspDeInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:611    .text.HAL_CRC_MspDeInit:00000000 HAL_CRC_MspDeInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:640    .text.HAL_CRC_MspDeInit:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:646    .text.HAL_I2C_MspInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:652    .text.HAL_I2C_MspInit:00000000 HAL_I2C_MspInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:915    .text.HAL_I2C_MspInit:00000120 $d
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:923    .text.HAL_I2C_MspDeInit:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:929    .text.HAL_I2C_MspDeInit:00000000 HAL_I2C_MspDeInit
+C:\Users\Ali\AppData\Local\Temp\ccEPp7Wb.s:1001   .text.HAL_I2C_MspDeInit:00000058 $d
 
 UNDEFINED SYMBOLS
 HAL_NVIC_SetPriority

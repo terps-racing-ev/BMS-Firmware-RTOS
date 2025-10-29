@@ -1,0 +1,10 @@
+# BQ76952 Register Settings Configuration File
+# Format: RegisterAddress=Value (hexadecimal)
+# Lines starting with # are comments
+# Example: TS2Config=0x08
+
+# Pin Configuration Settings
+TS2Config=0x08
+# Add more register settings here as needed
+# VCellMode=0x00
+# EnabledProtectionsA=0xCF
