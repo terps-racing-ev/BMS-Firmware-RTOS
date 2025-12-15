@@ -75,7 +75,6 @@ endif
 ######################################
 # C sources
 C_SOURCES =  \
-Core/Src/bq_config.c \
 Core/Src/bq_handler.c \
 Core/Src/can_manager.c \
 Core/Src/cell_temp_handler.c \

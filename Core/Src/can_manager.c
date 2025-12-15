@@ -28,7 +28,6 @@
 osMessageQueueId_t CANTxQueueHandle = NULL;
 osMessageQueueId_t CANRxQueueHandle = NULL;
 
-static CAN_RxCallback_t rx_callback = NULL;
 static CAN_Statistics_t can_stats = {0};
 
 /* Private function prototypes -----------------------------------------------*/
@@ -301,11 +300,6 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
         return;
     }
     
-    // Call registered callback if available
-    if (rx_callback != NULL) {
-        rx_callback(msg);
-    }
-    
 }
 
 /**
@@ -364,16 +358,6 @@ void CAN_ManagerTask(void *argument)
         // The task will wake up on new messages or periodically
         osDelay(10);
     }
-}
-
-/**
-  * @brief  Register callback for received CAN messages
-  * @param  callback: Function to call when message is received
-  * @retval None
-  */
-void CAN_RegisterRxCallback(CAN_RxCallback_t callback)
-{
-    rx_callback = callback;
 }
 
 /**

@@ -54,13 +54,6 @@ CRC_HandleTypeDef hcrc;
 I2C_HandleTypeDef hi2c1;
 I2C_HandleTypeDef hi2c3;
 
-/* Definitions for defaultTask */
-osThreadId_t defaultTaskHandle;
-const osThreadAttr_t defaultTask_attributes = {
-  .name = "defaultTask",
-  .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityNormal,
-};
 /* USER CODE BEGIN PV */
 
 /* Definitions for CellVoltageBMS1 */
@@ -101,12 +94,6 @@ osMutexId_t I2C3Handle;
 const osMutexAttr_t I2C3_attributes = {
   .name = "I2C3"
 };
-/* Definitions for CAN */
-osMutexId_t CANHandle;
-const osMutexAttr_t CAN_attributes = {
-  .name = "CAN"
-};
-
 /* USER CODE BEGIN PV */
 /* Definitions for BMS Reset Semaphore */
 osSemaphoreId_t BMSResetSemHandle;
@@ -131,7 +118,6 @@ static void MX_CAN1_Init(void);
 static void MX_CRC_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_I2C3_Init(void);
-void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 void ReadBQBMS1(void *argument);
@@ -211,9 +197,6 @@ int main(void)
   /* creation of I2C3 */
   I2C3Handle = osMutexNew(&I2C3_attributes);
 
-  /* creation of CAN */
-  CANHandle = osMutexNew(&CAN_attributes);
-
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -252,9 +235,6 @@ int main(void)
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */
-  /* creation of defaultTask */
-  defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-
   /* USER CODE BEGIN RTOS_THREADS */
   /* creation of CellVoltageBMS1 */
   CellVoltageBMS1Handle = osThreadNew(ReadBQBMS1, NULL, &CellVoltageBMS1_attributes);
@@ -651,24 +631,6 @@ void vApplicationMallocFailedHook(void)
 }
 
 /* USER CODE END 4 */
-
-/* USER CODE BEGIN Header_StartDefaultTask */
-/**
-  * @brief  Function implementing the defaultTask thread.
-  * @param  argument: Not used
-  * @retval None
-  */
-/* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void *argument)
-{
-  /* USER CODE BEGIN 5 */
-  /* Infinite loop */
-  for(;;)
-  {
-    osDelay(1);
-  }
-  /* USER CODE END 5 */
-}
 
 /* USER CODE BEGIN Header_ReadCellVoltage */
 /**

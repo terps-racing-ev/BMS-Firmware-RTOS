@@ -53,9 +53,6 @@ typedef struct {
     uint32_t timestamp;             // Timestamp when message was queued
 } CAN_Message_t;
 
-/* CAN RX Callback Function Type */
-typedef void (*CAN_RxCallback_t)(CAN_Message_t *msg);
-
 /* CAN Statistics Structure */
 typedef struct {
     uint32_t tx_success_count;      // Successfully transmitted messages
@@ -106,13 +103,6 @@ HAL_StatusTypeDef CAN_SendMessage(uint32_t id, uint8_t *data, uint8_t length, ui
   * @retval HAL_StatusTypeDef
   */
 HAL_StatusTypeDef CAN_SendMessageExt(uint32_t id, uint8_t *data, uint8_t length, uint8_t priority);
-
-/**
-  * @brief  Register callback for received CAN messages
-  * @param  callback: Function to call when message is received
-  * @retval None
-  */
-void CAN_RegisterRxCallback(CAN_RxCallback_t callback);
 
 /**
   * @brief  Reconfigure CAN filters for new module ID

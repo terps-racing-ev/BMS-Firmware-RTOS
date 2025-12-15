@@ -110,7 +110,6 @@ typedef struct {
 /* External variables --------------------------------------------------------*/
 extern ADC_HandleTypeDef hadc1;
 extern CAN_HandleTypeDef hcan1;
-extern osMutexId_t CANHandle;
 
 /* Function prototypes -------------------------------------------------------*/
 
