@@ -48,7 +48,7 @@ extern "C" {
 #define CELL_VOLTAGE_MIN_MV         2500    /**< Minimum safe cell voltage (2.5V) */
 #define CELL_VOLTAGE_MAX_MV         4200    /**< Maximum safe cell voltage (4.2V) */
 #define CELL_VOLTAGE_WARNING_LOW_MV 2800    /**< Low voltage warning threshold (2.8V) */
-#define CELL_VOLTAGE_WARNING_HIGH_MV 4100   /**< High voltage warning threshold (4.1V) */
+#define CELL_VOLTAGE_WARNING_HIGH_MV 4200   /**< High voltage warning threshold (4.2V) */
 
 /* Exported types ------------------------------------------------------------*/
 
