@@ -39,15 +39,17 @@ extern "C" {
 #define BMS1_NUM_CELLS              9       /**< Number of cells monitored by BMS1 (cells 1-9) */
 #define BMS2_NUM_CELLS              9       /**< Number of cells monitored by BMS2 (cells 10-18) */
 
-#define VOLTAGE_READ_INTERVAL_MS    500     /**< Cell voltage reading interval (500ms = 2Hz) */
-#define VOLTAGE_CAN_INTERVAL_MS     500     /**< CAN transmission interval for voltage data */
+#define VOLTAGE_READ_INTERVAL_MS    250     /**< Cell voltage reading interval (500ms = 2Hz) */
+#define VOLTAGE_CAN_INTERVAL_MS     250     /**< CAN transmission interval for voltage data */
 
 #define I2C_TIMEOUT_MS              100     /**< I2C communication timeout */
+
+#define BQ_FAULT_REPORTING_DEFAULT  1       /**< Default fault reporting state (1=enabled, 0=disabled) */
 
 /* Voltage Limits (in millivolts) */
 #define CELL_VOLTAGE_MIN_MV         2500    /**< Minimum safe cell voltage (2.5V) */
 #define CELL_VOLTAGE_MAX_MV         4200    /**< Maximum safe cell voltage (4.2V) */
-#define CELL_VOLTAGE_WARNING_LOW_MV 2800    /**< Low voltage warning threshold (2.8V) */
+#define CELL_VOLTAGE_WARNING_LOW_MV 3000    /**< Low voltage warning threshold (2.8V) */
 #define CELL_VOLTAGE_WARNING_HIGH_MV 4200   /**< High voltage warning threshold (4.2V) */
 
 /* Exported types ------------------------------------------------------------*/
@@ -178,6 +180,21 @@ void BQ_CheckLimits_BMS2(BQ_Data_BMS2_t *data);
   *         The reset pin is active-high and should be held high for at least 500ms.
   */
 HAL_StatusTypeDef BQ_ResetChips(void);
+
+/**
+  * @brief  Enable or disable fault reporting from BQ handler
+  * @param  enabled: 1 to enable fault reporting, 0 to disable
+  * @retval None
+  * @note   When disabled, no errors or warnings will be set by the BQ handler.
+  *         Useful for testing/debugging without triggering system faults.
+  */
+void BQ_SetFaultReportingEnabled(uint8_t enabled);
+
+/**
+  * @brief  Get current fault reporting state
+  * @retval uint8_t: 1 if enabled, 0 if disabled
+  */
+uint8_t BQ_GetFaultReportingEnabled(void);
 
 /**
   * @brief  Send BMS chip status via CAN (stack voltage, alarm status, TS2 temperature)

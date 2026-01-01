@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "config_manager.h"
 #include "can_ids.h"
+#include "cell_temp_handler.h"
 #include <string.h>
 
 /* External function prototypes ----------------------------------------------*/
@@ -282,6 +283,40 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
                 osDelay(100); // Give time for CAN message to transmit
                 NVIC_SystemReset(); // Reset the microcontroller
             }
+            break;
+        }
+        
+        case CONFIG_CMD_SET_MAX_TEMP:
+        {
+            // Set maximum thermistor temperature threshold (temporary, resets on restart)
+            // Value is in degrees Celsius (0-127)
+            int8_t old_max_temp = CellTemp_GetMaxTemp();
+            int8_t new_max_temp = (int8_t)value;
+            
+            // Set new max temperature threshold
+            CellTemp_SetMaxTemp(new_max_temp);
+            
+            // Verify it was set
+            int8_t actual_new_temp = CellTemp_GetMaxTemp();
+            status = CONFIG_STATUS_SUCCESS;
+            
+            // Prepare acknowledgement message
+            // Byte 0: Command echo
+            // Byte 1: Status (0x00 = success)
+            // Byte 2: Old max temp (°C)
+            // Byte 3: New max temp (°C, actual value after clamping)
+            // Bytes 4-7: Reserved
+            ack_data[0] = command;
+            ack_data[1] = status;
+            ack_data[2] = (uint8_t)old_max_temp;
+            ack_data[3] = (uint8_t)actual_new_temp;
+            ack_data[4] = 0x00;
+            ack_data[5] = 0x00;
+            ack_data[6] = 0x00;
+            ack_data[7] = 0x00;
+            
+            // Send acknowledgement
+            CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
             break;
         }
             

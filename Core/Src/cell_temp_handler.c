@@ -26,6 +26,7 @@
 /* Private variables ---------------------------------------------------------*/
 static temp_monitor_state_t temp_state = {0};
 static uint64_t thermistor_fault_mask = THERMISTOR_FAULT_MASK_DEFAULT;
+static float temp_max_threshold = TEMP_MAX_CELSIUS;  // Runtime max temperature threshold (can be set via CAN)
 static const uint32_t adc_channels[NUM_ADC_CHANNELS] = {
     ADC_CH_1, ADC_CH_2, ADC_CH_3, ADC_CH_4, ADC_CH_5, ADC_CH_6, ADC_CH_7
 };
@@ -314,7 +315,7 @@ void CellTemp_MonitorTask(void *argument)
                     // Check temperature limits and set error flags (only if fault detection is enabled for this thermistor)
                     if (CellTemp_IsFaultDetectionEnabled(therm_idx)) {
                         if (therm->temperature > -126.0f) {  // Valid temperature reading
-                            if (therm->temperature > TEMP_MAX_CELSIUS) {
+                            if (therm->temperature > temp_max_threshold) {
                                 ErrorMgr_SetError(ERROR_OVER_TEMP);
                             } else if (therm->temperature < TEMP_MIN_CELSIUS) {
                                 ErrorMgr_SetError(ERROR_UNDER_TEMP);
@@ -389,7 +390,7 @@ void CellTemp_MonitorTask(void *argument)
                     if (temp <= -126.0f) {
                         // Invalid reading - sensor fault
                         any_sensor_fault = 1;
-                    } else if (temp > TEMP_MAX_CELSIUS) {
+                    } else if (temp > temp_max_threshold) {
                         // Over temperature
                         any_over_temp = 1;
                     } else if (temp < TEMP_MIN_CELSIUS) {
@@ -580,4 +581,29 @@ void CellTemp_SetFaultMask(uint64_t mask)
 uint64_t CellTemp_GetFaultMask(void)
 {
     return thermistor_fault_mask;
+}
+
+/**
+  * @brief  Set maximum temperature threshold for over-temperature detection
+  * @param  max_temp: Maximum temperature in degrees Celsius (0-127)
+  * @retval None
+  * @note   This is a temporary setting that resets to TEMP_MAX_CELSIUS on device reset.
+  *         Values outside 0-127 range will be clamped.
+  */
+void CellTemp_SetMaxTemp(int8_t max_temp)
+{
+    // Clamp to reasonable range (0°C to 127°C)
+    if (max_temp < 0) {
+        max_temp = 0;
+    }
+    temp_max_threshold = (float)max_temp;
+}
+
+/**
+  * @brief  Get current maximum temperature threshold
+  * @retval Maximum temperature threshold in degrees Celsius
+  */
+int8_t CellTemp_GetMaxTemp(void)
+{
+    return (int8_t)temp_max_threshold;
 }

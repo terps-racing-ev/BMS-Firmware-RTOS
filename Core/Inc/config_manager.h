@@ -48,6 +48,7 @@ extern "C" {
 
 /* CAN Command Definitions ---------------------------------------------------*/
 #define CONFIG_CMD_SET_MODULE_ID 0x01   // Command to set module ID
+#define CONFIG_CMD_SET_MAX_TEMP  0x02   // Command to set max thermistor temperature (°C)
 
 /* CAN Response Status Codes -------------------------------------------------*/
 #define CONFIG_STATUS_SUCCESS 0x00      // Command successful

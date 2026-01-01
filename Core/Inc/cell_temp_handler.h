@@ -190,6 +190,20 @@ void CellTemp_SetFaultMask(uint64_t mask);
   */
 uint64_t CellTemp_GetFaultMask(void);
 
+/**
+  * @brief  Set maximum temperature threshold for over-temperature detection
+  * @param  max_temp: Maximum temperature in degrees Celsius (0-127)
+  * @retval None
+  * @note   This is a temporary setting that resets to default on device reset.
+  */
+void CellTemp_SetMaxTemp(int8_t max_temp);
+
+/**
+  * @brief  Get current maximum temperature threshold
+  * @retval Maximum temperature threshold in degrees Celsius
+  */
+int8_t CellTemp_GetMaxTemp(void);
+
 #ifdef __cplusplus
 }
 #endif

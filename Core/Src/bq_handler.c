@@ -47,9 +47,30 @@ static osMutexId_t voltage_mutex_bms2 = NULL;
 // Store last I2C3 error for diagnostics
 static uint32_t g_last_i2c3_error = 0;
 
+// Flag to enable/disable fault reporting (1 = enabled, 0 = disabled)
+static uint8_t g_fault_reporting_enabled = BQ_FAULT_REPORTING_DEFAULT;
+
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
                                                  uint16_t reg_addr, uint16_t *value);
+
+/**
+  * @brief  Enable or disable fault reporting from BQ handler
+  * @param  enabled: 1 to enable fault reporting, 0 to disable
+  */
+void BQ_SetFaultReportingEnabled(uint8_t enabled)
+{
+    g_fault_reporting_enabled = enabled ? 1 : 0;
+}
+
+/**
+  * @brief  Get current fault reporting state
+  * @retval uint8_t: 1 if enabled, 0 if disabled
+  */
+uint8_t BQ_GetFaultReportingEnabled(void)
+{
+    return g_fault_reporting_enabled;
+}
 
 /* Function Implementations --------------------------------------------------*/
 
@@ -93,9 +114,11 @@ void BQ_MonitorTask(void *argument)
             status = BQ_ReadBMS1(&voltage_data_bms1);
             
             if (status != HAL_OK) {
-                // Set I2C error flags
-                ErrorMgr_SetError(ERROR_I2C_BMS1);
-                ErrorMgr_SetError(ERROR_I2C_FAULT);  // General I2C fault flag
+                // Set I2C error flags (only if fault reporting is enabled)
+                if (g_fault_reporting_enabled) {
+                    ErrorMgr_SetError(ERROR_I2C_BMS1);
+                    //ErrorMgr_SetError(ERROR_I2C_FAULT);  // General I2C fault flag
+                }
                 
                 // Clear all voltage readings to 0V during I2C fault
                 if (voltage_mutex != NULL) {
@@ -112,17 +135,19 @@ void BQ_MonitorTask(void *argument)
                     osMutexRelease(voltage_mutex);
                 }
             } else {
-                // Clear I2C error flag on successful read
-                ErrorMgr_ClearError(ERROR_I2C_BMS1);
-                
-                // Only clear general I2C fault if BMS2 is also OK
-                // Check if BMS2 error flag is not set
-                if (!(ErrorMgr_GetErrors() & ERROR_I2C_BMS2)) {
-                    ErrorMgr_ClearError(ERROR_I2C_FAULT);
+                // Clear I2C error flag on successful read (only if fault reporting is enabled)
+                if (g_fault_reporting_enabled) {
+                    ErrorMgr_ClearError(ERROR_I2C_BMS1);
+                    
+                    // Only clear general I2C fault if BMS2 is also OK
+                    // Check if BMS2 error flag is not set
+                    if (!(ErrorMgr_GetErrors() & ERROR_I2C_BMS2)) {
+                        ErrorMgr_ClearError(ERROR_I2C_FAULT);
+                    }
+                    
+                    // Check voltage limits and set error/warning flags
+                    BQ_CheckLimits(&voltage_data_bms1);
                 }
-                
-                // Check voltage limits and set error/warning flags
-                BQ_CheckLimits(&voltage_data_bms1);
             }
             
             last_read_tick = current_tick;
@@ -397,6 +422,11 @@ void BQ_CheckLimits(BQ_Data_t *data)
         return;
     }
     
+    // Skip all error/warning reporting if fault reporting is disabled
+    if (!g_fault_reporting_enabled) {
+        return;
+    }
+    
     bool over_voltage_detected = false;
     bool under_voltage_detected = false;
     bool high_voltage_warning = false;
@@ -493,8 +523,10 @@ void BQ_MonitorTask_BMS2(void *argument)
     // Try to detect BMS2 device at expected address
     status = HAL_I2C_IsDeviceReady(&hi2c3, (BQ76952_I2C_ADDR_BMS2 << 1), 3, 100);
     if (status != HAL_OK) {
-        // Device not found - set error and continue trying
-        ErrorMgr_SetError(ERROR_I2C_BMS2);
+        // Device not found - set error and continue trying (only if fault reporting is enabled)
+        if (g_fault_reporting_enabled) {
+            ErrorMgr_SetError(ERROR_I2C_BMS2);
+        }
     }
     
     if (I2C3Handle != NULL) {
@@ -516,9 +548,11 @@ void BQ_MonitorTask_BMS2(void *argument)
             status = BQ_ReadBMS2(&voltage_data_bms2);
             
             if (status != HAL_OK) {
-                // Set I2C error flags
-                ErrorMgr_SetError(ERROR_I2C_BMS2);
-                ErrorMgr_SetError(ERROR_I2C_FAULT);  // General I2C fault flag
+                // Set I2C error flags (only if fault reporting is enabled)
+                if (g_fault_reporting_enabled) {
+                    ErrorMgr_SetError(ERROR_I2C_BMS2);
+                    //ErrorMgr_SetError(ERROR_I2C_FAULT);  // General I2C fault flag
+                }
                 
                 // Clear all voltage readings to 0V during I2C fault
                 if (voltage_mutex_bms2 != NULL) {
@@ -535,17 +569,19 @@ void BQ_MonitorTask_BMS2(void *argument)
                     osMutexRelease(voltage_mutex_bms2);
                 }
             } else {
-                // Clear I2C error flag on successful read
-                ErrorMgr_ClearError(ERROR_I2C_BMS2);
-                
-                // Only clear general I2C fault if BMS1 is also OK
-                // Check if BMS1 error flag is not set
-                if (!(ErrorMgr_GetErrors() & ERROR_I2C_BMS1)) {
-                    ErrorMgr_ClearError(ERROR_I2C_FAULT);
+                // Clear I2C error flag on successful read (only if fault reporting is enabled)
+                if (g_fault_reporting_enabled) {
+                    ErrorMgr_ClearError(ERROR_I2C_BMS2);
+                    
+                    // Only clear general I2C fault if BMS1 is also OK
+                    // Check if BMS1 error flag is not set
+                    if (!(ErrorMgr_GetErrors() & ERROR_I2C_BMS1)) {
+                        ErrorMgr_ClearError(ERROR_I2C_FAULT);
+                    }
+                    
+                    // Check voltage limits and set error/warning flags
+                    BQ_CheckLimits_BMS2(&voltage_data_bms2);
                 }
-                
-                // Check voltage limits and set error/warning flags
-                BQ_CheckLimits_BMS2(&voltage_data_bms2);
             }
             
             last_read_tick = current_tick;
@@ -787,6 +823,11 @@ HAL_StatusTypeDef BQ_GetData_BMS2(BQ_Data_BMS2_t *data)
 void BQ_CheckLimits_BMS2(BQ_Data_BMS2_t *data)
 {
     if (data == NULL || !data->valid) {
+        return;
+    }
+    
+    // Skip all error/warning reporting if fault reporting is disabled
+    if (!g_fault_reporting_enabled) {
         return;
     }
     
