@@ -50,6 +50,10 @@ static uint32_t g_last_i2c3_error = 0;
 // Flag to enable/disable fault reporting (1 = enabled, 0 = disabled)
 static uint8_t g_fault_reporting_enabled = BQ_FAULT_REPORTING_DEFAULT;
 
+// BMS chip internal temperatures (0.1°C units, updated every 5 seconds)
+static int16_t g_bms1_internal_temp = 0;  // BMS1 internal die temperature
+static int16_t g_bms2_internal_temp = 0;  // BMS2 internal die temperature
+
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
                                                  uint16_t reg_addr, uint16_t *value);
@@ -84,6 +88,7 @@ void BQ_MonitorTask(void *argument)
     HAL_StatusTypeDef status;
     uint32_t last_read_tick = 0;
     uint32_t last_can_tick = 0;
+    uint32_t last_internal_temp_tick = 0;
     uint32_t current_tick;
     
     // Create mutex for thread-safe data access
@@ -102,6 +107,7 @@ void BQ_MonitorTask(void *argument)
     // Initialize timestamps
     last_read_tick = osKernelGetTickCount();
     last_can_tick = osKernelGetTickCount();
+    last_internal_temp_tick = osKernelGetTickCount();
     
     /* Infinite loop */
     for(;;)
@@ -151,6 +157,22 @@ void BQ_MonitorTask(void *argument)
             }
             
             last_read_tick = current_tick;
+        }
+        
+        // Read BMS1 internal temperature every 5 seconds
+        if ((current_tick - last_internal_temp_tick) >= 5000) {
+            int16_t int_temp = 0;
+            if (I2C1Handle != NULL) {
+                osMutexAcquire(I2C1Handle, osWaitForever);
+            }
+            status = BQ76952_ReadRegister16(&hi2c1, BQ76952_I2C_ADDR_BMS1, IntTemperature, (uint16_t*)&int_temp);
+            if (I2C1Handle != NULL) {
+                osMutexRelease(I2C1Handle);
+            }
+            if (status == HAL_OK) {
+                g_bms1_internal_temp = int_temp;
+            }
+            last_internal_temp_tick = current_tick;
         }
         
         // Send CAN messages at specified interval
@@ -500,6 +522,7 @@ void BQ_MonitorTask_BMS2(void *argument)
     HAL_StatusTypeDef status;
     uint32_t last_read_tick = 0;
     uint32_t last_can_tick = 0;
+    uint32_t last_internal_temp_tick = 0;
     uint32_t current_tick;
     
     // Create mutex for thread-safe data access
@@ -536,6 +559,7 @@ void BQ_MonitorTask_BMS2(void *argument)
     // Initialize timestamps
     last_read_tick = osKernelGetTickCount();
     last_can_tick = osKernelGetTickCount();
+    last_internal_temp_tick = osKernelGetTickCount();
     
     /* Infinite loop */
     for(;;)
@@ -585,6 +609,22 @@ void BQ_MonitorTask_BMS2(void *argument)
             }
             
             last_read_tick = current_tick;
+        }
+        
+        // Read BMS2 internal temperature every 5 seconds
+        if ((current_tick - last_internal_temp_tick) >= 5000) {
+            int16_t int_temp = 0;
+            if (I2C3Handle != NULL) {
+                osMutexAcquire(I2C3Handle, osWaitForever);
+            }
+            status = BQ76952_ReadRegister16(&hi2c3, BQ76952_I2C_ADDR_BMS2, IntTemperature, (uint16_t*)&int_temp);
+            if (I2C3Handle != NULL) {
+                osMutexRelease(I2C3Handle);
+            }
+            if (status == HAL_OK) {
+                g_bms2_internal_temp = int_temp;
+            }
+            last_internal_temp_tick = current_tick;
         }
         
         // Send CAN messages at specified interval
@@ -923,3 +963,22 @@ uint32_t BQ_GetLastI2C3Error(void)
     return g_last_i2c3_error;
 }
 
+/**
+  * @brief  Get BMS1 internal die temperature
+  * @retval int16_t: Temperature in 0.1°C units (e.g., 250 = 25.0°C)
+  * @note   Updated every 5 seconds by BQ_MonitorTask
+  */
+int16_t BQ_GetBMS1InternalTemp(void)
+{
+    return g_bms1_internal_temp;
+}
+
+/**
+  * @brief  Get BMS2 internal die temperature
+  * @retval int16_t: Temperature in 0.1°C units (e.g., 250 = 25.0°C)
+  * @note   Updated every 5 seconds by BQ_MonitorTask_BMS2
+  */
+int16_t BQ_GetBMS2InternalTemp(void)
+{
+    return g_bms2_internal_temp;
+}

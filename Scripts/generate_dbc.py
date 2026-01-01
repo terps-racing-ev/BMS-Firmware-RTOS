@@ -3,6 +3,7 @@
 Generate complete DBC file for BMS Firmware with all 6 modules
 Each module has:
 - 14 temperature messages (56 thermistors total per module)
+- 1 temperature summary message (min/max cell temp, BMS1/BMS2 IC temp)
 - 6 voltage messages (18 cells total per module, 3 cells per message)
 - 1 heartbeat message
 - 1 CAN stats message
@@ -12,6 +13,7 @@ Each module has:
 - 1 BMS chip reset command message
 - 1 BMS chip reset ACK message
 - 1 debug response message
+- 1 I2C diagnostics message
 Plus 1 broadcast message (debug request)
 """
 
@@ -197,6 +199,18 @@ def generate_dbc():
                 lines.append(f' SG_ Temp_{therm_num:03d} : {bit_start}|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
             lines.append('')
         
+        # Cell Temperature Summary: base 0x08F00101 + module_offset
+        # Contains min/max cell temp and BMS1/BMS2 IC internal temperatures
+        can_id = 0x08F00101 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} Cell_Temp_Summary_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append(' SG_ Max_Cell_Temp : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append(' SG_ BMS1_IC_Temp : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append(' SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append('')
+        
         # 6 Voltage messages (0x08F00200 through 0x08F00205 + module_offset)
         # Each message contains 3 cell voltages (6 bytes)
         for msg_idx in range(6):
@@ -260,6 +274,8 @@ def generate_dbc():
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 1000;')
         elif msg_base >= 0x8000 and msg_base <= 0x800D:  # Temperature messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 1000;')
+        elif msg_base == 0x8101:  # Temperature summary message
+            lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
         elif msg_base >= 0x8200 and msg_base <= 0x8205:  # Voltage messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
     lines.append('')
@@ -343,9 +359,15 @@ def generate_dbc():
     return '\n'.join(lines)
 
 if __name__ == '__main__':
+    import os
+    
     dbc_content = generate_dbc()
     
-    output_file = 'BMS-Firmware-RTOS-Complete.dbc'
+    # Output to parent directory (script is in Scripts folder)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(script_dir)
+    output_file = os.path.join(parent_dir, 'BMS-Firmware-RTOS-Complete.dbc')
+    
     with open(output_file, 'w') as f:
         f.write(dbc_content)
     
@@ -356,15 +378,15 @@ if __name__ == '__main__':
     message_count = dbc_content.count('BO_ ')
     print(f"Total messages: {message_count}")
     print(f"  - 1 broadcast message (Debug Request)")
-    print(f"  - 6 modules × 31 messages = 186 messages")
-    print(f"    (Config Command, Config ACK, Reset Command, BMS Chip Reset Command, BMS Chip Reset ACK, Debug Response, I2C Diagnostics, Heartbeat, CAN Stats, BMS1 Status, BMS2 Status, 14 Temp, 6 Voltage)")
-    print(f"  - Total: 187 messages")
+    print(f"  - 6 modules × 32 messages = 192 messages")
+    print(f"    (Config Command, Config ACK, Reset Command, BMS Chip Reset Command, BMS Chip Reset ACK, Debug Response, I2C Diagnostics, Heartbeat, CAN Stats, BMS1 Status, BMS2 Status, 14 Temp, 1 Temp Summary, 6 Voltage)")
+    print(f"  - Total: 193 messages")
     print(f"")
     print(f"Per module breakdown:")
     print(f"  - 14 temperature messages (56 thermistors, 4 per message)")
+    print(f"  - 1 temperature summary message (min/max cell temp, BMS1/BMS2 IC temp)")
     print(f"  - 6 voltage messages (18 cells, 3 per message)")
     print(f"  - 2 BMS chip status messages (BMS1 and BMS2 stack voltage, alarm, temp)")
     print(f"  - 1 config command, 1 config ACK, 1 STM32 reset command")
     print(f"  - 1 BMS chip reset command, 1 BMS chip reset ACK")
     print(f"  - 1 heartbeat, 1 CAN stats, 1 debug response, 1 I2C diagnostics")
-

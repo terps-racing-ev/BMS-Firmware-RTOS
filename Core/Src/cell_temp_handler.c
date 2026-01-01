@@ -21,6 +21,7 @@
 #include "cell_temp_handler.h"
 #include "can_manager.h"
 #include "error_manager.h"
+#include "bq_handler.h"
 #include <string.h>
 
 /* Private variables ---------------------------------------------------------*/
@@ -244,6 +245,8 @@ float CellTemp_ReadThermistor(uint8_t adc_index, uint8_t mux_channel)
   */
 void CellTemp_MonitorTask(void *argument)
 {
+    static uint32_t last_summary_tick = 0;
+    
     // Initialize the temperature monitoring system
     if (CellTemp_Init() != HAL_OK) {
         // Handle initialization error - blink would go here if we had an LED
@@ -251,6 +254,9 @@ void CellTemp_MonitorTask(void *argument)
             osDelay(1000);  // Wait 1 second (1000 ticks at 1ms tick rate)
         }
     }
+    
+    // Initialize summary message timestamp
+    last_summary_tick = osKernelGetTickCount();
     
     // Strategy: Oversample each MUX channel for 125ms, then send CAN updates
     // - Set MUX channel once
@@ -414,6 +420,13 @@ void CellTemp_MonitorTask(void *argument)
                 ErrorMgr_SetError(ERROR_UNDER_TEMP);
             } else {
                 ErrorMgr_ClearError(ERROR_UNDER_TEMP);
+            }
+            
+            // Send temperature summary message every 5 seconds
+            uint32_t current_tick = osKernelGetTickCount();
+            if ((current_tick - last_summary_tick) >= TEMP_SUMMARY_INTERVAL_MS) {
+                CellTemp_SendSummaryMessage();
+                last_summary_tick = current_tick;
             }
         }
     }
@@ -611,4 +624,73 @@ void CellTemp_SetMaxTemp(int8_t max_temp)
 int8_t CellTemp_GetMaxTemp(void)
 {
     return (int8_t)temp_max_threshold;
+}
+
+/**
+  * @brief  Send cell temperature summary message via CAN
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Message format (8 bytes):
+  *         Bytes 0-1: Min cell temperature (0.1°C units, signed 16-bit)
+  *         Bytes 2-3: Max cell temperature (0.1°C units, signed 16-bit)
+  *         Bytes 4-5: BMS1 internal die temperature (0.1°C units, signed 16-bit)
+  *         Bytes 6-7: BMS2 internal die temperature (0.1°C units, signed 16-bit)
+  *         Excludes ambient thermistors (54, 55) from min/max calculation
+  */
+HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
+{
+    float min_temp = 200.0f;   // Start with high value
+    float max_temp = -200.0f;  // Start with low value
+    uint8_t valid_count = 0;
+    
+    // Find min/max cell temperatures (excluding ambient thermistors 54 and 55)
+    for (uint8_t i = 0; i < TOTAL_THERMISTORS; i++) {
+        // Skip ambient thermistors
+        if (i == AMBIENT_THERM_1 || i == AMBIENT_THERM_2) {
+            continue;
+        }
+        
+        // Only check enabled ADC channels
+        uint8_t therm_adc = i / MUX_CHANNELS;
+        if (CellTemp_IsADCEnabled(therm_adc)) {
+            float temp = temp_state.thermistors[i].temperature;
+            
+            // Only consider valid temperatures (not sensor fault markers)
+            if (temp > -126.0f) {
+                if (temp < min_temp) {
+                    min_temp = temp;
+                }
+                if (temp > max_temp) {
+                    max_temp = temp;
+                }
+                valid_count++;
+            }
+        }
+    }
+    
+    // If no valid readings, set to error values
+    if (valid_count == 0) {
+        min_temp = -127.0f;
+        max_temp = -127.0f;
+    }
+    
+    // Convert to 0.1°C units (signed 16-bit)
+    int16_t min_temp_raw = (int16_t)(min_temp * 10.0f);
+    int16_t max_temp_raw = (int16_t)(max_temp * 10.0f);
+    
+    // Get BMS chip internal temperatures (already in 0.1°C units)
+    int16_t bms1_temp = BQ_GetBMS1InternalTemp();
+    int16_t bms2_temp = BQ_GetBMS2InternalTemp();
+    
+    // Pack CAN message
+    uint8_t can_data[8];
+    can_data[0] = (uint8_t)(min_temp_raw & 0xFF);
+    can_data[1] = (uint8_t)((min_temp_raw >> 8) & 0xFF);
+    can_data[2] = (uint8_t)(max_temp_raw & 0xFF);
+    can_data[3] = (uint8_t)((max_temp_raw >> 8) & 0xFF);
+    can_data[4] = (uint8_t)(bms1_temp & 0xFF);
+    can_data[5] = (uint8_t)((bms1_temp >> 8) & 0xFF);
+    can_data[6] = (uint8_t)(bms2_temp & 0xFF);
+    can_data[7] = (uint8_t)((bms2_temp >> 8) & 0xFF);
+    
+    return CAN_SendMessage(CAN_TEMP_SUMMARY_ID, can_data, 8, CAN_PRIORITY_NORMAL);
 }

@@ -72,6 +72,13 @@ extern "C" {
 #define TEMP_MAX_CELSIUS 60.0f           // Maximum safe cell temperature (°C)
 #define MAX_THERM_FAULT_ALLOWED 11        // Max faulty thermistors allowed before triggering fault (covers sensor faults & under-temp)
 
+// Ambient air thermistor indices (excluded from min/max cell temp calculation)
+#define AMBIENT_THERM_1 54               // First ambient air thermistor index
+#define AMBIENT_THERM_2 55               // Second ambient air thermistor index
+
+// Temperature summary message timing
+#define TEMP_SUMMARY_INTERVAL_MS 5000    // Send summary message every 5 seconds
+
 // Task timing - Oversampling configuration
 #define TEMP_OVERSAMPLE_PERIOD_MS 125    // Oversample each MUX channel for 125ms
 #define TEMP_SAMPLE_INTERVAL_MS 10       // Take a sample every 10ms (12-13 samples per MUX channel)
@@ -204,6 +211,14 @@ void CellTemp_SetMaxTemp(int8_t max_temp);
   * @retval Maximum temperature threshold in degrees Celsius
   */
 int8_t CellTemp_GetMaxTemp(void);
+
+/**
+  * @brief  Send cell temperature summary message via CAN
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Message contains: min cell temp, max cell temp, BMS1 IC temp, BMS2 IC temp
+  *         Excludes ambient thermistors (54, 55) from min/max calculation
+  */
+HAL_StatusTypeDef CellTemp_SendSummaryMessage(void);
 
 #ifdef __cplusplus
 }

@@ -205,6 +205,20 @@ uint8_t BQ_GetFaultReportingEnabled(void);
   */
 HAL_StatusTypeDef BQ_SendChipStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint32_t can_id);
 
+/**
+  * @brief  Get BMS1 internal die temperature
+  * @retval int16_t: Temperature in 0.1°C units (e.g., 250 = 25.0°C)
+  * @note   Updated every 5 seconds by BQ_MonitorTask
+  */
+int16_t BQ_GetBMS1InternalTemp(void);
+
+/**
+  * @brief  Get BMS2 internal die temperature
+  * @retval int16_t: Temperature in 0.1°C units (e.g., 250 = 25.0°C)
+  * @note   Updated every 5 seconds by BQ_MonitorTask_BMS2
+  */
+int16_t BQ_GetBMS2InternalTemp(void);
+
 #ifdef __cplusplus
 }
 #endif
