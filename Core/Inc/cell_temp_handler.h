@@ -70,6 +70,7 @@ extern "C" {
 #define THERMISTOR_FAULT_MASK_DEFAULT 0xFFFFFFFFFFFFFFFFULL
 #define TEMP_MIN_CELSIUS -20.0f          // Minimum safe cell temperature (°C)
 #define TEMP_MAX_CELSIUS 60.0f           // Maximum safe cell temperature (°C)
+#define MAX_THERM_FAULT_ALLOWED 11        // Max faulty thermistors allowed before triggering fault (covers sensor faults & under-temp)
 
 // Task timing - Oversampling configuration
 #define TEMP_OVERSAMPLE_PERIOD_MS 125    // Oversample each MUX channel for 125ms

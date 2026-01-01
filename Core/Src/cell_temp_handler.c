@@ -312,26 +312,22 @@ void CellTemp_MonitorTask(void *argument)
                     therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
                     therm->last_read_time = current_time;
                     
-                    // Check temperature limits and set error flags (only if fault detection is enabled for this thermistor)
+                    // Check over-temperature immediately (only if fault detection is enabled for this thermistor)
+                    // Sensor faults and under-temp are counted and checked at end of cycle against MAX_THERM_FAULT_ALLOWED
                     if (CellTemp_IsFaultDetectionEnabled(therm_idx)) {
                         if (therm->temperature > -126.0f) {  // Valid temperature reading
                             if (therm->temperature > temp_max_threshold) {
                                 ErrorMgr_SetError(ERROR_OVER_TEMP);
-                            } else if (therm->temperature < TEMP_MIN_CELSIUS) {
-                                ErrorMgr_SetError(ERROR_UNDER_TEMP);
                             }
-                        } else {
-                            ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
+                            // Under-temp checked at end of cycle with fault count threshold
                         }
+                        // Sensor fault checked at end of cycle with fault count threshold
                     }
                 } else {
                     // No valid samples collected - sensor fault
                     therm->raw_adc = 0;
                     therm->temperature = -127.0f;
-                    // Only report sensor fault if fault detection is enabled for this thermistor
-                    if (CellTemp_IsFaultDetectionEnabled(therm_idx)) {
-                        ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
-                    }
+                    // Sensor fault checked at end of cycle with fault count threshold
                 }
             } else {
                 // ADC disabled - mark thermistor as invalid
@@ -378,8 +374,8 @@ void CellTemp_MonitorTask(void *argument)
             // After completing a full cycle, check if all thermistors are within limits
             // If so, clear the error flags
             uint8_t any_over_temp = 0;
-            uint8_t any_under_temp = 0;
-            uint8_t any_sensor_fault = 0;
+            uint8_t sensor_fault_count = 0;   // Count of faulty/under-temp thermistors
+            uint8_t under_temp_count = 0;
             
             for (uint8_t i = 0; i < TOTAL_THERMISTORS; i++) {
                 // Only check enabled ADC channels and thermistors with fault detection enabled
@@ -389,26 +385,35 @@ void CellTemp_MonitorTask(void *argument)
                     
                     if (temp <= -126.0f) {
                         // Invalid reading - sensor fault
-                        any_sensor_fault = 1;
+                        sensor_fault_count++;
                     } else if (temp > temp_max_threshold) {
-                        // Over temperature
+                        // Over temperature - always flag immediately
                         any_over_temp = 1;
                     } else if (temp < TEMP_MIN_CELSIUS) {
-                        // Under temperature
-                        any_under_temp = 1;
+                        // Under temperature - count towards threshold
+                        under_temp_count++;
                     }
                 }
             }
             
-            // Clear error flags if all thermistors are within bounds
+            // Set/clear error flags based on counts vs threshold
+            // Over-temp: any single over-temp is an error
             if (!any_over_temp) {
                 ErrorMgr_ClearError(ERROR_OVER_TEMP);
             }
-            if (!any_under_temp) {
-                ErrorMgr_ClearError(ERROR_UNDER_TEMP);
-            }
-            if (!any_sensor_fault) {
+            
+            // Sensor faults: only error if exceeds allowed threshold
+            if (sensor_fault_count > MAX_THERM_FAULT_ALLOWED) {
+                ErrorMgr_SetError(ERROR_TEMP_SENSOR_FAULT);
+            } else {
                 ErrorMgr_ClearError(ERROR_TEMP_SENSOR_FAULT);
+            }
+            
+            // Under-temp: only error if exceeds allowed threshold (broken thermistors read cold)
+            if (under_temp_count > MAX_THERM_FAULT_ALLOWED) {
+                ErrorMgr_SetError(ERROR_UNDER_TEMP);
+            } else {
+                ErrorMgr_ClearError(ERROR_UNDER_TEMP);
             }
         }
     }
