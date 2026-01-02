@@ -28,6 +28,7 @@
 static temp_monitor_state_t temp_state = {0};
 static uint64_t thermistor_fault_mask = THERMISTOR_FAULT_MASK_DEFAULT;
 static float temp_max_threshold = TEMP_MAX_CELSIUS;  // Runtime max temperature threshold (can be set via CAN)
+static float temp_min_threshold = TEMP_MIN_CELSIUS;  // Runtime min temperature threshold (can be set via CAN)
 static const uint32_t adc_channels[NUM_ADC_CHANNELS] = {
     ADC_CH_1, ADC_CH_2, ADC_CH_3, ADC_CH_4, ADC_CH_5, ADC_CH_6, ADC_CH_7
 };
@@ -395,7 +396,7 @@ void CellTemp_MonitorTask(void *argument)
                     } else if (temp > temp_max_threshold) {
                         // Over temperature - always flag immediately
                         any_over_temp = 1;
-                    } else if (temp < TEMP_MIN_CELSIUS) {
+                    } else if (temp < temp_min_threshold) {
                         // Under temperature - count towards threshold
                         under_temp_count++;
                     }
@@ -624,6 +625,26 @@ void CellTemp_SetMaxTemp(int8_t max_temp)
 int8_t CellTemp_GetMaxTemp(void)
 {
     return (int8_t)temp_max_threshold;
+}
+
+/**
+  * @brief  Set minimum temperature threshold for under-temperature detection
+  * @param  min_temp: Minimum temperature in degrees Celsius (signed, -128 to 127)
+  * @retval None
+  * @note   This is a temporary setting that resets to TEMP_MIN_CELSIUS on device reset.
+  */
+void CellTemp_SetMinTemp(int8_t min_temp)
+{
+    temp_min_threshold = (float)min_temp;
+}
+
+/**
+  * @brief  Get current minimum temperature threshold
+  * @retval Minimum temperature threshold in degrees Celsius
+  */
+int8_t CellTemp_GetMinTemp(void)
+{
+    return (int8_t)temp_min_threshold;
 }
 
 /**

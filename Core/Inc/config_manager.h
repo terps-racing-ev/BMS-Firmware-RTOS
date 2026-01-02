@@ -49,6 +49,9 @@ extern "C" {
 /* CAN Command Definitions ---------------------------------------------------*/
 #define CONFIG_CMD_SET_MODULE_ID 0x01   // Command to set module ID
 #define CONFIG_CMD_SET_MAX_TEMP  0x02   // Command to set max thermistor temperature (°C)
+#define CONFIG_CMD_SET_MIN_TEMP  0x03   // Command to set min thermistor temperature (°C, signed)
+#define CONFIG_CMD_SET_MIN_VOLTAGE 0x04 // Command to set min cell voltage (value * 100 = mV, e.g. 25 = 2500mV)
+#define CONFIG_CMD_SET_MAX_VOLTAGE 0x05 // Command to set max cell voltage (value * 100 = mV, e.g. 42 = 4200mV)
 
 /* CAN Response Status Codes -------------------------------------------------*/
 #define CONFIG_STATUS_SUCCESS 0x00      // Command successful

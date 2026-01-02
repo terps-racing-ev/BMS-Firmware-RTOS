@@ -219,6 +219,34 @@ int16_t BQ_GetBMS1InternalTemp(void);
   */
 int16_t BQ_GetBMS2InternalTemp(void);
 
+/**
+  * @brief  Set minimum cell voltage threshold for under-voltage detection
+  * @param  min_voltage_mv: Minimum voltage in millivolts
+  * @retval None
+  * @note   This is a temporary setting that resets to default (2500mV) on device reset.
+  */
+void BQ_SetMinVoltage(uint16_t min_voltage_mv);
+
+/**
+  * @brief  Get current minimum cell voltage threshold
+  * @retval Minimum voltage threshold in millivolts
+  */
+uint16_t BQ_GetMinVoltage(void);
+
+/**
+  * @brief  Set maximum cell voltage threshold for over-voltage detection
+  * @param  max_voltage_mv: Maximum voltage in millivolts
+  * @retval None
+  * @note   This is a temporary setting that resets to default (4200mV) on device reset.
+  */
+void BQ_SetMaxVoltage(uint16_t max_voltage_mv);
+
+/**
+  * @brief  Get current maximum cell voltage threshold
+  * @retval Maximum voltage threshold in millivolts
+  */
+uint16_t BQ_GetMaxVoltage(void);
+
 #ifdef __cplusplus
 }
 #endif

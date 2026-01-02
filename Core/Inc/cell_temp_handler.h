@@ -70,7 +70,7 @@ extern "C" {
 #define THERMISTOR_FAULT_MASK_DEFAULT 0xFFFFFFFFFFFFFFFFULL
 #define TEMP_MIN_CELSIUS -20.0f          // Minimum safe cell temperature (°C)
 #define TEMP_MAX_CELSIUS 60.0f           // Maximum safe cell temperature (°C)
-#define MAX_THERM_FAULT_ALLOWED 11        // Max faulty thermistors allowed before triggering fault (covers sensor faults & under-temp)
+#define MAX_THERM_FAULT_ALLOWED 40        // Max faulty thermistors allowed before triggering fault (covers sensor faults & under-temp)
 
 // Ambient air thermistor indices (excluded from min/max cell temp calculation)
 #define AMBIENT_THERM_1 54               // First ambient air thermistor index
@@ -211,6 +211,20 @@ void CellTemp_SetMaxTemp(int8_t max_temp);
   * @retval Maximum temperature threshold in degrees Celsius
   */
 int8_t CellTemp_GetMaxTemp(void);
+
+/**
+  * @brief  Set minimum temperature threshold for under-temperature detection
+  * @param  min_temp: Minimum temperature in degrees Celsius (signed, -128 to 127)
+  * @retval None
+  * @note   This is a temporary setting that resets to default on device reset.
+  */
+void CellTemp_SetMinTemp(int8_t min_temp);
+
+/**
+  * @brief  Get current minimum temperature threshold
+  * @retval Minimum temperature threshold in degrees Celsius
+  */
+int8_t CellTemp_GetMinTemp(void);
 
 /**
   * @brief  Send cell temperature summary message via CAN

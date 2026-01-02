@@ -54,6 +54,10 @@ static uint8_t g_fault_reporting_enabled = BQ_FAULT_REPORTING_DEFAULT;
 static int16_t g_bms1_internal_temp = 0;  // BMS1 internal die temperature
 static int16_t g_bms2_internal_temp = 0;  // BMS2 internal die temperature
 
+// Runtime voltage thresholds (can be set via CAN, reset to defaults on reboot)
+static uint16_t g_cell_voltage_min_mv = CELL_VOLTAGE_MIN_MV;  // Min cell voltage threshold
+static uint16_t g_cell_voltage_max_mv = CELL_VOLTAGE_MAX_MV;  // Max cell voltage threshold
+
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
                                                  uint16_t reg_addr, uint16_t *value);
@@ -464,11 +468,11 @@ void BQ_CheckLimits(BQ_Data_t *data)
         }
         
         // Check for over-voltage error (above max limit)
-        if (voltage_mv > CELL_VOLTAGE_MAX_MV) {
+        if (voltage_mv > g_cell_voltage_max_mv) {
             over_voltage_detected = true;
         }
         // Check for under-voltage error (below min limit)
-        else if (voltage_mv < CELL_VOLTAGE_MIN_MV) {
+        else if (voltage_mv < g_cell_voltage_min_mv) {
             under_voltage_detected = true;
         }
         // Check for high voltage warning (approaching max)
@@ -886,11 +890,11 @@ void BQ_CheckLimits_BMS2(BQ_Data_BMS2_t *data)
         }
         
         // Check for over-voltage error (above max limit)
-        if (voltage_mv > CELL_VOLTAGE_MAX_MV) {
+        if (voltage_mv > g_cell_voltage_max_mv) {
             over_voltage_detected = true;
         }
         // Check for under-voltage error (below min limit)
-        else if (voltage_mv < CELL_VOLTAGE_MIN_MV) {
+        else if (voltage_mv < g_cell_voltage_min_mv) {
             under_voltage_detected = true;
         }
         // Check for high voltage warning (approaching max)
@@ -981,4 +985,44 @@ int16_t BQ_GetBMS1InternalTemp(void)
 int16_t BQ_GetBMS2InternalTemp(void)
 {
     return g_bms2_internal_temp;
+}
+
+/**
+  * @brief  Set minimum cell voltage threshold for under-voltage detection
+  * @param  min_voltage_mv: Minimum voltage in millivolts
+  * @retval None
+  * @note   This is a temporary setting that resets to CELL_VOLTAGE_MIN_MV (2500mV) on device reset.
+  */
+void BQ_SetMinVoltage(uint16_t min_voltage_mv)
+{
+    g_cell_voltage_min_mv = min_voltage_mv;
+}
+
+/**
+  * @brief  Get current minimum cell voltage threshold
+  * @retval Minimum voltage threshold in millivolts
+  */
+uint16_t BQ_GetMinVoltage(void)
+{
+    return g_cell_voltage_min_mv;
+}
+
+/**
+  * @brief  Set maximum cell voltage threshold for over-voltage detection
+  * @param  max_voltage_mv: Maximum voltage in millivolts
+  * @retval None
+  * @note   This is a temporary setting that resets to CELL_VOLTAGE_MAX_MV (4200mV) on device reset.
+  */
+void BQ_SetMaxVoltage(uint16_t max_voltage_mv)
+{
+    g_cell_voltage_max_mv = max_voltage_mv;
+}
+
+/**
+  * @brief  Get current maximum cell voltage threshold
+  * @retval Maximum voltage threshold in millivolts
+  */
+uint16_t BQ_GetMaxVoltage(void)
+{
+    return g_cell_voltage_max_mv;
 }

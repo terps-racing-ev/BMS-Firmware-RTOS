@@ -21,6 +21,7 @@
 #include "config_manager.h"
 #include "can_ids.h"
 #include "cell_temp_handler.h"
+#include "bq_handler.h"
 #include <string.h>
 
 /* External function prototypes ----------------------------------------------*/
@@ -312,6 +313,105 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
             ack_data[1] = status;
             ack_data[2] = (uint8_t)old_max_temp;
             ack_data[3] = (uint8_t)actual_new_temp;
+            ack_data[4] = 0x00;
+            ack_data[5] = 0x00;
+            ack_data[6] = 0x00;
+            ack_data[7] = 0x00;
+            
+            // Send acknowledgement
+            CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+            break;
+        }
+        
+        case CONFIG_CMD_SET_MIN_TEMP:
+        {
+            // Set minimum thermistor temperature threshold (temporary, resets on restart)
+            // Value is in degrees Celsius (signed: -128 to 127)
+            int8_t old_min_temp = CellTemp_GetMinTemp();
+            int8_t new_min_temp = (int8_t)value;
+            
+            // Set new min temperature threshold
+            CellTemp_SetMinTemp(new_min_temp);
+            
+            // Verify it was set
+            int8_t actual_new_temp = CellTemp_GetMinTemp();
+            status = CONFIG_STATUS_SUCCESS;
+            
+            // Prepare acknowledgement message
+            // Byte 0: Command echo
+            // Byte 1: Status (0x00 = success)
+            // Byte 2: Old min temp (°C, signed)
+            // Byte 3: New min temp (°C, signed)
+            ack_data[0] = command;
+            ack_data[1] = status;
+            ack_data[2] = (uint8_t)old_min_temp;
+            ack_data[3] = (uint8_t)actual_new_temp;
+            ack_data[4] = 0x00;
+            ack_data[5] = 0x00;
+            ack_data[6] = 0x00;
+            ack_data[7] = 0x00;
+            
+            // Send acknowledgement
+            CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+            break;
+        }
+        
+        case CONFIG_CMD_SET_MIN_VOLTAGE:
+        {
+            // Set minimum cell voltage threshold (temporary, resets on restart)
+            // Value is voltage/100, e.g. 25 = 2500mV
+            uint16_t old_min_voltage = BQ_GetMinVoltage();
+            uint16_t new_min_voltage_mv = (uint16_t)value * 100;
+            
+            // Set new min voltage threshold
+            BQ_SetMinVoltage(new_min_voltage_mv);
+            
+            // Verify it was set
+            uint16_t actual_new_voltage = BQ_GetMinVoltage();
+            status = CONFIG_STATUS_SUCCESS;
+            
+            // Prepare acknowledgement message
+            // Byte 0: Command echo
+            // Byte 1: Status (0x00 = success)
+            // Byte 2: Old min voltage (value * 100 = mV)
+            // Byte 3: New min voltage (value * 100 = mV)
+            ack_data[0] = command;
+            ack_data[1] = status;
+            ack_data[2] = (uint8_t)(old_min_voltage / 100);
+            ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+            ack_data[4] = 0x00;
+            ack_data[5] = 0x00;
+            ack_data[6] = 0x00;
+            ack_data[7] = 0x00;
+            
+            // Send acknowledgement
+            CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+            break;
+        }
+        
+        case CONFIG_CMD_SET_MAX_VOLTAGE:
+        {
+            // Set maximum cell voltage threshold (temporary, resets on restart)
+            // Value is voltage/100, e.g. 42 = 4200mV
+            uint16_t old_max_voltage = BQ_GetMaxVoltage();
+            uint16_t new_max_voltage_mv = (uint16_t)value * 100;
+            
+            // Set new max voltage threshold
+            BQ_SetMaxVoltage(new_max_voltage_mv);
+            
+            // Verify it was set
+            uint16_t actual_new_voltage = BQ_GetMaxVoltage();
+            status = CONFIG_STATUS_SUCCESS;
+            
+            // Prepare acknowledgement message
+            // Byte 0: Command echo
+            // Byte 1: Status (0x00 = success)
+            // Byte 2: Old max voltage (value * 100 = mV)
+            // Byte 3: New max voltage (value * 100 = mV)
+            ack_data[0] = command;
+            ack_data[1] = status;
+            ack_data[2] = (uint8_t)(old_max_voltage / 100);
+            ack_data[3] = (uint8_t)(actual_new_voltage / 100);
             ack_data[4] = 0x00;
             ack_data[5] = 0x00;
             ack_data[6] = 0x00;

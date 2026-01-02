@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
   29:Core/Src/main.c **** #include "error_manager.h"
   30:Core/Src/main.c **** /* USER CODE END Includes */
   31:Core/Src/main.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 2
 
 
   32:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
   86:Core/Src/main.c **** };
   87:Core/Src/main.c **** /* Definitions for I2C1 */
   88:Core/Src/main.c **** osMutexId_t I2C1Handle;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 3
 
 
   89:Core/Src/main.c **** const osMutexAttr_t I2C1_attributes = {
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  143:Core/Src/main.c ****   __disable_irq();
  144:Core/Src/main.c **** 
  145:Core/Src/main.c ****   // Disable SysTick (bootloader might have enabled it)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 4
 
 
  146:Core/Src/main.c ****   SysTick->CTRL = 0;
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  200:Core/Src/main.c ****   /* USER CODE BEGIN RTOS_MUTEX */
  201:Core/Src/main.c ****   /* add mutexes, ... */
  202:Core/Src/main.c ****   /* USER CODE END RTOS_MUTEX */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 5
 
 
  203:Core/Src/main.c **** 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  257:Core/Src/main.c ****   /* USER CODE END RTOS_EVENTS */
  258:Core/Src/main.c **** 
  259:Core/Src/main.c ****   /* Start scheduler */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 6
 
 
  260:Core/Src/main.c ****   osKernelStart();
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  314:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
  315:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
  316:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 7
 
 
  317:Core/Src/main.c **** 
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  371:Core/Src/main.c ****   sConfig.Offset = 0;
  372:Core/Src/main.c ****   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
  373:Core/Src/main.c ****   {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 8
 
 
  374:Core/Src/main.c ****     Error_Handler();
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  428:Core/Src/main.c ****   filterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
  429:Core/Src/main.c ****   filterConfig.FilterActivation = ENABLE;
  430:Core/Src/main.c ****   filterConfig.SlaveStartFilterBank = 14;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 9
 
 
  431:Core/Src/main.c ****   
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  485:Core/Src/main.c **** 
  486:Core/Src/main.c ****   /* USER CODE END I2C1_Init 1 */
  487:Core/Src/main.c ****   hi2c1.Instance = I2C1;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 10
 
 
  488:Core/Src/main.c ****   hi2c1.Init.Timing = 0x00503D58;
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  542:Core/Src/main.c ****   hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
  543:Core/Src/main.c ****   hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
  544:Core/Src/main.c ****   if (HAL_I2C_Init(&hi2c3) != HAL_OK)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 11
 
 
  545:Core/Src/main.c ****   {
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  577:Core/Src/main.c **** 
  578:Core/Src/main.c ****   /* USER CODE END MX_GPIO_Init_1 */
  579:Core/Src/main.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 12
 
 
  580:Core/Src/main.c ****   /* GPIO Ports Clock Enable */
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  590:Core/Src/main.c ****   /*Configure GPIO pins : MUX_SIG1_Pin MUX_SIG3_Pin BMS_RESET_Pin */
  591:Core/Src/main.c ****   GPIO_InitStruct.Pin = MUX_SIG1_Pin|MUX_SIG3_Pin|BMS_RESET_Pin;
   94              		.loc 1 591 3 view .LVU17
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 13
 
 
   95              		.loc 1 591 23 is_stmt 0 view .LVU18
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  606:Core/Src/main.c ****   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
  135              		.loc 1 606 3 is_stmt 1 view .LVU37
  136              		.loc 1 606 24 is_stmt 0 view .LVU38
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 14
 
 
  137 0080 4FF44413 		mov	r3, #3211264
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  630:Core/Src/main.c ****   }
  631:Core/Src/main.c **** }
  632:Core/Src/main.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 15
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 15
 
 
  633:Core/Src/main.c **** /* USER CODE END 4 */
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  662:Core/Src/main.c **** /* USER CODE END Header_ReadCellVoltageBMS2 */
  663:Core/Src/main.c **** void ReadBQBMS2(void *argument)
  664:Core/Src/main.c **** {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 16
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 16
 
 
  197              		.loc 1 664 1 is_stmt 1 view -0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  235              	.LVL10:
  683:Core/Src/main.c ****   /* USER CODE END ReadCellTemps */
  684:Core/Src/main.c **** }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 17
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 17
 
 
  236              		.loc 1 684 1 is_stmt 0 view .LVU54
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  273 0010 F7D1     		bne	.L12
  704:Core/Src/main.c ****     {
  705:Core/Src/main.c ****       // Perform the chip reset (blocks for 600ms total)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 18
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 18
 
 
  706:Core/Src/main.c ****       BQ_ResetChips();
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
   20:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h ****  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   21:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h ****  *
   22:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h ****  * http://www.FreeRTOS.org
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 19
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 19
 
 
   23:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h ****  * http://aws.amazon.com/freertos
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
   77:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** 
   78:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** /* Scheduler utilities. */
   79:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** #define portYIELD() 															\
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 20
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 20
 
 
   80:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** {																				\
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  134:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** 		__asm volatile ( "clz %0, %1" : "=r" ( ucReturn ) : "r" ( ulBitmap ) : "memory" );
  135:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** 		return ucReturn;
  136:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** 	}
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 21
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 21
 
 
  137:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** 
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  191:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** portFORCE_INLINE static void vPortRaiseBASEPRI( void )
  308              		.loc 2 191 30 view .LVU64
  309              	.LBB12:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 22
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 22
 
 
  192:Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h **** {
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  353              	.LBE13:
  354              		.cfi_endproc
  355              	.LFE300:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 23
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 23
 
 
  357              		.section	.text.HAL_TIM_PeriodElapsedCallback,"ax",%progbits
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  386 000a 08BD     		pop	{r3, pc}
  387              	.LVL18:
  388              	.L27:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 24
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 24
 
 
  727:Core/Src/main.c ****   }
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
   15:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
   16:Drivers/CMSIS/Include/cmsis_gcc.h ****  * www.apache.org/licenses/LICENSE-2.0
   17:Drivers/CMSIS/Include/cmsis_gcc.h ****  *
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 25
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 25
 
 
   18:Drivers/CMSIS/Include/cmsis_gcc.h ****  * Unless required by applicable law or agreed to in writing, software
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
   72:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
   73:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
   74:Drivers/CMSIS/Include/cmsis_gcc.h ****   struct __attribute__((packed)) T_UINT32 { uint32_t v; };
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 26
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 26
 
 
   75:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic pop
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  129:Drivers/CMSIS/Include/cmsis_gcc.h ****   
  130:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  131:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE __NO_RETURN void __cmsis_start(void)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 27
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 27
 
 
  132:Drivers/CMSIS/Include/cmsis_gcc.h **** {
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  186:Drivers/CMSIS/Include/cmsis_gcc.h **** /** \ingroup  CMSIS_Core_FunctionInterface
  187:Drivers/CMSIS/Include/cmsis_gcc.h ****     \defgroup CMSIS_Core_RegAccFunctions CMSIS Core Register Access Functions
  188:Drivers/CMSIS/Include/cmsis_gcc.h ****   @{
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 28
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 28
 
 
  189:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  450              		@ frame_needed = 0, uses_anonymous_args = 0
  451 0000 00B5     		push	{lr}
  452              		.cfi_def_cfa_offset 4
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 29
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 29
 
 
  453              		.cfi_offset 14, -4
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  351:Core/Src/main.c ****   hadc1.Init.NbrOfConversion = 1;
  490              		.loc 1 351 33 is_stmt 0 view .LVU107
  491 0026 4376     		strb	r3, [r0, #25]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 30
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 30
 
 
  352:Core/Src/main.c ****   hadc1.Init.DiscontinuousConvMode = DISABLE;
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  525              		.loc 1 367 16 is_stmt 0 view .LVU128
  526 0048 0623     		movs	r3, #6
  527 004a 0193     		str	r3, [sp, #4]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 31
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 31
 
 
  368:Core/Src/main.c ****   sConfig.SingleDiff = ADC_SINGLE_ENDED;
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  568              		.align	2
  569              	.L38:
  570 0074 00000000 		.word	hadc1
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 32
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 32
 
 
  571 0078 00000450 		.word	1342439424
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  614              		.loc 1 402 23 is_stmt 0 view .LVU155
  615 001a 4FF48012 		mov	r2, #1048576
  616 001e 4261     		str	r2, [r0, #20]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 33
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 33
 
 
  403:Core/Src/main.c ****   hcan1.Init.AutoBusOff = DISABLE;
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  420:Core/Src/main.c ****   
  650              		.loc 1 420 28 is_stmt 0 view .LVU177
  651 0038 0122     		movs	r2, #1
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 34
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 34
 
 
  652 003a 0792     		str	r2, [sp, #28]
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  688              		@ sp needed
  689 005a 5DF804FB 		ldr	pc, [sp], #4
  690              	.L44:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 35
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 35
 
 
  691              		.cfi_restore_state
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  736              		.loc 1 459 36 is_stmt 0 view .LVU206
  737 000e 4361     		str	r3, [r0, #20]
  460:Core/Src/main.c ****   hcrc.InputDataFormat = CRC_INPUTDATA_FORMAT_BYTES;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 36
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 36
 
 
  738              		.loc 1 460 3 is_stmt 1 view .LVU207
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  783 0002 1148     		ldr	r0, .L62
  784 0004 114B     		ldr	r3, .L62+4
  785 0006 0360     		str	r3, [r0]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 37
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 37
 
 
  488:Core/Src/main.c ****   hi2c1.Init.OwnAddress1 = 0;
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  503:Core/Src/main.c ****   {
  820              		.loc 1 503 7 is_stmt 0 view .LVU239
  821 0024 0021     		movs	r1, #0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 38
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 38
 
 
  822 0026 0848     		ldr	r0, .L62
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  869              		@ frame_needed = 0, uses_anonymous_args = 0
  870 0000 08B5     		push	{r3, lr}
  871              		.cfi_def_cfa_offset 8
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 39
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 39
 
 
  872              		.cfi_offset 3, -8
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  544:Core/Src/main.c ****   {
  907              		.loc 1 544 7 is_stmt 0 view .LVU268
  908 001e FFF7FEFF 		bl	HAL_I2C_Init
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 40
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 40
 
 
  909              	.LVL36:
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  953              		.global	SystemClock_Config
  954              		.syntax unified
  955              		.thumb
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 41
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 41
 
 
  956              		.thumb_func
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  296:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
  999              		.loc 1 296 3 is_stmt 1 view .LVU292
  296:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 42
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 42
 
 
  1000              		.loc 1 296 41 is_stmt 0 view .LVU293
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1035 004c 0F23     		movs	r3, #15
  1036 004e 0093     		str	r3, [sp]
  313:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 43
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 43
 
 
  1037              		.loc 1 313 3 is_stmt 1 view .LVU313
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1077              	.LVL48:
  1078              		.cfi_endproc
  1079              	.LFE293:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 44
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 44
 
 
  1081              		.section	.text.main,"ax",%progbits
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1126              	.LVL49:
  162:Core/Src/main.c **** 
  1127              		.loc 1 162 3 view .LVU339
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 45
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 45
 
 
  1128 0014 FFF7FEFF 		bl	SystemClock_Config
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1168 0046 FFF7FEFF 		bl	Error_Handler
  1169              	.LVL60:
  1170              	.L84:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 46
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 46
 
 
  192:Core/Src/main.c ****   /* Create the mutex(es) */
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  222:Core/Src/main.c ****   {
  1210              		.loc 1 222 6 discriminator 1 view .LVU369
  1211 007a 18B1     		cbz	r0, .L86
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 47
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 47
 
 
  224:Core/Src/main.c ****   }
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1253 00ae 1860     		str	r0, [r3]
  246:Core/Src/main.c **** 
  1254              		.loc 1 246 3 is_stmt 1 view .LVU383
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 48
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 48
 
 
  246:Core/Src/main.c **** 
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1297 00e8 00000000 		.word	I2C1_attributes
  1298 00ec 00000000 		.word	I2C1Handle
  1299 00f0 00000000 		.word	I2C3_attributes
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 49
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 49
 
 
  1300 00f4 00000000 		.word	I2C3Handle
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1352              	BMSResetSem_attributes:
  1353 0000 10000000 		.word	.LC1
  1354 0004 00000000 		.space	12
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 50
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 50
 
 
  1354      00000000 
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1411 0004 00000000 		.space	16
  1411      00000000 
  1411      00000000 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 51
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 51
 
 
  1411      00000000 
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1458      00000000 
  1459              		.global	CellVoltageBMS2Handle
  1460              		.section	.bss.CellVoltageBMS2Handle,"aw",%nobits
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 52
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 52
 
 
  1461              		.align	2
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1508      00000000 
  1509              		.global	hcan1
  1510              		.section	.bss.hcan1,"aw",%nobits
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 53
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 53
 
 
  1511              		.align	2
@@ -3165,97 +3165,97 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 1
  1548              		.file 27 "Core/Inc/config_manager.h"
  1549              		.file 28 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_adc_ex.h"
  1550              		.file 29 "<built-in>"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 54
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 54
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 main.c
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:21     .text.MX_GPIO_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:26     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:155    .text.MX_GPIO_Init:00000094 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:161    .text.ReadBQBMS1:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:167    .text.ReadBQBMS1:00000000 ReadBQBMS1
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:188    .text.ReadBQBMS2:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:194    .text.ReadBQBMS2:00000000 ReadBQBMS2
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:215    .text.ReadCellTemps:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:221    .text.ReadCellTemps:00000000 ReadCellTemps
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:242    .text.BMSResetHandlerTask:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:248    .text.BMSResetHandlerTask:00000000 BMSResetHandlerTask
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:281    .text.BMSResetHandlerTask:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1360   .bss.BMSResetSemHandle:00000000 BMSResetSemHandle
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:286    .text.vApplicationMallocFailedHook:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:292    .text.vApplicationMallocFailedHook:00000000 vApplicationMallocFailedHook
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:351    .text.vApplicationMallocFailedHook:00000030 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:358    .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:364    .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:397    .text.HAL_TIM_PeriodElapsedCallback:00000014 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:402    .text.Error_Handler:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:408    .text.Error_Handler:00000000 Error_Handler
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:440    .text.MX_ADC1_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:445    .text.MX_ADC1_Init:00000000 MX_ADC1_Init
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:570    .text.MX_ADC1_Init:00000074 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1521   .bss.hadc1:00000000 hadc1
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:577    .text.MX_CAN1_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:582    .text.MX_CAN1_Init:00000000 MX_CAN1_Init
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:702    .text.MX_CAN1_Init:00000068 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1514   .bss.hcan1:00000000 hcan1
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:708    .text.MX_CRC_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:713    .text.MX_CRC_Init:00000000 MX_CRC_Init
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:760    .text.MX_CRC_Init:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1507   .bss.hcrc:00000000 hcrc
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:766    .text.MX_I2C1_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:771    .text.MX_I2C1_Init:00000000 MX_I2C1_Init
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:852    .text.MX_I2C1_Init:00000048 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1500   .bss.hi2c1:00000000 hi2c1
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:859    .text.MX_I2C3_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:864    .text.MX_I2C3_Init:00000000 MX_I2C3_Init
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:945    .text.MX_I2C3_Init:00000048 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1493   .bss.hi2c3:00000000 hi2c3
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:952    .text.SystemClock_Config:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:958    .text.SystemClock_Config:00000000 SystemClock_Config
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1082   .text.main:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1088   .text.main:00000000 main
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1295   .text.main:000000e0 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1390   .rodata.I2C1_attributes:00000000 I2C1_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1398   .bss.I2C1Handle:00000000 I2C1Handle
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1371   .rodata.I2C3_attributes:00000000 I2C3_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1379   .bss.I2C3Handle:00000000 I2C3Handle
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1352   .rodata.BMSResetSem_attributes:00000000 BMSResetSem_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1475   .rodata.CellVoltageBMS1_attributes:00000000 CellVoltageBMS1_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1486   .bss.CellVoltageBMS1Handle:00000000 CellVoltageBMS1Handle
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1453   .rodata.CellVoltageBMS2_attributes:00000000 CellVoltageBMS2_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1464   .bss.CellVoltageBMS2Handle:00000000 CellVoltageBMS2Handle
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 55
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:21     .text.MX_GPIO_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:26     .text.MX_GPIO_Init:00000000 MX_GPIO_Init
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:155    .text.MX_GPIO_Init:00000094 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:161    .text.ReadBQBMS1:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:167    .text.ReadBQBMS1:00000000 ReadBQBMS1
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:188    .text.ReadBQBMS2:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:194    .text.ReadBQBMS2:00000000 ReadBQBMS2
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:215    .text.ReadCellTemps:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:221    .text.ReadCellTemps:00000000 ReadCellTemps
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:242    .text.BMSResetHandlerTask:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:248    .text.BMSResetHandlerTask:00000000 BMSResetHandlerTask
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:281    .text.BMSResetHandlerTask:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1360   .bss.BMSResetSemHandle:00000000 BMSResetSemHandle
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:286    .text.vApplicationMallocFailedHook:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:292    .text.vApplicationMallocFailedHook:00000000 vApplicationMallocFailedHook
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:351    .text.vApplicationMallocFailedHook:00000030 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:358    .text.HAL_TIM_PeriodElapsedCallback:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:364    .text.HAL_TIM_PeriodElapsedCallback:00000000 HAL_TIM_PeriodElapsedCallback
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:397    .text.HAL_TIM_PeriodElapsedCallback:00000014 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:402    .text.Error_Handler:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:408    .text.Error_Handler:00000000 Error_Handler
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:440    .text.MX_ADC1_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:445    .text.MX_ADC1_Init:00000000 MX_ADC1_Init
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:570    .text.MX_ADC1_Init:00000074 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1521   .bss.hadc1:00000000 hadc1
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:577    .text.MX_CAN1_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:582    .text.MX_CAN1_Init:00000000 MX_CAN1_Init
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:702    .text.MX_CAN1_Init:00000068 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1514   .bss.hcan1:00000000 hcan1
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:708    .text.MX_CRC_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:713    .text.MX_CRC_Init:00000000 MX_CRC_Init
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:760    .text.MX_CRC_Init:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1507   .bss.hcrc:00000000 hcrc
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:766    .text.MX_I2C1_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:771    .text.MX_I2C1_Init:00000000 MX_I2C1_Init
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:852    .text.MX_I2C1_Init:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1500   .bss.hi2c1:00000000 hi2c1
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:859    .text.MX_I2C3_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:864    .text.MX_I2C3_Init:00000000 MX_I2C3_Init
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:945    .text.MX_I2C3_Init:00000048 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1493   .bss.hi2c3:00000000 hi2c3
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:952    .text.SystemClock_Config:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:958    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1082   .text.main:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1088   .text.main:00000000 main
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1295   .text.main:000000e0 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1390   .rodata.I2C1_attributes:00000000 I2C1_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1398   .bss.I2C1Handle:00000000 I2C1Handle
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1371   .rodata.I2C3_attributes:00000000 I2C3_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1379   .bss.I2C3Handle:00000000 I2C3Handle
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1352   .rodata.BMSResetSem_attributes:00000000 BMSResetSem_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1475   .rodata.CellVoltageBMS1_attributes:00000000 CellVoltageBMS1_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1486   .bss.CellVoltageBMS1Handle:00000000 CellVoltageBMS1Handle
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1453   .rodata.CellVoltageBMS2_attributes:00000000 CellVoltageBMS2_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1464   .bss.CellVoltageBMS2Handle:00000000 CellVoltageBMS2Handle
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 55
 
 
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1431   .rodata.CellTemperature_attributes:00000000 CellTemperature_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1442   .bss.CellTemperatureHandle:00000000 CellTemperatureHandle
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1409   .rodata.CANManager_attributes:00000000 CANManager_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1420   .bss.CANManagerHandle:00000000 CANManagerHandle
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1330   .rodata.BMSResetHandler_attributes:00000000 BMSResetHandler_attributes
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1341   .bss.BMSResetHandlerHandle:00000000 BMSResetHandlerHandle
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1323   .rodata.str1.4:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1327   .rodata.BMSResetHandler_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1338   .bss.BMSResetHandlerHandle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1349   .rodata.BMSResetSem_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1357   .bss.BMSResetSemHandle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1368   .rodata.I2C3_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1376   .bss.I2C3Handle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1387   .rodata.I2C1_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1395   .bss.I2C1Handle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1406   .rodata.CANManager_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1417   .bss.CANManagerHandle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1428   .rodata.CellTemperature_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1439   .bss.CellTemperatureHandle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1450   .rodata.CellVoltageBMS2_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1461   .bss.CellVoltageBMS2Handle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1472   .rodata.CellVoltageBMS1_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1483   .bss.CellVoltageBMS1Handle:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1490   .bss.hi2c3:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1497   .bss.hi2c1:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1504   .bss.hcrc:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1511   .bss.hcan1:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s:1518   .bss.hadc1:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1431   .rodata.CellTemperature_attributes:00000000 CellTemperature_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1442   .bss.CellTemperatureHandle:00000000 CellTemperatureHandle
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1409   .rodata.CANManager_attributes:00000000 CANManager_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1420   .bss.CANManagerHandle:00000000 CANManagerHandle
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1330   .rodata.BMSResetHandler_attributes:00000000 BMSResetHandler_attributes
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1341   .bss.BMSResetHandlerHandle:00000000 BMSResetHandlerHandle
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1323   .rodata.str1.4:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1327   .rodata.BMSResetHandler_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1338   .bss.BMSResetHandlerHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1349   .rodata.BMSResetSem_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1357   .bss.BMSResetSemHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1368   .rodata.I2C3_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1376   .bss.I2C3Handle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1387   .rodata.I2C1_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1395   .bss.I2C1Handle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1406   .rodata.CANManager_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1417   .bss.CANManagerHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1428   .rodata.CellTemperature_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1439   .bss.CellTemperatureHandle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1450   .rodata.CellVoltageBMS2_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1461   .bss.CellVoltageBMS2Handle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1472   .rodata.CellVoltageBMS1_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1483   .bss.CellVoltageBMS1Handle:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1490   .bss.hi2c3:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1497   .bss.hi2c1:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1504   .bss.hcrc:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1511   .bss.hcan1:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s:1518   .bss.hadc1:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin
@@ -3285,7 +3285,7 @@ HAL_CAN_Start
 osKernelInitialize
 osMutexNew
 osSemaphoreNew
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cc6Gcx8v.s 			page 56
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccH49rLE.s 			page 56
 
 
 Config_Init
