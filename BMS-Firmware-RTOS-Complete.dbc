@@ -48,8 +48,9 @@ BO_ 2297433856 BMS_Config_Command_0: 8 CAN_Host
 BO_ 2297433857 BMS_Config_ACK_0: 8 BMS_Module_0
  SG_ Command_Echo : 0|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host
- SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host
+ SG_ Byte2_OldVal_or_Param : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte3_NewVal_or_ValLo : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte4_ValHi : 32|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297433858 BMS_Reset_Command_0: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_0
@@ -237,8 +238,9 @@ BO_ 2297437952 BMS_Config_Command_1: 8 CAN_Host
 BO_ 2297437953 BMS_Config_ACK_1: 8 BMS_Module_1
  SG_ Command_Echo : 0|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host
- SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host
+ SG_ Byte2_OldVal_or_Param : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte3_NewVal_or_ValLo : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte4_ValHi : 32|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297437954 BMS_Reset_Command_1: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_1
@@ -426,8 +428,9 @@ BO_ 2297442048 BMS_Config_Command_2: 8 CAN_Host
 BO_ 2297442049 BMS_Config_ACK_2: 8 BMS_Module_2
  SG_ Command_Echo : 0|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host
- SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host
+ SG_ Byte2_OldVal_or_Param : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte3_NewVal_or_ValLo : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte4_ValHi : 32|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297442050 BMS_Reset_Command_2: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_2
@@ -615,8 +618,9 @@ BO_ 2297446144 BMS_Config_Command_3: 8 CAN_Host
 BO_ 2297446145 BMS_Config_ACK_3: 8 BMS_Module_3
  SG_ Command_Echo : 0|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host
- SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host
+ SG_ Byte2_OldVal_or_Param : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte3_NewVal_or_ValLo : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte4_ValHi : 32|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297446146 BMS_Reset_Command_3: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_3
@@ -804,8 +808,9 @@ BO_ 2297450240 BMS_Config_Command_4: 8 CAN_Host
 BO_ 2297450241 BMS_Config_ACK_4: 8 BMS_Module_4
  SG_ Command_Echo : 0|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host
- SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host
+ SG_ Byte2_OldVal_or_Param : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte3_NewVal_or_ValLo : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte4_ValHi : 32|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297450242 BMS_Reset_Command_4: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_4
@@ -993,8 +998,9 @@ BO_ 2297454336 BMS_Config_Command_5: 8 CAN_Host
 BO_ 2297454337 BMS_Config_ACK_5: 8 BMS_Module_5
  SG_ Command_Echo : 0|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host
- SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host
+ SG_ Byte2_OldVal_or_Param : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte3_NewVal_or_ValLo : 24|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Byte4_ValHi : 32|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297454338 BMS_Reset_Command_5: 1 CAN_Host
  SG_ Reset_Magic : 0|8@1+ (1,0) [0|255] "" BMS_Module_5
@@ -1451,3 +1457,33 @@ VAL_ 2297450258 I2C1_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_
 VAL_ 2297450258 I2C3_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";
 VAL_ 2297454354 I2C1_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";
 VAL_ 2297454354 I2C3_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";
+
+// Config Command values
+VAL_ 2297433856 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297437952 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297442048 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297446144 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297450240 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297454336 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+
+// Config ACK Command Echo values
+VAL_ 2297433857 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297433857 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
+VAL_ 2297437953 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297437953 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
+VAL_ 2297442049 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297442049 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
+VAL_ 2297446145 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297446145 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
+VAL_ 2297450241 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297450241 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
+VAL_ 2297454337 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297454337 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
+
+// Config GET_VALUE parameter selectors (Byte2 when Command_Echo=0x06)
+VAL_ 2297433857 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
+VAL_ 2297437953 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
+VAL_ 2297442049 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
+VAL_ 2297446145 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
+VAL_ 2297450241 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
+VAL_ 2297454337 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";

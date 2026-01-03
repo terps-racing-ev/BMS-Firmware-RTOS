@@ -92,14 +92,18 @@ def generate_dbc():
         lines.append('')
         
         # Config ACK: base 0x08F00F01 + module_offset
+        # Response format depends on command:
+        # - Set commands (0x01-0x05): Byte2=OldValue, Byte3=NewValue
+        # - Get command (0x06): Byte2=ParamSelector, Byte3-4=CurrentValue (16-bit)
         can_id = 0x08F00F01 + module_offset
         dbc_id = can_id | 0x80000000
         message_ids.append(dbc_id)
         lines.append(f'BO_ {dbc_id} BMS_Config_ACK_{module}: 8 BMS_Module_{module}')
         lines.append(' SG_ Command_Echo : 0|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append(' SG_ Status : 8|8@1+ (1,0) [0|255] "" CAN_Host')
-        lines.append(' SG_ Old_Module_ID : 16|8@1+ (1,0) [0|15] "" CAN_Host')
-        lines.append(' SG_ New_Module_ID : 24|8@1+ (1,0) [0|15] "" CAN_Host')
+        lines.append(' SG_ Byte2_OldVal_or_Param : 16|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append(' SG_ Byte3_NewVal_or_ValLo : 24|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append(' SG_ Byte4_ValHi : 32|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append('')
         
         # Reset Command: base 0x08F00F02 + module_offset
@@ -355,6 +359,34 @@ def generate_dbc():
         dbc_id = can_id | 0x80000000
         lines.append(f'VAL_ {dbc_id} I2C1_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";')
         lines.append(f'VAL_ {dbc_id} I2C3_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";')
+    
+    lines.append('')
+    
+    # Config Command values
+    lines.append('// Config Command values')
+    for module in range(6):
+        can_id = 0x08F00F00 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";')
+    
+    lines.append('')
+    
+    # Config ACK Command Echo values (same as commands)
+    lines.append('// Config ACK Command Echo values')
+    for module in range(6):
+        can_id = 0x08F00F01 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";')
+        lines.append(f'VAL_ {dbc_id} Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";')
+    
+    lines.append('')
+    
+    # Config GET_VALUE parameter selectors (for Byte2 when Command_Echo is GET_VALUE)
+    lines.append('// Config GET_VALUE parameter selectors (Byte2 when Command_Echo=0x06)')
+    for module in range(6):
+        can_id = 0x08F00F01 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";')
     
     return '\n'.join(lines)
 
