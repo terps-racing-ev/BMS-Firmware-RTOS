@@ -421,6 +421,56 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
             break;
         }
+        
+        case CONFIG_CMD_GET_VALUE:
+        {
+            // Get current configuration value
+            // Byte 1 (value) specifies which parameter to retrieve
+            uint8_t param = value;
+            uint16_t param_value = 0;
+            status = CONFIG_STATUS_SUCCESS;
+            
+            switch (param) {
+                case CONFIG_PARAM_MODULE_ID:
+                    param_value = Config_GetModuleID();
+                    break;
+                case CONFIG_PARAM_MAX_TEMP:
+                    param_value = (uint8_t)CellTemp_GetMaxTemp();
+                    break;
+                case CONFIG_PARAM_MIN_TEMP:
+                    param_value = (uint8_t)CellTemp_GetMinTemp();  // Signed value cast to uint8
+                    break;
+                case CONFIG_PARAM_MIN_VOLTAGE:
+                    param_value = BQ_GetMinVoltage() / 100;  // Return as value*100=mV
+                    break;
+                case CONFIG_PARAM_MAX_VOLTAGE:
+                    param_value = BQ_GetMaxVoltage() / 100;  // Return as value*100=mV
+                    break;
+                default:
+                    status = CONFIG_STATUS_FAIL;
+                    break;
+            }
+            
+            // Prepare acknowledgement message
+            // Byte 0: Command echo (0x06)
+            // Byte 1: Status (0x00 = success, 0x01 = invalid parameter)
+            // Byte 2: Parameter selector echo
+            // Byte 3: Current value (low byte)
+            // Byte 4: Current value (high byte, for 16-bit values like raw mV)
+            // Bytes 5-7: Reserved
+            ack_data[0] = command;
+            ack_data[1] = status;
+            ack_data[2] = param;
+            ack_data[3] = (uint8_t)(param_value & 0xFF);
+            ack_data[4] = (uint8_t)((param_value >> 8) & 0xFF);
+            ack_data[5] = 0x00;
+            ack_data[6] = 0x00;
+            ack_data[7] = 0x00;
+            
+            // Send acknowledgement
+            CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+            break;
+        }
             
         default:
             // Unknown command, ignore (no ACK sent)

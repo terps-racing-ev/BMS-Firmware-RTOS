@@ -21,10 +21,21 @@ Send to: `0x08F0XF00` (where X = target module ID)
 | Set Min Temp | `0x03` | Temp (°C, signed) | Sets min thermistor temp threshold (-128 to 127°C) |
 | Set Min Voltage | `0x04` | Value (×100=mV) | Sets min cell voltage (e.g., 25 = 2500mV) |
 | Set Max Voltage | `0x05` | Value (×100=mV) | Sets max cell voltage (e.g., 42 = 4200mV) |
+| Get Value | `0x06` | Param selector | Retrieves current value (see table below) |
 
 **Note:** Temperature and voltage thresholds are temporary settings that reset to defaults on power cycle.
 
-### Config ACK Response
+### Parameter Selectors for Get Value (0x06)
+
+| Selector | Byte 1 | Returns |
+|----------|--------|---------|
+| Module ID | `0x01` | Current module ID (0-15) |
+| Max Temp | `0x02` | Max temperature threshold (°C) |
+| Min Temp | `0x03` | Min temperature threshold (°C, signed) |
+| Min Voltage | `0x04` | Min voltage threshold (value × 100 = mV) |
+| Max Voltage | `0x05` | Max voltage threshold (value × 100 = mV) |
+
+### Config ACK Response (Set Commands)
 
 Sent from: `0x08F0XF01` (where X = module ID)
 
@@ -35,6 +46,19 @@ Sent from: `0x08F0XF01` (where X = module ID)
 | 2 | Old value |
 | 3 | New value (actual, after validation) |
 | 4-7 | Reserved |
+
+### Config ACK Response (Get Value Command)
+
+Sent from: `0x08F0XF01` (where X = module ID)
+
+| Byte | Description |
+|------|-------------|
+| 0 | Command echo (`0x06`) |
+| 1 | Status: `0x00`=Success, `0x01`=Invalid parameter |
+| 2 | Parameter selector echo |
+| 3 | Current value (low byte) |
+| 4 | Current value (high byte, for 16-bit values) |
+| 5-7 | Reserved |
 
 ---
 
@@ -65,6 +89,8 @@ Sent from: `0x08F0XF04`
 | Set Min Temp to -20°C | `0x08F0XF00` | `03 EC` | Temporary until reset (0xEC = -20 signed) |
 | Set Min Voltage to 2500mV | `0x08F0XF00` | `04 19` | Temporary until reset (25 × 100 = 2500) |
 | Set Max Voltage to 4200mV | `0x08F0XF00` | `05 2A` | Temporary until reset (42 × 100 = 4200) |
+| Get Max Temp | `0x08F0XF00` | `06 02` | Returns current max temp threshold |
+| Get Min Voltage | `0x08F0XF00` | `06 04` | Returns current min voltage threshold |
 | Reset STM32 | `0x08F0XF02` | — | Immediate reset |
 | Reset BQ76952 chips | `0x08F0XF03` | — | ~600ms reset sequence |
 

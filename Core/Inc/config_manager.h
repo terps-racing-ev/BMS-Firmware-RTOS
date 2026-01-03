@@ -52,6 +52,14 @@ extern "C" {
 #define CONFIG_CMD_SET_MIN_TEMP  0x03   // Command to set min thermistor temperature (°C, signed)
 #define CONFIG_CMD_SET_MIN_VOLTAGE 0x04 // Command to set min cell voltage (value * 100 = mV, e.g. 25 = 2500mV)
 #define CONFIG_CMD_SET_MAX_VOLTAGE 0x05 // Command to set max cell voltage (value * 100 = mV, e.g. 42 = 4200mV)
+#define CONFIG_CMD_GET_VALUE     0x06   // Command to get current config value
+
+/* Parameter Selectors for GET_VALUE command ---------------------------------*/
+#define CONFIG_PARAM_MODULE_ID   0x01   // Get current module ID
+#define CONFIG_PARAM_MAX_TEMP    0x02   // Get max temperature threshold
+#define CONFIG_PARAM_MIN_TEMP    0x03   // Get min temperature threshold
+#define CONFIG_PARAM_MIN_VOLTAGE 0x04   // Get min voltage threshold
+#define CONFIG_PARAM_MAX_VOLTAGE 0x05   // Get max voltage threshold
 
 /* CAN Response Status Codes -------------------------------------------------*/
 #define CONFIG_STATUS_SUCCESS 0x00      // Command successful
