@@ -85,6 +85,23 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
+/**
+  * @brief  MUX_SIG output mode selection
+  * 
+  * Define MUX_SIG_USE_OPEN_DRAIN to configure MUX_SIG1/2/3 as open-drain outputs
+  * with external 5V pull-ups. In this mode:
+  *   - GPIO_PIN_SET   = high-impedance (external pull-up pulls line HIGH)
+  *   - GPIO_PIN_RESET = actively driven LOW
+  * 
+  * When undefined (default), pins use push-pull mode:
+  *   - GPIO_PIN_SET   = actively driven HIGH (3.3V)
+  *   - GPIO_PIN_RESET = actively driven LOW
+  * 
+  * Channel mapping (MUX_SIG3:MUX_SIG2:MUX_SIG1) is unchanged:
+  *   Channel 0 = 000, Channel 1 = 001, ... Channel 7 = 111
+  */
+// #define MUX_SIG_USE_OPEN_DRAIN
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

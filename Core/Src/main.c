@@ -587,8 +587,23 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(MUX_SIG2_GPIO_Port, MUX_SIG2_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : MUX_SIG1_Pin MUX_SIG3_Pin BMS_RESET_Pin */
-  GPIO_InitStruct.Pin = MUX_SIG1_Pin|MUX_SIG3_Pin|BMS_RESET_Pin;
+  /*Configure GPIO pins : MUX_SIG1_Pin MUX_SIG3_Pin */
+#ifdef MUX_SIG_USE_OPEN_DRAIN
+  GPIO_InitStruct.Pin = MUX_SIG1_Pin|MUX_SIG3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+#else
+  GPIO_InitStruct.Pin = MUX_SIG1_Pin|MUX_SIG3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+#endif
+
+  /*Configure GPIO pin : BMS_RESET_Pin (always push-pull) */
+  GPIO_InitStruct.Pin = BMS_RESET_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -596,7 +611,11 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : MUX_SIG2_Pin */
   GPIO_InitStruct.Pin = MUX_SIG2_Pin;
+#ifdef MUX_SIG_USE_OPEN_DRAIN
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+#else
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+#endif
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(MUX_SIG2_GPIO_Port, &GPIO_InitStruct);
