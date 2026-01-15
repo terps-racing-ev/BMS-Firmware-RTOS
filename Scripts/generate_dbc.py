@@ -138,7 +138,7 @@ def generate_dbc():
         lines.append(' SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host')
         lines.append(' SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host')
         lines.append(' SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host')
-        lines.append(' SG_ CPU_Usage_Percent : 24|8@1+ (1,0) [0|100] "%" CAN_Host')
+        lines.append(' SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host')
         lines.append(' SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host')
         lines.append('')
         

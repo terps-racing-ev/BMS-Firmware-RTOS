@@ -608,11 +608,14 @@ HAL_StatusTypeDef CAN_SendDebugInfo(void)
     // Get uptime in seconds (convert from milliseconds)
     uint32_t uptime_sec = osKernelGetTickCount() / 1000;
 
+    // Get bootloader validity flag
+    extern uint8_t g_bootloader_app_valid;
+    
     // Pack debug information message
     debug_data[0] = module_id;                              // Byte 0: Module ID
     debug_data[1] = (uint8_t)((free_heap >> 8) & 0xFF);     // Byte 1: Free heap MSB (in 256-byte units)
     debug_data[2] = (uint8_t)((min_free_heap >> 8) & 0xFF); // Byte 2: Min free heap MSB (in 256-byte units)
-    debug_data[3] = 0;                                      // Byte 3: Reserved
+    debug_data[3] = g_bootloader_app_valid;                 // Byte 3: Bootloader validity (1=valid, 0=invalid)
     debug_data[4] = (uint8_t)(uptime_sec & 0xFF);           // Byte 4: Uptime LSB
     debug_data[5] = (uint8_t)((uptime_sec >> 8) & 0xFF);    // Byte 5: Uptime
     debug_data[6] = (uint8_t)((uptime_sec >> 16) & 0xFF);   // Byte 6: Uptime

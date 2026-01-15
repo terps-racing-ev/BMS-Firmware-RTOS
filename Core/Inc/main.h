@@ -102,6 +102,19 @@ void Error_Handler(void);
   */
 // #define MUX_SIG_USE_OPEN_DRAIN
 
+/**
+  * @brief  Bootloader application validity flag defines
+  * 
+  * These match the bootloader's flash flag location and magic numbers.
+  * The bootloader writes these values when a valid application is flashed.
+  */
+#define APP_VALID_FLAG_ADDRESS      ((uint32_t)0x08007FF8)
+#define APP_VALID_MAGIC_NUMBER      ((uint32_t)0xDEADBEEF)
+#define APP_VALID_FLAG_COMPLEMENT   ((uint32_t)0x21524110)
+
+/* Bootloader validity status flag - set at startup, 1 = valid, 0 = invalid */
+extern uint8_t g_bootloader_app_valid;
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

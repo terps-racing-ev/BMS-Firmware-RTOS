@@ -57,6 +57,9 @@ I2C_HandleTypeDef hi2c3;
 
 /* USER CODE BEGIN PV */
 
+/* Bootloader application validity status (1 = valid, 0 = invalid) */
+uint8_t g_bootloader_app_valid = 0;
+
 /* Definitions for CellVoltageBMS1 */
 osThreadId_t CellVoltageBMS1Handle;
 const osThreadAttr_t CellVoltageBMS1_attributes = {
@@ -174,6 +177,20 @@ int main(void)
   MX_I2C1_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
+  
+  // Check bootloader application validity flag at startup
+  {
+    uint32_t *flag_ptr = (uint32_t *)APP_VALID_FLAG_ADDRESS;
+    if (flag_ptr[0] == APP_VALID_MAGIC_NUMBER && 
+        flag_ptr[1] == APP_VALID_FLAG_COMPLEMENT)
+    {
+      g_bootloader_app_valid = 1;  // Valid flag found
+    }
+    else
+    {
+      g_bootloader_app_valid = 0;  // No valid flag
+    }
+  }
   
   // Calibrate ADC
   if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)
