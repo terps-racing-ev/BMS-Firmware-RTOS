@@ -302,7 +302,7 @@ def generate_dbc():
     for module in range(6):
         can_id = 0x08F00300 + (module << 12)
         dbc_id = can_id | 0x80000000
-        lines.append(f'VAL_ {dbc_id} BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "SHUTDOWN" 7 "RESERVED";')
+        lines.append(f'VAL_ {dbc_id} BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";')
     
     lines.append('')
     

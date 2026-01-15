@@ -27,6 +27,7 @@
 #include "can_manager.h"
 #include "config_manager.h"
 #include "error_manager.h"
+#include "state_machine.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -218,6 +219,12 @@ int main(void)
   // Initialize Configuration Manager
   Config_Init();
   
+  // Initialize State Machine
+  if (StateMachine_Init() != HAL_OK)
+  {
+    Error_Handler();
+  }
+  
   // Initialize Error Manager
   if (ErrorMgr_Init() != HAL_OK)
   {
@@ -231,7 +238,7 @@ int main(void)
   }
   
   // Set initial BMS state to IDLE after initialization
-  ErrorMgr_SetState(BMS_STATE_IDLE);
+  StateMachine_SetState(BMS_STATE_IDLE);
   /* USER CODE END RTOS_QUEUES */
 
   /* Create the thread(s) */

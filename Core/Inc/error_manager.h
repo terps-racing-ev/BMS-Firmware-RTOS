@@ -30,6 +30,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "state_machine.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -115,23 +116,11 @@ extern "C" {
 #define WARNING_SYSTEM_RESERVED_6   (1 << 30) /**< Reserved for future use */
 #define WARNING_SYSTEM_RESERVED_7   (1 << 31) /**< Reserved for future use */
 
-/* BMS State Definitions -----------------------------------------------------*/
-typedef enum {
-    BMS_STATE_INIT = 0,         /**< Initialization state */
-    BMS_STATE_IDLE,             /**< Idle/standby state */
-    BMS_STATE_CHARGING,         /**< Charging state */
-    BMS_STATE_DISCHARGING,      /**< Discharging state */
-    BMS_STATE_BALANCING,        /**< Cell balancing state */
-    BMS_STATE_ERROR,            /**< Error/fault state */
-    BMS_STATE_SHUTDOWN,         /**< Shutdown state */
-    BMS_STATE_RESERVED          /**< Reserved for future use */
-} BMS_State_t;
-
 /* Error Manager Structure ---------------------------------------------------*/
+/* Note: BMS_State_t is defined in state_machine.h */
 typedef struct {
     uint32_t error_flags;       /**< Active error flags (4 bytes) */
     uint32_t warning_flags;     /**< Active warning flags (4 bytes) */
-    BMS_State_t state;          /**< Current BMS state */
     uint8_t fault_count;        /**< Number of faults since boot */
     uint32_t uptime_seconds;    /**< System uptime in seconds */
     uint32_t last_heartbeat;    /**< Timestamp of last heartbeat */
@@ -196,19 +185,6 @@ bool ErrorMgr_HasErrors(void);
   * @retval bool: true if any warnings active, false otherwise
   */
 bool ErrorMgr_HasWarnings(void);
-
-/**
-  * @brief  Set BMS state
-  * @param  state: New BMS state
-  * @retval None
-  */
-void ErrorMgr_SetState(BMS_State_t state);
-
-/**
-  * @brief  Get current BMS state
-  * @retval BMS_State_t: Current BMS state
-  */
-BMS_State_t ErrorMgr_GetState(void);
 
 /**
   * @brief  Get complete error manager structure (for heartbeat)

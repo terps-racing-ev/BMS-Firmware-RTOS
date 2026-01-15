@@ -21,6 +21,7 @@
 #include "can_manager.h"
 #include "main.h"
 #include "error_manager.h"
+#include "state_machine.h"
 #include "config_manager.h"
 #include "bq_handler.h"
 
@@ -535,8 +536,8 @@ HAL_StatusTypeDef CAN_SendHeartbeat(void)
     // Get current error manager status
     ErrorMgr_GetStatus(&status);
     
-    // Pack heartbeat message
-    heartbeat_data[0] = (uint8_t)status.state;                    // BMS state
+    // Pack heartbeat message (state comes from state machine)
+    heartbeat_data[0] = (uint8_t)StateMachine_GetState();         // BMS state
     heartbeat_data[1] = (uint8_t)(status.error_flags & 0xFF);     // Error byte 0
     heartbeat_data[2] = (uint8_t)((status.error_flags >> 8) & 0xFF);   // Error byte 1
     heartbeat_data[3] = (uint8_t)((status.error_flags >> 16) & 0xFF);  // Error byte 2

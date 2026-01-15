@@ -82,6 +82,7 @@ Core/Src/config_manager.c \
 Core/Src/error_manager.c \
 Core/Src/freertos.c \
 Core/Src/main.c \
+Core/Src/state_machine.c \
 Core/Src/stm32l4xx_hal_msp.c \
 Core/Src/stm32l4xx_hal_timebase_tim.c \
 Core/Src/stm32l4xx_it.c \

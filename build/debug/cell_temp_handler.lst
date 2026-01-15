@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
   28:Core/Src/cell_temp_handler.c **** static temp_monitor_state_t temp_state = {0};
   29:Core/Src/cell_temp_handler.c **** static uint64_t thermistor_fault_mask = THERMISTOR_FAULT_MASK_DEFAULT;
   30:Core/Src/cell_temp_handler.c **** static float temp_max_threshold = TEMP_MAX_CELSIUS;  // Runtime max temperature threshold (can be s
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 2
 
 
   31:Core/Src/cell_temp_handler.c **** static float temp_min_threshold = TEMP_MIN_CELSIUS;  // Runtime min temperature threshold (can be s
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
   85:Core/Src/cell_temp_handler.c **** static HAL_StatusTypeDef CellTemp_ConfigureADCChannel(uint32_t channel)
   86:Core/Src/cell_temp_handler.c **** {
   87:Core/Src/cell_temp_handler.c ****     ADC_ChannelConfTypeDef sConfig = {0};
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 3
 
 
   88:Core/Src/cell_temp_handler.c ****     
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  142:Core/Src/cell_temp_handler.c ****     // MUX_SIG3 = bit 2
  143:Core/Src/cell_temp_handler.c ****     
  144:Core/Src/cell_temp_handler.c ****     if (channel & 0x01) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 4
 
 
  145:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG1_PORT, MUX_SIG1_PIN, GPIO_PIN_SET);
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  199:Core/Src/cell_temp_handler.c ****     
  200:Core/Src/cell_temp_handler.c ****     // Calculate temperature using B-parameter equation (derived from Steinhart-Hart)
  201:Core/Src/cell_temp_handler.c ****     // 1/T = 1/T0 + (1/B) * ln(R/R0)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 5
 
 
  202:Core/Src/cell_temp_handler.c ****     // Where T0 = 298.15K (25°C), R0 = resistance at 25°C, B = B-value
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  256:Core/Src/cell_temp_handler.c ****         }
  257:Core/Src/cell_temp_handler.c ****     }
  258:Core/Src/cell_temp_handler.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 6
 
 
  259:Core/Src/cell_temp_handler.c ****     // Initialize summary message timestamp
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  313:Core/Src/cell_temp_handler.c ****                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
  314:Core/Src/cell_temp_handler.c ****                 thermistor_data_t *therm = &temp_state.thermistors[therm_idx];
  315:Core/Src/cell_temp_handler.c ****                 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 7
 
 
  316:Core/Src/cell_temp_handler.c ****                 // Calculate average ADC value
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  370:Core/Src/cell_temp_handler.c ****             }
  371:Core/Src/cell_temp_handler.c ****         }
  372:Core/Src/cell_temp_handler.c ****         
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 8
 
 
  373:Core/Src/cell_temp_handler.c ****         // Move to next MUX channel
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  427:Core/Src/cell_temp_handler.c ****             uint32_t current_tick = osKernelGetTickCount();
  428:Core/Src/cell_temp_handler.c ****             if ((current_tick - last_summary_tick) >= TEMP_SUMMARY_INTERVAL_MS) {
  429:Core/Src/cell_temp_handler.c ****                 CellTemp_SendSummaryMessage();
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 9
 
 
  430:Core/Src/cell_temp_handler.c ****                 last_summary_tick = current_tick;
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
   66              	.LVL4:
   67              	.LFB300:
  448:Core/Src/cell_temp_handler.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 10
 
 
  449:Core/Src/cell_temp_handler.c **** /**
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  107 002e 0020     		movs	r0, #0
  108              	.LVL8:
  109              		.loc 1 461 1 view .LVU19
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 11
 
 
  110 0030 7047     		bx	lr
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  156 001a 0723     		movs	r3, #7
  157 001c 0293     		str	r3, [sp, #8]
   92:Core/Src/cell_temp_handler.c ****     sConfig.OffsetNumber = ADC_OFFSET_NONE;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 12
 
 
  158              		.loc 1 92 5 is_stmt 1 view .LVU30
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  197              		@ args = 0, pretend = 0, frame = 8
  198              		@ frame_needed = 0, uses_anonymous_args = 0
  199              		.loc 1 470 1 is_stmt 0 view .LVU40
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 13
 
 
  200 0000 F0B5     		push	{r4, r5, r6, r7, lr}
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  243              		.loc 1 481 9 is_stmt 1 view .LVU55
  244              		.loc 1 481 13 is_stmt 0 view .LVU56
  245 001c 2046     		mov	r0, r4
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 14
 
 
  246 001e FFF7FEFF 		bl	CellTemp_IsADCEnabled
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  499:Core/Src/cell_temp_handler.c ****         if (therm_idx < TOTAL_THERMISTORS) {
  500:Core/Src/cell_temp_handler.c ****             uint8_t therm_adc = therm_idx / MUX_CHANNELS;
  501:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(therm_adc) && 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 15
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 15
 
 
  502:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].temperature > -126.0f) {
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  500:Core/Src/cell_temp_handler.c ****             if (CellTemp_IsADCEnabled(therm_adc) && 
  320              		.loc 1 500 13 is_stmt 1 view .LVU79
  321              	.LVL27:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 16
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 16
 
 
  501:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].temperature > -126.0f) {
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  363 009e CCE7     		b	.L26
  364              	.LVL33:
  365              	.L39:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 17
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 17
 
 
  496:Core/Src/cell_temp_handler.c ****         
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  413              		@ args = 0, pretend = 0, frame = 0
  414              		@ frame_needed = 0, uses_anonymous_args = 0
  415 0000 10B5     		push	{r4, lr}
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 18
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 18
 
 
  416              		.cfi_def_cfa_offset 8
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  455              		.loc 1 65 9 is_stmt 1 view .LVU116
   65:Core/Src/cell_temp_handler.c ****         temp_state.thermistors[i].adc_accumulator = 0;
  456              		.loc 1 65 50 is_stmt 0 view .LVU117
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 19
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 19
 
 
  457 0032 C860     		str	r0, [r1, #12]
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  499 006e 0020     		movs	r0, #0
  500 0070 10BD     		pop	{r4, pc}
  501              	.L47:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 20
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 20
 
 
  502 0072 00BF     		.align	2
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  548 000e 0B48     		ldr	r0, .L58
  549 0010 FFF7FEFF 		bl	HAL_ADC_Start
  550              	.LVL50:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 21
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 21
 
 
  114:Core/Src/cell_temp_handler.c ****         // Wait for conversion to complete
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  595              		.global	CellTemp_SetMuxChannel
  596              		.syntax unified
  597              		.thumb
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 22
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 22
 
 
  598              		.thumb_func
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  641              		.loc 1 156 5 view .LVU162
  156:Core/Src/cell_temp_handler.c ****         HAL_GPIO_WritePin(MUX_SIG3_PORT, MUX_SIG3_PIN, GPIO_PIN_SET);
  642              		.loc 1 156 8 is_stmt 0 view .LVU163
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 23
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 23
 
 
  643 002c 14F0040F 		tst	r4, #4
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  159:Core/Src/cell_temp_handler.c ****     }
  690              		.loc 1 159 9 is_stmt 0 view .LVU171
  691 006c 7047     		bx	lr
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 24
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 24
 
 
  692              	.L73:
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  736              		.loc 1 192 33 is_stmt 0 view .LVU183
  737 002a DFED246A 		vldr.32	s13, .L86+12
  738 002e 67EEA66A 		vmul.f32	s13, s15, s13
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 25
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 25
 
 
  192:Core/Src/cell_temp_handler.c ****     }
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  210:Core/Src/cell_temp_handler.c ****         temp_celsius = -40.0f;
  780              		.loc 1 210 5 is_stmt 1 view .LVU197
  210:Core/Src/cell_temp_handler.c ****         temp_celsius = -40.0f;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 26
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 26
 
 
  781              		.loc 1 210 8 is_stmt 0 view .LVU198
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  825 00ae 08BD     		pop	{r3, pc}
  826              	.L87:
  827              		.align	2
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 27
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 27
 
 
  828              	.L86:
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  877              	.L96:
  233:Core/Src/cell_temp_handler.c ****     
  878              		.loc 1 233 5 is_stmt 1 view .LVU216
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 28
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 28
 
 
  879 0012 0846     		mov	r0, r1
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  522:Core/Src/cell_temp_handler.c ****   *         This function can be called manually to send all messages at once.
  523:Core/Src/cell_temp_handler.c ****   * @retval HAL_StatusTypeDef
  524:Core/Src/cell_temp_handler.c ****   */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 29
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 29
 
 
  525:Core/Src/cell_temp_handler.c **** HAL_StatusTypeDef CellTemp_SendCANData(void)
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  958              	.LVL94:
  959              	.L100:
  531:Core/Src/cell_temp_handler.c ****         uint8_t start_idx = msg * 4;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 30
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 30
 
 
  960              		.loc 1 531 31 is_stmt 1 discriminator 1 view .LVU235
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1002              		.thumb_func
  1004              	CellTemp_GetTemperatures:
  1005              	.LVL100:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 31
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 31
 
 
  1006              	.LFB303:
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1046              		.loc 1 556 27 is_stmt 1 discriminator 1 view .LVU260
  1047 0014 8B42     		cmp	r3, r1
  1048 0016 14D2     		bcs	.L113
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 32
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 32
 
 
  557:Core/Src/cell_temp_handler.c ****         temperatures[i] = temp_state.thermistors[i].temperature;
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1097              	.LVL110:
  1098              	.LFB304:
  565:Core/Src/cell_temp_handler.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 33
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 33
 
 
  566:Core/Src/cell_temp_handler.c **** /**
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1138              		.thumb_func
  1140              	CellTemp_SetFaultMask:
  1141              	.LVL111:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 34
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 34
 
 
  1142              	.LFB305:
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1176              		.loc 1 603 1 is_stmt 0 view .LVU292
  1177 0000 014B     		ldr	r3, .L125
  1178 0002 D3E90001 		ldrd	r0, [r3]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 35
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 35
 
 
  1179 0006 7047     		bx	lr
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1219              	.L130:
  616:Core/Src/cell_temp_handler.c ****         max_temp = 0;
  1220              		.loc 1 616 18 view .LVU301
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 36
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 36
 
 
  1221 0014 0020     		movs	r0, #0
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1269              		.thumb
  1270              		.thumb_func
  1272              	CellTemp_SetMinTemp:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 37
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 37
 
 
  1273              	.LVL115:
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1311 0000 82B0     		sub	sp, sp, #8
  1312              		.cfi_def_cfa_offset 8
  647:Core/Src/cell_temp_handler.c ****     return (int8_t)temp_min_threshold;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 38
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 38
 
 
  1313              		.loc 1 647 5 view .LVU313
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1355 0006 82B0     		sub	sp, sp, #8
  1356              		.cfi_def_cfa_offset 32
  662:Core/Src/cell_temp_handler.c ****     float min_temp = 200.0f;   // Start with high value
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 39
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 39
 
 
  1357              		.loc 1 662 5 view .LVU317
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1384              		.loc 1 686 28 view .LVU329
  1385 0018 EDB2     		uxtb	r5, r5
  1386              	.LVL119:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 40
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 40
 
 
  1387              		.loc 1 686 28 view .LVU330
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1429              	.LVL125:
  679:Core/Src/cell_temp_handler.c ****                 if (temp < min_temp) {
  1430              		.loc 1 679 13 is_stmt 1 view .LVU344
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 41
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 41
 
 
  679:Core/Src/cell_temp_handler.c ****                 if (temp < min_temp) {
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1468              	.LVL130:
  1469              	.L151:
  695:Core/Src/cell_temp_handler.c ****     }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 42
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 42
 
 
  696:Core/Src/cell_temp_handler.c ****     
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1510              		.loc 1 709 17 is_stmt 0 view .LVU374
  1511 00b4 8DF80240 		strb	r4, [sp, #2]
  710:Core/Src/cell_temp_handler.c ****     can_data[3] = (uint8_t)((max_temp_raw >> 8) & 0xFF);
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 43
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 43
 
 
  1512              		.loc 1 710 5 is_stmt 1 view .LVU375
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1559 00f0 000048C3 		.word	-1018691584
  1560 00f4 00004843 		.word	1128792064
  1561 00f8 00000000 		.word	temp_state
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 44
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 44
 
 
  1562 00fc 0000FCC2 		.word	-1023672320
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  254:Core/Src/cell_temp_handler.c ****         while(1) {
  1610              		.loc 1 254 14 view .LVU400
  1611 0016 FAE7     		b	.L161
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 45
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 45
 
 
  1612              	.L160:
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1653 0040 0B44     		add	r3, r3, r1
  1654 0042 DBB2     		uxtb	r3, r3
  1655              	.LVL152:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 46
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 46
 
 
  280:Core/Src/cell_temp_handler.c ****                 temp_state.thermistors[therm_idx].adc_accumulator = 0;
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1697              		.loc 1 290 21 is_stmt 1 view .LVU426
  290:Core/Src/cell_temp_handler.c ****                     uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
  1698              		.loc 1 290 60 is_stmt 0 view .LVU427
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 47
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 47
 
 
  1699 006a E500     		lsls	r5, r4, #3
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1738 00a0 0133     		adds	r3, r3, #1
  1739 00a2 9382     		strh	r3, [r2, #20]	@ movhi
  1740 00a4 D8E7     		b	.L166
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 48
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 48
 
 
  1741              	.LVL162:
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  318:Core/Src/cell_temp_handler.c ****                     therm->raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
  1783              		.loc 1 318 21 is_stmt 1 view .LVU455
  318:Core/Src/cell_temp_handler.c ****                     therm->raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 49
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 49
 
 
  1784              		.loc 1 318 54 is_stmt 0 view .LVU456
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1822 0100 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  1823 0104 12DD     		ble	.L172
  327:Core/Src/cell_temp_handler.c ****                                 ErrorMgr_SetError(ERROR_OVER_TEMP);
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 50
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 50
 
 
  1824              		.loc 1 327 33 is_stmt 1 view .LVU473
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1865 012e EDB2     		uxtb	r5, r5
  1866              	.LVL177:
  1867              	.L169:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 51
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 51
 
 
  311:Core/Src/cell_temp_handler.c ****         for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1907              		.loc 1 336 21 is_stmt 1 view .LVU501
  336:Core/Src/cell_temp_handler.c ****                     therm->temperature = -127.0f;
  1908              		.loc 1 336 40 is_stmt 0 view .LVU502
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 52
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 52
 
 
  1909 0168 1346     		mov	r3, r2
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1950 0196 FFF7FEFF 		bl	CellTemp_SetMuxChannel
  1951              	.LVL182:
  277:Core/Src/cell_temp_handler.c ****         for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 53
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 53
 
 
  1952              		.loc 1 277 9 view .LVU516
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  1992              	.L180:
  353:Core/Src/cell_temp_handler.c ****             for (uint8_t adc = 0; adc < NUM_ADC_CHANNELS; adc++) {
  1993              		.loc 1 353 39 is_stmt 1 discriminator 1 view .LVU531
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 54
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 54
 
 
  1994 01b8 062C     		cmp	r4, #6
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  2033              	.LVL194:
  367:Core/Src/cell_temp_handler.c ****                         osDelay(2); // Small delay between messages
  2034              		.loc 1 367 25 is_stmt 1 view .LVU547
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 55
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 55
 
 
  2035 01e6 0220     		movs	r0, #2
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  2075              		.loc 1 384 21 view .LVU561
  2076 020c 3D46     		mov	r5, r7
  2077              	.LVL199:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 56
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 56
 
 
  383:Core/Src/cell_temp_handler.c ****             uint8_t any_over_temp = 0;
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  2118              	.LBE39:
  2119              	.LBE38:
  387:Core/Src/cell_temp_handler.c ****             for (uint8_t i = 0; i < TOTAL_THERMISTORS; i++) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 57
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 57
 
 
  2120              		.loc 1 387 57 is_stmt 1 discriminator 2 view .LVU576
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  395:Core/Src/cell_temp_handler.c ****                         sensor_fault_count++;
  2162              		.loc 1 395 25 is_stmt 1 view .LVU589
  395:Core/Src/cell_temp_handler.c ****                         sensor_fault_count++;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 58
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 58
 
 
  2163              		.loc 1 395 43 is_stmt 0 view .LVU590
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  2204 029a 0446     		mov	r4, r0
  2205              	.LVL216:
  428:Core/Src/cell_temp_handler.c ****             if ((current_tick - last_summary_tick) >= TEMP_SUMMARY_INTERVAL_MS) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 59
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 59
 
 
  2206              		.loc 1 428 13 is_stmt 1 view .LVU604
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  2252              	.LBE36:
  2253              	.LBE43:
  2254              		.cfi_endproc
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 60
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 60
 
 
  2255              	.LFE298:
@@ -3598,93 +3598,93 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 1
  2319              		.file 13 "Core/Inc/bq_handler.h"
  2320              		.file 14 "Core/Inc/error_manager.h"
  2321              		.file 15 "Core/Inc/can_manager.h"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 61
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 61
 
 
  2322              		.file 16 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
  2323              		.file 17 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-too
  2324              		.file 18 "<built-in>"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 62
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 62
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 cell_temp_handler.c
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:21     .text.CellTemp_IsADCEnabled:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:26     .text.CellTemp_IsADCEnabled:00000000 CellTemp_IsADCEnabled
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:55     .text.CellTemp_IsADCEnabled:00000010 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2267   .rodata.adc_channel_enabled:00000000 adc_channel_enabled
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:60     .text.CellTemp_IsFaultDetectionEnabled:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:65     .text.CellTemp_IsFaultDetectionEnabled:00000000 CellTemp_IsFaultDetectionEnabled
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:114    .text.CellTemp_IsFaultDetectionEnabled:00000034 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2297   .data.thermistor_fault_mask:00000000 thermistor_fault_mask
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:119    .text.CellTemp_ConfigureADCChannel:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:124    .text.CellTemp_ConfigureADCChannel:00000000 CellTemp_ConfigureADCChannel
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:182    .text.CellTemp_ConfigureADCChannel:00000034 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:187    .text.CellTemp_SendTemperatureMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:192    .text.CellTemp_SendTemperatureMessage:00000000 CellTemp_SendTemperatureMessage
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:395    .text.CellTemp_SendTemperatureMessage:000000b4 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2304   .bss.temp_state:00000000 temp_state
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:403    .text.CellTemp_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:409    .text.CellTemp_Init:00000000 CellTemp_Init
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:504    .text.CellTemp_Init:00000074 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:511    .text.CellTemp_ReadADC:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:517    .text.CellTemp_ReadADC:00000000 CellTemp_ReadADC
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:589    .text.CellTemp_ReadADC:0000003c $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:594    .text.CellTemp_SetMuxChannel:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:600    .text.CellTemp_SetMuxChannel:00000000 CellTemp_SetMuxChannel
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:695    .text.CellTemp_SetMuxChannel:00000070 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:700    .text.CellTemp_CalculateTemperature:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:706    .text.CellTemp_CalculateTemperature:00000000 CellTemp_CalculateTemperature
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:829    .text.CellTemp_CalculateTemperature:000000b0 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:844    .text.CellTemp_ReadThermistor:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:850    .text.CellTemp_ReadThermistor:00000000 CellTemp_ReadThermistor
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:908    .text.CellTemp_ReadThermistor:00000030 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2273   .rodata.adc_channels:00000000 adc_channels
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:914    .text.CellTemp_SendCANData:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:920    .text.CellTemp_SendCANData:00000000 CellTemp_SendCANData
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:998    .text.CellTemp_GetTemperatures:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1004   .text.CellTemp_GetTemperatures:00000000 CellTemp_GetTemperatures
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1084   .text.CellTemp_GetTemperatures:00000044 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1090   .text.CellTemp_GetStats:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1096   .text.CellTemp_GetStats:00000000 CellTemp_GetStats
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1129   .text.CellTemp_GetStats:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1134   .text.CellTemp_SetFaultMask:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1140   .text.CellTemp_SetFaultMask:00000000 CellTemp_SetFaultMask
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1157   .text.CellTemp_SetFaultMask:00000008 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1162   .text.CellTemp_GetFaultMask:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1168   .text.CellTemp_GetFaultMask:00000000 CellTemp_GetFaultMask
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1183   .text.CellTemp_GetFaultMask:00000008 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1188   .text.CellTemp_SetMaxTemp:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1194   .text.CellTemp_SetMaxTemp:00000000 CellTemp_SetMaxTemp
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1226   .text.CellTemp_SetMaxTemp:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2291   .data.temp_max_threshold:00000000 temp_max_threshold
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1231   .text.CellTemp_GetMaxTemp:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1237   .text.CellTemp_GetMaxTemp:00000000 CellTemp_GetMaxTemp
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1261   .text.CellTemp_GetMaxTemp:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1266   .text.CellTemp_SetMinTemp:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1272   .text.CellTemp_SetMinTemp:00000000 CellTemp_SetMinTemp
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1293   .text.CellTemp_SetMinTemp:00000010 $d
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s 			page 63
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:21     .text.CellTemp_IsADCEnabled:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:26     .text.CellTemp_IsADCEnabled:00000000 CellTemp_IsADCEnabled
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:55     .text.CellTemp_IsADCEnabled:00000010 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2267   .rodata.adc_channel_enabled:00000000 adc_channel_enabled
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:60     .text.CellTemp_IsFaultDetectionEnabled:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:65     .text.CellTemp_IsFaultDetectionEnabled:00000000 CellTemp_IsFaultDetectionEnabled
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:114    .text.CellTemp_IsFaultDetectionEnabled:00000034 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2297   .data.thermistor_fault_mask:00000000 thermistor_fault_mask
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:119    .text.CellTemp_ConfigureADCChannel:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:124    .text.CellTemp_ConfigureADCChannel:00000000 CellTemp_ConfigureADCChannel
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:182    .text.CellTemp_ConfigureADCChannel:00000034 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:187    .text.CellTemp_SendTemperatureMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:192    .text.CellTemp_SendTemperatureMessage:00000000 CellTemp_SendTemperatureMessage
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:395    .text.CellTemp_SendTemperatureMessage:000000b4 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2304   .bss.temp_state:00000000 temp_state
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:403    .text.CellTemp_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:409    .text.CellTemp_Init:00000000 CellTemp_Init
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:504    .text.CellTemp_Init:00000074 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:511    .text.CellTemp_ReadADC:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:517    .text.CellTemp_ReadADC:00000000 CellTemp_ReadADC
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:589    .text.CellTemp_ReadADC:0000003c $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:594    .text.CellTemp_SetMuxChannel:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:600    .text.CellTemp_SetMuxChannel:00000000 CellTemp_SetMuxChannel
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:695    .text.CellTemp_SetMuxChannel:00000070 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:700    .text.CellTemp_CalculateTemperature:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:706    .text.CellTemp_CalculateTemperature:00000000 CellTemp_CalculateTemperature
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:829    .text.CellTemp_CalculateTemperature:000000b0 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:844    .text.CellTemp_ReadThermistor:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:850    .text.CellTemp_ReadThermistor:00000000 CellTemp_ReadThermistor
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:908    .text.CellTemp_ReadThermistor:00000030 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2273   .rodata.adc_channels:00000000 adc_channels
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:914    .text.CellTemp_SendCANData:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:920    .text.CellTemp_SendCANData:00000000 CellTemp_SendCANData
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:998    .text.CellTemp_GetTemperatures:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1004   .text.CellTemp_GetTemperatures:00000000 CellTemp_GetTemperatures
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1084   .text.CellTemp_GetTemperatures:00000044 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1090   .text.CellTemp_GetStats:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1096   .text.CellTemp_GetStats:00000000 CellTemp_GetStats
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1129   .text.CellTemp_GetStats:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1134   .text.CellTemp_SetFaultMask:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1140   .text.CellTemp_SetFaultMask:00000000 CellTemp_SetFaultMask
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1157   .text.CellTemp_SetFaultMask:00000008 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1162   .text.CellTemp_GetFaultMask:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1168   .text.CellTemp_GetFaultMask:00000000 CellTemp_GetFaultMask
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1183   .text.CellTemp_GetFaultMask:00000008 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1188   .text.CellTemp_SetMaxTemp:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1194   .text.CellTemp_SetMaxTemp:00000000 CellTemp_SetMaxTemp
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1226   .text.CellTemp_SetMaxTemp:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2291   .data.temp_max_threshold:00000000 temp_max_threshold
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1231   .text.CellTemp_GetMaxTemp:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1237   .text.CellTemp_GetMaxTemp:00000000 CellTemp_GetMaxTemp
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1261   .text.CellTemp_GetMaxTemp:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1266   .text.CellTemp_SetMinTemp:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1272   .text.CellTemp_SetMinTemp:00000000 CellTemp_SetMinTemp
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1293   .text.CellTemp_SetMinTemp:00000010 $d
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s 			page 63
 
 
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2285   .data.temp_min_threshold:00000000 temp_min_threshold
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1298   .text.CellTemp_GetMinTemp:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1304   .text.CellTemp_GetMinTemp:00000000 CellTemp_GetMinTemp
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1328   .text.CellTemp_GetMinTemp:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1333   .text.CellTemp_SendSummaryMessage:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1339   .text.CellTemp_SendSummaryMessage:00000000 CellTemp_SendSummaryMessage
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1559   .text.CellTemp_SendSummaryMessage:000000f0 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1569   .text.CellTemp_MonitorTask:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:1575   .text.CellTemp_MonitorTask:00000000 CellTemp_MonitorTask
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2245   .text.CellTemp_MonitorTask:000002d0 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2261   .bss.last_summary_tick.0:00000000 last_summary_tick.0
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2258   .bss.last_summary_tick.0:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2264   .rodata.adc_channel_enabled:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2270   .rodata.adc_channels:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2282   .data.temp_min_threshold:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2288   .data.temp_max_threshold:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2294   .data.thermistor_fault_mask:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\cca1u8QQ.s:2301   .bss.temp_state:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2285   .data.temp_min_threshold:00000000 temp_min_threshold
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1298   .text.CellTemp_GetMinTemp:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1304   .text.CellTemp_GetMinTemp:00000000 CellTemp_GetMinTemp
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1328   .text.CellTemp_GetMinTemp:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1333   .text.CellTemp_SendSummaryMessage:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1339   .text.CellTemp_SendSummaryMessage:00000000 CellTemp_SendSummaryMessage
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1559   .text.CellTemp_SendSummaryMessage:000000f0 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1569   .text.CellTemp_MonitorTask:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:1575   .text.CellTemp_MonitorTask:00000000 CellTemp_MonitorTask
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2245   .text.CellTemp_MonitorTask:000002d0 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2261   .bss.last_summary_tick.0:00000000 last_summary_tick.0
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2258   .bss.last_summary_tick.0:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2264   .rodata.adc_channel_enabled:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2270   .rodata.adc_channels:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2282   .data.temp_min_threshold:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2288   .data.temp_max_threshold:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2294   .data.thermistor_fault_mask:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccr7DEtS.s:2301   .bss.temp_state:00000000 $d
 
 UNDEFINED SYMBOLS
 HAL_ADC_ConfigChannel

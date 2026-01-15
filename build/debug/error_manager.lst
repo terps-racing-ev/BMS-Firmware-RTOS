@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -27,7 +27,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
   24              		.thumb_func
   26              	RotateByteBits:
   27              	.LVL0:
-  28              	.LFB303:
+  28              	.LFB301:
    1:Core/Src/error_manager.c **** /* USER CODE BEGIN Header */
    2:Core/Src/error_manager.c **** /**
    3:Core/Src/error_manager.c ****   ******************************************************************************
@@ -49,31 +49,31 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
   19:Core/Src/error_manager.c **** 
   20:Core/Src/error_manager.c **** /* Includes ------------------------------------------------------------------*/
   21:Core/Src/error_manager.c **** #include "error_manager.h"
-  22:Core/Src/error_manager.c **** #include <string.h>
-  23:Core/Src/error_manager.c **** 
-  24:Core/Src/error_manager.c **** /* Private variables ---------------------------------------------------------*/
-  25:Core/Src/error_manager.c **** static Error_Manager_t error_mgr = {0};
-  26:Core/Src/error_manager.c **** static osMutexId_t error_mutex = NULL;
-  27:Core/Src/error_manager.c **** static const osMutexAttr_t error_mutex_attributes = {
-  28:Core/Src/error_manager.c ****     .name = "ErrorMutex"
-  29:Core/Src/error_manager.c **** };
-  30:Core/Src/error_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 2
+  22:Core/Src/error_manager.c **** #include "state_machine.h"
+  23:Core/Src/error_manager.c **** #include <string.h>
+  24:Core/Src/error_manager.c **** 
+  25:Core/Src/error_manager.c **** /* Private variables ---------------------------------------------------------*/
+  26:Core/Src/error_manager.c **** static Error_Manager_t error_mgr = {0};
+  27:Core/Src/error_manager.c **** static osMutexId_t error_mutex = NULL;
+  28:Core/Src/error_manager.c **** static const osMutexAttr_t error_mutex_attributes = {
+  29:Core/Src/error_manager.c ****     .name = "ErrorMutex"
+  30:Core/Src/error_manager.c **** };
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 2
 
 
-  31:Core/Src/error_manager.c **** /* Function Implementations --------------------------------------------------*/
-  32:Core/Src/error_manager.c **** 
-  33:Core/Src/error_manager.c **** /**
-  34:Core/Src/error_manager.c ****   * @brief  Initialize error manager
-  35:Core/Src/error_manager.c ****   * @retval HAL_StatusTypeDef
-  36:Core/Src/error_manager.c ****   */
-  37:Core/Src/error_manager.c **** HAL_StatusTypeDef ErrorMgr_Init(void)
-  38:Core/Src/error_manager.c **** {
-  39:Core/Src/error_manager.c ****     // Initialize error manager structure
-  40:Core/Src/error_manager.c ****     memset(&error_mgr, 0, sizeof(Error_Manager_t));
-  41:Core/Src/error_manager.c ****     
-  42:Core/Src/error_manager.c ****     // Set initial state
-  43:Core/Src/error_manager.c ****     error_mgr.state = BMS_STATE_INIT;
+  31:Core/Src/error_manager.c **** 
+  32:Core/Src/error_manager.c **** /* Function Implementations --------------------------------------------------*/
+  33:Core/Src/error_manager.c **** 
+  34:Core/Src/error_manager.c **** /**
+  35:Core/Src/error_manager.c ****   * @brief  Initialize error manager
+  36:Core/Src/error_manager.c ****   * @retval HAL_StatusTypeDef
+  37:Core/Src/error_manager.c ****   */
+  38:Core/Src/error_manager.c **** HAL_StatusTypeDef ErrorMgr_Init(void)
+  39:Core/Src/error_manager.c **** {
+  40:Core/Src/error_manager.c ****     // Initialize error manager structure
+  41:Core/Src/error_manager.c ****     memset(&error_mgr, 0, sizeof(Error_Manager_t));
+  42:Core/Src/error_manager.c ****     
+  43:Core/Src/error_manager.c ****     // Set initial values
   44:Core/Src/error_manager.c ****     error_mgr.uptime_seconds = 0;
   45:Core/Src/error_manager.c ****     error_mgr.fault_count = 0;
   46:Core/Src/error_manager.c ****     error_mgr.last_heartbeat = osKernelGetTickCount();
@@ -99,10 +99,10 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
   66:Core/Src/error_manager.c ****         if (!(error_mgr.error_flags & error_flag)) {
   67:Core/Src/error_manager.c ****             error_mgr.fault_count++;
   68:Core/Src/error_manager.c ****             
-  69:Core/Src/error_manager.c ****             // Auto-transition to error state if critical errors occur
+  69:Core/Src/error_manager.c ****             // Signal state machine to enter fault if critical errors occur
   70:Core/Src/error_manager.c ****             if (error_flag & (ERROR_OVER_TEMP | ERROR_UNDER_VOLTAGE | 
   71:Core/Src/error_manager.c ****                               ERROR_OVER_VOLTAGE | ERROR_SHORT_CIRCUIT)) {
-  72:Core/Src/error_manager.c ****                 error_mgr.state = BMS_STATE_ERROR;
+  72:Core/Src/error_manager.c ****                 StateMachine_EnterFault();
   73:Core/Src/error_manager.c ****             }
   74:Core/Src/error_manager.c ****         }
   75:Core/Src/error_manager.c ****         
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
   85:Core/Src/error_manager.c ****   */
   86:Core/Src/error_manager.c **** void ErrorMgr_ClearError(uint32_t error_flag)
   87:Core/Src/error_manager.c **** {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 3
 
 
   88:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
@@ -143,9 +143,9 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  107:Core/Src/error_manager.c ****         
  108:Core/Src/error_manager.c ****         error_mgr.error_flags &= ~error_flag;
  109:Core/Src/error_manager.c ****         
- 110:Core/Src/error_manager.c ****         // If no errors remain and in error state, transition to idle
- 111:Core/Src/error_manager.c ****         if (error_mgr.error_flags == 0 && error_mgr.state == BMS_STATE_ERROR) {
- 112:Core/Src/error_manager.c ****             error_mgr.state = BMS_STATE_IDLE;
+ 110:Core/Src/error_manager.c ****         // If no errors remain, signal state machine to exit fault
+ 111:Core/Src/error_manager.c ****         if (error_mgr.error_flags == 0) {
+ 112:Core/Src/error_manager.c ****             StateMachine_ExitFault();
  113:Core/Src/error_manager.c ****         }
  114:Core/Src/error_manager.c ****         
  115:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  142:Core/Src/error_manager.c ****     }
  143:Core/Src/error_manager.c **** }
  144:Core/Src/error_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 4
 
 
  145:Core/Src/error_manager.c **** /**
@@ -232,141 +232,100 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  193:Core/Src/error_manager.c **** }
  194:Core/Src/error_manager.c **** 
  195:Core/Src/error_manager.c **** /**
- 196:Core/Src/error_manager.c ****   * @brief  Set BMS state
- 197:Core/Src/error_manager.c ****   * @param  state: New BMS state
- 198:Core/Src/error_manager.c ****   * @retval None
- 199:Core/Src/error_manager.c ****   */
- 200:Core/Src/error_manager.c **** void ErrorMgr_SetState(BMS_State_t state)
- 201:Core/Src/error_manager.c **** {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 5
+ 196:Core/Src/error_manager.c ****   * @brief  Rotate through active bits in a single byte
+ 197:Core/Src/error_manager.c ****   * @param  byte_value: The byte containing error flags
+ 198:Core/Src/error_manager.c ****   * @param  rotation_index: Pointer to rotation index for this byte
+ 199:Core/Src/error_manager.c ****   * @retval Rotated byte with only one bit set
+ 200:Core/Src/error_manager.c ****   */
+ 201:Core/Src/error_manager.c **** static uint8_t RotateByteBits(uint8_t byte_value, uint8_t *rotation_index)
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 5
 
 
- 202:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 203:Core/Src/error_manager.c ****         // Don't allow transition out of error state if errors exist
- 204:Core/Src/error_manager.c ****         if (error_mgr.state == BMS_STATE_ERROR && error_mgr.error_flags != 0) {
- 205:Core/Src/error_manager.c ****             // Only allow error state transitions
- 206:Core/Src/error_manager.c ****             if (state != BMS_STATE_ERROR && state != BMS_STATE_SHUTDOWN) {
- 207:Core/Src/error_manager.c ****                 osMutexRelease(error_mutex);
- 208:Core/Src/error_manager.c ****                 return;
- 209:Core/Src/error_manager.c ****             }
- 210:Core/Src/error_manager.c ****         }
- 211:Core/Src/error_manager.c ****         
- 212:Core/Src/error_manager.c ****         error_mgr.state = state;
- 213:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 214:Core/Src/error_manager.c ****     }
- 215:Core/Src/error_manager.c **** }
- 216:Core/Src/error_manager.c **** 
- 217:Core/Src/error_manager.c **** /**
- 218:Core/Src/error_manager.c ****   * @brief  Get current BMS state
- 219:Core/Src/error_manager.c ****   * @retval BMS_State_t: Current BMS state
- 220:Core/Src/error_manager.c ****   */
- 221:Core/Src/error_manager.c **** BMS_State_t ErrorMgr_GetState(void)
- 222:Core/Src/error_manager.c **** {
- 223:Core/Src/error_manager.c ****     BMS_State_t state = BMS_STATE_INIT;
- 224:Core/Src/error_manager.c ****     
- 225:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 226:Core/Src/error_manager.c ****         state = error_mgr.state;
- 227:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 228:Core/Src/error_manager.c ****     }
- 229:Core/Src/error_manager.c ****     
- 230:Core/Src/error_manager.c ****     return state;
- 231:Core/Src/error_manager.c **** }
- 232:Core/Src/error_manager.c **** 
- 233:Core/Src/error_manager.c **** /**
- 234:Core/Src/error_manager.c ****   * @brief  Rotate through active bits in a single byte
- 235:Core/Src/error_manager.c ****   * @param  byte_value: The byte containing error flags
- 236:Core/Src/error_manager.c ****   * @param  rotation_index: Pointer to rotation index for this byte
- 237:Core/Src/error_manager.c ****   * @retval Rotated byte with only one bit set
- 238:Core/Src/error_manager.c ****   */
- 239:Core/Src/error_manager.c **** static uint8_t RotateByteBits(uint8_t byte_value, uint8_t *rotation_index)
- 240:Core/Src/error_manager.c **** {
-  29              		.loc 1 240 1 view -0
+ 202:Core/Src/error_manager.c **** {
+  29              		.loc 1 202 1 view -0
   30              		.cfi_startproc
   31              		@ args = 0, pretend = 0, frame = 0
   32              		@ frame_needed = 0, uses_anonymous_args = 0
- 241:Core/Src/error_manager.c ****     if (byte_value == 0) {
-  33              		.loc 1 241 5 view .LVU1
-  34              		.loc 1 241 8 is_stmt 0 view .LVU2
+ 203:Core/Src/error_manager.c ****     if (byte_value == 0) {
+  33              		.loc 1 203 5 view .LVU1
+  34              		.loc 1 203 8 is_stmt 0 view .LVU2
   35 0000 8446     		mov	ip, r0
   36 0002 10B1     		cbz	r0, .L17
   37              	.LBB2:
- 242:Core/Src/error_manager.c ****         *rotation_index = 0;
- 243:Core/Src/error_manager.c ****         return 0;
- 244:Core/Src/error_manager.c ****     }
- 245:Core/Src/error_manager.c ****     
- 246:Core/Src/error_manager.c ****     // Count active bits in this byte
- 247:Core/Src/error_manager.c ****     uint8_t active_bit_count = 0;
- 248:Core/Src/error_manager.c ****     for (uint8_t bit = 0; bit < 8; bit++) {
-  38              		.loc 1 248 18 view .LVU3
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 6
-
-
+ 204:Core/Src/error_manager.c ****         *rotation_index = 0;
+ 205:Core/Src/error_manager.c ****         return 0;
+ 206:Core/Src/error_manager.c ****     }
+ 207:Core/Src/error_manager.c ****     
+ 208:Core/Src/error_manager.c ****     // Count active bits in this byte
+ 209:Core/Src/error_manager.c ****     uint8_t active_bit_count = 0;
+ 210:Core/Src/error_manager.c ****     for (uint8_t bit = 0; bit < 8; bit++) {
+  38              		.loc 1 210 18 view .LVU3
   39 0004 0023     		movs	r3, #0
   40              	.LBE2:
- 247:Core/Src/error_manager.c ****     for (uint8_t bit = 0; bit < 8; bit++) {
-  41              		.loc 1 247 13 view .LVU4
+ 209:Core/Src/error_manager.c ****     for (uint8_t bit = 0; bit < 8; bit++) {
+  41              		.loc 1 209 13 view .LVU4
   42 0006 1846     		mov	r0, r3
   43              	.LVL1:
- 247:Core/Src/error_manager.c ****     for (uint8_t bit = 0; bit < 8; bit++) {
-  44              		.loc 1 247 13 view .LVU5
+ 209:Core/Src/error_manager.c ****     for (uint8_t bit = 0; bit < 8; bit++) {
+  44              		.loc 1 209 13 view .LVU5
   45 0008 04E0     		b	.L2
   46              	.LVL2:
   47              	.L17:
- 242:Core/Src/error_manager.c ****         *rotation_index = 0;
-  48              		.loc 1 242 9 is_stmt 1 view .LVU6
- 242:Core/Src/error_manager.c ****         *rotation_index = 0;
-  49              		.loc 1 242 25 is_stmt 0 view .LVU7
+ 204:Core/Src/error_manager.c ****         *rotation_index = 0;
+  48              		.loc 1 204 9 is_stmt 1 view .LVU6
+ 204:Core/Src/error_manager.c ****         *rotation_index = 0;
+  49              		.loc 1 204 25 is_stmt 0 view .LVU7
   50 000a 0023     		movs	r3, #0
   51 000c 0B70     		strb	r3, [r1]
- 243:Core/Src/error_manager.c ****     }
-  52              		.loc 1 243 9 is_stmt 1 view .LVU8
- 243:Core/Src/error_manager.c ****     }
-  53              		.loc 1 243 16 is_stmt 0 view .LVU9
+ 205:Core/Src/error_manager.c ****     }
+  52              		.loc 1 205 9 is_stmt 1 view .LVU8
+ 205:Core/Src/error_manager.c ****     }
+  53              		.loc 1 205 16 is_stmt 0 view .LVU9
   54 000e 7047     		bx	lr
   55              	.LVL3:
   56              	.L4:
   57              	.LBB3:
-  58              		.loc 1 248 39 is_stmt 1 discriminator 2 view .LVU10
+  58              		.loc 1 210 39 is_stmt 1 discriminator 2 view .LVU10
   59 0010 0133     		adds	r3, r3, #1
   60              	.LVL4:
-  61              		.loc 1 248 39 is_stmt 0 discriminator 2 view .LVU11
+  61              		.loc 1 210 39 is_stmt 0 discriminator 2 view .LVU11
   62 0012 DBB2     		uxtb	r3, r3
   63              	.LVL5:
   64              	.L2:
-  65              		.loc 1 248 31 is_stmt 1 discriminator 1 view .LVU12
+  65              		.loc 1 210 31 is_stmt 1 discriminator 1 view .LVU12
   66 0014 072B     		cmp	r3, #7
   67 0016 07D8     		bhi	.L18
- 249:Core/Src/error_manager.c ****         if (byte_value & (1 << bit)) {
-  68              		.loc 1 249 9 view .LVU13
-  69              		.loc 1 249 13 is_stmt 0 view .LVU14
+ 211:Core/Src/error_manager.c ****         if (byte_value & (1 << bit)) {
+  68              		.loc 1 211 9 view .LVU13
+  69              		.loc 1 211 13 is_stmt 0 view .LVU14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 6
+
+
   70 0018 4CFA03F2 		asr	r2, ip, r3
-  71              		.loc 1 249 12 view .LVU15
+  71              		.loc 1 211 12 view .LVU15
   72 001c 12F0010F 		tst	r2, #1
   73 0020 F6D0     		beq	.L4
- 250:Core/Src/error_manager.c ****             active_bit_count++;
-  74              		.loc 1 250 13 is_stmt 1 view .LVU16
-  75              		.loc 1 250 29 is_stmt 0 view .LVU17
+ 212:Core/Src/error_manager.c ****             active_bit_count++;
+  74              		.loc 1 212 13 is_stmt 1 view .LVU16
+  75              		.loc 1 212 29 is_stmt 0 view .LVU17
   76 0022 0130     		adds	r0, r0, #1
   77              	.LVL6:
-  78              		.loc 1 250 29 view .LVU18
+  78              		.loc 1 212 29 view .LVU18
   79 0024 C0B2     		uxtb	r0, r0
   80              	.LVL7:
-  81              		.loc 1 250 29 view .LVU19
+  81              		.loc 1 212 29 view .LVU19
   82 0026 F3E7     		b	.L4
   83              	.LVL8:
   84              	.L18:
-  85              		.loc 1 250 29 view .LVU20
+  85              		.loc 1 212 29 view .LVU20
   86              	.LBE3:
- 251:Core/Src/error_manager.c ****         }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 7
-
-
- 252:Core/Src/error_manager.c ****     }
- 253:Core/Src/error_manager.c ****     
- 254:Core/Src/error_manager.c ****     // Find the Nth active bit
- 255:Core/Src/error_manager.c ****     if (active_bit_count > 0) {
-  87              		.loc 1 255 5 is_stmt 1 view .LVU21
-  88              		.loc 1 255 8 is_stmt 0 view .LVU22
+ 213:Core/Src/error_manager.c ****         }
+ 214:Core/Src/error_manager.c ****     }
+ 215:Core/Src/error_manager.c ****     
+ 216:Core/Src/error_manager.c ****     // Find the Nth active bit
+ 217:Core/Src/error_manager.c ****     if (active_bit_count > 0) {
+  87              		.loc 1 217 5 is_stmt 1 view .LVU21
+  88              		.loc 1 217 8 is_stmt 0 view .LVU22
   89 0028 F0B9     		cbnz	r0, .L11
   90              	.LBB4:
   91              	.LBB5:
@@ -376,100 +335,103 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
   95              		.cfi_def_cfa_offset 8
   96              		.cfi_offset 4, -8
   97              		.cfi_offset 14, -4
- 256:Core/Src/error_manager.c ****         uint8_t current_index = 0;
- 257:Core/Src/error_manager.c ****         for (uint8_t bit = 0; bit < 8; bit++) {
- 258:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
- 259:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
- 260:Core/Src/error_manager.c ****                     // Update rotation for next call
- 261:Core/Src/error_manager.c ****                     *rotation_index = (*rotation_index + 1) % active_bit_count;
- 262:Core/Src/error_manager.c ****                     return (1 << bit);
- 263:Core/Src/error_manager.c ****                 }
- 264:Core/Src/error_manager.c ****                 current_index++;
-  98              		.loc 1 264 17 is_stmt 1 view .LVU23
-  99              		.loc 1 264 30 is_stmt 0 view .LVU24
+ 218:Core/Src/error_manager.c ****         uint8_t current_index = 0;
+ 219:Core/Src/error_manager.c ****         for (uint8_t bit = 0; bit < 8; bit++) {
+ 220:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
+ 221:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
+ 222:Core/Src/error_manager.c ****                     // Update rotation for next call
+ 223:Core/Src/error_manager.c ****                     *rotation_index = (*rotation_index + 1) % active_bit_count;
+ 224:Core/Src/error_manager.c ****                     return (1 << bit);
+ 225:Core/Src/error_manager.c ****                 }
+ 226:Core/Src/error_manager.c ****                 current_index++;
+  98              		.loc 1 226 17 is_stmt 1 view .LVU23
+  99              		.loc 1 226 30 is_stmt 0 view .LVU24
  100 002c 0132     		adds	r2, r2, #1
  101 002e D2B2     		uxtb	r2, r2
  102              	.L7:
  103              	.LVL10:
- 257:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
- 104              		.loc 1 257 43 is_stmt 1 discriminator 2 view .LVU25
+ 219:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
+ 104              		.loc 1 219 43 is_stmt 1 discriminator 2 view .LVU25
  105 0030 0133     		adds	r3, r3, #1
  106              	.LVL11:
- 257:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
- 107              		.loc 1 257 43 is_stmt 0 discriminator 2 view .LVU26
+ 219:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
+ 107              		.loc 1 219 43 is_stmt 0 discriminator 2 view .LVU26
  108 0032 DBB2     		uxtb	r3, r3
  109              	.LVL12:
- 257:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
- 110              		.loc 1 257 35 is_stmt 1 discriminator 1 view .LVU27
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 7
+
+
+ 219:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
+ 110              		.loc 1 219 35 is_stmt 1 discriminator 1 view .LVU27
  111 0034 072B     		cmp	r3, #7
  112 0036 15D8     		bhi	.L19
  113              	.LVL13:
  114              	.L9:
- 258:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
- 115              		.loc 1 258 13 view .LVU28
- 258:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
- 116              		.loc 1 258 17 is_stmt 0 view .LVU29
+ 220:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
+ 115              		.loc 1 220 13 view .LVU28
+ 220:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
+ 116              		.loc 1 220 17 is_stmt 0 view .LVU29
  117 0038 1C46     		mov	r4, r3
  118 003a 4CFA03FE 		asr	lr, ip, r3
- 258:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
- 119              		.loc 1 258 16 view .LVU30
+ 220:Core/Src/error_manager.c ****                 if (current_index == *rotation_index) {
+ 119              		.loc 1 220 16 view .LVU30
  120 003e 1EF0010F 		tst	lr, #1
  121 0042 F5D0     		beq	.L7
- 259:Core/Src/error_manager.c ****                     // Update rotation for next call
- 122              		.loc 1 259 17 is_stmt 1 view .LVU31
- 259:Core/Src/error_manager.c ****                     // Update rotation for next call
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 8
-
-
- 123              		.loc 1 259 38 is_stmt 0 view .LVU32
+ 221:Core/Src/error_manager.c ****                     // Update rotation for next call
+ 122              		.loc 1 221 17 is_stmt 1 view .LVU31
+ 221:Core/Src/error_manager.c ****                     // Update rotation for next call
+ 123              		.loc 1 221 38 is_stmt 0 view .LVU32
  124 0044 91F800E0 		ldrb	lr, [r1]	@ zero_extendqisi2
- 259:Core/Src/error_manager.c ****                     // Update rotation for next call
- 125              		.loc 1 259 20 view .LVU33
+ 221:Core/Src/error_manager.c ****                     // Update rotation for next call
+ 125              		.loc 1 221 20 view .LVU33
  126 0048 9645     		cmp	lr, r2
  127 004a EFD1     		bne	.L8
- 261:Core/Src/error_manager.c ****                     return (1 << bit);
- 128              		.loc 1 261 21 is_stmt 1 view .LVU34
- 261:Core/Src/error_manager.c ****                     return (1 << bit);
- 129              		.loc 1 261 56 is_stmt 0 view .LVU35
+ 223:Core/Src/error_manager.c ****                     return (1 << bit);
+ 128              		.loc 1 223 21 is_stmt 1 view .LVU34
+ 223:Core/Src/error_manager.c ****                     return (1 << bit);
+ 129              		.loc 1 223 56 is_stmt 0 view .LVU35
  130 004c 0EF1010E 		add	lr, lr, #1
- 261:Core/Src/error_manager.c ****                     return (1 << bit);
- 131              		.loc 1 261 61 view .LVU36
+ 223:Core/Src/error_manager.c ****                     return (1 << bit);
+ 131              		.loc 1 223 61 view .LVU36
  132 0050 9EFBF0F3 		sdiv	r3, lr, r0
  133              	.LVL14:
- 261:Core/Src/error_manager.c ****                     return (1 << bit);
- 134              		.loc 1 261 61 view .LVU37
+ 223:Core/Src/error_manager.c ****                     return (1 << bit);
+ 134              		.loc 1 223 61 view .LVU37
  135 0054 00FB13EE 		mls	lr, r0, r3, lr
- 261:Core/Src/error_manager.c ****                     return (1 << bit);
- 136              		.loc 1 261 37 view .LVU38
+ 223:Core/Src/error_manager.c ****                     return (1 << bit);
+ 136              		.loc 1 223 37 view .LVU38
  137 0058 81F800E0 		strb	lr, [r1]
- 262:Core/Src/error_manager.c ****                 }
- 138              		.loc 1 262 21 is_stmt 1 view .LVU39
- 262:Core/Src/error_manager.c ****                 }
- 139              		.loc 1 262 31 is_stmt 0 view .LVU40
+ 224:Core/Src/error_manager.c ****                 }
+ 138              		.loc 1 224 21 is_stmt 1 view .LVU39
+ 224:Core/Src/error_manager.c ****                 }
+ 139              		.loc 1 224 31 is_stmt 0 view .LVU40
  140 005c 0120     		movs	r0, #1
  141              	.LVL15:
- 262:Core/Src/error_manager.c ****                 }
- 142              		.loc 1 262 31 view .LVU41
+ 224:Core/Src/error_manager.c ****                 }
+ 142              		.loc 1 224 31 view .LVU41
  143 005e A040     		lsls	r0, r0, r4
  144 0060 C0B2     		uxtb	r0, r0
  145 0062 00E0     		b	.L3
  146              	.LVL16:
  147              	.L19:
- 262:Core/Src/error_manager.c ****                 }
- 148              		.loc 1 262 31 view .LVU42
+ 224:Core/Src/error_manager.c ****                 }
+ 148              		.loc 1 224 31 view .LVU42
  149              	.LBE5:
  150              	.LBE4:
- 265:Core/Src/error_manager.c ****             }
- 266:Core/Src/error_manager.c ****         }
- 267:Core/Src/error_manager.c ****     }
- 268:Core/Src/error_manager.c ****     
- 269:Core/Src/error_manager.c ****     return 0;
- 151              		.loc 1 269 12 view .LVU43
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 8
+
+
+ 227:Core/Src/error_manager.c ****             }
+ 228:Core/Src/error_manager.c ****         }
+ 229:Core/Src/error_manager.c ****     }
+ 230:Core/Src/error_manager.c ****     
+ 231:Core/Src/error_manager.c ****     return 0;
+ 151              		.loc 1 231 12 view .LVU43
  152 0064 0020     		movs	r0, #0
  153              	.LVL17:
  154              	.L3:
- 270:Core/Src/error_manager.c **** }
- 155              		.loc 1 270 1 view .LVU44
+ 232:Core/Src/error_manager.c **** }
+ 155              		.loc 1 232 1 view .LVU44
  156 0066 10BD     		pop	{r4, pc}
  157              	.LVL18:
  158              	.L11:
@@ -478,29 +440,26 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  161              		.cfi_restore 14
  162              	.LBB8:
  163              	.LBB6:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 9
-
-
- 257:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
- 164              		.loc 1 257 22 view .LVU45
+ 219:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
+ 164              		.loc 1 219 22 view .LVU45
  165 0068 0023     		movs	r3, #0
  166              	.LVL19:
- 257:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
- 167              		.loc 1 257 22 view .LVU46
+ 219:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
+ 167              		.loc 1 219 22 view .LVU46
  168              	.LBE6:
- 256:Core/Src/error_manager.c ****         for (uint8_t bit = 0; bit < 8; bit++) {
- 169              		.loc 1 256 17 view .LVU47
+ 218:Core/Src/error_manager.c ****         for (uint8_t bit = 0; bit < 8; bit++) {
+ 169              		.loc 1 218 17 view .LVU47
  170 006a 1A46     		mov	r2, r3
  171              	.LVL20:
  172              	.LBB7:
- 257:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
- 173              		.loc 1 257 35 is_stmt 1 discriminator 1 view .LVU48
+ 219:Core/Src/error_manager.c ****             if (byte_value & (1 << bit)) {
+ 173              		.loc 1 219 35 is_stmt 1 discriminator 1 view .LVU48
  174 006c 072B     		cmp	r3, #7
  175 006e 01D8     		bhi	.L20
  176              	.LBE7:
  177              	.LBE8:
- 240:Core/Src/error_manager.c ****     if (byte_value == 0) {
- 178              		.loc 1 240 1 is_stmt 0 view .LVU49
+ 202:Core/Src/error_manager.c ****     if (byte_value == 0) {
+ 178              		.loc 1 202 1 is_stmt 0 view .LVU49
  179 0070 10B5     		push	{r4, lr}
  180              		.cfi_def_cfa_offset 8
  181              		.cfi_offset 4, -8
@@ -510,15 +469,18 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  185              		.cfi_def_cfa_offset 0
  186              		.cfi_restore 4
  187              		.cfi_restore 14
- 269:Core/Src/error_manager.c **** }
- 188              		.loc 1 269 12 view .LVU50
+ 231:Core/Src/error_manager.c **** }
+ 188              		.loc 1 231 12 view .LVU50
  189 0074 0020     		movs	r0, #0
  190              	.LVL21:
- 191              		.loc 1 270 1 view .LVU51
+ 191              		.loc 1 232 1 view .LVU51
  192 0076 7047     		bx	lr
  193              		.cfi_endproc
- 194              	.LFE303:
+ 194              	.LFE301:
  196              		.section	.text.ErrorMgr_Init,"ax",%progbits
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 9
+
+
  197              		.align	1
  198              		.global	ErrorMgr_Init
  199              		.syntax unified
@@ -526,8 +488,8 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  201              		.thumb_func
  203              	ErrorMgr_Init:
  204              	.LFB292:
-  38:Core/Src/error_manager.c ****     // Initialize error manager structure
- 205              		.loc 1 38 1 is_stmt 1 view -0
+  39:Core/Src/error_manager.c ****     // Initialize error manager structure
+ 205              		.loc 1 39 1 is_stmt 1 view -0
  206              		.cfi_startproc
  207              		@ args = 0, pretend = 0, frame = 0
  208              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -535,172 +497,170 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  210              		.cfi_def_cfa_offset 8
  211              		.cfi_offset 4, -8
  212              		.cfi_offset 14, -4
-  40:Core/Src/error_manager.c ****     
- 213              		.loc 1 40 5 view .LVU53
+  41:Core/Src/error_manager.c ****     
+ 213              		.loc 1 41 5 view .LVU53
  214 0002 0A4C     		ldr	r4, .L25
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 10
-
-
  215 0004 0023     		movs	r3, #0
  216 0006 2360     		str	r3, [r4]
  217 0008 6360     		str	r3, [r4, #4]
  218 000a A360     		str	r3, [r4, #8]
  219 000c E360     		str	r3, [r4, #12]
  220 000e 2361     		str	r3, [r4, #16]
-  43:Core/Src/error_manager.c ****     error_mgr.uptime_seconds = 0;
- 221              		.loc 1 43 5 view .LVU54
   44:Core/Src/error_manager.c ****     error_mgr.fault_count = 0;
- 222              		.loc 1 44 5 view .LVU55
+ 221              		.loc 1 44 5 view .LVU54
   45:Core/Src/error_manager.c ****     error_mgr.last_heartbeat = osKernelGetTickCount();
- 223              		.loc 1 45 5 view .LVU56
+ 222              		.loc 1 45 5 view .LVU55
   46:Core/Src/error_manager.c ****     
- 224              		.loc 1 46 5 view .LVU57
+ 223              		.loc 1 46 5 view .LVU56
   46:Core/Src/error_manager.c ****     
- 225              		.loc 1 46 32 is_stmt 0 view .LVU58
- 226 0010 FFF7FEFF 		bl	osKernelGetTickCount
- 227              	.LVL22:
+ 224              		.loc 1 46 32 is_stmt 0 view .LVU57
+ 225 0010 FFF7FEFF 		bl	osKernelGetTickCount
+ 226              	.LVL22:
   46:Core/Src/error_manager.c ****     
- 228              		.loc 1 46 30 discriminator 1 view .LVU59
- 229 0014 2061     		str	r0, [r4, #16]
+ 227              		.loc 1 46 30 discriminator 1 view .LVU58
+ 228 0014 2061     		str	r0, [r4, #16]
   49:Core/Src/error_manager.c ****     if (error_mutex == NULL) {
- 230              		.loc 1 49 5 is_stmt 1 view .LVU60
+ 229              		.loc 1 49 5 is_stmt 1 view .LVU59
   49:Core/Src/error_manager.c ****     if (error_mutex == NULL) {
- 231              		.loc 1 49 19 is_stmt 0 view .LVU61
- 232 0016 0648     		ldr	r0, .L25+4
- 233 0018 FFF7FEFF 		bl	osMutexNew
- 234              	.LVL23:
+ 230              		.loc 1 49 19 is_stmt 0 view .LVU60
+ 231 0016 0648     		ldr	r0, .L25+4
+ 232 0018 FFF7FEFF 		bl	osMutexNew
+ 233              	.LVL23:
   49:Core/Src/error_manager.c ****     if (error_mutex == NULL) {
- 235              		.loc 1 49 17 discriminator 1 view .LVU62
- 236 001c 054B     		ldr	r3, .L25+8
- 237 001e 1860     		str	r0, [r3]
+ 234              		.loc 1 49 17 discriminator 1 view .LVU61
+ 235 001c 054B     		ldr	r3, .L25+8
+ 236 001e 1860     		str	r0, [r3]
   50:Core/Src/error_manager.c ****         return HAL_ERROR;
- 238              		.loc 1 50 5 is_stmt 1 view .LVU63
+ 237              		.loc 1 50 5 is_stmt 1 view .LVU62
   50:Core/Src/error_manager.c ****         return HAL_ERROR;
- 239              		.loc 1 50 8 is_stmt 0 view .LVU64
- 240 0020 08B1     		cbz	r0, .L23
+ 238              		.loc 1 50 8 is_stmt 0 view .LVU63
+ 239 0020 08B1     		cbz	r0, .L23
   54:Core/Src/error_manager.c **** }
- 241              		.loc 1 54 12 view .LVU65
- 242 0022 0020     		movs	r0, #0
- 243              	.L22:
+ 240              		.loc 1 54 12 view .LVU64
+ 241 0022 0020     		movs	r0, #0
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 10
+
+
+ 242              	.L22:
   55:Core/Src/error_manager.c **** 
- 244              		.loc 1 55 1 view .LVU66
- 245 0024 10BD     		pop	{r4, pc}
- 246              	.L23:
+ 243              		.loc 1 55 1 view .LVU65
+ 244 0024 10BD     		pop	{r4, pc}
+ 245              	.L23:
   51:Core/Src/error_manager.c ****     }
- 247              		.loc 1 51 16 view .LVU67
- 248 0026 0120     		movs	r0, #1
- 249 0028 FCE7     		b	.L22
- 250              	.L26:
- 251 002a 00BF     		.align	2
- 252              	.L25:
- 253 002c 00000000 		.word	error_mgr
- 254 0030 00000000 		.word	error_mutex_attributes
- 255 0034 00000000 		.word	error_mutex
- 256              		.cfi_endproc
- 257              	.LFE292:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 11
-
-
- 259              		.section	.text.ErrorMgr_SetError,"ax",%progbits
- 260              		.align	1
- 261              		.global	ErrorMgr_SetError
- 262              		.syntax unified
- 263              		.thumb
- 264              		.thumb_func
- 266              	ErrorMgr_SetError:
- 267              	.LVL24:
- 268              	.LFB293:
+ 246              		.loc 1 51 16 view .LVU66
+ 247 0026 0120     		movs	r0, #1
+ 248 0028 FCE7     		b	.L22
+ 249              	.L26:
+ 250 002a 00BF     		.align	2
+ 251              	.L25:
+ 252 002c 00000000 		.word	error_mgr
+ 253 0030 00000000 		.word	error_mutex_attributes
+ 254 0034 00000000 		.word	error_mutex
+ 255              		.cfi_endproc
+ 256              	.LFE292:
+ 258              		.section	.text.ErrorMgr_SetError,"ax",%progbits
+ 259              		.align	1
+ 260              		.global	ErrorMgr_SetError
+ 261              		.syntax unified
+ 262              		.thumb
+ 263              		.thumb_func
+ 265              	ErrorMgr_SetError:
+ 266              	.LVL24:
+ 267              	.LFB293:
   63:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 269              		.loc 1 63 1 is_stmt 1 view -0
- 270              		.cfi_startproc
- 271              		@ args = 0, pretend = 0, frame = 0
- 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 268              		.loc 1 63 1 is_stmt 1 view -0
+ 269              		.cfi_startproc
+ 270              		@ args = 0, pretend = 0, frame = 0
+ 271              		@ frame_needed = 0, uses_anonymous_args = 0
   63:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 273              		.loc 1 63 1 is_stmt 0 view .LVU69
- 274 0000 10B5     		push	{r4, lr}
- 275              		.cfi_def_cfa_offset 8
- 276              		.cfi_offset 4, -8
- 277              		.cfi_offset 14, -4
- 278 0002 0446     		mov	r4, r0
+ 272              		.loc 1 63 1 is_stmt 0 view .LVU68
+ 273 0000 10B5     		push	{r4, lr}
+ 274              		.cfi_def_cfa_offset 8
+ 275              		.cfi_offset 4, -8
+ 276              		.cfi_offset 14, -4
+ 277 0002 0446     		mov	r4, r0
   64:Core/Src/error_manager.c ****         // Check if this is a new error
- 279              		.loc 1 64 5 is_stmt 1 view .LVU70
+ 278              		.loc 1 64 5 is_stmt 1 view .LVU69
   64:Core/Src/error_manager.c ****         // Check if this is a new error
- 280              		.loc 1 64 9 is_stmt 0 view .LVU71
- 281 0004 4FF0FF31 		mov	r1, #-1
- 282 0008 0D4B     		ldr	r3, .L31
- 283 000a 1868     		ldr	r0, [r3]
- 284              	.LVL25:
+ 279              		.loc 1 64 9 is_stmt 0 view .LVU70
+ 280 0004 4FF0FF31 		mov	r1, #-1
+ 281 0008 0D4B     		ldr	r3, .L32
+ 282 000a 1868     		ldr	r0, [r3]
+ 283              	.LVL25:
   64:Core/Src/error_manager.c ****         // Check if this is a new error
- 285              		.loc 1 64 9 view .LVU72
- 286 000c FFF7FEFF 		bl	osMutexAcquire
- 287              	.LVL26:
+ 284              		.loc 1 64 9 view .LVU71
+ 285 000c FFF7FEFF 		bl	osMutexAcquire
+ 286              	.LVL26:
   64:Core/Src/error_manager.c ****         // Check if this is a new error
- 288              		.loc 1 64 8 discriminator 1 view .LVU73
- 289 0010 A0B9     		cbnz	r0, .L27
+ 287              		.loc 1 64 8 discriminator 1 view .LVU72
+ 288 0010 90B9     		cbnz	r0, .L27
   66:Core/Src/error_manager.c ****             error_mgr.fault_count++;
- 290              		.loc 1 66 9 is_stmt 1 view .LVU74
+ 289              		.loc 1 66 9 is_stmt 1 view .LVU73
   66:Core/Src/error_manager.c ****             error_mgr.fault_count++;
- 291              		.loc 1 66 24 is_stmt 0 view .LVU75
- 292 0012 0C4B     		ldr	r3, .L31+4
- 293 0014 1B68     		ldr	r3, [r3]
-  66:Core/Src/error_manager.c ****             error_mgr.fault_count++;
- 294              		.loc 1 66 12 view .LVU76
- 295 0016 2342     		tst	r3, r4
- 296 0018 09D1     		bne	.L29
-  67:Core/Src/error_manager.c ****             
- 297              		.loc 1 67 13 is_stmt 1 view .LVU77
-  67:Core/Src/error_manager.c ****             
- 298              		.loc 1 67 22 is_stmt 0 view .LVU78
- 299 001a 0A49     		ldr	r1, .L31+4
- 300 001c 4A7A     		ldrb	r2, [r1, #9]	@ zero_extendqisi2
-  67:Core/Src/error_manager.c ****             
- 301              		.loc 1 67 34 view .LVU79
- 302 001e 0132     		adds	r2, r2, #1
- 303 0020 4A72     		strb	r2, [r1, #9]
-  70:Core/Src/error_manager.c ****                               ERROR_OVER_VOLTAGE | ERROR_SHORT_CIRCUIT)) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 12
+ 290              		.loc 1 66 24 is_stmt 0 view .LVU74
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 11
 
 
- 304              		.loc 1 70 13 is_stmt 1 view .LVU80
+ 291 0012 0C4B     		ldr	r3, .L32+4
+ 292 0014 1B68     		ldr	r3, [r3]
+  66:Core/Src/error_manager.c ****             error_mgr.fault_count++;
+ 293              		.loc 1 66 12 view .LVU75
+ 294 0016 2342     		tst	r3, r4
+ 295 0018 06D1     		bne	.L29
+  67:Core/Src/error_manager.c ****             
+ 296              		.loc 1 67 13 is_stmt 1 view .LVU76
+  67:Core/Src/error_manager.c ****             
+ 297              		.loc 1 67 22 is_stmt 0 view .LVU77
+ 298 001a 0A4A     		ldr	r2, .L32+4
+ 299 001c 137A     		ldrb	r3, [r2, #8]	@ zero_extendqisi2
+  67:Core/Src/error_manager.c ****             
+ 300              		.loc 1 67 34 view .LVU78
+ 301 001e 0133     		adds	r3, r3, #1
+ 302 0020 1372     		strb	r3, [r2, #8]
   70:Core/Src/error_manager.c ****                               ERROR_OVER_VOLTAGE | ERROR_SHORT_CIRCUIT)) {
- 305              		.loc 1 70 16 is_stmt 0 view .LVU81
- 306 0022 094A     		ldr	r2, .L31+8
- 307 0024 1442     		tst	r4, r2
- 308 0026 02D0     		beq	.L29
-  72:Core/Src/error_manager.c ****             }
- 309              		.loc 1 72 17 is_stmt 1 view .LVU82
-  72:Core/Src/error_manager.c ****             }
- 310              		.loc 1 72 33 is_stmt 0 view .LVU83
- 311 0028 0A46     		mov	r2, r1
- 312 002a 0521     		movs	r1, #5
- 313 002c 1172     		strb	r1, [r2, #8]
- 314              	.L29:
+ 303              		.loc 1 70 13 is_stmt 1 view .LVU79
+  70:Core/Src/error_manager.c ****                               ERROR_OVER_VOLTAGE | ERROR_SHORT_CIRCUIT)) {
+ 304              		.loc 1 70 16 is_stmt 0 view .LVU80
+ 305 0022 094B     		ldr	r3, .L32+8
+ 306 0024 1C42     		tst	r4, r3
+ 307 0026 08D1     		bne	.L31
+ 308              	.L29:
   76:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 315              		.loc 1 76 9 is_stmt 1 view .LVU84
+ 309              		.loc 1 76 9 is_stmt 1 view .LVU81
   76:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 316              		.loc 1 76 31 is_stmt 0 view .LVU85
- 317 002e 2343     		orrs	r3, r3, r4
- 318 0030 044A     		ldr	r2, .L31+4
- 319 0032 1360     		str	r3, [r2]
+ 310              		.loc 1 76 18 is_stmt 0 view .LVU82
+ 311 0028 064A     		ldr	r2, .L32+4
+ 312 002a 1368     		ldr	r3, [r2]
+  76:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
+ 313              		.loc 1 76 31 view .LVU83
+ 314 002c 2343     		orrs	r3, r3, r4
+ 315 002e 1360     		str	r3, [r2]
   77:Core/Src/error_manager.c ****     }
- 320              		.loc 1 77 9 is_stmt 1 view .LVU86
- 321 0034 024B     		ldr	r3, .L31
- 322 0036 1868     		ldr	r0, [r3]
- 323 0038 FFF7FEFF 		bl	osMutexRelease
- 324              	.LVL27:
- 325              	.L27:
+ 316              		.loc 1 77 9 is_stmt 1 view .LVU84
+ 317 0030 034B     		ldr	r3, .L32
+ 318 0032 1868     		ldr	r0, [r3]
+ 319 0034 FFF7FEFF 		bl	osMutexRelease
+ 320              	.LVL27:
+ 321              	.L27:
   79:Core/Src/error_manager.c **** 
- 326              		.loc 1 79 1 is_stmt 0 view .LVU87
- 327 003c 10BD     		pop	{r4, pc}
- 328              	.LVL28:
- 329              	.L32:
-  79:Core/Src/error_manager.c **** 
- 330              		.loc 1 79 1 view .LVU88
- 331 003e 00BF     		.align	2
- 332              	.L31:
+ 322              		.loc 1 79 1 is_stmt 0 view .LVU85
+ 323 0038 10BD     		pop	{r4, pc}
+ 324              	.LVL28:
+ 325              	.L31:
+  72:Core/Src/error_manager.c ****             }
+ 326              		.loc 1 72 17 is_stmt 1 view .LVU86
+ 327 003a FFF7FEFF 		bl	StateMachine_EnterFault
+ 328              	.LVL29:
+ 329 003e F3E7     		b	.L29
+ 330              	.L33:
+ 331              		.align	2
+ 332              	.L32:
  333 0040 00000000 		.word	error_mutex
  334 0044 00000000 		.word	error_mgr
  335 0048 01030800 		.word	525057
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 12
+
+
  336              		.cfi_endproc
  337              	.LFE293:
  339              		.section	.text.ErrorMgr_ClearError,"ax",%progbits
@@ -710,1087 +670,874 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 1
  343              		.thumb
  344              		.thumb_func
  346              	ErrorMgr_ClearError:
- 347              	.LVL29:
+ 347              	.LVL30:
  348              	.LFB294:
   87:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 349              		.loc 1 87 1 is_stmt 1 view -0
+ 349              		.loc 1 87 1 view -0
  350              		.cfi_startproc
  351              		@ args = 0, pretend = 0, frame = 0
  352              		@ frame_needed = 0, uses_anonymous_args = 0
   87:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 13
-
-
- 353              		.loc 1 87 1 is_stmt 0 view .LVU90
+ 353              		.loc 1 87 1 is_stmt 0 view .LVU88
  354 0000 10B5     		push	{r4, lr}
  355              		.cfi_def_cfa_offset 8
  356              		.cfi_offset 4, -8
  357              		.cfi_offset 14, -4
  358 0002 0446     		mov	r4, r0
   88:Core/Src/error_manager.c ****         // Check if this error was previously set
- 359              		.loc 1 88 5 is_stmt 1 view .LVU91
+ 359              		.loc 1 88 5 is_stmt 1 view .LVU89
   88:Core/Src/error_manager.c ****         // Check if this error was previously set
- 360              		.loc 1 88 9 is_stmt 0 view .LVU92
+ 360              		.loc 1 88 9 is_stmt 0 view .LVU90
  361 0004 4FF0FF31 		mov	r1, #-1
- 362 0008 1A4B     		ldr	r3, .L45
+ 362 0008 184B     		ldr	r3, .L46
  363 000a 1868     		ldr	r0, [r3]
- 364              	.LVL30:
+ 364              	.LVL31:
   88:Core/Src/error_manager.c ****         // Check if this error was previously set
- 365              		.loc 1 88 9 view .LVU93
+ 365              		.loc 1 88 9 view .LVU91
  366 000c FFF7FEFF 		bl	osMutexAcquire
- 367              	.LVL31:
+ 367              	.LVL32:
   88:Core/Src/error_manager.c ****         // Check if this error was previously set
- 368              		.loc 1 88 8 discriminator 1 view .LVU94
- 369 0010 80B9     		cbnz	r0, .L33
+ 368              		.loc 1 88 8 discriminator 1 view .LVU92
+ 369 0010 68B9     		cbnz	r0, .L34
   90:Core/Src/error_manager.c ****             // Count how many bits are being cleared
- 370              		.loc 1 90 9 is_stmt 1 view .LVU95
+ 370              		.loc 1 90 9 is_stmt 1 view .LVU93
   90:Core/Src/error_manager.c ****             // Count how many bits are being cleared
- 371              		.loc 1 90 22 is_stmt 0 view .LVU96
- 372 0012 194B     		ldr	r3, .L45+4
+ 371              		.loc 1 90 22 is_stmt 0 view .LVU94
+ 372 0012 174B     		ldr	r3, .L46+4
  373 0014 1868     		ldr	r0, [r3]
   90:Core/Src/error_manager.c ****             // Count how many bits are being cleared
- 374              		.loc 1 90 12 view .LVU97
+ 374              		.loc 1 90 12 view .LVU95
  375 0016 10EA040C 		ands	ip, r0, r4
- 376 001a 18D1     		bne	.L41
- 377              	.L36:
+ 376 001a 15D1     		bne	.L42
+ 377              	.L37:
  108:Core/Src/error_manager.c ****         
- 378              		.loc 1 108 9 is_stmt 1 view .LVU98
+ 378              		.loc 1 108 9 is_stmt 1 view .LVU96
  108:Core/Src/error_manager.c ****         
- 379              		.loc 1 108 31 is_stmt 0 view .LVU99
+ 379              		.loc 1 108 31 is_stmt 0 view .LVU97
  380 001c 20EA0400 		bic	r0, r0, r4
- 381 0020 154B     		ldr	r3, .L45+4
+ 381 0020 134B     		ldr	r3, .L46+4
  382 0022 1860     		str	r0, [r3]
- 111:Core/Src/error_manager.c ****             error_mgr.state = BMS_STATE_IDLE;
- 383              		.loc 1 111 9 is_stmt 1 view .LVU100
- 111:Core/Src/error_manager.c ****             error_mgr.state = BMS_STATE_IDLE;
- 384              		.loc 1 111 12 is_stmt 0 view .LVU101
- 385 0024 10B9     		cbnz	r0, .L40
- 111:Core/Src/error_manager.c ****             error_mgr.state = BMS_STATE_IDLE;
- 386              		.loc 1 111 52 discriminator 1 view .LVU102
- 387 0026 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
- 111:Core/Src/error_manager.c ****             error_mgr.state = BMS_STATE_IDLE;
- 388              		.loc 1 111 40 discriminator 1 view .LVU103
- 389 0028 052B     		cmp	r3, #5
- 390 002a 1FD0     		beq	.L43
- 391              	.L40:
+ 111:Core/Src/error_manager.c ****             StateMachine_ExitFault();
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 13
+
+
+ 383              		.loc 1 111 9 is_stmt 1 view .LVU98
+ 111:Core/Src/error_manager.c ****             StateMachine_ExitFault();
+ 384              		.loc 1 111 12 is_stmt 0 view .LVU99
+ 385 0024 F8B1     		cbz	r0, .L44
+ 386              	.L41:
  115:Core/Src/error_manager.c ****     }
- 392              		.loc 1 115 9 is_stmt 1 view .LVU104
- 393 002c 114B     		ldr	r3, .L45
- 394 002e 1868     		ldr	r0, [r3]
- 395 0030 FFF7FEFF 		bl	osMutexRelease
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 14
-
-
- 396              	.LVL32:
- 397              	.L33:
+ 387              		.loc 1 115 9 is_stmt 1 view .LVU100
+ 388 0026 114B     		ldr	r3, .L46
+ 389 0028 1868     		ldr	r0, [r3]
+ 390 002a FFF7FEFF 		bl	osMutexRelease
+ 391              	.LVL33:
+ 392              	.L34:
  117:Core/Src/error_manager.c **** 
- 398              		.loc 1 117 1 is_stmt 0 view .LVU105
- 399 0034 10BD     		pop	{r4, pc}
- 400              	.LVL33:
- 401              	.L37:
- 402              	.LBB9:
- 403              	.LBB10:
+ 393              		.loc 1 117 1 is_stmt 0 view .LVU101
+ 394 002e 10BD     		pop	{r4, pc}
+ 395              	.LVL34:
+ 396              	.L38:
+ 397              	.LBB9:
+ 398              	.LBB10:
   94:Core/Src/error_manager.c ****                 if (cleared_bits & (1 << bit)) {
- 404              		.loc 1 94 48 is_stmt 1 discriminator 2 view .LVU106
- 405 0036 0133     		adds	r3, r3, #1
- 406              	.LVL34:
+ 399              		.loc 1 94 48 is_stmt 1 discriminator 2 view .LVU102
+ 400 0030 0133     		adds	r3, r3, #1
+ 401              	.LVL35:
   94:Core/Src/error_manager.c ****                 if (cleared_bits & (1 << bit)) {
- 407              		.loc 1 94 48 is_stmt 0 discriminator 2 view .LVU107
- 408 0038 DBB2     		uxtb	r3, r3
- 409              	.LVL35:
- 410              	.L35:
+ 402              		.loc 1 94 48 is_stmt 0 discriminator 2 view .LVU103
+ 403 0032 DBB2     		uxtb	r3, r3
+ 404              	.LVL36:
+ 405              	.L36:
   94:Core/Src/error_manager.c ****                 if (cleared_bits & (1 << bit)) {
- 411              		.loc 1 94 39 is_stmt 1 discriminator 1 view .LVU108
- 412 003a 1F2B     		cmp	r3, #31
- 413 003c 0AD8     		bhi	.L44
+ 406              		.loc 1 94 39 is_stmt 1 discriminator 1 view .LVU104
+ 407 0034 1F2B     		cmp	r3, #31
+ 408 0036 0AD8     		bhi	.L45
   95:Core/Src/error_manager.c ****                     cleared_count++;
- 414              		.loc 1 95 17 view .LVU109
+ 409              		.loc 1 95 17 view .LVU105
   95:Core/Src/error_manager.c ****                     cleared_count++;
- 415              		.loc 1 95 39 is_stmt 0 view .LVU110
- 416 003e 0122     		movs	r2, #1
- 417 0040 9A40     		lsls	r2, r2, r3
+ 410              		.loc 1 95 39 is_stmt 0 view .LVU106
+ 411 0038 0122     		movs	r2, #1
+ 412 003a 9A40     		lsls	r2, r2, r3
   95:Core/Src/error_manager.c ****                     cleared_count++;
- 418              		.loc 1 95 20 view .LVU111
- 419 0042 1CEA020F 		tst	ip, r2
- 420 0046 F6D0     		beq	.L37
+ 413              		.loc 1 95 20 view .LVU107
+ 414 003c 1CEA020F 		tst	ip, r2
+ 415 0040 F6D0     		beq	.L38
   96:Core/Src/error_manager.c ****                 }
- 421              		.loc 1 96 21 is_stmt 1 view .LVU112
+ 416              		.loc 1 96 21 is_stmt 1 view .LVU108
   96:Core/Src/error_manager.c ****                 }
- 422              		.loc 1 96 34 is_stmt 0 view .LVU113
- 423 0048 0131     		adds	r1, r1, #1
- 424              	.LVL36:
+ 417              		.loc 1 96 34 is_stmt 0 view .LVU109
+ 418 0042 0131     		adds	r1, r1, #1
+ 419              	.LVL37:
   96:Core/Src/error_manager.c ****                 }
- 425              		.loc 1 96 34 view .LVU114
- 426 004a C9B2     		uxtb	r1, r1
- 427              	.LVL37:
+ 420              		.loc 1 96 34 view .LVU110
+ 421 0044 C9B2     		uxtb	r1, r1
+ 422              	.LVL38:
   96:Core/Src/error_manager.c ****                 }
- 428              		.loc 1 96 34 view .LVU115
- 429 004c F3E7     		b	.L37
- 430              	.LVL38:
- 431              	.L41:
+ 423              		.loc 1 96 34 view .LVU111
+ 424 0046 F3E7     		b	.L38
+ 425              	.LVL39:
+ 426              	.L42:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 14
+
+
   94:Core/Src/error_manager.c ****                 if (cleared_bits & (1 << bit)) {
- 432              		.loc 1 94 26 view .LVU116
- 433 004e 0023     		movs	r3, #0
- 434              	.LBE10:
+ 427              		.loc 1 94 26 view .LVU112
+ 428 0048 0023     		movs	r3, #0
+ 429              	.LBE10:
   93:Core/Src/error_manager.c ****             for (uint8_t bit = 0; bit < 32; bit++) {
- 435              		.loc 1 93 21 view .LVU117
- 436 0050 1946     		mov	r1, r3
- 437 0052 F2E7     		b	.L35
- 438              	.LVL39:
- 439              	.L44:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 15
-
-
+ 430              		.loc 1 93 21 view .LVU113
+ 431 004a 1946     		mov	r1, r3
+ 432 004c F2E7     		b	.L36
+ 433              	.LVL40:
+ 434              	.L45:
  101:Core/Src/error_manager.c ****                 error_mgr.fault_count -= cleared_count;
- 440              		.loc 1 101 13 is_stmt 1 view .LVU118
+ 435              		.loc 1 101 13 is_stmt 1 view .LVU114
  101:Core/Src/error_manager.c ****                 error_mgr.fault_count -= cleared_count;
- 441              		.loc 1 101 26 is_stmt 0 view .LVU119
- 442 0054 084B     		ldr	r3, .L45+4
- 443              	.LVL40:
+ 436              		.loc 1 101 26 is_stmt 0 view .LVU115
+ 437 004e 084B     		ldr	r3, .L46+4
+ 438              	.LVL41:
  101:Core/Src/error_manager.c ****                 error_mgr.fault_count -= cleared_count;
- 444              		.loc 1 101 26 view .LVU120
- 445 0056 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 439              		.loc 1 101 26 view .LVU116
+ 440 0050 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
  101:Core/Src/error_manager.c ****                 error_mgr.fault_count -= cleared_count;
- 446              		.loc 1 101 16 view .LVU121
- 447 0058 8B42     		cmp	r3, r1
- 448 005a 03D3     		bcc	.L39
+ 441              		.loc 1 101 16 view .LVU117
+ 442 0052 8B42     		cmp	r3, r1
+ 443 0054 03D3     		bcc	.L40
  102:Core/Src/error_manager.c ****             } else {
- 449              		.loc 1 102 17 is_stmt 1 view .LVU122
+ 444              		.loc 1 102 17 is_stmt 1 view .LVU118
  102:Core/Src/error_manager.c ****             } else {
- 450              		.loc 1 102 39 is_stmt 0 view .LVU123
- 451 005c 5B1A     		subs	r3, r3, r1
- 452 005e 064A     		ldr	r2, .L45+4
- 453 0060 5372     		strb	r3, [r2, #9]
- 454 0062 DBE7     		b	.L36
- 455              	.L39:
+ 445              		.loc 1 102 39 is_stmt 0 view .LVU119
+ 446 0056 5B1A     		subs	r3, r3, r1
+ 447 0058 054A     		ldr	r2, .L46+4
+ 448 005a 1372     		strb	r3, [r2, #8]
+ 449 005c DEE7     		b	.L37
+ 450              	.L40:
  104:Core/Src/error_manager.c ****             }
- 456              		.loc 1 104 17 is_stmt 1 view .LVU124
+ 451              		.loc 1 104 17 is_stmt 1 view .LVU120
  104:Core/Src/error_manager.c ****             }
- 457              		.loc 1 104 39 is_stmt 0 view .LVU125
- 458 0064 044B     		ldr	r3, .L45+4
- 459 0066 0022     		movs	r2, #0
- 460 0068 5A72     		strb	r2, [r3, #9]
- 461 006a D7E7     		b	.L36
- 462              	.LVL41:
- 463              	.L43:
+ 452              		.loc 1 104 39 is_stmt 0 view .LVU121
+ 453 005e 044B     		ldr	r3, .L46+4
+ 454 0060 0022     		movs	r2, #0
+ 455 0062 1A72     		strb	r2, [r3, #8]
+ 456 0064 DAE7     		b	.L37
+ 457              	.LVL42:
+ 458              	.L44:
  104:Core/Src/error_manager.c ****             }
- 464              		.loc 1 104 39 view .LVU126
- 465              	.LBE9:
+ 459              		.loc 1 104 39 view .LVU122
+ 460              	.LBE9:
  112:Core/Src/error_manager.c ****         }
- 466              		.loc 1 112 13 is_stmt 1 view .LVU127
- 112:Core/Src/error_manager.c ****         }
- 467              		.loc 1 112 29 is_stmt 0 view .LVU128
- 468 006c 024B     		ldr	r3, .L45+4
- 469 006e 0122     		movs	r2, #1
- 470 0070 1A72     		strb	r2, [r3, #8]
- 471 0072 DBE7     		b	.L40
- 472              	.L46:
- 473              		.align	2
- 474              	.L45:
- 475 0074 00000000 		.word	error_mutex
- 476 0078 00000000 		.word	error_mgr
- 477              		.cfi_endproc
- 478              	.LFE294:
- 480              		.section	.text.ErrorMgr_SetWarning,"ax",%progbits
- 481              		.align	1
- 482              		.global	ErrorMgr_SetWarning
- 483              		.syntax unified
- 484              		.thumb
- 485              		.thumb_func
- 487              	ErrorMgr_SetWarning:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 16
+ 461              		.loc 1 112 13 is_stmt 1 view .LVU123
+ 462 0066 FFF7FEFF 		bl	StateMachine_ExitFault
+ 463              	.LVL43:
+ 464 006a DCE7     		b	.L41
+ 465              	.L47:
+ 466              		.align	2
+ 467              	.L46:
+ 468 006c 00000000 		.word	error_mutex
+ 469 0070 00000000 		.word	error_mgr
+ 470              		.cfi_endproc
+ 471              	.LFE294:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 15
 
 
- 488              	.LVL42:
- 489              	.LFB295:
+ 473              		.section	.text.ErrorMgr_SetWarning,"ax",%progbits
+ 474              		.align	1
+ 475              		.global	ErrorMgr_SetWarning
+ 476              		.syntax unified
+ 477              		.thumb
+ 478              		.thumb_func
+ 480              	ErrorMgr_SetWarning:
+ 481              	.LVL44:
+ 482              	.LFB295:
  125:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 490              		.loc 1 125 1 is_stmt 1 view -0
- 491              		.cfi_startproc
- 492              		@ args = 0, pretend = 0, frame = 0
- 493              		@ frame_needed = 0, uses_anonymous_args = 0
+ 483              		.loc 1 125 1 view -0
+ 484              		.cfi_startproc
+ 485              		@ args = 0, pretend = 0, frame = 0
+ 486              		@ frame_needed = 0, uses_anonymous_args = 0
  125:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 494              		.loc 1 125 1 is_stmt 0 view .LVU130
- 495 0000 10B5     		push	{r4, lr}
- 496              		.cfi_def_cfa_offset 8
- 497              		.cfi_offset 4, -8
- 498              		.cfi_offset 14, -4
- 499 0002 0446     		mov	r4, r0
+ 487              		.loc 1 125 1 is_stmt 0 view .LVU125
+ 488 0000 10B5     		push	{r4, lr}
+ 489              		.cfi_def_cfa_offset 8
+ 490              		.cfi_offset 4, -8
+ 491              		.cfi_offset 14, -4
+ 492 0002 0446     		mov	r4, r0
  126:Core/Src/error_manager.c ****         error_mgr.warning_flags |= warning_flag;
- 500              		.loc 1 126 5 is_stmt 1 view .LVU131
+ 493              		.loc 1 126 5 is_stmt 1 view .LVU126
  126:Core/Src/error_manager.c ****         error_mgr.warning_flags |= warning_flag;
- 501              		.loc 1 126 9 is_stmt 0 view .LVU132
- 502 0004 4FF0FF31 		mov	r1, #-1
- 503 0008 074B     		ldr	r3, .L51
- 504 000a 1868     		ldr	r0, [r3]
- 505              	.LVL43:
+ 494              		.loc 1 126 9 is_stmt 0 view .LVU127
+ 495 0004 4FF0FF31 		mov	r1, #-1
+ 496 0008 074B     		ldr	r3, .L52
+ 497 000a 1868     		ldr	r0, [r3]
+ 498              	.LVL45:
  126:Core/Src/error_manager.c ****         error_mgr.warning_flags |= warning_flag;
- 506              		.loc 1 126 9 view .LVU133
- 507 000c FFF7FEFF 		bl	osMutexAcquire
- 508              	.LVL44:
+ 499              		.loc 1 126 9 view .LVU128
+ 500 000c FFF7FEFF 		bl	osMutexAcquire
+ 501              	.LVL46:
  126:Core/Src/error_manager.c ****         error_mgr.warning_flags |= warning_flag;
- 509              		.loc 1 126 8 discriminator 1 view .LVU134
- 510 0010 00B1     		cbz	r0, .L50
- 511              	.L47:
+ 502              		.loc 1 126 8 discriminator 1 view .LVU129
+ 503 0010 00B1     		cbz	r0, .L51
+ 504              	.L48:
  130:Core/Src/error_manager.c **** 
- 512              		.loc 1 130 1 view .LVU135
- 513 0012 10BD     		pop	{r4, pc}
- 514              	.LVL45:
- 515              	.L50:
+ 505              		.loc 1 130 1 view .LVU130
+ 506 0012 10BD     		pop	{r4, pc}
+ 507              	.LVL47:
+ 508              	.L51:
  127:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 516              		.loc 1 127 9 is_stmt 1 view .LVU136
+ 509              		.loc 1 127 9 is_stmt 1 view .LVU131
  127:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 517              		.loc 1 127 18 is_stmt 0 view .LVU137
- 518 0014 054A     		ldr	r2, .L51+4
- 519 0016 5368     		ldr	r3, [r2, #4]
+ 510              		.loc 1 127 18 is_stmt 0 view .LVU132
+ 511 0014 054A     		ldr	r2, .L52+4
+ 512 0016 5368     		ldr	r3, [r2, #4]
  127:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 520              		.loc 1 127 33 view .LVU138
- 521 0018 2343     		orrs	r3, r3, r4
- 522 001a 5360     		str	r3, [r2, #4]
+ 513              		.loc 1 127 33 view .LVU133
+ 514 0018 2343     		orrs	r3, r3, r4
+ 515 001a 5360     		str	r3, [r2, #4]
  128:Core/Src/error_manager.c ****     }
- 523              		.loc 1 128 9 is_stmt 1 view .LVU139
- 524 001c 024B     		ldr	r3, .L51
- 525 001e 1868     		ldr	r0, [r3]
- 526 0020 FFF7FEFF 		bl	osMutexRelease
- 527              	.LVL46:
+ 516              		.loc 1 128 9 is_stmt 1 view .LVU134
+ 517 001c 024B     		ldr	r3, .L52
+ 518 001e 1868     		ldr	r0, [r3]
+ 519 0020 FFF7FEFF 		bl	osMutexRelease
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 16
+
+
+ 520              	.LVL48:
  130:Core/Src/error_manager.c **** 
- 528              		.loc 1 130 1 is_stmt 0 view .LVU140
- 529 0024 F5E7     		b	.L47
- 530              	.L52:
- 531 0026 00BF     		.align	2
- 532              	.L51:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 17
-
-
- 533 0028 00000000 		.word	error_mutex
- 534 002c 00000000 		.word	error_mgr
- 535              		.cfi_endproc
- 536              	.LFE295:
- 538              		.section	.text.ErrorMgr_ClearWarning,"ax",%progbits
- 539              		.align	1
- 540              		.global	ErrorMgr_ClearWarning
- 541              		.syntax unified
- 542              		.thumb
- 543              		.thumb_func
- 545              	ErrorMgr_ClearWarning:
- 546              	.LVL47:
- 547              	.LFB296:
+ 521              		.loc 1 130 1 is_stmt 0 view .LVU135
+ 522 0024 F5E7     		b	.L48
+ 523              	.L53:
+ 524 0026 00BF     		.align	2
+ 525              	.L52:
+ 526 0028 00000000 		.word	error_mutex
+ 527 002c 00000000 		.word	error_mgr
+ 528              		.cfi_endproc
+ 529              	.LFE295:
+ 531              		.section	.text.ErrorMgr_ClearWarning,"ax",%progbits
+ 532              		.align	1
+ 533              		.global	ErrorMgr_ClearWarning
+ 534              		.syntax unified
+ 535              		.thumb
+ 536              		.thumb_func
+ 538              	ErrorMgr_ClearWarning:
+ 539              	.LVL49:
+ 540              	.LFB296:
  138:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 548              		.loc 1 138 1 is_stmt 1 view -0
- 549              		.cfi_startproc
- 550              		@ args = 0, pretend = 0, frame = 0
- 551              		@ frame_needed = 0, uses_anonymous_args = 0
+ 541              		.loc 1 138 1 is_stmt 1 view -0
+ 542              		.cfi_startproc
+ 543              		@ args = 0, pretend = 0, frame = 0
+ 544              		@ frame_needed = 0, uses_anonymous_args = 0
  138:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 552              		.loc 1 138 1 is_stmt 0 view .LVU142
- 553 0000 10B5     		push	{r4, lr}
- 554              		.cfi_def_cfa_offset 8
- 555              		.cfi_offset 4, -8
- 556              		.cfi_offset 14, -4
- 557 0002 0446     		mov	r4, r0
+ 545              		.loc 1 138 1 is_stmt 0 view .LVU137
+ 546 0000 10B5     		push	{r4, lr}
+ 547              		.cfi_def_cfa_offset 8
+ 548              		.cfi_offset 4, -8
+ 549              		.cfi_offset 14, -4
+ 550 0002 0446     		mov	r4, r0
  139:Core/Src/error_manager.c ****         error_mgr.warning_flags &= ~warning_flag;
- 558              		.loc 1 139 5 is_stmt 1 view .LVU143
+ 551              		.loc 1 139 5 is_stmt 1 view .LVU138
  139:Core/Src/error_manager.c ****         error_mgr.warning_flags &= ~warning_flag;
- 559              		.loc 1 139 9 is_stmt 0 view .LVU144
- 560 0004 4FF0FF31 		mov	r1, #-1
- 561 0008 074B     		ldr	r3, .L57
- 562 000a 1868     		ldr	r0, [r3]
- 563              	.LVL48:
+ 552              		.loc 1 139 9 is_stmt 0 view .LVU139
+ 553 0004 4FF0FF31 		mov	r1, #-1
+ 554 0008 074B     		ldr	r3, .L58
+ 555 000a 1868     		ldr	r0, [r3]
+ 556              	.LVL50:
  139:Core/Src/error_manager.c ****         error_mgr.warning_flags &= ~warning_flag;
- 564              		.loc 1 139 9 view .LVU145
- 565 000c FFF7FEFF 		bl	osMutexAcquire
- 566              	.LVL49:
+ 557              		.loc 1 139 9 view .LVU140
+ 558 000c FFF7FEFF 		bl	osMutexAcquire
+ 559              	.LVL51:
  139:Core/Src/error_manager.c ****         error_mgr.warning_flags &= ~warning_flag;
- 567              		.loc 1 139 8 discriminator 1 view .LVU146
- 568 0010 00B1     		cbz	r0, .L56
- 569              	.L53:
+ 560              		.loc 1 139 8 discriminator 1 view .LVU141
+ 561 0010 00B1     		cbz	r0, .L57
+ 562              	.L54:
  143:Core/Src/error_manager.c **** 
- 570              		.loc 1 143 1 view .LVU147
- 571 0012 10BD     		pop	{r4, pc}
- 572              	.LVL50:
- 573              	.L56:
+ 563              		.loc 1 143 1 view .LVU142
+ 564 0012 10BD     		pop	{r4, pc}
+ 565              	.LVL52:
+ 566              	.L57:
  140:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 574              		.loc 1 140 9 is_stmt 1 view .LVU148
+ 567              		.loc 1 140 9 is_stmt 1 view .LVU143
  140:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 575              		.loc 1 140 18 is_stmt 0 view .LVU149
- 576 0014 054A     		ldr	r2, .L57+4
- 577 0016 5368     		ldr	r3, [r2, #4]
+ 568              		.loc 1 140 18 is_stmt 0 view .LVU144
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 17
+
+
+ 569 0014 054A     		ldr	r2, .L58+4
+ 570 0016 5368     		ldr	r3, [r2, #4]
  140:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 578              		.loc 1 140 33 view .LVU150
- 579 0018 23EA0403 		bic	r3, r3, r4
- 580 001c 5360     		str	r3, [r2, #4]
+ 571              		.loc 1 140 33 view .LVU145
+ 572 0018 23EA0403 		bic	r3, r3, r4
+ 573 001c 5360     		str	r3, [r2, #4]
  141:Core/Src/error_manager.c ****     }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 18
-
-
- 581              		.loc 1 141 9 is_stmt 1 view .LVU151
- 582 001e 024B     		ldr	r3, .L57
- 583 0020 1868     		ldr	r0, [r3]
- 584 0022 FFF7FEFF 		bl	osMutexRelease
- 585              	.LVL51:
+ 574              		.loc 1 141 9 is_stmt 1 view .LVU146
+ 575 001e 024B     		ldr	r3, .L58
+ 576 0020 1868     		ldr	r0, [r3]
+ 577 0022 FFF7FEFF 		bl	osMutexRelease
+ 578              	.LVL53:
  143:Core/Src/error_manager.c **** 
- 586              		.loc 1 143 1 is_stmt 0 view .LVU152
- 587 0026 F4E7     		b	.L53
- 588              	.L58:
- 589              		.align	2
- 590              	.L57:
- 591 0028 00000000 		.word	error_mutex
- 592 002c 00000000 		.word	error_mgr
- 593              		.cfi_endproc
- 594              	.LFE296:
- 596              		.section	.text.ErrorMgr_GetErrors,"ax",%progbits
- 597              		.align	1
- 598              		.global	ErrorMgr_GetErrors
- 599              		.syntax unified
- 600              		.thumb
- 601              		.thumb_func
- 603              	ErrorMgr_GetErrors:
- 604              	.LFB297:
+ 579              		.loc 1 143 1 is_stmt 0 view .LVU147
+ 580 0026 F4E7     		b	.L54
+ 581              	.L59:
+ 582              		.align	2
+ 583              	.L58:
+ 584 0028 00000000 		.word	error_mutex
+ 585 002c 00000000 		.word	error_mgr
+ 586              		.cfi_endproc
+ 587              	.LFE296:
+ 589              		.section	.text.ErrorMgr_GetErrors,"ax",%progbits
+ 590              		.align	1
+ 591              		.global	ErrorMgr_GetErrors
+ 592              		.syntax unified
+ 593              		.thumb
+ 594              		.thumb_func
+ 596              	ErrorMgr_GetErrors:
+ 597              	.LFB297:
  150:Core/Src/error_manager.c ****     uint32_t errors = 0;
- 605              		.loc 1 150 1 is_stmt 1 view -0
- 606              		.cfi_startproc
- 607              		@ args = 0, pretend = 0, frame = 0
- 608              		@ frame_needed = 0, uses_anonymous_args = 0
- 609 0000 10B5     		push	{r4, lr}
- 610              		.cfi_def_cfa_offset 8
- 611              		.cfi_offset 4, -8
- 612              		.cfi_offset 14, -4
+ 598              		.loc 1 150 1 is_stmt 1 view -0
+ 599              		.cfi_startproc
+ 600              		@ args = 0, pretend = 0, frame = 0
+ 601              		@ frame_needed = 0, uses_anonymous_args = 0
+ 602 0000 10B5     		push	{r4, lr}
+ 603              		.cfi_def_cfa_offset 8
+ 604              		.cfi_offset 4, -8
+ 605              		.cfi_offset 14, -4
  151:Core/Src/error_manager.c ****     
- 613              		.loc 1 151 5 view .LVU154
- 614              	.LVL52:
+ 606              		.loc 1 151 5 view .LVU149
+ 607              	.LVL54:
  153:Core/Src/error_manager.c ****         errors = error_mgr.error_flags;
- 615              		.loc 1 153 5 view .LVU155
+ 608              		.loc 1 153 5 view .LVU150
  153:Core/Src/error_manager.c ****         errors = error_mgr.error_flags;
- 616              		.loc 1 153 9 is_stmt 0 view .LVU156
- 617 0002 4FF0FF31 		mov	r1, #-1
- 618 0006 074B     		ldr	r3, .L64
- 619 0008 1868     		ldr	r0, [r3]
- 620 000a FFF7FEFF 		bl	osMutexAcquire
- 621              	.LVL53:
+ 609              		.loc 1 153 9 is_stmt 0 view .LVU151
+ 610 0002 4FF0FF31 		mov	r1, #-1
+ 611 0006 074B     		ldr	r3, .L65
+ 612 0008 1868     		ldr	r0, [r3]
+ 613 000a FFF7FEFF 		bl	osMutexAcquire
+ 614              	.LVL55:
  153:Core/Src/error_manager.c ****         errors = error_mgr.error_flags;
- 622              		.loc 1 153 8 discriminator 1 view .LVU157
- 623 000e 10B1     		cbz	r0, .L63
+ 615              		.loc 1 153 8 discriminator 1 view .LVU152
+ 616 000e 10B1     		cbz	r0, .L64
  151:Core/Src/error_manager.c ****     
- 624              		.loc 1 151 14 view .LVU158
- 625 0010 0024     		movs	r4, #0
+ 617              		.loc 1 151 14 view .LVU153
+ 618 0010 0024     		movs	r4, #0
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 18
+
+
  158:Core/Src/error_manager.c **** }
- 626              		.loc 1 158 5 is_stmt 1 view .LVU159
- 627              	.LVL54:
- 628              	.L59:
+ 619              		.loc 1 158 5 is_stmt 1 view .LVU154
+ 620              	.LVL56:
+ 621              	.L60:
  159:Core/Src/error_manager.c **** 
- 629              		.loc 1 159 1 is_stmt 0 view .LVU160
- 630 0012 2046     		mov	r0, r4
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 19
-
-
- 631 0014 10BD     		pop	{r4, pc}
- 632              	.LVL55:
- 633              	.L63:
+ 622              		.loc 1 159 1 is_stmt 0 view .LVU155
+ 623 0012 2046     		mov	r0, r4
+ 624 0014 10BD     		pop	{r4, pc}
+ 625              	.LVL57:
+ 626              	.L64:
  154:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 634              		.loc 1 154 9 is_stmt 1 view .LVU161
+ 627              		.loc 1 154 9 is_stmt 1 view .LVU156
  154:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 635              		.loc 1 154 16 is_stmt 0 view .LVU162
- 636 0016 044B     		ldr	r3, .L64+4
- 637 0018 1C68     		ldr	r4, [r3]
- 638              	.LVL56:
+ 628              		.loc 1 154 16 is_stmt 0 view .LVU157
+ 629 0016 044B     		ldr	r3, .L65+4
+ 630 0018 1C68     		ldr	r4, [r3]
+ 631              	.LVL58:
  155:Core/Src/error_manager.c ****     }
- 639              		.loc 1 155 9 is_stmt 1 view .LVU163
- 640 001a 024B     		ldr	r3, .L64
- 641 001c 1868     		ldr	r0, [r3]
- 642 001e FFF7FEFF 		bl	osMutexRelease
- 643              	.LVL57:
- 644 0022 F6E7     		b	.L59
- 645              	.L65:
- 646              		.align	2
- 647              	.L64:
- 648 0024 00000000 		.word	error_mutex
- 649 0028 00000000 		.word	error_mgr
- 650              		.cfi_endproc
- 651              	.LFE297:
- 653              		.section	.text.ErrorMgr_GetWarnings,"ax",%progbits
- 654              		.align	1
- 655              		.global	ErrorMgr_GetWarnings
- 656              		.syntax unified
- 657              		.thumb
- 658              		.thumb_func
- 660              	ErrorMgr_GetWarnings:
- 661              	.LFB298:
+ 632              		.loc 1 155 9 is_stmt 1 view .LVU158
+ 633 001a 024B     		ldr	r3, .L65
+ 634 001c 1868     		ldr	r0, [r3]
+ 635 001e FFF7FEFF 		bl	osMutexRelease
+ 636              	.LVL59:
+ 637 0022 F6E7     		b	.L60
+ 638              	.L66:
+ 639              		.align	2
+ 640              	.L65:
+ 641 0024 00000000 		.word	error_mutex
+ 642 0028 00000000 		.word	error_mgr
+ 643              		.cfi_endproc
+ 644              	.LFE297:
+ 646              		.section	.text.ErrorMgr_GetWarnings,"ax",%progbits
+ 647              		.align	1
+ 648              		.global	ErrorMgr_GetWarnings
+ 649              		.syntax unified
+ 650              		.thumb
+ 651              		.thumb_func
+ 653              	ErrorMgr_GetWarnings:
+ 654              	.LFB298:
  166:Core/Src/error_manager.c ****     uint32_t warnings = 0;
- 662              		.loc 1 166 1 view -0
- 663              		.cfi_startproc
- 664              		@ args = 0, pretend = 0, frame = 0
- 665              		@ frame_needed = 0, uses_anonymous_args = 0
- 666 0000 10B5     		push	{r4, lr}
- 667              		.cfi_def_cfa_offset 8
- 668              		.cfi_offset 4, -8
- 669              		.cfi_offset 14, -4
+ 655              		.loc 1 166 1 view -0
+ 656              		.cfi_startproc
+ 657              		@ args = 0, pretend = 0, frame = 0
+ 658              		@ frame_needed = 0, uses_anonymous_args = 0
+ 659 0000 10B5     		push	{r4, lr}
+ 660              		.cfi_def_cfa_offset 8
+ 661              		.cfi_offset 4, -8
+ 662              		.cfi_offset 14, -4
  167:Core/Src/error_manager.c ****     
- 670              		.loc 1 167 5 view .LVU165
- 671              	.LVL58:
+ 663              		.loc 1 167 5 view .LVU160
+ 664              	.LVL60:
  169:Core/Src/error_manager.c ****         warnings = error_mgr.warning_flags;
- 672              		.loc 1 169 5 view .LVU166
+ 665              		.loc 1 169 5 view .LVU161
  169:Core/Src/error_manager.c ****         warnings = error_mgr.warning_flags;
- 673              		.loc 1 169 9 is_stmt 0 view .LVU167
- 674 0002 4FF0FF31 		mov	r1, #-1
- 675 0006 074B     		ldr	r3, .L71
- 676 0008 1868     		ldr	r0, [r3]
- 677 000a FFF7FEFF 		bl	osMutexAcquire
- 678              	.LVL59:
- 169:Core/Src/error_manager.c ****         warnings = error_mgr.warning_flags;
- 679              		.loc 1 169 8 discriminator 1 view .LVU168
- 680 000e 10B1     		cbz	r0, .L70
- 167:Core/Src/error_manager.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 20
+ 666              		.loc 1 169 9 is_stmt 0 view .LVU162
+ 667 0002 4FF0FF31 		mov	r1, #-1
+ 668 0006 074B     		ldr	r3, .L72
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 19
 
 
- 681              		.loc 1 167 14 view .LVU169
- 682 0010 0024     		movs	r4, #0
+ 669 0008 1868     		ldr	r0, [r3]
+ 670 000a FFF7FEFF 		bl	osMutexAcquire
+ 671              	.LVL61:
+ 169:Core/Src/error_manager.c ****         warnings = error_mgr.warning_flags;
+ 672              		.loc 1 169 8 discriminator 1 view .LVU163
+ 673 000e 10B1     		cbz	r0, .L71
+ 167:Core/Src/error_manager.c ****     
+ 674              		.loc 1 167 14 view .LVU164
+ 675 0010 0024     		movs	r4, #0
  174:Core/Src/error_manager.c **** }
- 683              		.loc 1 174 5 is_stmt 1 view .LVU170
- 684              	.LVL60:
- 685              	.L66:
+ 676              		.loc 1 174 5 is_stmt 1 view .LVU165
+ 677              	.LVL62:
+ 678              	.L67:
  175:Core/Src/error_manager.c **** 
- 686              		.loc 1 175 1 is_stmt 0 view .LVU171
- 687 0012 2046     		mov	r0, r4
- 688 0014 10BD     		pop	{r4, pc}
- 689              	.LVL61:
- 690              	.L70:
+ 679              		.loc 1 175 1 is_stmt 0 view .LVU166
+ 680 0012 2046     		mov	r0, r4
+ 681 0014 10BD     		pop	{r4, pc}
+ 682              	.LVL63:
+ 683              	.L71:
  170:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 691              		.loc 1 170 9 is_stmt 1 view .LVU172
+ 684              		.loc 1 170 9 is_stmt 1 view .LVU167
  170:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 692              		.loc 1 170 18 is_stmt 0 view .LVU173
- 693 0016 044B     		ldr	r3, .L71+4
- 694 0018 5C68     		ldr	r4, [r3, #4]
- 695              	.LVL62:
+ 685              		.loc 1 170 18 is_stmt 0 view .LVU168
+ 686 0016 044B     		ldr	r3, .L72+4
+ 687 0018 5C68     		ldr	r4, [r3, #4]
+ 688              	.LVL64:
  171:Core/Src/error_manager.c ****     }
- 696              		.loc 1 171 9 is_stmt 1 view .LVU174
- 697 001a 024B     		ldr	r3, .L71
- 698 001c 1868     		ldr	r0, [r3]
- 699 001e FFF7FEFF 		bl	osMutexRelease
- 700              	.LVL63:
- 701 0022 F6E7     		b	.L66
- 702              	.L72:
- 703              		.align	2
- 704              	.L71:
- 705 0024 00000000 		.word	error_mutex
- 706 0028 00000000 		.word	error_mgr
- 707              		.cfi_endproc
- 708              	.LFE298:
- 710              		.section	.text.ErrorMgr_HasErrors,"ax",%progbits
- 711              		.align	1
- 712              		.global	ErrorMgr_HasErrors
- 713              		.syntax unified
- 714              		.thumb
- 715              		.thumb_func
- 717              	ErrorMgr_HasErrors:
- 718              	.LFB299:
+ 689              		.loc 1 171 9 is_stmt 1 view .LVU169
+ 690 001a 024B     		ldr	r3, .L72
+ 691 001c 1868     		ldr	r0, [r3]
+ 692 001e FFF7FEFF 		bl	osMutexRelease
+ 693              	.LVL65:
+ 694 0022 F6E7     		b	.L67
+ 695              	.L73:
+ 696              		.align	2
+ 697              	.L72:
+ 698 0024 00000000 		.word	error_mutex
+ 699 0028 00000000 		.word	error_mgr
+ 700              		.cfi_endproc
+ 701              	.LFE298:
+ 703              		.section	.text.ErrorMgr_HasErrors,"ax",%progbits
+ 704              		.align	1
+ 705              		.global	ErrorMgr_HasErrors
+ 706              		.syntax unified
+ 707              		.thumb
+ 708              		.thumb_func
+ 710              	ErrorMgr_HasErrors:
+ 711              	.LFB299:
  182:Core/Src/error_manager.c ****     return (ErrorMgr_GetErrors() != 0);
- 719              		.loc 1 182 1 view -0
- 720              		.cfi_startproc
- 721              		@ args = 0, pretend = 0, frame = 0
- 722              		@ frame_needed = 0, uses_anonymous_args = 0
- 723 0000 08B5     		push	{r3, lr}
- 724              		.cfi_def_cfa_offset 8
- 725              		.cfi_offset 3, -8
- 726              		.cfi_offset 14, -4
+ 712              		.loc 1 182 1 view -0
+ 713              		.cfi_startproc
+ 714              		@ args = 0, pretend = 0, frame = 0
+ 715              		@ frame_needed = 0, uses_anonymous_args = 0
+ 716 0000 08B5     		push	{r3, lr}
+ 717              		.cfi_def_cfa_offset 8
+ 718              		.cfi_offset 3, -8
+ 719              		.cfi_offset 14, -4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 20
+
+
  183:Core/Src/error_manager.c **** }
- 727              		.loc 1 183 5 view .LVU176
+ 720              		.loc 1 183 5 view .LVU171
  183:Core/Src/error_manager.c **** }
- 728              		.loc 1 183 13 is_stmt 0 view .LVU177
- 729 0002 FFF7FEFF 		bl	ErrorMgr_GetErrors
- 730              	.LVL64:
+ 721              		.loc 1 183 13 is_stmt 0 view .LVU172
+ 722 0002 FFF7FEFF 		bl	ErrorMgr_GetErrors
+ 723              	.LVL66:
  184:Core/Src/error_manager.c **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 21
-
-
- 731              		.loc 1 184 1 view .LVU178
- 732 0006 0038     		subs	r0, r0, #0
- 733 0008 18BF     		it	ne
- 734 000a 0120     		movne	r0, #1
- 735 000c 08BD     		pop	{r3, pc}
- 736              		.cfi_endproc
- 737              	.LFE299:
- 739              		.section	.text.ErrorMgr_HasWarnings,"ax",%progbits
- 740              		.align	1
- 741              		.global	ErrorMgr_HasWarnings
- 742              		.syntax unified
- 743              		.thumb
- 744              		.thumb_func
- 746              	ErrorMgr_HasWarnings:
- 747              	.LFB300:
+ 724              		.loc 1 184 1 view .LVU173
+ 725 0006 0038     		subs	r0, r0, #0
+ 726 0008 18BF     		it	ne
+ 727 000a 0120     		movne	r0, #1
+ 728 000c 08BD     		pop	{r3, pc}
+ 729              		.cfi_endproc
+ 730              	.LFE299:
+ 732              		.section	.text.ErrorMgr_HasWarnings,"ax",%progbits
+ 733              		.align	1
+ 734              		.global	ErrorMgr_HasWarnings
+ 735              		.syntax unified
+ 736              		.thumb
+ 737              		.thumb_func
+ 739              	ErrorMgr_HasWarnings:
+ 740              	.LFB300:
  191:Core/Src/error_manager.c ****     return (ErrorMgr_GetWarnings() != 0);
- 748              		.loc 1 191 1 is_stmt 1 view -0
- 749              		.cfi_startproc
- 750              		@ args = 0, pretend = 0, frame = 0
- 751              		@ frame_needed = 0, uses_anonymous_args = 0
- 752 0000 08B5     		push	{r3, lr}
- 753              		.cfi_def_cfa_offset 8
- 754              		.cfi_offset 3, -8
- 755              		.cfi_offset 14, -4
+ 741              		.loc 1 191 1 is_stmt 1 view -0
+ 742              		.cfi_startproc
+ 743              		@ args = 0, pretend = 0, frame = 0
+ 744              		@ frame_needed = 0, uses_anonymous_args = 0
+ 745 0000 08B5     		push	{r3, lr}
+ 746              		.cfi_def_cfa_offset 8
+ 747              		.cfi_offset 3, -8
+ 748              		.cfi_offset 14, -4
  192:Core/Src/error_manager.c **** }
- 756              		.loc 1 192 5 view .LVU180
+ 749              		.loc 1 192 5 view .LVU175
  192:Core/Src/error_manager.c **** }
- 757              		.loc 1 192 13 is_stmt 0 view .LVU181
- 758 0002 FFF7FEFF 		bl	ErrorMgr_GetWarnings
- 759              	.LVL65:
+ 750              		.loc 1 192 13 is_stmt 0 view .LVU176
+ 751 0002 FFF7FEFF 		bl	ErrorMgr_GetWarnings
+ 752              	.LVL67:
  193:Core/Src/error_manager.c **** 
- 760              		.loc 1 193 1 view .LVU182
- 761 0006 0038     		subs	r0, r0, #0
- 762 0008 18BF     		it	ne
- 763 000a 0120     		movne	r0, #1
- 764 000c 08BD     		pop	{r3, pc}
- 765              		.cfi_endproc
- 766              	.LFE300:
- 768              		.section	.text.ErrorMgr_SetState,"ax",%progbits
- 769              		.align	1
- 770              		.global	ErrorMgr_SetState
- 771              		.syntax unified
- 772              		.thumb
- 773              		.thumb_func
- 775              	ErrorMgr_SetState:
- 776              	.LVL66:
- 777              	.LFB301:
- 201:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 778              		.loc 1 201 1 is_stmt 1 view -0
- 779              		.cfi_startproc
- 780              		@ args = 0, pretend = 0, frame = 0
- 781              		@ frame_needed = 0, uses_anonymous_args = 0
- 201:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 782              		.loc 1 201 1 is_stmt 0 view .LVU184
- 783 0000 10B5     		push	{r4, lr}
- 784              		.cfi_def_cfa_offset 8
- 785              		.cfi_offset 4, -8
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 22
+ 753              		.loc 1 193 1 view .LVU177
+ 754 0006 0038     		subs	r0, r0, #0
+ 755 0008 18BF     		it	ne
+ 756 000a 0120     		movne	r0, #1
+ 757 000c 08BD     		pop	{r3, pc}
+ 758              		.cfi_endproc
+ 759              	.LFE300:
+ 761              		.section	.text.ErrorMgr_GetStatus,"ax",%progbits
+ 762              		.align	1
+ 763              		.global	ErrorMgr_GetStatus
+ 764              		.syntax unified
+ 765              		.thumb
+ 766              		.thumb_func
+ 768              	ErrorMgr_GetStatus:
+ 769              	.LVL68:
+ 770              	.LFB302:
+ 233:Core/Src/error_manager.c **** 
+ 234:Core/Src/error_manager.c **** /**
+ 235:Core/Src/error_manager.c ****   * @brief  Get complete error manager structure (for heartbeat)
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 21
 
 
- 786              		.cfi_offset 14, -4
- 787 0002 0446     		mov	r4, r0
- 202:Core/Src/error_manager.c ****         // Don't allow transition out of error state if errors exist
- 788              		.loc 1 202 5 is_stmt 1 view .LVU185
- 202:Core/Src/error_manager.c ****         // Don't allow transition out of error state if errors exist
- 789              		.loc 1 202 9 is_stmt 0 view .LVU186
- 790 0004 4FF0FF31 		mov	r1, #-1
- 791 0008 0D4B     		ldr	r3, .L82
- 792 000a 1868     		ldr	r0, [r3]
- 793              	.LVL67:
- 202:Core/Src/error_manager.c ****         // Don't allow transition out of error state if errors exist
- 794              		.loc 1 202 9 view .LVU187
- 795 000c FFF7FEFF 		bl	osMutexAcquire
- 796              	.LVL68:
- 202:Core/Src/error_manager.c ****         // Don't allow transition out of error state if errors exist
- 797              		.loc 1 202 8 discriminator 1 view .LVU188
- 798 0010 80B9     		cbnz	r0, .L77
- 204:Core/Src/error_manager.c ****             // Only allow error state transitions
- 799              		.loc 1 204 9 is_stmt 1 view .LVU189
- 204:Core/Src/error_manager.c ****             // Only allow error state transitions
- 800              		.loc 1 204 22 is_stmt 0 view .LVU190
- 801 0012 0C4B     		ldr	r3, .L82+4
- 802 0014 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
- 204:Core/Src/error_manager.c ****             // Only allow error state transitions
- 803              		.loc 1 204 12 view .LVU191
- 804 0016 052B     		cmp	r3, #5
- 805 0018 06D1     		bne	.L79
- 204:Core/Src/error_manager.c ****             // Only allow error state transitions
- 806              		.loc 1 204 60 discriminator 1 view .LVU192
- 807 001a 0A4B     		ldr	r3, .L82+4
- 808 001c 1B68     		ldr	r3, [r3]
- 204:Core/Src/error_manager.c ****             // Only allow error state transitions
- 809              		.loc 1 204 48 discriminator 1 view .LVU193
- 810 001e 1BB1     		cbz	r3, .L79
- 206:Core/Src/error_manager.c ****                 osMutexRelease(error_mutex);
- 811              		.loc 1 206 13 is_stmt 1 view .LVU194
- 206:Core/Src/error_manager.c ****                 osMutexRelease(error_mutex);
- 812              		.loc 1 206 42 is_stmt 0 view .LVU195
- 813 0020 631F     		subs	r3, r4, #5
- 814 0022 DBB2     		uxtb	r3, r3
- 206:Core/Src/error_manager.c ****                 osMutexRelease(error_mutex);
- 815              		.loc 1 206 16 view .LVU196
- 816 0024 012B     		cmp	r3, #1
- 817 0026 06D8     		bhi	.L81
- 818              	.L79:
- 212:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 819              		.loc 1 212 9 is_stmt 1 view .LVU197
- 212:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 820              		.loc 1 212 25 is_stmt 0 view .LVU198
- 821 0028 064B     		ldr	r3, .L82+4
- 822 002a 1C72     		strb	r4, [r3, #8]
- 213:Core/Src/error_manager.c ****     }
- 823              		.loc 1 213 9 is_stmt 1 view .LVU199
- 824 002c 044B     		ldr	r3, .L82
- 825 002e 1868     		ldr	r0, [r3]
- 826 0030 FFF7FEFF 		bl	osMutexRelease
- 827              	.LVL69:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 23
+ 236:Core/Src/error_manager.c ****   * @param  mgr: Pointer to structure to fill
+ 237:Core/Src/error_manager.c ****   * @retval None
+ 238:Core/Src/error_manager.c ****   * @note   Each error flag byte independently rotates through its active bits
+ 239:Core/Src/error_manager.c ****   *         to avoid ambiguous combined values in CAN analysis tools.
+ 240:Core/Src/error_manager.c ****   */
+ 241:Core/Src/error_manager.c **** void ErrorMgr_GetStatus(Error_Manager_t *mgr)
+ 242:Core/Src/error_manager.c **** {
+ 771              		.loc 1 242 1 is_stmt 1 view -0
+ 772              		.cfi_startproc
+ 773              		@ args = 0, pretend = 0, frame = 0
+ 774              		@ frame_needed = 0, uses_anonymous_args = 0
+ 243:Core/Src/error_manager.c ****     static uint8_t byte0_rotation = 0;
+ 775              		.loc 1 243 5 view .LVU179
+ 244:Core/Src/error_manager.c ****     static uint8_t byte1_rotation = 0;
+ 776              		.loc 1 244 5 view .LVU180
+ 245:Core/Src/error_manager.c ****     static uint8_t byte2_rotation = 0;
+ 777              		.loc 1 245 5 view .LVU181
+ 246:Core/Src/error_manager.c ****     static uint8_t byte3_rotation = 0;
+ 778              		.loc 1 246 5 view .LVU182
+ 247:Core/Src/error_manager.c ****     
+ 248:Core/Src/error_manager.c ****     if (mgr == NULL) {
+ 779              		.loc 1 248 5 view .LVU183
+ 780              		.loc 1 248 8 is_stmt 0 view .LVU184
+ 781 0000 68B3     		cbz	r0, .L81
+ 242:Core/Src/error_manager.c ****     static uint8_t byte0_rotation = 0;
+ 782              		.loc 1 242 1 view .LVU185
+ 783 0002 38B5     		push	{r3, r4, r5, lr}
+ 784              		.cfi_def_cfa_offset 16
+ 785              		.cfi_offset 3, -16
+ 786              		.cfi_offset 4, -12
+ 787              		.cfi_offset 5, -8
+ 788              		.cfi_offset 14, -4
+ 789 0004 0446     		mov	r4, r0
+ 249:Core/Src/error_manager.c ****         return;
+ 250:Core/Src/error_manager.c ****     }
+ 251:Core/Src/error_manager.c **** 
+ 252:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
+ 790              		.loc 1 252 5 is_stmt 1 view .LVU186
+ 791              		.loc 1 252 9 is_stmt 0 view .LVU187
+ 792 0006 4FF0FF31 		mov	r1, #-1
+ 793 000a 154B     		ldr	r3, .L85
+ 794 000c 1868     		ldr	r0, [r3]
+ 795              	.LVL69:
+ 796              		.loc 1 252 9 view .LVU188
+ 797 000e FFF7FEFF 		bl	osMutexAcquire
+ 798              	.LVL70:
+ 799              		.loc 1 252 8 discriminator 1 view .LVU189
+ 800 0012 00B1     		cbz	r0, .L84
+ 801              	.L78:
+ 253:Core/Src/error_manager.c ****         // Copy base data
+ 254:Core/Src/error_manager.c ****         memcpy(mgr, &error_mgr, sizeof(Error_Manager_t));
+ 255:Core/Src/error_manager.c ****         
+ 256:Core/Src/error_manager.c ****         // Rotate each error byte independently
+ 257:Core/Src/error_manager.c ****         uint8_t *error_bytes = (uint8_t *)&mgr->error_flags;
+ 258:Core/Src/error_manager.c ****         error_bytes[0] = RotateByteBits((uint8_t)(error_mgr.error_flags & 0xFF), &byte0_rotation);
+ 259:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
+ 260:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 22
 
 
- 828              	.L77:
- 215:Core/Src/error_manager.c **** 
- 829              		.loc 1 215 1 is_stmt 0 view .LVU200
- 830 0034 10BD     		pop	{r4, pc}
- 831              	.LVL70:
- 832              	.L81:
- 207:Core/Src/error_manager.c ****                 return;
- 833              		.loc 1 207 17 is_stmt 1 view .LVU201
- 834 0036 024B     		ldr	r3, .L82
- 835 0038 1868     		ldr	r0, [r3]
- 836 003a FFF7FEFF 		bl	osMutexRelease
- 837              	.LVL71:
- 208:Core/Src/error_manager.c ****             }
- 838              		.loc 1 208 17 view .LVU202
- 839 003e F9E7     		b	.L77
- 840              	.L83:
- 841              		.align	2
- 842              	.L82:
- 843 0040 00000000 		.word	error_mutex
- 844 0044 00000000 		.word	error_mgr
- 845              		.cfi_endproc
- 846              	.LFE301:
- 848              		.section	.text.ErrorMgr_GetState,"ax",%progbits
- 849              		.align	1
- 850              		.global	ErrorMgr_GetState
- 851              		.syntax unified
- 852              		.thumb
- 853              		.thumb_func
- 855              	ErrorMgr_GetState:
- 856              	.LFB302:
- 222:Core/Src/error_manager.c ****     BMS_State_t state = BMS_STATE_INIT;
- 857              		.loc 1 222 1 view -0
- 858              		.cfi_startproc
- 859              		@ args = 0, pretend = 0, frame = 0
- 860              		@ frame_needed = 0, uses_anonymous_args = 0
- 861 0000 10B5     		push	{r4, lr}
- 862              		.cfi_def_cfa_offset 8
- 863              		.cfi_offset 4, -8
- 864              		.cfi_offset 14, -4
- 223:Core/Src/error_manager.c ****     
- 865              		.loc 1 223 5 view .LVU204
- 866              	.LVL72:
- 225:Core/Src/error_manager.c ****         state = error_mgr.state;
- 867              		.loc 1 225 5 view .LVU205
- 225:Core/Src/error_manager.c ****         state = error_mgr.state;
- 868              		.loc 1 225 9 is_stmt 0 view .LVU206
- 869 0002 4FF0FF31 		mov	r1, #-1
- 870 0006 074B     		ldr	r3, .L89
- 871 0008 1868     		ldr	r0, [r3]
- 872 000a FFF7FEFF 		bl	osMutexAcquire
- 873              	.LVL73:
- 225:Core/Src/error_manager.c ****         state = error_mgr.state;
- 874              		.loc 1 225 8 discriminator 1 view .LVU207
- 875 000e 10B1     		cbz	r0, .L88
- 223:Core/Src/error_manager.c ****     
- 876              		.loc 1 223 17 view .LVU208
- 877 0010 0024     		movs	r4, #0
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 24
+ 261:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
+ 262:Core/Src/error_manager.c ****         
+ 263:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
+ 264:Core/Src/error_manager.c ****     }
+ 265:Core/Src/error_manager.c **** }/**
+ 802              		.loc 1 265 1 view .LVU190
+ 803 0014 38BD     		pop	{r3, r4, r5, pc}
+ 804              	.LVL71:
+ 805              	.L84:
+ 806              	.LBB11:
+ 254:Core/Src/error_manager.c ****         
+ 807              		.loc 1 254 9 is_stmt 1 view .LVU191
+ 808 0016 134D     		ldr	r5, .L85+4
+ 809 0018 AC46     		mov	ip, r5
+ 810 001a BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
+ 811 001e 2060     		str	r0, [r4]	@ unaligned
+ 812 0020 6160     		str	r1, [r4, #4]	@ unaligned
+ 813 0022 A260     		str	r2, [r4, #8]	@ unaligned
+ 814 0024 E360     		str	r3, [r4, #12]	@ unaligned
+ 815 0026 DCF80000 		ldr	r0, [ip]
+ 816 002a 2061     		str	r0, [r4, #16]	@ unaligned
+ 257:Core/Src/error_manager.c ****         error_bytes[0] = RotateByteBits((uint8_t)(error_mgr.error_flags & 0xFF), &byte0_rotation);
+ 817              		.loc 1 257 9 view .LVU192
+ 818              	.LVL72:
+ 258:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
+ 819              		.loc 1 258 9 view .LVU193
+ 258:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
+ 820              		.loc 1 258 26 is_stmt 0 view .LVU194
+ 821 002c 0E49     		ldr	r1, .L85+8
+ 822 002e 2878     		ldrb	r0, [r5]	@ zero_extendqisi2
+ 823 0030 FFF7FEFF 		bl	RotateByteBits
+ 824              	.LVL73:
+ 258:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
+ 825              		.loc 1 258 24 discriminator 1 view .LVU195
+ 826 0034 2070     		strb	r0, [r4]
+ 259:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
+ 827              		.loc 1 259 9 is_stmt 1 view .LVU196
+ 259:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
+ 828              		.loc 1 259 26 is_stmt 0 view .LVU197
+ 829 0036 0D49     		ldr	r1, .L85+12
+ 830 0038 6878     		ldrb	r0, [r5, #1]	@ zero_extendqisi2
+ 831 003a FFF7FEFF 		bl	RotateByteBits
+ 832              	.LVL74:
+ 259:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
+ 833              		.loc 1 259 24 discriminator 1 view .LVU198
+ 834 003e 6070     		strb	r0, [r4, #1]
+ 260:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
+ 835              		.loc 1 260 9 is_stmt 1 view .LVU199
+ 260:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
+ 836              		.loc 1 260 26 is_stmt 0 view .LVU200
+ 837 0040 0B49     		ldr	r1, .L85+16
+ 838 0042 A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
+ 839 0044 FFF7FEFF 		bl	RotateByteBits
+ 840              	.LVL75:
+ 260:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
+ 841              		.loc 1 260 24 discriminator 1 view .LVU201
+ 842 0048 A070     		strb	r0, [r4, #2]
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 23
 
 
- 878              	.LVL74:
- 879              	.L85:
- 230:Core/Src/error_manager.c **** }
- 880              		.loc 1 230 5 is_stmt 1 view .LVU209
- 231:Core/Src/error_manager.c **** 
- 881              		.loc 1 231 1 is_stmt 0 view .LVU210
- 882 0012 2046     		mov	r0, r4
- 883 0014 10BD     		pop	{r4, pc}
- 884              	.LVL75:
- 885              	.L88:
- 226:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 886              		.loc 1 226 9 is_stmt 1 view .LVU211
- 226:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 887              		.loc 1 226 15 is_stmt 0 view .LVU212
- 888 0016 044B     		ldr	r3, .L89+4
- 889 0018 1C7A     		ldrb	r4, [r3, #8]	@ zero_extendqisi2
- 890              	.LVL76:
- 227:Core/Src/error_manager.c ****     }
- 891              		.loc 1 227 9 is_stmt 1 view .LVU213
- 892 001a 024B     		ldr	r3, .L89
- 893 001c 1868     		ldr	r0, [r3]
- 894 001e FFF7FEFF 		bl	osMutexRelease
- 895              	.LVL77:
- 896 0022 F6E7     		b	.L85
- 897              	.L90:
- 898              		.align	2
- 899              	.L89:
- 900 0024 00000000 		.word	error_mutex
- 901 0028 00000000 		.word	error_mgr
- 902              		.cfi_endproc
- 903              	.LFE302:
- 905              		.section	.text.ErrorMgr_GetStatus,"ax",%progbits
- 906              		.align	1
- 907              		.global	ErrorMgr_GetStatus
- 908              		.syntax unified
- 909              		.thumb
- 910              		.thumb_func
- 912              	ErrorMgr_GetStatus:
- 913              	.LVL78:
- 914              	.LFB304:
- 271:Core/Src/error_manager.c **** 
- 272:Core/Src/error_manager.c **** /**
- 273:Core/Src/error_manager.c ****   * @brief  Get complete error manager structure (for heartbeat)
- 274:Core/Src/error_manager.c ****   * @param  mgr: Pointer to structure to fill
- 275:Core/Src/error_manager.c ****   * @retval None
- 276:Core/Src/error_manager.c ****   * @note   Each error flag byte independently rotates through its active bits
- 277:Core/Src/error_manager.c ****   *         to avoid ambiguous combined values in CAN analysis tools.
- 278:Core/Src/error_manager.c ****   */
- 279:Core/Src/error_manager.c **** void ErrorMgr_GetStatus(Error_Manager_t *mgr)
- 280:Core/Src/error_manager.c **** {
- 915              		.loc 1 280 1 view -0
- 916              		.cfi_startproc
- 917              		@ args = 0, pretend = 0, frame = 0
- 918              		@ frame_needed = 0, uses_anonymous_args = 0
- 281:Core/Src/error_manager.c ****     static uint8_t byte0_rotation = 0;
- 919              		.loc 1 281 5 view .LVU215
- 282:Core/Src/error_manager.c ****     static uint8_t byte1_rotation = 0;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 25
+ 261:Core/Src/error_manager.c ****         
+ 843              		.loc 1 261 9 is_stmt 1 view .LVU202
+ 261:Core/Src/error_manager.c ****         
+ 844              		.loc 1 261 26 is_stmt 0 view .LVU203
+ 845 004a 0A49     		ldr	r1, .L85+20
+ 846 004c E878     		ldrb	r0, [r5, #3]	@ zero_extendqisi2
+ 847 004e FFF7FEFF 		bl	RotateByteBits
+ 848              	.LVL76:
+ 261:Core/Src/error_manager.c ****         
+ 849              		.loc 1 261 24 discriminator 1 view .LVU204
+ 850 0052 E070     		strb	r0, [r4, #3]
+ 263:Core/Src/error_manager.c ****     }
+ 851              		.loc 1 263 9 is_stmt 1 view .LVU205
+ 852 0054 024B     		ldr	r3, .L85
+ 853 0056 1868     		ldr	r0, [r3]
+ 854 0058 FFF7FEFF 		bl	osMutexRelease
+ 855              	.LVL77:
+ 856 005c DAE7     		b	.L78
+ 857              	.LVL78:
+ 858              	.L81:
+ 859              		.cfi_def_cfa_offset 0
+ 860              		.cfi_restore 3
+ 861              		.cfi_restore 4
+ 862              		.cfi_restore 5
+ 863              		.cfi_restore 14
+ 263:Core/Src/error_manager.c ****     }
+ 864              		.loc 1 263 9 is_stmt 0 view .LVU206
+ 865 005e 7047     		bx	lr
+ 866              	.L86:
+ 867              		.align	2
+ 868              	.L85:
+ 869 0060 00000000 		.word	error_mutex
+ 870 0064 00000000 		.word	error_mgr
+ 871 0068 00000000 		.word	byte0_rotation.3
+ 872 006c 00000000 		.word	byte1_rotation.2
+ 873 0070 00000000 		.word	byte2_rotation.1
+ 874 0074 00000000 		.word	byte3_rotation.0
+ 875              	.LBE11:
+ 876              		.cfi_endproc
+ 877              	.LFE302:
+ 879              		.section	.text.ErrorMgr_UpdateUptime,"ax",%progbits
+ 880              		.align	1
+ 881              		.global	ErrorMgr_UpdateUptime
+ 882              		.syntax unified
+ 883              		.thumb
+ 884              		.thumb_func
+ 886              	ErrorMgr_UpdateUptime:
+ 887              	.LFB303:
+ 266:Core/Src/error_manager.c ****   * @brief  Update system uptime (call every second)
+ 267:Core/Src/error_manager.c ****   * @retval None
+ 268:Core/Src/error_manager.c ****   */
+ 269:Core/Src/error_manager.c **** void ErrorMgr_UpdateUptime(void)
+ 270:Core/Src/error_manager.c **** {
+ 888              		.loc 1 270 1 is_stmt 1 view -0
+ 889              		.cfi_startproc
+ 890              		@ args = 0, pretend = 0, frame = 0
+ 891              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 24
 
 
- 920              		.loc 1 282 5 view .LVU216
- 283:Core/Src/error_manager.c ****     static uint8_t byte2_rotation = 0;
- 921              		.loc 1 283 5 view .LVU217
- 284:Core/Src/error_manager.c ****     static uint8_t byte3_rotation = 0;
- 922              		.loc 1 284 5 view .LVU218
- 285:Core/Src/error_manager.c ****     
- 286:Core/Src/error_manager.c ****     if (mgr == NULL) {
- 923              		.loc 1 286 5 view .LVU219
- 924              		.loc 1 286 8 is_stmt 0 view .LVU220
- 925 0000 0028     		cmp	r0, #0
- 926 0002 32D0     		beq	.L95
- 280:Core/Src/error_manager.c ****     static uint8_t byte0_rotation = 0;
- 927              		.loc 1 280 1 view .LVU221
- 928 0004 38B5     		push	{r3, r4, r5, lr}
- 929              		.cfi_def_cfa_offset 16
- 930              		.cfi_offset 3, -16
- 931              		.cfi_offset 4, -12
- 932              		.cfi_offset 5, -8
- 933              		.cfi_offset 14, -4
- 934 0006 0446     		mov	r4, r0
- 287:Core/Src/error_manager.c ****         return;
- 288:Core/Src/error_manager.c ****     }
- 289:Core/Src/error_manager.c **** 
- 290:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 935              		.loc 1 290 5 is_stmt 1 view .LVU222
- 936              		.loc 1 290 9 is_stmt 0 view .LVU223
- 937 0008 4FF0FF31 		mov	r1, #-1
- 938 000c 174B     		ldr	r3, .L99
- 939 000e 1868     		ldr	r0, [r3]
- 940              	.LVL79:
- 941              		.loc 1 290 9 view .LVU224
- 942 0010 FFF7FEFF 		bl	osMutexAcquire
- 943              	.LVL80:
- 944              		.loc 1 290 8 discriminator 1 view .LVU225
- 945 0014 00B1     		cbz	r0, .L98
- 946              	.L91:
- 291:Core/Src/error_manager.c ****         // Copy base data
- 292:Core/Src/error_manager.c ****         memcpy(mgr, &error_mgr, sizeof(Error_Manager_t));
- 293:Core/Src/error_manager.c ****         
- 294:Core/Src/error_manager.c ****         // Override state to ERROR if any faults exist
- 295:Core/Src/error_manager.c ****         if (error_mgr.fault_count > 0) {
- 296:Core/Src/error_manager.c ****             mgr->state = BMS_STATE_ERROR;
- 297:Core/Src/error_manager.c ****         }
- 298:Core/Src/error_manager.c ****         
- 299:Core/Src/error_manager.c ****         // Rotate each error byte independently
- 300:Core/Src/error_manager.c ****         uint8_t *error_bytes = (uint8_t *)&mgr->error_flags;
- 301:Core/Src/error_manager.c ****         error_bytes[0] = RotateByteBits((uint8_t)(error_mgr.error_flags & 0xFF), &byte0_rotation);
- 302:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
- 303:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
- 304:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
- 305:Core/Src/error_manager.c ****         
- 306:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 307:Core/Src/error_manager.c ****     }
- 308:Core/Src/error_manager.c **** }/**
- 947              		.loc 1 308 1 view .LVU226
- 948 0016 38BD     		pop	{r3, r4, r5, pc}
- 949              	.LVL81:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 26
+ 892 0000 08B5     		push	{r3, lr}
+ 893              		.cfi_def_cfa_offset 8
+ 894              		.cfi_offset 3, -8
+ 895              		.cfi_offset 14, -4
+ 271:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
+ 896              		.loc 1 271 5 view .LVU208
+ 897              		.loc 1 271 9 is_stmt 0 view .LVU209
+ 898 0002 4FF0FF31 		mov	r1, #-1
+ 899 0006 074B     		ldr	r3, .L91
+ 900 0008 1868     		ldr	r0, [r3]
+ 901 000a FFF7FEFF 		bl	osMutexAcquire
+ 902              	.LVL79:
+ 903              		.loc 1 271 8 discriminator 1 view .LVU210
+ 904 000e 00B1     		cbz	r0, .L90
+ 905              	.L87:
+ 272:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
+ 273:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
+ 274:Core/Src/error_manager.c ****     }
+ 275:Core/Src/error_manager.c **** }
+ 906              		.loc 1 275 1 view .LVU211
+ 907 0010 08BD     		pop	{r3, pc}
+ 908              	.L90:
+ 272:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
+ 909              		.loc 1 272 9 is_stmt 1 view .LVU212
+ 272:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
+ 910              		.loc 1 272 18 is_stmt 0 view .LVU213
+ 911 0012 054A     		ldr	r2, .L91+4
+ 912 0014 D368     		ldr	r3, [r2, #12]
+ 272:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
+ 913              		.loc 1 272 33 view .LVU214
+ 914 0016 0133     		adds	r3, r3, #1
+ 915 0018 D360     		str	r3, [r2, #12]
+ 273:Core/Src/error_manager.c ****     }
+ 916              		.loc 1 273 9 is_stmt 1 view .LVU215
+ 917 001a 024B     		ldr	r3, .L91
+ 918 001c 1868     		ldr	r0, [r3]
+ 919 001e FFF7FEFF 		bl	osMutexRelease
+ 920              	.LVL80:
+ 921              		.loc 1 275 1 is_stmt 0 view .LVU216
+ 922 0022 F5E7     		b	.L87
+ 923              	.L92:
+ 924              		.align	2
+ 925              	.L91:
+ 926 0024 00000000 		.word	error_mutex
+ 927 0028 00000000 		.word	error_mgr
+ 928              		.cfi_endproc
+ 929              	.LFE303:
+ 931              		.section	.bss.byte3_rotation.0,"aw",%nobits
+ 934              	byte3_rotation.0:
+ 935 0000 00       		.space	1
+ 936              		.section	.bss.byte2_rotation.1,"aw",%nobits
+ 939              	byte2_rotation.1:
+ 940 0000 00       		.space	1
+ 941              		.section	.bss.byte1_rotation.2,"aw",%nobits
+ 944              	byte1_rotation.2:
+ 945 0000 00       		.space	1
+ 946              		.section	.bss.byte0_rotation.3,"aw",%nobits
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 25
 
 
- 950              	.L98:
- 951              	.LBB11:
- 292:Core/Src/error_manager.c ****         
- 952              		.loc 1 292 9 is_stmt 1 view .LVU227
- 953 0018 154D     		ldr	r5, .L99+4
- 954 001a AC46     		mov	ip, r5
- 955 001c BCE80F00 		ldmia	ip!, {r0, r1, r2, r3}
- 956 0020 2060     		str	r0, [r4]	@ unaligned
- 957 0022 6160     		str	r1, [r4, #4]	@ unaligned
- 958 0024 A260     		str	r2, [r4, #8]	@ unaligned
- 959 0026 E360     		str	r3, [r4, #12]	@ unaligned
- 960 0028 DCF80000 		ldr	r0, [ip]
- 961 002c 2061     		str	r0, [r4, #16]	@ unaligned
- 295:Core/Src/error_manager.c ****             mgr->state = BMS_STATE_ERROR;
- 962              		.loc 1 295 9 view .LVU228
- 295:Core/Src/error_manager.c ****             mgr->state = BMS_STATE_ERROR;
- 963              		.loc 1 295 22 is_stmt 0 view .LVU229
- 964 002e 6B7A     		ldrb	r3, [r5, #9]	@ zero_extendqisi2
- 295:Core/Src/error_manager.c ****             mgr->state = BMS_STATE_ERROR;
- 965              		.loc 1 295 12 view .LVU230
- 966 0030 0BB1     		cbz	r3, .L93
- 296:Core/Src/error_manager.c ****         }
- 967              		.loc 1 296 13 is_stmt 1 view .LVU231
- 296:Core/Src/error_manager.c ****         }
- 968              		.loc 1 296 24 is_stmt 0 view .LVU232
- 969 0032 0523     		movs	r3, #5
- 970 0034 2372     		strb	r3, [r4, #8]
- 971              	.L93:
- 300:Core/Src/error_manager.c ****         error_bytes[0] = RotateByteBits((uint8_t)(error_mgr.error_flags & 0xFF), &byte0_rotation);
- 972              		.loc 1 300 9 is_stmt 1 view .LVU233
- 973              	.LVL82:
- 301:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
- 974              		.loc 1 301 9 view .LVU234
- 301:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
- 975              		.loc 1 301 60 is_stmt 0 view .LVU235
- 976 0036 0E4D     		ldr	r5, .L99+4
- 301:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
- 977              		.loc 1 301 26 view .LVU236
- 978 0038 0E49     		ldr	r1, .L99+8
- 979 003a 2878     		ldrb	r0, [r5]	@ zero_extendqisi2
- 980 003c FFF7FEFF 		bl	RotateByteBits
- 981              	.LVL83:
- 301:Core/Src/error_manager.c ****         error_bytes[1] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 8) & 0xFF), &byte1_rota
- 982              		.loc 1 301 24 discriminator 1 view .LVU237
- 983 0040 2070     		strb	r0, [r4]
- 302:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
- 984              		.loc 1 302 9 is_stmt 1 view .LVU238
- 302:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
- 985              		.loc 1 302 26 is_stmt 0 view .LVU239
- 986 0042 0D49     		ldr	r1, .L99+12
- 987 0044 6878     		ldrb	r0, [r5, #1]	@ zero_extendqisi2
- 988 0046 FFF7FEFF 		bl	RotateByteBits
- 989              	.LVL84:
- 302:Core/Src/error_manager.c ****         error_bytes[2] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 16) & 0xFF), &byte2_rot
- 990              		.loc 1 302 24 discriminator 1 view .LVU240
- 991 004a 6070     		strb	r0, [r4, #1]
- 303:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 27
-
-
- 992              		.loc 1 303 9 is_stmt 1 view .LVU241
- 303:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
- 993              		.loc 1 303 26 is_stmt 0 view .LVU242
- 994 004c 0B49     		ldr	r1, .L99+16
- 995 004e A878     		ldrb	r0, [r5, #2]	@ zero_extendqisi2
- 996 0050 FFF7FEFF 		bl	RotateByteBits
- 997              	.LVL85:
- 303:Core/Src/error_manager.c ****         error_bytes[3] = RotateByteBits((uint8_t)((error_mgr.error_flags >> 24) & 0xFF), &byte3_rot
- 998              		.loc 1 303 24 discriminator 1 view .LVU243
- 999 0054 A070     		strb	r0, [r4, #2]
- 304:Core/Src/error_manager.c ****         
- 1000              		.loc 1 304 9 is_stmt 1 view .LVU244
- 304:Core/Src/error_manager.c ****         
- 1001              		.loc 1 304 26 is_stmt 0 view .LVU245
- 1002 0056 0A49     		ldr	r1, .L99+20
- 1003 0058 E878     		ldrb	r0, [r5, #3]	@ zero_extendqisi2
- 1004 005a FFF7FEFF 		bl	RotateByteBits
- 1005              	.LVL86:
- 304:Core/Src/error_manager.c ****         
- 1006              		.loc 1 304 24 discriminator 1 view .LVU246
- 1007 005e E070     		strb	r0, [r4, #3]
- 306:Core/Src/error_manager.c ****     }
- 1008              		.loc 1 306 9 is_stmt 1 view .LVU247
- 1009 0060 024B     		ldr	r3, .L99
- 1010 0062 1868     		ldr	r0, [r3]
- 1011 0064 FFF7FEFF 		bl	osMutexRelease
- 1012              	.LVL87:
- 1013 0068 D5E7     		b	.L91
- 1014              	.LVL88:
- 1015              	.L95:
- 1016              		.cfi_def_cfa_offset 0
- 1017              		.cfi_restore 3
- 1018              		.cfi_restore 4
- 1019              		.cfi_restore 5
- 1020              		.cfi_restore 14
- 306:Core/Src/error_manager.c ****     }
- 1021              		.loc 1 306 9 is_stmt 0 view .LVU248
- 1022 006a 7047     		bx	lr
- 1023              	.L100:
- 1024              		.align	2
- 1025              	.L99:
- 1026 006c 00000000 		.word	error_mutex
- 1027 0070 00000000 		.word	error_mgr
- 1028 0074 00000000 		.word	byte0_rotation.3
- 1029 0078 00000000 		.word	byte1_rotation.2
- 1030 007c 00000000 		.word	byte2_rotation.1
- 1031 0080 00000000 		.word	byte3_rotation.0
- 1032              	.LBE11:
- 1033              		.cfi_endproc
- 1034              	.LFE304:
- 1036              		.section	.text.ErrorMgr_UpdateUptime,"ax",%progbits
- 1037              		.align	1
- 1038              		.global	ErrorMgr_UpdateUptime
- 1039              		.syntax unified
- 1040              		.thumb
- 1041              		.thumb_func
- 1043              	ErrorMgr_UpdateUptime:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 28
-
-
- 1044              	.LFB305:
- 309:Core/Src/error_manager.c ****   * @brief  Update system uptime (call every second)
- 310:Core/Src/error_manager.c ****   * @retval None
- 311:Core/Src/error_manager.c ****   */
- 312:Core/Src/error_manager.c **** void ErrorMgr_UpdateUptime(void)
- 313:Core/Src/error_manager.c **** {
- 1045              		.loc 1 313 1 is_stmt 1 view -0
- 1046              		.cfi_startproc
- 1047              		@ args = 0, pretend = 0, frame = 0
- 1048              		@ frame_needed = 0, uses_anonymous_args = 0
- 1049 0000 08B5     		push	{r3, lr}
- 1050              		.cfi_def_cfa_offset 8
- 1051              		.cfi_offset 3, -8
- 1052              		.cfi_offset 14, -4
- 314:Core/Src/error_manager.c ****     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
- 1053              		.loc 1 314 5 view .LVU250
- 1054              		.loc 1 314 9 is_stmt 0 view .LVU251
- 1055 0002 4FF0FF31 		mov	r1, #-1
- 1056 0006 074B     		ldr	r3, .L105
- 1057 0008 1868     		ldr	r0, [r3]
- 1058 000a FFF7FEFF 		bl	osMutexAcquire
- 1059              	.LVL89:
- 1060              		.loc 1 314 8 discriminator 1 view .LVU252
- 1061 000e 00B1     		cbz	r0, .L104
- 1062              	.L101:
- 315:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
- 316:Core/Src/error_manager.c ****         osMutexRelease(error_mutex);
- 317:Core/Src/error_manager.c ****     }
- 318:Core/Src/error_manager.c **** }
- 1063              		.loc 1 318 1 view .LVU253
- 1064 0010 08BD     		pop	{r3, pc}
- 1065              	.L104:
- 315:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
- 1066              		.loc 1 315 9 is_stmt 1 view .LVU254
- 315:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
- 1067              		.loc 1 315 18 is_stmt 0 view .LVU255
- 1068 0012 054A     		ldr	r2, .L105+4
- 1069 0014 D368     		ldr	r3, [r2, #12]
- 315:Core/Src/error_manager.c ****         error_mgr.uptime_seconds++;
- 1070              		.loc 1 315 33 view .LVU256
- 1071 0016 0133     		adds	r3, r3, #1
- 1072 0018 D360     		str	r3, [r2, #12]
- 316:Core/Src/error_manager.c ****     }
- 1073              		.loc 1 316 9 is_stmt 1 view .LVU257
- 1074 001a 024B     		ldr	r3, .L105
- 1075 001c 1868     		ldr	r0, [r3]
- 1076 001e FFF7FEFF 		bl	osMutexRelease
- 1077              	.LVL90:
- 1078              		.loc 1 318 1 is_stmt 0 view .LVU258
- 1079 0022 F5E7     		b	.L101
- 1080              	.L106:
- 1081              		.align	2
- 1082              	.L105:
- 1083 0024 00000000 		.word	error_mutex
- 1084 0028 00000000 		.word	error_mgr
- 1085              		.cfi_endproc
- 1086              	.LFE305:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 29
-
-
- 1088              		.section	.bss.byte3_rotation.0,"aw",%nobits
- 1091              	byte3_rotation.0:
- 1092 0000 00       		.space	1
- 1093              		.section	.bss.byte2_rotation.1,"aw",%nobits
- 1096              	byte2_rotation.1:
- 1097 0000 00       		.space	1
- 1098              		.section	.bss.byte1_rotation.2,"aw",%nobits
- 1101              	byte1_rotation.2:
- 1102 0000 00       		.space	1
- 1103              		.section	.bss.byte0_rotation.3,"aw",%nobits
- 1106              	byte0_rotation.3:
- 1107 0000 00       		.space	1
- 1108              		.section	.rodata.str1.4,"aMS",%progbits,1
- 1109              		.align	2
- 1110              	.LC0:
- 1111 0000 4572726F 		.ascii	"ErrorMutex\000"
- 1111      724D7574 
- 1111      657800
- 1112              		.section	.rodata.error_mutex_attributes,"a"
- 1113              		.align	2
- 1116              	error_mutex_attributes:
- 1117 0000 00000000 		.word	.LC0
- 1118 0004 00000000 		.space	12
- 1118      00000000 
- 1118      00000000 
- 1119              		.section	.bss.error_mutex,"aw",%nobits
- 1120              		.align	2
- 1123              	error_mutex:
- 1124 0000 00000000 		.space	4
- 1125              		.section	.bss.error_mgr,"aw",%nobits
- 1126              		.align	2
- 1129              	error_mgr:
- 1130 0000 00000000 		.space	20
- 1130      00000000 
- 1130      00000000 
- 1130      00000000 
- 1130      00000000 
- 1131              		.text
- 1132              	.Letext0:
- 1133              		.file 2 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1134              		.file 3 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1135              		.file 4 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
- 1136              		.file 5 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
- 1137              		.file 6 "Core/Inc/error_manager.h"
- 1138              		.file 7 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 30
+ 949              	byte0_rotation.3:
+ 950 0000 00       		.space	1
+ 951              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 952              		.align	2
+ 953              	.LC0:
+ 954 0000 4572726F 		.ascii	"ErrorMutex\000"
+ 954      724D7574 
+ 954      657800
+ 955              		.section	.rodata.error_mutex_attributes,"a"
+ 956              		.align	2
+ 959              	error_mutex_attributes:
+ 960 0000 00000000 		.word	.LC0
+ 961 0004 00000000 		.space	12
+ 961      00000000 
+ 961      00000000 
+ 962              		.section	.bss.error_mutex,"aw",%nobits
+ 963              		.align	2
+ 966              	error_mutex:
+ 967 0000 00000000 		.space	4
+ 968              		.section	.bss.error_mgr,"aw",%nobits
+ 969              		.align	2
+ 972              	error_mgr:
+ 973 0000 00000000 		.space	20
+ 973      00000000 
+ 973      00000000 
+ 973      00000000 
+ 973      00000000 
+ 974              		.text
+ 975              	.Letext0:
+ 976              		.file 2 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 977              		.file 3 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 978              		.file 4 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 979              		.file 5 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
+ 980              		.file 6 "Core/Inc/error_manager.h"
+ 981              		.file 7 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 982              		.file 8 "Core/Inc/state_machine.h"
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 26
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 error_manager.c
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:21     .text.RotateByteBits:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:26     .text.RotateByteBits:00000000 RotateByteBits
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:197    .text.ErrorMgr_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:203    .text.ErrorMgr_Init:00000000 ErrorMgr_Init
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:253    .text.ErrorMgr_Init:0000002c $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1129   .bss.error_mgr:00000000 error_mgr
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1116   .rodata.error_mutex_attributes:00000000 error_mutex_attributes
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1123   .bss.error_mutex:00000000 error_mutex
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:260    .text.ErrorMgr_SetError:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:266    .text.ErrorMgr_SetError:00000000 ErrorMgr_SetError
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:333    .text.ErrorMgr_SetError:00000040 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:340    .text.ErrorMgr_ClearError:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:346    .text.ErrorMgr_ClearError:00000000 ErrorMgr_ClearError
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:475    .text.ErrorMgr_ClearError:00000074 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:481    .text.ErrorMgr_SetWarning:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:487    .text.ErrorMgr_SetWarning:00000000 ErrorMgr_SetWarning
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:533    .text.ErrorMgr_SetWarning:00000028 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:539    .text.ErrorMgr_ClearWarning:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:545    .text.ErrorMgr_ClearWarning:00000000 ErrorMgr_ClearWarning
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:591    .text.ErrorMgr_ClearWarning:00000028 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:597    .text.ErrorMgr_GetErrors:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:603    .text.ErrorMgr_GetErrors:00000000 ErrorMgr_GetErrors
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:648    .text.ErrorMgr_GetErrors:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:654    .text.ErrorMgr_GetWarnings:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:660    .text.ErrorMgr_GetWarnings:00000000 ErrorMgr_GetWarnings
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:705    .text.ErrorMgr_GetWarnings:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:711    .text.ErrorMgr_HasErrors:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:717    .text.ErrorMgr_HasErrors:00000000 ErrorMgr_HasErrors
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:740    .text.ErrorMgr_HasWarnings:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:746    .text.ErrorMgr_HasWarnings:00000000 ErrorMgr_HasWarnings
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:769    .text.ErrorMgr_SetState:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:775    .text.ErrorMgr_SetState:00000000 ErrorMgr_SetState
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:843    .text.ErrorMgr_SetState:00000040 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:849    .text.ErrorMgr_GetState:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:855    .text.ErrorMgr_GetState:00000000 ErrorMgr_GetState
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:900    .text.ErrorMgr_GetState:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:906    .text.ErrorMgr_GetStatus:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:912    .text.ErrorMgr_GetStatus:00000000 ErrorMgr_GetStatus
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1026   .text.ErrorMgr_GetStatus:0000006c $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1106   .bss.byte0_rotation.3:00000000 byte0_rotation.3
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1101   .bss.byte1_rotation.2:00000000 byte1_rotation.2
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1096   .bss.byte2_rotation.1:00000000 byte2_rotation.1
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1091   .bss.byte3_rotation.0:00000000 byte3_rotation.0
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1037   .text.ErrorMgr_UpdateUptime:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1043   .text.ErrorMgr_UpdateUptime:00000000 ErrorMgr_UpdateUptime
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1083   .text.ErrorMgr_UpdateUptime:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1092   .bss.byte3_rotation.0:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1097   .bss.byte2_rotation.1:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1102   .bss.byte1_rotation.2:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1107   .bss.byte0_rotation.3:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1109   .rodata.str1.4:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1113   .rodata.error_mutex_attributes:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1120   .bss.error_mutex:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s:1126   .bss.error_mgr:00000000 $d
-
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccoU1hGZ.s 			page 31
-
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:21     .text.RotateByteBits:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:26     .text.RotateByteBits:00000000 RotateByteBits
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:197    .text.ErrorMgr_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:203    .text.ErrorMgr_Init:00000000 ErrorMgr_Init
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:252    .text.ErrorMgr_Init:0000002c $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:972    .bss.error_mgr:00000000 error_mgr
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:959    .rodata.error_mutex_attributes:00000000 error_mutex_attributes
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:966    .bss.error_mutex:00000000 error_mutex
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:259    .text.ErrorMgr_SetError:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:265    .text.ErrorMgr_SetError:00000000 ErrorMgr_SetError
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:333    .text.ErrorMgr_SetError:00000040 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:340    .text.ErrorMgr_ClearError:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:346    .text.ErrorMgr_ClearError:00000000 ErrorMgr_ClearError
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:468    .text.ErrorMgr_ClearError:0000006c $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:474    .text.ErrorMgr_SetWarning:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:480    .text.ErrorMgr_SetWarning:00000000 ErrorMgr_SetWarning
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:526    .text.ErrorMgr_SetWarning:00000028 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:532    .text.ErrorMgr_ClearWarning:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:538    .text.ErrorMgr_ClearWarning:00000000 ErrorMgr_ClearWarning
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:584    .text.ErrorMgr_ClearWarning:00000028 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:590    .text.ErrorMgr_GetErrors:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:596    .text.ErrorMgr_GetErrors:00000000 ErrorMgr_GetErrors
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:641    .text.ErrorMgr_GetErrors:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:647    .text.ErrorMgr_GetWarnings:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:653    .text.ErrorMgr_GetWarnings:00000000 ErrorMgr_GetWarnings
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:698    .text.ErrorMgr_GetWarnings:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:704    .text.ErrorMgr_HasErrors:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:710    .text.ErrorMgr_HasErrors:00000000 ErrorMgr_HasErrors
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:733    .text.ErrorMgr_HasWarnings:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:739    .text.ErrorMgr_HasWarnings:00000000 ErrorMgr_HasWarnings
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:762    .text.ErrorMgr_GetStatus:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:768    .text.ErrorMgr_GetStatus:00000000 ErrorMgr_GetStatus
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:869    .text.ErrorMgr_GetStatus:00000060 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:949    .bss.byte0_rotation.3:00000000 byte0_rotation.3
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:944    .bss.byte1_rotation.2:00000000 byte1_rotation.2
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:939    .bss.byte2_rotation.1:00000000 byte2_rotation.1
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:934    .bss.byte3_rotation.0:00000000 byte3_rotation.0
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:880    .text.ErrorMgr_UpdateUptime:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:886    .text.ErrorMgr_UpdateUptime:00000000 ErrorMgr_UpdateUptime
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:926    .text.ErrorMgr_UpdateUptime:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:935    .bss.byte3_rotation.0:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:940    .bss.byte2_rotation.1:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:945    .bss.byte1_rotation.2:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:950    .bss.byte0_rotation.3:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:952    .rodata.str1.4:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:956    .rodata.error_mutex_attributes:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:963    .bss.error_mutex:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s:969    .bss.error_mgr:00000000 $d
 
 UNDEFINED SYMBOLS
 osKernelGetTickCount
 osMutexNew
 osMutexAcquire
 osMutexRelease
+StateMachine_EnterFault
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccNWhPKV.s 			page 27
+
+
+StateMachine_ExitFault

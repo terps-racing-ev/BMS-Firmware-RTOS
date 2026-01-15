@@ -174,7 +174,9 @@ void BQ_MonitorTask(void *argument)
                 osMutexRelease(I2C1Handle);
             }
             if (status == HAL_OK) {
-                g_bms1_internal_temp = int_temp;
+                // Convert from 0.1K (Kelvin) to 0.1°C (Celsius)
+                // 0°C = 273.15K, so subtract 2732 (273.2K in 0.1K units)
+                g_bms1_internal_temp = int_temp - 2732;
             }
             last_internal_temp_tick = current_tick;
         }
@@ -626,7 +628,9 @@ void BQ_MonitorTask_BMS2(void *argument)
                 osMutexRelease(I2C3Handle);
             }
             if (status == HAL_OK) {
-                g_bms2_internal_temp = int_temp;
+                // Convert from 0.1K (Kelvin) to 0.1°C (Celsius)
+                // 0°C = 273.15K, so subtract 2732 (273.2K in 0.1K units)
+                g_bms2_internal_temp = int_temp - 2732;
             }
             last_internal_temp_tick = current_tick;
         }

@@ -19,6 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "error_manager.h"
+#include "state_machine.h"
 #include <string.h>
 
 /* Private variables ---------------------------------------------------------*/
@@ -39,8 +40,7 @@ HAL_StatusTypeDef ErrorMgr_Init(void)
     // Initialize error manager structure
     memset(&error_mgr, 0, sizeof(Error_Manager_t));
     
-    // Set initial state
-    error_mgr.state = BMS_STATE_INIT;
+    // Set initial values
     error_mgr.uptime_seconds = 0;
     error_mgr.fault_count = 0;
     error_mgr.last_heartbeat = osKernelGetTickCount();
@@ -66,10 +66,10 @@ void ErrorMgr_SetError(uint32_t error_flag)
         if (!(error_mgr.error_flags & error_flag)) {
             error_mgr.fault_count++;
             
-            // Auto-transition to error state if critical errors occur
+            // Signal state machine to enter fault if critical errors occur
             if (error_flag & (ERROR_OVER_TEMP | ERROR_UNDER_VOLTAGE | 
                               ERROR_OVER_VOLTAGE | ERROR_SHORT_CIRCUIT)) {
-                error_mgr.state = BMS_STATE_ERROR;
+                StateMachine_EnterFault();
             }
         }
         
@@ -107,9 +107,9 @@ void ErrorMgr_ClearError(uint32_t error_flag)
         
         error_mgr.error_flags &= ~error_flag;
         
-        // If no errors remain and in error state, transition to idle
-        if (error_mgr.error_flags == 0 && error_mgr.state == BMS_STATE_ERROR) {
-            error_mgr.state = BMS_STATE_IDLE;
+        // If no errors remain, signal state machine to exit fault
+        if (error_mgr.error_flags == 0) {
+            StateMachine_ExitFault();
         }
         
         osMutexRelease(error_mutex);
@@ -193,44 +193,6 @@ bool ErrorMgr_HasWarnings(void)
 }
 
 /**
-  * @brief  Set BMS state
-  * @param  state: New BMS state
-  * @retval None
-  */
-void ErrorMgr_SetState(BMS_State_t state)
-{
-    if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
-        // Don't allow transition out of error state if errors exist
-        if (error_mgr.state == BMS_STATE_ERROR && error_mgr.error_flags != 0) {
-            // Only allow error state transitions
-            if (state != BMS_STATE_ERROR && state != BMS_STATE_SHUTDOWN) {
-                osMutexRelease(error_mutex);
-                return;
-            }
-        }
-        
-        error_mgr.state = state;
-        osMutexRelease(error_mutex);
-    }
-}
-
-/**
-  * @brief  Get current BMS state
-  * @retval BMS_State_t: Current BMS state
-  */
-BMS_State_t ErrorMgr_GetState(void)
-{
-    BMS_State_t state = BMS_STATE_INIT;
-    
-    if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
-        state = error_mgr.state;
-        osMutexRelease(error_mutex);
-    }
-    
-    return state;
-}
-
-/**
   * @brief  Rotate through active bits in a single byte
   * @param  byte_value: The byte containing error flags
   * @param  rotation_index: Pointer to rotation index for this byte
@@ -290,11 +252,6 @@ void ErrorMgr_GetStatus(Error_Manager_t *mgr)
     if (osMutexAcquire(error_mutex, osWaitForever) == osOK) {
         // Copy base data
         memcpy(mgr, &error_mgr, sizeof(Error_Manager_t));
-        
-        // Override state to ERROR if any faults exist
-        if (error_mgr.fault_count > 0) {
-            mgr->state = BMS_STATE_ERROR;
-        }
         
         // Rotate each error byte independently
         uint8_t *error_bytes = (uint8_t *)&mgr->error_flags;
