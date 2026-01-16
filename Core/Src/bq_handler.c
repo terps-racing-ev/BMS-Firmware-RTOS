@@ -541,8 +541,8 @@ void BQ_MonitorTask_BMS2(void *argument)
     
     voltage_mutex_bms2 = osMutexNew(&mutex_attr);
     
-    // Wait for system initialization
-    osDelay(500);
+    // Wait for system initialization - stagger 125ms after BMS1 to avoid lockstep execution
+    osDelay(625);
     
     // Diagnostic: Check if I2C3 bus is operational by scanning for BMS2 device
     if (I2C3Handle != NULL) {
@@ -672,6 +672,16 @@ HAL_StatusTypeDef BQ_ReadBMS2(BQ_Data_BMS2_t *data)
         }
     }
     
+    // Check I2C3 state and recover if needed
+    if (hi2c3.State != HAL_I2C_STATE_READY) {
+        // I2C is stuck - attempt recovery by reinitializing
+        HAL_I2C_DeInit(&hi2c3);
+        HAL_I2C_Init(&hi2c3);
+        
+        // Small delay to let the bus settle
+        osDelay(5);
+    }
+    
     // Check I2C3 error state for diagnostics
     g_last_i2c3_error = HAL_I2C_GetError(&hi2c3);
     
@@ -679,6 +689,7 @@ HAL_StatusTypeDef BQ_ReadBMS2(BQ_Data_BMS2_t *data)
     if (g_last_i2c3_error != HAL_I2C_ERROR_NONE) {
         __HAL_I2C_CLEAR_FLAG(&hi2c3, I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_AF | I2C_FLAG_OVR);
         hi2c3.ErrorCode = HAL_I2C_ERROR_NONE;
+        hi2c3.State = HAL_I2C_STATE_READY;
     }
     
     // Read cells 10-18 (map to BQ76952 cells 1-9 on second chip)
@@ -801,22 +812,51 @@ HAL_StatusTypeDef BQ_SendChipStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr
     int16_t ts2_temp = 0;
     uint8_t can_data[8];
     
+    // Determine which mutex to use based on I2C handle
+    osMutexId_t i2c_mutex = NULL;
+    if (hi2c == &hi2c1) {
+        i2c_mutex = I2C1Handle;
+    } else if (hi2c == &hi2c3) {
+        i2c_mutex = I2C3Handle;
+    }
+    
+    // Acquire I2C mutex
+    if (i2c_mutex != NULL) {
+        if (osMutexAcquire(i2c_mutex, I2C_TIMEOUT_MS) != osOK) {
+            return HAL_ERROR;
+        }
+    }
+    
     // Read Stack Voltage (0x34)
     status = BQ76952_ReadRegister16(hi2c, device_addr, StackVoltage, &stack_voltage);
     if (status != HAL_OK) {
+        if (i2c_mutex != NULL) {
+            osMutexRelease(i2c_mutex);
+        }
         return status;
     }
     
     // Read Alarm Status (0x62)
     status = BQ76952_ReadRegister16(hi2c, device_addr, AlarmStatus, &alarm_status);
     if (status != HAL_OK) {
+        if (i2c_mutex != NULL) {
+            osMutexRelease(i2c_mutex);
+        }
         return status;
     }
     
     // Read TS2 Temperature (0x72)
     status = BQ76952_ReadRegister16(hi2c, device_addr, TS2Temperature, (uint16_t*)&ts2_temp);
     if (status != HAL_OK) {
+        if (i2c_mutex != NULL) {
+            osMutexRelease(i2c_mutex);
+        }
         return status;
+    }
+    
+    // Release I2C mutex before CAN operation
+    if (i2c_mutex != NULL) {
+        osMutexRelease(i2c_mutex);
     }
     
     // Pack CAN message:
