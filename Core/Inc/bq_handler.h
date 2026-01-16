@@ -31,6 +31,7 @@ extern "C" {
 #include "main.h"
 #include "cmsis_os.h"
 #include "bq76952.h"
+#include <stdbool.h>
 
 /* Defines -------------------------------------------------------------------*/
 #define BQ76952_I2C_ADDR_BMS1       0x08    /**< BQ76952 I2C address for BMS1 (7-bit, default address) */
@@ -102,10 +103,26 @@ void BQ_MonitorTask_BMS2(void *argument);
 HAL_StatusTypeDef BQ_ReadBMS1(BQ_Data_t *data);
 
 /**
+  * @brief  Get last I2C1 error code for diagnostics
+  * @retval uint32_t: HAL I2C error code
+  */
+uint32_t BQ_GetLastI2C1Error(void);
+
+/**
   * @brief  Get last I2C3 error code for diagnostics
   * @retval uint32_t: HAL I2C error code
   */
 uint32_t BQ_GetLastI2C3Error(void);
+
+/**
+  * @brief  Get I2C error and recovery statistics
+  * @param  i2c1_errors: Pointer to store I2C1 error count (can be NULL)
+  * @param  i2c1_recoveries: Pointer to store I2C1 recovery count (can be NULL)
+  * @param  i2c3_errors: Pointer to store I2C3 error count (can be NULL)
+  * @param  i2c3_recoveries: Pointer to store I2C3 recovery count (can be NULL)
+  */
+void BQ_GetI2CStats(uint32_t *i2c1_errors, uint32_t *i2c1_recoveries,
+                    uint32_t *i2c3_errors, uint32_t *i2c3_recoveries);
 
 /**
   * @brief  Read cell voltages from BQ76952 chip on I2C3 (BMS2)
@@ -246,6 +263,79 @@ void BQ_SetMaxVoltage(uint16_t max_voltage_mv);
   * @retval Maximum voltage threshold in millivolts
   */
 uint16_t BQ_GetMaxVoltage(void);
+
+/* Cell Balancing Functions --------------------------------------------------*/
+
+/**
+  * @brief  Configure CB_LOOP_SLOW for maximum balancing current
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Sets CB_LOOP_SLOW to 3 (eighth-speed mode) in Power Config register
+  *         This slows ADC scan during balancing for higher average current.
+  *         Should be called once before starting balancing.
+  */
+HAL_StatusTypeDef BQ_ConfigureBalancingSpeed(I2C_HandleTypeDef *hi2c, uint8_t device_addr);
+
+/**
+  * @brief  Set active balancing cells on a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  cell_mask: 16-bit mask of cells to balance (bit 0 = cell 1, etc.)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Uses CB_ACTIVE_CELLS (0x0083) subcommand
+  *         This resets the internal balance timer on each call
+  */
+HAL_StatusTypeDef BQ_SetBalanceCells(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t cell_mask);
+
+/**
+  * @brief  Read currently active balancing cells from a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  cell_mask: Pointer to store 16-bit mask of balancing cells
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_GetBalanceCells(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t *cell_mask);
+
+/**
+  * @brief  Check if cell balancing is active on a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  active: Pointer to store result (true = balancing active)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Checks bit 2 [CB] of Alarm Raw Status (0x64)
+  */
+HAL_StatusTypeDef BQ_IsBalancingActive(I2C_HandleTypeDef *hi2c, uint8_t device_addr, bool *active);
+
+/**
+  * @brief  Stop all cell balancing on a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_StopBalancing(I2C_HandleTypeDef *hi2c, uint8_t device_addr);
+
+/**
+  * @brief  Read CBSTATUS registers from a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  cbstatus1: Pointer to store CBSTATUS1 (cells 1-8 actual balance state)
+  * @param  cbstatus2: Pointer to store CBSTATUS2 (cells 9-16 actual balance state)
+  * @param  cbstatus3: Pointer to store CBSTATUS3 (balance summary flags)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   CBSTATUS shows which cells are ACTUALLY balancing, not just commanded
+  */
+HAL_StatusTypeDef BQ_GetCBStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                  uint8_t *cbstatus1, uint8_t *cbstatus2, uint8_t *cbstatus3);
+
+/**
+  * @brief  Read AlarmRawStatus register from a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  alarm_status: Pointer to store AlarmRawStatus (16-bit)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_GetAlarmRawStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t *alarm_status);
 
 #ifdef __cplusplus
 }

@@ -14,6 +14,7 @@ Each module has:
 - 1 BMS chip reset ACK message
 - 1 debug response message
 - 1 I2C diagnostics message
+- 1 balance command message (from host to module)
 Plus 1 broadcast message (debug request)
 """
 
@@ -157,6 +158,94 @@ def generate_dbc():
         lines.append(' SG_ Reserved_4 : 56|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append('')
         
+        # Balance Command: base 0x08F00F05 + module_offset
+        # Host sends this message every 5 seconds to keep module in balancing mode
+        can_id = 0x08F00F05 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS_Balance_Command_{module}: 1 CAN_Host')
+        lines.append(f' SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_{module}')
+        lines.append('')
+        
+        # Balance ACK: base 0x08F00F06 + module_offset
+        # Sent by module in response to Balance Command
+        can_id = 0x08F00F06 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS_Balance_ACK_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ Balance_Status : 0|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append(' SG_ Time_Remaining_ms : 8|16@1+ (1,0) [0|65535] "ms" CAN_Host')
+        lines.append('')
+        
+        # Balance Config: base 0x08F00F07 + module_offset
+        # Host sends this message with target voltage and max cells per chip
+        # Must be sent every 5 seconds during balancing to continue
+        can_id = 0x08F00F07 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS_Balance_Config_{module}: 8 CAN_Host')
+        lines.append(f' SG_ Target_Voltage_mV : 0|16@1+ (1,0) [0|5000] "mV" BMS_Module_{module}')
+        lines.append(f' SG_ Max_Cells_Per_Chip : 16|8@1+ (1,0) [1|9] "" BMS_Module_{module}')
+        lines.append('')
+        
+        # Balance Status: base 0x08F00F08 + module_offset
+        # Sent by module every 1 second during balancing
+        can_id = 0x08F00F08 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS_Balance_Status_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ Target_Voltage_mV : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ Max_Cells_Per_Chip : 16|8@1+ (1,0) [1|9] "" CAN_Host')
+        lines.append(' SG_ BMS1_Cell_Count : 24|4@1+ (1,0) [0|9] "" CAN_Host')
+        lines.append(' SG_ BMS2_Cell_Count : 28|4@1+ (1,0) [0|9] "" CAN_Host')
+        lines.append(' SG_ BMS1_IC_Temp : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append(' SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append('')
+        
+        # BMS1 Balance Detail: base 0x08F00F09 + module_offset
+        # Sent by module every 1 second during balancing - readback from BMS1 chip
+        # Byte 0: CBSTATUS1 (cells 1-8 ACTUALLY balancing)
+        # Byte 1: CBSTATUS2 (cell 9 in bit 0)
+        # Byte 2: CBSTATUS3 (status flags)
+        # Bytes 3-4: AlarmRawStatus (16-bit LE)
+        can_id = 0x08F00F09 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS1_Balance_Detail_{module}: 8 BMS_Module_{module}')
+        # Individual cell balancing bits from CBSTATUS1 (byte 0, bits 0-7 = cells 1-8)
+        for cell in range(1, 9):
+            bit_pos = cell - 1  # Cell 1 = bit 0, Cell 2 = bit 1, etc.
+            lines.append(f' SG_ BMS1_Cell{cell}_Bal : {bit_pos}|1@1+ (1,0) [0|1] "" CAN_Host')
+        # Cell 9 from CBSTATUS2 (byte 1, bit 0)
+        lines.append(' SG_ BMS1_Cell9_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host')
+        # CBSTATUS3 as single byte with value table (byte 2)
+        lines.append(' SG_ BMS1_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host')
+        # AlarmRawStatus as 16-bit with value table (bytes 3-4)
+        lines.append(' SG_ BMS1_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host')
+        lines.append('')
+        
+        # BMS2 Balance Detail: base 0x08F00F0A + module_offset
+        # Sent by module every 1 second during balancing - readback from BMS2 chip
+        # Byte 0: CBSTATUS1 (cells 10-17 ACTUALLY balancing)
+        # Byte 1: CBSTATUS2 (cell 18 in bit 0)
+        # Byte 2: CBSTATUS3 (status flags)
+        # Bytes 3-4: AlarmRawStatus (16-bit LE)
+        can_id = 0x08F00F0A + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS2_Balance_Detail_{module}: 8 BMS_Module_{module}')
+        # Individual cell balancing bits from CBSTATUS1 (byte 0, bits 0-7 = cells 10-17)
+        for cell in range(10, 18):
+            bit_pos = cell - 10  # Cell 10 = bit 0, Cell 11 = bit 1, etc.
+            lines.append(f' SG_ BMS2_Cell{cell}_Bal : {bit_pos}|1@1+ (1,0) [0|1] "" CAN_Host')
+        # Cell 18 from CBSTATUS2 (byte 1, bit 0)
+        lines.append(' SG_ BMS2_Cell18_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host')
+        # CBSTATUS3 as single byte with value table (byte 2)
+        lines.append(' SG_ BMS2_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host')
+        # AlarmRawStatus as 16-bit with value table (bytes 3-4)
+        lines.append(' SG_ BMS2_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host')
+        lines.append('')
+        
         # Heartbeat: base 0x08F00300 + module_offset
         can_id = 0x08F00300 + module_offset
         dbc_id = can_id | 0x80000000
@@ -240,7 +329,7 @@ def generate_dbc():
         dbc_id = can_id | 0x80000000
         message_ids.append(dbc_id)
         lines.append(f'BO_ {dbc_id} BMS1_Chip_Status_{module}: 8 BMS_Module_{module}')
-        lines.append(' SG_ BMS1_Stack_Voltage : 0|16@1+ (1,0) [0|65535] "mV" CAN_Host')
+        lines.append(' SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host')
         lines.append(' SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host')
         lines.append(' SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
         lines.append(' SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host')
@@ -252,7 +341,7 @@ def generate_dbc():
         dbc_id = can_id | 0x80000000
         message_ids.append(dbc_id)
         lines.append(f'BO_ {dbc_id} BMS2_Chip_Status_{module}: 8 BMS_Module_{module}')
-        lines.append(' SG_ BMS2_Stack_Voltage : 0|16@1+ (1,0) [0|65535] "mV" CAN_Host')
+        lines.append(' SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host')
         lines.append(' SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host')
         lines.append(' SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
         lines.append(' SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host')
@@ -282,6 +371,8 @@ def generate_dbc():
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
         elif msg_base >= 0x8200 and msg_base <= 0x8205:  # Voltage messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
+        elif (msg_base & 0xFF) == 0x05 and (msg_base & 0x0F00) == 0x0F00:  # Balance Command (0x8F05)
+            lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
     lines.append('')
     
     # Value tables
@@ -297,6 +388,12 @@ def generate_dbc():
         can_id = 0x08F00F04 + (module << 12)
         dbc_id = can_id | 0x80000000
         lines.append(f'VAL_ {dbc_id} Status 0 "Success" 1 "Failed";')
+    
+    # Balance Command Enable for all modules
+    for module in range(6):
+        can_id = 0x08F00F05 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Balance_Enable 0 "Disable" 1 "Enable";')
     
     # BMS State for all heartbeat messages
     for module in range(6):
@@ -388,6 +485,50 @@ def generate_dbc():
         dbc_id = can_id | 0x80000000
         lines.append(f'VAL_ {dbc_id} Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";')
     
+    lines.append('')
+    
+    # Cell balancing status values (0=off, 1=balancing)
+    lines.append('// Cell balancing status values - ACTUAL cells balancing (read from CBSTATUS1/2)')
+    for module in range(6):
+        # BMS1 Balance Detail
+        can_id = 0x08F00F09 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        for cell in range(1, 10):  # Cells 1-8 from CBSTATUS1, Cell 9 from CBSTATUS2
+            lines.append(f'VAL_ {dbc_id} BMS1_Cell{cell}_Bal 0 "Off" 1 "Balancing";')
+        # BMS2 Balance Detail
+        can_id = 0x08F00F0A + (module << 12)
+        dbc_id = can_id | 0x80000000
+        for cell in range(10, 19):  # Cells 10-17 from CBSTATUS1, Cell 18 from CBSTATUS2
+            lines.append(f'VAL_ {dbc_id} BMS2_Cell{cell}_Bal 0 "Off" 1 "Balancing";')
+    
+    lines.append('')
+    
+    # CBSTATUS3 values (Cell Balance Status flags)
+    lines.append('// CBSTATUS3 Cell Balance Status flags')
+    for module in range(6):
+        # BMS1
+        can_id = 0x08F00F09 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} BMS1_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";')
+        # BMS2
+        can_id = 0x08F00F0A + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} BMS2_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";')
+    
+    lines.append('')
+    
+    # AlarmRawStatus common values
+    lines.append('// AlarmRawStatus common values (bit flags: SSA=1, SSB=2, CB=4, PFA=8, etc.)')
+    for module in range(6):
+        # BMS1
+        can_id = 0x08F00F09 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} BMS1_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 "SafetyA+B" 5 "CB+SafetyA" 6 "CB+SafetyB" 7 "CB+SafetyA+B" 8 "PermFailA" 16 "PermFailB" 32 "PermFailC" 64 "PermFailD" 256 "Charging" 512 "Discharging" 260 "CB+Charging" 516 "CB+Discharging";')
+        # BMS2
+        can_id = 0x08F00F0A + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} BMS2_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 "SafetyA+B" 5 "CB+SafetyA" 6 "CB+SafetyB" 7 "CB+SafetyA+B" 8 "PermFailA" 16 "PermFailB" 32 "PermFailC" 64 "PermFailD" 256 "Charging" 512 "Discharging" 260 "CB+Charging" 516 "CB+Discharging";')
+    
     return '\n'.join(lines)
 
 if __name__ == '__main__':
@@ -410,9 +551,9 @@ if __name__ == '__main__':
     message_count = dbc_content.count('BO_ ')
     print(f"Total messages: {message_count}")
     print(f"  - 1 broadcast message (Debug Request)")
-    print(f"  - 6 modules × 32 messages = 192 messages")
-    print(f"    (Config Command, Config ACK, Reset Command, BMS Chip Reset Command, BMS Chip Reset ACK, Debug Response, I2C Diagnostics, Heartbeat, CAN Stats, BMS1 Status, BMS2 Status, 14 Temp, 1 Temp Summary, 6 Voltage)")
-    print(f"  - Total: 193 messages")
+    print(f"  - 6 modules × 33 messages = 198 messages")
+    print(f"    (Config Command, Config ACK, Reset Command, BMS Chip Reset Command, BMS Chip Reset ACK, Debug Response, I2C Diagnostics, Balance Command, Heartbeat, CAN Stats, BMS1 Status, BMS2 Status, 14 Temp, 1 Temp Summary, 6 Voltage)")
+    print(f"  - Total: 199 messages")
     print(f"")
     print(f"Per module breakdown:")
     print(f"  - 14 temperature messages (56 thermistors, 4 per message)")
@@ -421,4 +562,5 @@ if __name__ == '__main__':
     print(f"  - 2 BMS chip status messages (BMS1 and BMS2 stack voltage, alarm, temp)")
     print(f"  - 1 config command, 1 config ACK, 1 STM32 reset command")
     print(f"  - 1 BMS chip reset command, 1 BMS chip reset ACK")
+    print(f"  - 1 balance command (host to module)")
     print(f"  - 1 heartbeat, 1 CAN stats, 1 debug response, 1 I2C diagnostics")

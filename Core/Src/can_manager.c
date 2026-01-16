@@ -24,6 +24,7 @@
 #include "state_machine.h"
 #include "config_manager.h"
 #include "bq_handler.h"
+#include "balance_manager.h"
 
 /* Private variables ---------------------------------------------------------*/
 osMessageQueueId_t CANTxQueueHandle = NULL;
@@ -301,6 +302,49 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
         return;
     }
     
+    // Check for balance command message
+    if (base_id == (CAN_BALANCE_CMD_BASE & 0xFFFF0FFF)) {
+        uint8_t ack_data[8] = {0};
+        
+        // Process balance command and get status
+        uint8_t balance_status = BalanceMgr_ProcessCommand();
+        
+        // Prepare acknowledgement message
+        // Byte 0: Status (BALANCE_STATUS_*)
+        // Byte 1-2: Time remaining in ms (little-endian)
+        // Bytes 3-7: Reserved
+        uint32_t time_remaining = BalanceMgr_GetTimeRemaining();
+        ack_data[0] = balance_status;
+        ack_data[1] = (uint8_t)(time_remaining & 0xFF);
+        ack_data[2] = (uint8_t)((time_remaining >> 8) & 0xFF);
+        ack_data[3] = 0x00;
+        ack_data[4] = 0x00;
+        ack_data[5] = 0x00;
+        ack_data[6] = 0x00;
+        ack_data[7] = 0x00;
+        
+        // Send acknowledgement
+        CAN_SendMessage(CAN_BALANCE_ACK_ID, ack_data, 8, CAN_PRIORITY_HIGH);
+        return;
+    }
+    
+    // Check for balance configuration message
+    if (base_id == (CAN_BALANCE_CFG_BASE & 0xFFFF0FFF)) {
+        // Parse balance config message
+        // Bytes 0-1: Target voltage in mV (little-endian)
+        // Byte 2: Max cells per chip (1-9)
+        // Bytes 3-7: Reserved
+        uint16_t target_voltage = (uint16_t)(msg->data[0]) | ((uint16_t)(msg->data[1]) << 8);
+        uint8_t max_cells = msg->data[2];
+        
+        // Process the configuration
+        BalanceMgr_ProcessConfig(target_voltage, max_cells);
+        
+        // Trigger execution immediately after config update
+        BalanceMgr_Execute();
+        return;
+    }
+    
 }
 
 /**
@@ -314,6 +358,7 @@ void CAN_ManagerTask(void *argument)
     uint32_t last_heartbeat_tick = 0;
     uint32_t last_stats_tick = 0;
     uint32_t last_uptime_tick = 0;
+    uint32_t last_balance_status_tick = 0;
     uint32_t current_tick = 0;
     
     // Wait 100ms for system to stabilize
@@ -323,6 +368,7 @@ void CAN_ManagerTask(void *argument)
     last_heartbeat_tick = osKernelGetTickCount();
     last_stats_tick = osKernelGetTickCount();
     last_uptime_tick = osKernelGetTickCount();
+    last_balance_status_tick = osKernelGetTickCount();
     
     /* Infinite loop */
     for(;;)
@@ -354,6 +400,16 @@ void CAN_ManagerTask(void *argument)
             ErrorMgr_UpdateUptime();
             last_uptime_tick = current_tick;
         }
+        
+        // Send balance status every 1 second during balancing
+        if ((current_tick - last_balance_status_tick) >= BALANCE_STATUS_INTERVAL_MS) {
+            BalanceMgr_SendStatus();
+            BalanceMgr_SendDetailedStatus();  // Also send detailed readback from each chip
+            last_balance_status_tick = current_tick;
+        }
+        
+        // Check balance timeout (runs every 10ms loop iteration)
+        BalanceMgr_CheckTimeout();
         
         // Small delay to prevent task from hogging CPU (10ms)
         // The task will wake up on new messages or periodically

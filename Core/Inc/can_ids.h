@@ -83,6 +83,12 @@ extern "C" {
 #define CAN_RESET_CMD_BASE      0x08F00F02  /**< Base for reset command (module-specific) */
 #define CAN_BMS_RESET_CMD_BASE  0x08F00F03  /**< Base for BQ76952 chip reset command (module-specific) */
 #define CAN_BMS_RESET_ACK_BASE  0x08F00F04  /**< Base for BQ76952 chip reset acknowledgement */
+#define CAN_BALANCE_CMD_BASE    0x08F00F05  /**< Base for balance enable command (must send every 5s) */
+#define CAN_BALANCE_ACK_BASE    0x08F00F06  /**< Base for balance enable acknowledgement */
+#define CAN_BALANCE_CFG_BASE    0x08F00F07  /**< Base for balance config (target voltage, max cells) */
+#define CAN_BALANCE_STATUS_BASE 0x08F00F08  /**< Base for balance status message (sent during balancing) */
+#define CAN_BMS1_BAL_DETAIL_BASE 0x08F00F09 /**< Base for BMS1 balance detail (readback from chip) */
+#define CAN_BMS2_BAL_DETAIL_BASE 0x08F00F0A /**< Base for BMS2 balance detail (readback from chip) */
 #define CAN_DEBUG_REQUEST_ID    0x08F00F10  /**< Debug info request (broadcast - no module ID) */
 #define CAN_DEBUG_RESPONSE_BASE 0x08F00F11  /**< Base for debug info response */
 #define CAN_I2C_DIAG_BASE       0x08F00F12  /**< Base for I2C diagnostics response */
@@ -111,6 +117,12 @@ extern uint32_t CAN_CONFIG_ACK_ID;   /**< Config ACK ID (with module offset) */
 extern uint32_t CAN_RESET_CMD_ID;    /**< Reset command ID (with module offset) */
 extern uint32_t CAN_BMS_RESET_CMD_ID; /**< BQ76952 reset command ID (with module offset) */
 extern uint32_t CAN_BMS_RESET_ACK_ID; /**< BQ76952 reset ACK ID (with module offset) */
+extern uint32_t CAN_BALANCE_CMD_ID;  /**< Balance command ID (with module offset) */
+extern uint32_t CAN_BALANCE_ACK_ID;  /**< Balance ACK ID (with module offset) */
+extern uint32_t CAN_BALANCE_CFG_ID;  /**< Balance config ID (with module offset) */
+extern uint32_t CAN_BALANCE_STATUS_ID; /**< Balance status ID (with module offset) */
+extern uint32_t CAN_BMS1_BAL_DETAIL_ID; /**< BMS1 balance detail ID (with module offset) */
+extern uint32_t CAN_BMS2_BAL_DETAIL_ID; /**< BMS2 balance detail ID (with module offset) */
 extern uint32_t CAN_DEBUG_RESPONSE_ID; /**< Debug response ID (with module offset) */
 extern uint32_t CAN_I2C_DIAG_ID;     /**< I2C diagnostics ID (with module offset) */
 

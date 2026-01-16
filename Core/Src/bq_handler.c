@@ -44,8 +44,15 @@ static BQ_Data_BMS2_t voltage_data_bms2 = {0};
 static osMutexId_t voltage_mutex = NULL;
 static osMutexId_t voltage_mutex_bms2 = NULL;
 
-// Store last I2C3 error for diagnostics
+// Store last I2C errors for diagnostics
+static uint32_t g_last_i2c1_error = 0;
 static uint32_t g_last_i2c3_error = 0;
+
+// I2C error counters for recovery tracking
+static uint32_t g_i2c1_error_count = 0;
+static uint32_t g_i2c3_error_count = 0;
+static uint32_t g_i2c1_recovery_count = 0;
+static uint32_t g_i2c3_recovery_count = 0;
 
 // Flag to enable/disable fault reporting (1 = enabled, 0 = disabled)
 static uint8_t g_fault_reporting_enabled = BQ_FAULT_REPORTING_DEFAULT;
@@ -61,6 +68,112 @@ static uint16_t g_cell_voltage_max_mv = CELL_VOLTAGE_MAX_MV;  // Max cell voltag
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
                                                  uint16_t reg_addr, uint16_t *value);
+static HAL_StatusTypeDef I2C_RecoverBus(I2C_HandleTypeDef *hi2c);
+
+/**
+  * @brief  Recover I2C bus from stuck state
+  * @param  hi2c: I2C handle to recover
+  * @retval HAL_StatusTypeDef: HAL_OK if recovered, HAL_ERROR if recovery failed
+  * @note   This function attempts multiple recovery strategies:
+  *         1. Clear error flags
+  *         2. DeInit/Init the peripheral
+  *         3. Toggle SCL to release stuck SDA (if GPIO available)
+  */
+static HAL_StatusTypeDef I2C_RecoverBus(I2C_HandleTypeDef *hi2c)
+{
+    HAL_StatusTypeDef status = HAL_OK;
+    GPIO_TypeDef *scl_port = NULL;
+    uint16_t scl_pin = 0;
+    GPIO_TypeDef *sda_port = NULL;
+    uint16_t sda_pin = 0;
+    
+    // Determine which I2C and its pins (from .ioc file)
+    if (hi2c->Instance == I2C1) {
+        // I2C1: SCL=PA9, SDA=PA10
+        scl_port = GPIOA;
+        scl_pin = GPIO_PIN_9;
+        sda_port = GPIOA;
+        sda_pin = GPIO_PIN_10;
+        g_i2c1_recovery_count++;
+    } else if (hi2c->Instance == I2C3) {
+        // I2C3: SCL=PA7, SDA=PB4
+        scl_port = GPIOA;
+        scl_pin = GPIO_PIN_7;
+        sda_port = GPIOB;
+        sda_pin = GPIO_PIN_4;
+        g_i2c3_recovery_count++;
+    }
+    
+    // Step 1: DeInit the I2C peripheral
+    HAL_I2C_DeInit(hi2c);
+    
+    // Step 2: Configure SCL as GPIO output to clock out stuck slave
+    if (scl_port != NULL && sda_port != NULL) {
+        GPIO_InitTypeDef GPIO_InitStruct = {0};
+        
+        // Save original state of SDA
+        HAL_GPIO_DeInit(scl_port, scl_pin);
+        HAL_GPIO_DeInit(sda_port, sda_pin);
+        
+        // Configure SCL as output
+        GPIO_InitStruct.Pin = scl_pin;
+        GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+        HAL_GPIO_Init(scl_port, &GPIO_InitStruct);
+        
+        // Configure SDA as input to monitor
+        GPIO_InitStruct.Pin = sda_pin;
+        GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        HAL_GPIO_Init(sda_port, &GPIO_InitStruct);
+        
+        // Toggle SCL up to 16 times to release any stuck slave
+        for (int i = 0; i < 16; i++) {
+            HAL_GPIO_WritePin(scl_port, scl_pin, GPIO_PIN_RESET);
+            for (volatile int d = 0; d < 100; d++);  // Short delay
+            HAL_GPIO_WritePin(scl_port, scl_pin, GPIO_PIN_SET);
+            for (volatile int d = 0; d < 100; d++);  // Short delay
+            
+            // Check if SDA is released (high)
+            if (HAL_GPIO_ReadPin(sda_port, sda_pin) == GPIO_PIN_SET) {
+                break;  // SDA released, slave is unstuck
+            }
+        }
+        
+        // Generate STOP condition: SDA low -> high while SCL high
+        GPIO_InitStruct.Pin = sda_pin;
+        GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        HAL_GPIO_Init(sda_port, &GPIO_InitStruct);
+        
+        HAL_GPIO_WritePin(sda_port, sda_pin, GPIO_PIN_RESET);  // SDA low
+        for (volatile int d = 0; d < 100; d++);
+        HAL_GPIO_WritePin(scl_port, scl_pin, GPIO_PIN_SET);    // SCL high
+        for (volatile int d = 0; d < 100; d++);
+        HAL_GPIO_WritePin(sda_port, sda_pin, GPIO_PIN_SET);    // SDA high (STOP)
+        for (volatile int d = 0; d < 100; d++);
+        
+        // De-init GPIO so HAL_I2C_Init can reconfigure them
+        HAL_GPIO_DeInit(scl_port, scl_pin);
+        HAL_GPIO_DeInit(sda_port, sda_pin);
+    }
+    
+    // Step 3: Re-initialize the I2C peripheral
+    status = HAL_I2C_Init(hi2c);
+    
+    // Small delay to let the bus settle
+    osDelay(5);
+    
+    // Clear any remaining error flags
+    if (status == HAL_OK) {
+        __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_AF | I2C_FLAG_OVR);
+        hi2c->ErrorCode = HAL_I2C_ERROR_NONE;
+        hi2c->State = HAL_I2C_STATE_READY;
+    }
+    
+    return status;
+}
 
 /**
   * @brief  Enable or disable fault reporting from BQ handler
@@ -218,16 +331,48 @@ HAL_StatusTypeDef BQ_ReadBMS1(BQ_Data_t *data)
         }
     }
     
+    // Check I2C1 state and recover if needed
+    if (hi2c1.State != HAL_I2C_STATE_READY) {
+        // I2C is stuck - attempt recovery
+        I2C_RecoverBus(&hi2c1);
+    }
+    
+    // Check I2C1 error state for diagnostics
+    g_last_i2c1_error = HAL_I2C_GetError(&hi2c1);
+    
+    // If I2C1 has errors, try to clear them or recover
+    if (g_last_i2c1_error != HAL_I2C_ERROR_NONE) {
+        g_i2c1_error_count++;
+        // Try to clear error flags first
+        __HAL_I2C_CLEAR_FLAG(&hi2c1, I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_AF | I2C_FLAG_OVR);
+        hi2c1.ErrorCode = HAL_I2C_ERROR_NONE;
+        hi2c1.State = HAL_I2C_STATE_READY;
+        
+        // If still not ready, do full recovery
+        if (hi2c1.State != HAL_I2C_STATE_READY) {
+            I2C_RecoverBus(&hi2c1);
+        }
+    }
+    
     // Read cells 1-9
     for (uint8_t i = 0; i < BMS1_NUM_CELLS; i++) {
         uint16_t voltage_mv = 0;
         
         status = BQ_ReadCell(&hi2c1, BQ76952_I2C_ADDR_BMS1, i + 1, &voltage_mv);
         
+        if (status != HAL_OK) {
+            // First read failed - attempt recovery and retry once
+            g_i2c1_error_count++;
+            I2C_RecoverBus(&hi2c1);
+            
+            // Retry the read
+            status = BQ_ReadCell(&hi2c1, BQ76952_I2C_ADDR_BMS1, i + 1, &voltage_mv);
+        }
+        
         if (status == HAL_OK) {
             data->cell_voltage_mv[i] = voltage_mv;
         } else {
-            // Communication error - mark data as invalid
+            // Communication error even after retry - mark data as invalid
             data->valid = 0;
             
             // Release I2C1 mutex
@@ -674,22 +819,25 @@ HAL_StatusTypeDef BQ_ReadBMS2(BQ_Data_BMS2_t *data)
     
     // Check I2C3 state and recover if needed
     if (hi2c3.State != HAL_I2C_STATE_READY) {
-        // I2C is stuck - attempt recovery by reinitializing
-        HAL_I2C_DeInit(&hi2c3);
-        HAL_I2C_Init(&hi2c3);
-        
-        // Small delay to let the bus settle
-        osDelay(5);
+        // I2C is stuck - attempt full recovery with GPIO clock toggle
+        I2C_RecoverBus(&hi2c3);
     }
     
     // Check I2C3 error state for diagnostics
     g_last_i2c3_error = HAL_I2C_GetError(&hi2c3);
     
-    // If I2C3 has errors, try to clear them
+    // If I2C3 has errors, try to clear them or recover
     if (g_last_i2c3_error != HAL_I2C_ERROR_NONE) {
+        g_i2c3_error_count++;
+        // Try to clear error flags first
         __HAL_I2C_CLEAR_FLAG(&hi2c3, I2C_FLAG_BERR | I2C_FLAG_ARLO | I2C_FLAG_AF | I2C_FLAG_OVR);
         hi2c3.ErrorCode = HAL_I2C_ERROR_NONE;
         hi2c3.State = HAL_I2C_STATE_READY;
+        
+        // If still not ready, do full recovery
+        if (hi2c3.State != HAL_I2C_STATE_READY) {
+            I2C_RecoverBus(&hi2c3);
+        }
     }
     
     // Read cells 10-18 (map to BQ76952 cells 1-9 on second chip)
@@ -699,10 +847,19 @@ HAL_StatusTypeDef BQ_ReadBMS2(BQ_Data_BMS2_t *data)
         // Read from BQ76952 cells 1-9 (physical cells 10-18)
         status = BQ_ReadCell(&hi2c3, BQ76952_I2C_ADDR_BMS2, i + 1, &voltage_mv);
         
+        if (status != HAL_OK) {
+            // First read failed - attempt recovery and retry once
+            g_i2c3_error_count++;
+            I2C_RecoverBus(&hi2c3);
+            
+            // Retry the read
+            status = BQ_ReadCell(&hi2c3, BQ76952_I2C_ADDR_BMS2, i + 1, &voltage_mv);
+        }
+        
         if (status == HAL_OK) {
             data->cell_voltage_mv[i] = voltage_mv;
         } else {
-            // Communication error - mark data as invalid
+            // Communication error even after retry - mark data as invalid
             data->valid = 0;
             
             // Release I2C3 mutex
@@ -1003,12 +1160,37 @@ HAL_StatusTypeDef BQ_ResetChips(void)
 }
 
 /**
+  * @brief  Get last I2C1 error code for diagnostics
+  * @retval uint32_t: HAL I2C error code
+  */
+uint32_t BQ_GetLastI2C1Error(void)
+{
+    return g_last_i2c1_error;
+}
+
+/**
   * @brief  Get last I2C3 error code for diagnostics
   * @retval uint32_t: HAL I2C error code
   */
 uint32_t BQ_GetLastI2C3Error(void)
 {
     return g_last_i2c3_error;
+}
+
+/**
+  * @brief  Get I2C error and recovery statistics
+  * @param  i2c1_errors: Pointer to store I2C1 error count (can be NULL)
+  * @param  i2c1_recoveries: Pointer to store I2C1 recovery count (can be NULL)
+  * @param  i2c3_errors: Pointer to store I2C3 error count (can be NULL)
+  * @param  i2c3_recoveries: Pointer to store I2C3 recovery count (can be NULL)
+  */
+void BQ_GetI2CStats(uint32_t *i2c1_errors, uint32_t *i2c1_recoveries,
+                    uint32_t *i2c3_errors, uint32_t *i2c3_recoveries)
+{
+    if (i2c1_errors) *i2c1_errors = g_i2c1_error_count;
+    if (i2c1_recoveries) *i2c1_recoveries = g_i2c1_recovery_count;
+    if (i2c3_errors) *i2c3_errors = g_i2c3_error_count;
+    if (i2c3_recoveries) *i2c3_recoveries = g_i2c3_recovery_count;
 }
 
 /**
@@ -1069,4 +1251,424 @@ void BQ_SetMaxVoltage(uint16_t max_voltage_mv)
 uint16_t BQ_GetMaxVoltage(void)
 {
     return g_cell_voltage_max_mv;
+}
+
+/* Cell Balancing Functions --------------------------------------------------*/
+
+/**
+  * @brief  Write a subcommand with data to BQ76952 (RAM-type subcommand)
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  subcmd: Subcommand address (16-bit)
+  * @param  data: Data to write (16-bit)
+  * @retval HAL_StatusTypeDef
+  * @note   For RAM-type subcommands like CB_ACTIVE_CELLS:
+  *         1. Write subcommand to 0x3E/0x3F
+  *         2. Write data to 0x40/0x41
+  *         3. Write checksum to 0x60 and length to 0x61
+  */
+static HAL_StatusTypeDef BQ76952_WriteSubcommand(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                                  uint16_t subcmd, uint16_t data)
+{
+    HAL_StatusTypeDef status;
+    uint8_t tx_buf[4];
+    uint8_t checksum;
+    
+    // Step 1: Write subcommand address to 0x3E/0x3F
+    tx_buf[0] = 0x3E;                           // Register address for subcommand
+    tx_buf[1] = (uint8_t)(subcmd & 0xFF);       // Subcommand LSB
+    tx_buf[2] = (uint8_t)((subcmd >> 8) & 0xFF); // Subcommand MSB
+    
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Step 2: Write data to 0x40/0x41
+    tx_buf[0] = 0x40;                           // Data buffer register
+    tx_buf[1] = (uint8_t)(data & 0xFF);         // Data LSB
+    tx_buf[2] = (uint8_t)((data >> 8) & 0xFF);  // Data MSB
+    
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Step 3: Compute checksum = ~(sum of all data bytes) & 0xFF
+    // Data includes: subcmd_lo, subcmd_hi, data_lo, data_hi
+    checksum = (uint8_t)(subcmd & 0xFF);
+    checksum += (uint8_t)((subcmd >> 8) & 0xFF);
+    checksum += (uint8_t)(data & 0xFF);
+    checksum += (uint8_t)((data >> 8) & 0xFF);
+    checksum = ~checksum;
+    
+    // Step 4: Write checksum and length to 0x60/0x61
+    // Length = 4 bytes (subcmd_lo, subcmd_hi, data_lo, data_hi) + 4 = 0x06
+    tx_buf[0] = 0x60;
+    tx_buf[1] = checksum;
+    tx_buf[2] = 0x06;  // Length: 2 (subcmd) + 2 (data) + 2 (checksum+length) = 6
+    
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    
+    return status;
+}
+
+/**
+  * @brief  Read subcommand result from BQ76952
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  subcmd: Subcommand address (16-bit)
+  * @param  data: Pointer to store result (16-bit)
+  * @retval HAL_StatusTypeDef
+  * @note   Uses indirect addressing: write subcmd to 0x3E/0x3F, wait, read from 0x40
+  */
+static HAL_StatusTypeDef BQ76952_ReadSubcommand(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                                 uint16_t subcmd, uint16_t *data)
+{
+    HAL_StatusTypeDef status;
+    uint8_t tx_buf[3];
+    uint8_t rx_buf[2];
+    uint8_t reg_addr;
+    
+    // Write subcommand address
+    tx_buf[0] = 0x3E;                           // Register address for subcommand
+    tx_buf[1] = (uint8_t)(subcmd & 0xFF);       // Subcommand LSB
+    tx_buf[2] = (uint8_t)((subcmd >> 8) & 0xFF); // Subcommand MSB
+    
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Small delay for BQ76952 to process (1ms typical)
+    osDelay(2);
+    
+    // Read result from transfer buffer at 0x40
+    reg_addr = 0x40;
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), &reg_addr, 1, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    status = HAL_I2C_Master_Receive(hi2c, (device_addr << 1), rx_buf, 2, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Combine bytes (LSB first)
+    *data = (uint16_t)rx_buf[0] | ((uint16_t)rx_buf[1] << 8);
+    
+    return HAL_OK;
+}
+
+/**
+  * @brief  Send a command-only subcommand to BQ76952
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  subcmd: Command subcommand address (16-bit)
+  * @retval HAL_StatusTypeDef
+  */
+static HAL_StatusTypeDef BQ76952_SendSubcommand(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                                 uint16_t subcmd)
+{
+    uint8_t tx_buf[3];
+    
+    tx_buf[0] = 0x3E;                           // Register address for subcommand
+    tx_buf[1] = (uint8_t)(subcmd & 0xFF);       // Subcommand LSB
+    tx_buf[2] = (uint8_t)((subcmd >> 8) & 0xFF); // Subcommand MSB
+    
+    return HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+}
+
+/**
+  * @brief  Write two bytes to BQ76952 data memory
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  addr: Data memory address (16-bit)
+  * @param  data: Data word to write (16-bit, little-endian)
+  * @retval HAL_StatusTypeDef
+  * @note   Uses indirect addressing: write addr to 0x3E/0x3F, data to 0x40/0x41, checksum+length to 0x60/0x61
+  */
+static HAL_StatusTypeDef BQ76952_WriteDataMemoryWord(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                                      uint16_t addr, uint16_t data)
+{
+    HAL_StatusTypeDef status;
+    uint8_t tx_buf[4];
+    uint8_t checksum;
+    
+    // Step 1: Write data memory address to 0x3E/0x3F
+    tx_buf[0] = 0x3E;                           // Register address for subcommand
+    tx_buf[1] = (uint8_t)(addr & 0xFF);         // Address LSB
+    tx_buf[2] = (uint8_t)((addr >> 8) & 0xFF);  // Address MSB
+    
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Step 2: Write data word to 0x40/0x41
+    tx_buf[0] = 0x40;
+    tx_buf[1] = (uint8_t)(data & 0xFF);         // Data LSB
+    tx_buf[2] = (uint8_t)((data >> 8) & 0xFF);  // Data MSB
+    
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Step 3: Compute checksum = ~(sum of addr_lo + addr_hi + data_lo + data_hi) & 0xFF
+    checksum = (uint8_t)(addr & 0xFF);
+    checksum += (uint8_t)((addr >> 8) & 0xFF);
+    checksum += (uint8_t)(data & 0xFF);
+    checksum += (uint8_t)((data >> 8) & 0xFF);
+    checksum = ~checksum;
+    
+    // Step 4: Write checksum and length to 0x60/0x61
+    // Length = 2 (addr) + 2 (data) + 2 (checksum+length) = 6
+    tx_buf[0] = 0x60;
+    tx_buf[1] = checksum;
+    tx_buf[2] = 0x06;
+    
+    status = HAL_I2C_Master_Transmit(hi2c, (device_addr << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    
+    return status;
+}
+
+/**
+  * @brief  Configure CB_LOOP_SLOW for maximum balancing current
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Sets CB_LOOP_SLOW to 3 (eighth-speed mode) in Power Config register
+  *         This provides maximum average balancing current by slowing the ADC
+  *         scan loop while balancing is active.
+  *         Power Config register (0x9234):
+  *           Bits 5-4: CB_LOOP_SLOW (0=full, 1=half, 2=quarter, 3=eighth)
+  *         Default value is 0x2982, we set to 0x29B2 (bits 5-4 = 11)
+  *         Requires entering CONFIG_UPDATE mode.
+  */
+HAL_StatusTypeDef BQ_ConfigureBalancingSpeed(I2C_HandleTypeDef *hi2c, uint8_t device_addr)
+{
+    HAL_StatusTypeDef status;
+    osMutexId_t mutex = (hi2c == &hi2c1) ? I2C1Handle : I2C3Handle;
+    
+    if (osMutexAcquire(mutex, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    
+    // Step 1: Enter CONFIG_UPDATE mode
+    status = BQ76952_SendSubcommand(hi2c, device_addr, SET_CFGUPDATE);
+    if (status != HAL_OK) {
+        osMutexRelease(mutex);
+        return status;
+    }
+    
+    // Wait for CONFIG_UPDATE mode to be active (10ms recommended)
+    osDelay(10);
+    
+    // Step 2: Write Power Config (0x9234) with CB_LOOP_SLOW = 3 (bits 5-4)
+    // Power Config is a 16-bit register (H2 type)
+    // Default value: 0x2982
+    // We set CB_LOOP_SLOW bits [5:4] = 11 (3 = eighth speed)
+    // New value: 0x2982 | (3 << 4) = 0x2982 | 0x0030 = 0x29B2
+    uint16_t power_config = 0x29B2;  // Default with CB_LOOP_SLOW = 3
+    
+    status = BQ76952_WriteDataMemoryWord(hi2c, device_addr, PowerConfig, power_config);
+    if (status != HAL_OK) {
+        // Try to exit CONFIG_UPDATE mode anyway
+        BQ76952_SendSubcommand(hi2c, device_addr, EXIT_CFGUPDATE);
+        osDelay(10);
+        osMutexRelease(mutex);
+        return status;
+    }
+    
+    // Step 3: Exit CONFIG_UPDATE mode
+    status = BQ76952_SendSubcommand(hi2c, device_addr, EXIT_CFGUPDATE);
+    
+    // Wait for exit to complete
+    osDelay(10);
+    
+    osMutexRelease(mutex);
+    return status;
+}
+
+/**
+  * @brief  Set active balancing cells on a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  cell_mask: 16-bit mask of cells to balance (bit 0 = cell 1, etc.)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Uses CB_ACTIVE_CELLS (0x0083) subcommand
+  *         This resets the internal balance timer on each call
+  */
+HAL_StatusTypeDef BQ_SetBalanceCells(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t cell_mask)
+{
+    HAL_StatusTypeDef status;
+    osMutexId_t mutex = (hi2c == &hi2c1) ? I2C1Handle : I2C3Handle;
+    
+    if (osMutexAcquire(mutex, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    
+    // Write cell mask to CB_ACTIVE_CELLS (0x0083)
+    status = BQ76952_WriteSubcommand(hi2c, device_addr, CB_ACTIVE_CELLS, cell_mask);
+    
+    osMutexRelease(mutex);
+    return status;
+}
+
+/**
+  * @brief  Read currently active balancing cells from a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  cell_mask: Pointer to store 16-bit mask of balancing cells
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_GetBalanceCells(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t *cell_mask)
+{
+    HAL_StatusTypeDef status;
+    osMutexId_t mutex = (hi2c == &hi2c1) ? I2C1Handle : I2C3Handle;
+    
+    if (cell_mask == NULL) {
+        return HAL_ERROR;
+    }
+    
+    if (osMutexAcquire(mutex, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    
+    // Read from CB_ACTIVE_CELLS (0x0083)
+    status = BQ76952_ReadSubcommand(hi2c, device_addr, CB_ACTIVE_CELLS, cell_mask);
+    
+    osMutexRelease(mutex);
+    return status;
+}
+
+/**
+  * @brief  Check if cell balancing is active on a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  active: Pointer to store result (true = balancing active)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Checks bit 2 [CB] of Alarm Raw Status (0x64)
+  */
+HAL_StatusTypeDef BQ_IsBalancingActive(I2C_HandleTypeDef *hi2c, uint8_t device_addr, bool *active)
+{
+    HAL_StatusTypeDef status;
+    uint16_t alarm_raw;
+    osMutexId_t mutex = (hi2c == &hi2c1) ? I2C1Handle : I2C3Handle;
+    
+    if (active == NULL) {
+        return HAL_ERROR;
+    }
+    
+    if (osMutexAcquire(mutex, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    
+    // Read Alarm Raw Status (0x64) - direct command
+    status = BQ76952_ReadRegister16(hi2c, device_addr, AlarmRawStatus, &alarm_raw);
+    
+    osMutexRelease(mutex);
+    
+    if (status == HAL_OK) {
+        // Bit 2 is CB (Cell Balancing) active flag
+        *active = (alarm_raw & 0x0004) ? true : false;
+    }
+    
+    return status;
+}
+
+/**
+  * @brief  Stop all cell balancing on a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_StopBalancing(I2C_HandleTypeDef *hi2c, uint8_t device_addr)
+{
+    // Set cell mask to 0 to stop all balancing
+    return BQ_SetBalanceCells(hi2c, device_addr, 0x0000);
+}
+
+/**
+  * @brief  Read CBSTATUS registers from a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  cbstatus1: Pointer to store CBSTATUS1 (cells 1-8 actual balance state)
+  * @param  cbstatus2: Pointer to store CBSTATUS2 (cells 9-16 actual balance state)
+  * @param  cbstatus3: Pointer to store CBSTATUS3 (balance summary flags)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   CBSTATUS shows which cells are ACTUALLY balancing, not just commanded
+  */
+HAL_StatusTypeDef BQ_GetCBStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                  uint8_t *cbstatus1, uint8_t *cbstatus2, uint8_t *cbstatus3)
+{
+    HAL_StatusTypeDef status;
+    uint16_t result;
+    osMutexId_t mutex = (hi2c == &hi2c1) ? I2C1Handle : I2C3Handle;
+    
+    if (osMutexAcquire(mutex, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    
+    // Read CBSTATUS1 (0x0085) - which cells 1-8 are balancing
+    if (cbstatus1 != NULL) {
+        status = BQ76952_ReadSubcommand(hi2c, device_addr, CBSTATUS1, &result);
+        if (status != HAL_OK) {
+            osMutexRelease(mutex);
+            return status;
+        }
+        *cbstatus1 = (uint8_t)(result & 0xFF);
+    }
+    
+    // Read CBSTATUS2 (0x0086) - which cells 9-16 are balancing
+    if (cbstatus2 != NULL) {
+        status = BQ76952_ReadSubcommand(hi2c, device_addr, CBSTATUS2, &result);
+        if (status != HAL_OK) {
+            osMutexRelease(mutex);
+            return status;
+        }
+        *cbstatus2 = (uint8_t)(result & 0xFF);
+    }
+    
+    // Read CBSTATUS3 (0x0087) - balance summary/status flags
+    if (cbstatus3 != NULL) {
+        status = BQ76952_ReadSubcommand(hi2c, device_addr, CBSTATUS3, &result);
+        if (status != HAL_OK) {
+            osMutexRelease(mutex);
+            return status;
+        }
+        *cbstatus3 = (uint8_t)(result & 0xFF);
+    }
+    
+    osMutexRelease(mutex);
+    return HAL_OK;
+}
+
+/**
+  * @brief  Read AlarmRawStatus register from a BQ76952 chip
+  * @param  hi2c: I2C handle (hi2c1 for BMS1, hi2c3 for BMS2)
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  alarm_status: Pointer to store AlarmRawStatus (16-bit)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+HAL_StatusTypeDef BQ_GetAlarmRawStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t *alarm_status)
+{
+    HAL_StatusTypeDef status;
+    osMutexId_t mutex = (hi2c == &hi2c1) ? I2C1Handle : I2C3Handle;
+    
+    if (alarm_status == NULL) {
+        return HAL_ERROR;
+    }
+    
+    if (osMutexAcquire(mutex, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    
+    // Read Alarm Raw Status (0x64) - direct register read
+    status = BQ76952_ReadRegister16(hi2c, device_addr, AlarmRawStatus, alarm_status);
+    
+    osMutexRelease(mutex);
+    return status;
 }

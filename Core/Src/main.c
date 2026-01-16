@@ -28,6 +28,7 @@
 #include "config_manager.h"
 #include "error_manager.h"
 #include "state_machine.h"
+#include "balance_manager.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -250,6 +251,12 @@ int main(void)
   
   // Initialize CAN Manager (creates TX and RX message queues)
   if (CAN_Manager_Init() != HAL_OK)
+  {
+    Error_Handler();
+  }
+  
+  // Initialize Balance Manager
+  if (BalanceMgr_Init() != HAL_OK)
   {
     Error_Handler();
   }
