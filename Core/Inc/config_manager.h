@@ -53,6 +53,7 @@ extern "C" {
 #define CONFIG_CMD_SET_MIN_VOLTAGE 0x04 // Command to set min cell voltage (value * 100 = mV, e.g. 25 = 2500mV)
 #define CONFIG_CMD_SET_MAX_VOLTAGE 0x05 // Command to set max cell voltage (value * 100 = mV, e.g. 42 = 4200mV)
 #define CONFIG_CMD_GET_VALUE     0x06   // Command to get current config value
+#define CONFIG_CMD_SET_SLEEP     0x07   // Command to set BQ chip sleep mode (0=enable sleep, 1=disable sleep)
 
 /* Parameter Selectors for GET_VALUE command ---------------------------------*/
 #define CONFIG_PARAM_MODULE_ID   0x01   // Get current module ID
@@ -60,6 +61,7 @@ extern "C" {
 #define CONFIG_PARAM_MIN_TEMP    0x03   // Get min temperature threshold
 #define CONFIG_PARAM_MIN_VOLTAGE 0x04   // Get min voltage threshold
 #define CONFIG_PARAM_MAX_VOLTAGE 0x05   // Get max voltage threshold
+#define CONFIG_PARAM_SLEEP_MODE  0x06   // Get BQ chip sleep mode status (0=enabled, 1=disabled)
 
 /* CAN Response Status Codes -------------------------------------------------*/
 #define CONFIG_STATUS_SUCCESS 0x00      // Command successful

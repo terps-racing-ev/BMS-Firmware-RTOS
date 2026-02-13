@@ -458,6 +458,9 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
                 case CONFIG_PARAM_MAX_VOLTAGE:
                     param_value = BQ_GetMaxVoltage() / 100;  // Return as value*100=mV
                     break;
+                case CONFIG_PARAM_SLEEP_MODE:
+                    param_value = BQ_GetSleepMode();  // 0=enabled, 1=disabled
+                    break;
                 default:
                     status = CONFIG_STATUS_FAIL;
                     break;
@@ -475,6 +478,46 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
             ack_data[2] = param;
             ack_data[3] = (uint8_t)(param_value & 0xFF);
             ack_data[4] = (uint8_t)((param_value >> 8) & 0xFF);
+            ack_data[5] = 0x00;
+            ack_data[6] = 0x00;
+            ack_data[7] = 0x00;
+            
+            // Send acknowledgement
+            CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+            break;
+        }
+        
+        case CONFIG_CMD_SET_SLEEP:
+        {
+            // Set BQ chip sleep mode
+            // Byte 1 (value): 0 = enable sleep, 1 = disable sleep
+            uint8_t old_sleep_mode = BQ_GetSleepMode();
+            uint8_t new_sleep_mode = (value != 0) ? 1 : 0;  // Normalize to 0 or 1
+            
+            // Send command to both BQ chips
+            HAL_StatusTypeDef result = BQ_SetSleepMode(new_sleep_mode);
+            
+            // Determine status
+            if (result == HAL_OK) {
+                status = CONFIG_STATUS_SUCCESS;
+            } else {
+                status = CONFIG_STATUS_FAIL;
+            }
+            
+            // Get actual new value after command
+            uint8_t actual_sleep_mode = BQ_GetSleepMode();
+            
+            // Prepare acknowledgement message
+            // Byte 0: Command echo (0x07)
+            // Byte 1: Status (0x00 = success, 0x01 = fail)
+            // Byte 2: Old sleep mode (0=enabled, 1=disabled)
+            // Byte 3: New sleep mode (0=enabled, 1=disabled)
+            // Bytes 4-7: Reserved
+            ack_data[0] = command;
+            ack_data[1] = status;
+            ack_data[2] = old_sleep_mode;
+            ack_data[3] = actual_sleep_mode;
+            ack_data[4] = 0x00;
             ack_data[5] = 0x00;
             ack_data[6] = 0x00;
             ack_data[7] = 0x00;

@@ -98,29 +98,29 @@ BO_ 2297433864 BMS_Balance_Status_0: 8 BMS_Module_0
  SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297433865 BMS1_Balance_Detail_0: 8 BMS_Module_0
- SG_ BMS1_Cell1_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell2_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell3_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell4_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell5_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell6_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell7_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell8_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell9_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS1_Cell0_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell1_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell2_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell3_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell4_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell5_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell6_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell7_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell8_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS1_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297433866 BMS2_Balance_Detail_0: 8 BMS_Module_0
- SG_ BMS2_Cell10_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell11_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell12_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell13_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell14_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell15_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell16_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell17_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell18_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS2_Cell9_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell10_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell11_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell12_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell13_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell14_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell15_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell16_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell17_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS2_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297430784 BMS_Heartbeat_0: 8 BMS_Module_0
@@ -333,29 +333,29 @@ BO_ 2297437960 BMS_Balance_Status_1: 8 BMS_Module_1
  SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297437961 BMS1_Balance_Detail_1: 8 BMS_Module_1
- SG_ BMS1_Cell1_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell2_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell3_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell4_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell5_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell6_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell7_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell8_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell9_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS1_Cell0_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell1_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell2_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell3_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell4_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell5_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell6_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell7_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell8_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS1_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297437962 BMS2_Balance_Detail_1: 8 BMS_Module_1
- SG_ BMS2_Cell10_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell11_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell12_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell13_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell14_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell15_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell16_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell17_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell18_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS2_Cell9_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell10_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell11_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell12_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell13_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell14_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell15_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell16_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell17_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS2_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297434880 BMS_Heartbeat_1: 8 BMS_Module_1
@@ -568,29 +568,29 @@ BO_ 2297442056 BMS_Balance_Status_2: 8 BMS_Module_2
  SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297442057 BMS1_Balance_Detail_2: 8 BMS_Module_2
- SG_ BMS1_Cell1_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell2_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell3_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell4_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell5_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell6_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell7_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell8_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell9_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS1_Cell0_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell1_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell2_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell3_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell4_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell5_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell6_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell7_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell8_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS1_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297442058 BMS2_Balance_Detail_2: 8 BMS_Module_2
- SG_ BMS2_Cell10_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell11_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell12_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell13_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell14_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell15_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell16_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell17_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell18_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS2_Cell9_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell10_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell11_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell12_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell13_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell14_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell15_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell16_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell17_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS2_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297438976 BMS_Heartbeat_2: 8 BMS_Module_2
@@ -803,29 +803,29 @@ BO_ 2297446152 BMS_Balance_Status_3: 8 BMS_Module_3
  SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297446153 BMS1_Balance_Detail_3: 8 BMS_Module_3
- SG_ BMS1_Cell1_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell2_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell3_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell4_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell5_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell6_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell7_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell8_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell9_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS1_Cell0_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell1_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell2_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell3_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell4_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell5_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell6_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell7_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell8_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS1_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297446154 BMS2_Balance_Detail_3: 8 BMS_Module_3
- SG_ BMS2_Cell10_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell11_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell12_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell13_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell14_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell15_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell16_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell17_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell18_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS2_Cell9_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell10_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell11_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell12_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell13_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell14_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell15_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell16_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell17_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS2_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297443072 BMS_Heartbeat_3: 8 BMS_Module_3
@@ -1038,29 +1038,29 @@ BO_ 2297450248 BMS_Balance_Status_4: 8 BMS_Module_4
  SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297450249 BMS1_Balance_Detail_4: 8 BMS_Module_4
- SG_ BMS1_Cell1_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell2_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell3_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell4_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell5_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell6_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell7_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell8_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell9_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS1_Cell0_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell1_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell2_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell3_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell4_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell5_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell6_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell7_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell8_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS1_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297450250 BMS2_Balance_Detail_4: 8 BMS_Module_4
- SG_ BMS2_Cell10_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell11_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell12_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell13_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell14_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell15_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell16_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell17_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell18_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS2_Cell9_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell10_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell11_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell12_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell13_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell14_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell15_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell16_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell17_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS2_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297447168 BMS_Heartbeat_4: 8 BMS_Module_4
@@ -1273,29 +1273,29 @@ BO_ 2297454344 BMS_Balance_Status_5: 8 BMS_Module_5
  SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297454345 BMS1_Balance_Detail_5: 8 BMS_Module_5
- SG_ BMS1_Cell1_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell2_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell3_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell4_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell5_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell6_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell7_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell8_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_Cell9_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS1_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS1_Cell0_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell1_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell2_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell3_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell4_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell5_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell6_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell7_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Cell8_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS1_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297454346 BMS2_Balance_Detail_5: 8 BMS_Module_5
- SG_ BMS2_Cell10_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell11_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell12_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell13_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell14_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell15_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell16_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell17_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_Cell18_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
- SG_ BMS2_CB_Status : 16|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ BMS2_Cell9_Bal : 0|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell10_Bal : 1|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell11_Bal : 2|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell12_Bal : 3|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell13_Bal : 4|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell14_Bal : 5|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell15_Bal : 6|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell16_Bal : 7|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Cell17_Bal : 8|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Reserved : 16|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ BMS2_Alarm_Raw : 24|16@1+ (1,0) [0|65535] "" CAN_Host
 
 BO_ 2297451264 BMS_Heartbeat_5: 8 BMS_Module_5
@@ -1777,34 +1777,34 @@ VAL_ 2297454354 I2C1_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_
 VAL_ 2297454354 I2C3_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";
 
 // Config Command values
-VAL_ 2297433856 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
-VAL_ 2297437952 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
-VAL_ 2297442048 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
-VAL_ 2297446144 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
-VAL_ 2297450240 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
-VAL_ 2297454336 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297433856 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
+VAL_ 2297437952 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
+VAL_ 2297442048 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
+VAL_ 2297446144 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
+VAL_ 2297450240 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
+VAL_ 2297454336 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
 
 // Config ACK Command Echo values
-VAL_ 2297433857 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297433857 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
 VAL_ 2297433857 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
-VAL_ 2297437953 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297437953 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
 VAL_ 2297437953 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
-VAL_ 2297442049 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297442049 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
 VAL_ 2297442049 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
-VAL_ 2297446145 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297446145 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
 VAL_ 2297446145 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
-VAL_ 2297450241 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297450241 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
 VAL_ 2297450241 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
-VAL_ 2297454337 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";
+VAL_ 2297454337 Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_SLEEP_MODE";
 VAL_ 2297454337 Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";
 
 // Config GET_VALUE parameter selectors (Byte2 when Command_Echo=0x06)
-VAL_ 2297433857 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
-VAL_ 2297437953 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
-VAL_ 2297442049 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
-VAL_ 2297446145 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
-VAL_ 2297450241 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
-VAL_ 2297454337 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";
+VAL_ 2297433857 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE" 6 "SLEEP_MODE";
+VAL_ 2297437953 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE" 6 "SLEEP_MODE";
+VAL_ 2297442049 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE" 6 "SLEEP_MODE";
+VAL_ 2297446145 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE" 6 "SLEEP_MODE";
+VAL_ 2297450241 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE" 6 "SLEEP_MODE";
+VAL_ 2297454337 Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE" 6 "SLEEP_MODE";
 
 // Cell balancing status values - ACTUAL cells balancing (read from CBSTATUS1/2)
 VAL_ 2297433865 BMS1_Cell1_Bal 0 "Off" 1 "Balancing";
@@ -1916,19 +1916,6 @@ VAL_ 2297454346 BMS2_Cell16_Bal 0 "Off" 1 "Balancing";
 VAL_ 2297454346 BMS2_Cell17_Bal 0 "Off" 1 "Balancing";
 VAL_ 2297454346 BMS2_Cell18_Bal 0 "Off" 1 "Balancing";
 
-// CBSTATUS3 Cell Balance Status flags
-VAL_ 2297433865 BMS1_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297433866 BMS2_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297437961 BMS1_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297437962 BMS2_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297442057 BMS1_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297442058 BMS2_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297446153 BMS1_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297446154 BMS2_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297450249 BMS1_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297450250 BMS2_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297454345 BMS1_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
-VAL_ 2297454346 BMS2_CB_Status 0 "OK" 1 "OT_PreWarn" 2 "OverTemp" 4 "UnderTemp" 8 "Paused" 3 "OT_PreWarn+OverTemp" 9 "OT_PreWarn+Paused" 10 "OverTemp+Paused" 12 "UnderTemp+Paused";
 
 // AlarmRawStatus common values (bit flags: SSA=1, SSB=2, CB=4, PFA=8, etc.)
 VAL_ 2297433865 BMS1_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 "SafetyA+B" 5 "CB+SafetyA" 6 "CB+SafetyB" 7 "CB+SafetyA+B" 8 "PermFailA" 16 "PermFailB" 32 "PermFailC" 64 "PermFailD" 256 "Charging" 512 "Discharging" 260 "CB+Charging" 516 "CB+Discharging";

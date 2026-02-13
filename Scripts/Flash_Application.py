@@ -420,9 +420,12 @@ class CANBootloaderFlash:
         
         return None
     
-    def erase_flash(self) -> bool:
+    def erase_flash(self, retry_count: int = 0) -> bool:
         """
         Erase application flash area.
+        
+        Args:
+            retry_count: Internal counter to limit retries
         
         Returns:
             True if erase successful
@@ -431,6 +434,9 @@ class CANBootloaderFlash:
         print("Erasing flash memory...")
         print("="*60)
         print("This may take several seconds...")
+        
+        # Clear any stale messages before erase (especially READY messages)
+        self.driver.clear_receive_queue()
         
         # Send ERASE command
         if not self.send_command(CMD_ERASE_FLASH, []):
@@ -452,6 +458,15 @@ class CANBootloaderFlash:
             error_desc = ERROR_DESCRIPTIONS.get(error_code, f"Error {error_code}")
             print(f"✗ Erase failed: {error_desc}")
             return False
+        elif resp.data[0] == RESP_READY:
+            # Bootloader sent another READY - clear and retry (max 2 retries)
+            if retry_count < 2:
+                print("⚠ Received stale READY message, retrying...")
+                self.driver.clear_receive_queue()
+                return self.erase_flash(retry_count + 1)
+            else:
+                print("✗ Too many stale READY messages, aborting")
+                return False
         else:
             print(f"✗ Unexpected response: 0x{resp.data[0]:02X}")
             return False
@@ -793,6 +808,9 @@ class CANBootloaderFlash:
             print(f"✗ Failed to read firmware file: {e}")
             return False
         
+        # Clear any stale messages (e.g., extra READY messages) before starting operations
+        self.driver.clear_receive_queue()
+        
         # Get initial status
         status = self.get_status()
         if not status:
@@ -834,11 +852,12 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 Examples:
-  python Flash_Application.py --module 0                              # Use default build path, module 0
+  python Flash_Application.py --module 0                              # Reset module 0 and flash
+  python Flash_Application.py                                         # Listen for bootloader (no reset)
   python Flash_Application.py --module 0 application.bin              # Specify firmware file
   python Flash_Application.py --module 0 --adapter canable --channel 0
   python Flash_Application.py --module 0 --no-jump
-  python Flash_Application.py --module 0 --status-only
+  python Flash_Application.py --status-only
         '''
     )
 
@@ -861,8 +880,8 @@ Examples:
                        help='Only get bootloader status and exit')
     parser.add_argument('--list-devices', action='store_true',
                        help='List available CAN devices and exit')
-    parser.add_argument('--module', type=int, required=True,
-                       help='BMS module ID (0-5) for reset command')
+    parser.add_argument('--module', type=int, default=None,
+                       help='BMS module ID (0-5) for reset command. If not provided, will listen for bootloader heartbeat without sending reset.')
 
     args = parser.parse_args()
 
@@ -954,23 +973,35 @@ Examples:
             status = flasher.get_status()
             return 0 if status else 1
 
-        # Validate module ID
-        if args.module < 0 or args.module > 5:
-            print(f"✗ Invalid module ID: {args.module} (must be 0-5)")
-            return 1
-        
-        # Clear any stale messages BEFORE sending reset
+        # Clear any stale messages
         flasher.driver.clear_receive_queue()
         
-        # Send BMS reset command to enter bootloader
-        if not flasher.send_bms_reset_command(args.module):
-            print("✗ Failed to send BMS reset command")
-            return 1
-        
-        # Wait for bootloader ready message (DO NOT clear queue - READY comes right after reset)
-        if not flasher.wait_for_bootloader_ready(timeout=3.0):
-            print("⚠ Warning: No READY message received")
-            print("  Continuing anyway - bootloader may already be running...")
+        if args.module is not None:
+            # Validate module ID
+            if args.module < 0 or args.module > 5:
+                print(f"✗ Invalid module ID: {args.module} (must be 0-5)")
+                return 1
+            
+            # Send BMS reset command to enter bootloader
+            if not flasher.send_bms_reset_command(args.module):
+                print("✗ Failed to send BMS reset command")
+                return 1
+            
+            # Wait for bootloader ready message (DO NOT clear queue - READY comes right after reset)
+            if not flasher.wait_for_bootloader_ready(timeout=3.0):
+                print("⚠ Warning: No READY message received")
+                print("  Continuing anyway - bootloader may already be running...")
+        else:
+            # No module specified - listen for bootloader heartbeat
+            print("\n" + "="*60)
+            print("Listening for bootloader heartbeat (no reset command)...")
+            print("="*60)
+            print("Power cycle or manually reset the target device.")
+            
+            if not flasher.wait_for_bootloader_ready(timeout=10.0):
+                print("✗ No bootloader heartbeat received within 10 seconds")
+                print("  Make sure the device is in bootloader mode.")
+                return 1
 
         # Flash firmware
         print(f"Firmware file: {firmware_path}")

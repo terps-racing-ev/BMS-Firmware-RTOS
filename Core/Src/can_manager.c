@@ -404,7 +404,10 @@ void CAN_ManagerTask(void *argument)
         // Send balance status every 1 second during balancing
         if ((current_tick - last_balance_status_tick) >= BALANCE_STATUS_INTERVAL_MS) {
             BalanceMgr_SendStatus();
-            BalanceMgr_SendDetailedStatus();  // Also send detailed readback from each chip
+            // Only send detailed balance readback when actively balancing
+            if (BalanceMgr_IsBalancing()) {
+                BalanceMgr_SendDetailedStatus();
+            }
             last_balance_status_tick = current_tick;
         }
         

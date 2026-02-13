@@ -51,7 +51,7 @@ extern "C" {
 
 #define BALANCE_MAX_CELLS_PER_CHIP  9       /**< Maximum cells that can be balanced per chip */
 #define BALANCE_DEFAULT_TARGET_MV   3500    /**< Default target voltage if not configured */
-#define BALANCE_DEFAULT_MAX_CELLS   4       /**< Default max cells per chip */
+#define BALANCE_DEFAULT_MAX_CELLS   5       /**< Default max cells per chip (max 5 to avoid thermal issues) */
 
 /* Balance Command Response Codes */
 #define BALANCE_STATUS_SUCCESS      0x00    /**< Balance command accepted */

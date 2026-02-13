@@ -40,8 +40,8 @@ extern "C" {
 #define BMS1_NUM_CELLS              9       /**< Number of cells monitored by BMS1 (cells 1-9) */
 #define BMS2_NUM_CELLS              9       /**< Number of cells monitored by BMS2 (cells 10-18) */
 
-#define VOLTAGE_READ_INTERVAL_MS    250     /**< Cell voltage reading interval (500ms = 2Hz) */
-#define VOLTAGE_CAN_INTERVAL_MS     250     /**< CAN transmission interval for voltage data */
+#define VOLTAGE_READ_INTERVAL_MS    500     /**< Cell voltage reading interval (500ms = 2Hz) */
+#define VOLTAGE_CAN_INTERVAL_MS     500     /**< CAN transmission interval for voltage data */
 
 #define I2C_TIMEOUT_MS              100     /**< I2C communication timeout */
 
@@ -336,6 +336,23 @@ HAL_StatusTypeDef BQ_GetCBStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr,
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
 HAL_StatusTypeDef BQ_GetAlarmRawStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t *alarm_status);
+
+/* Sleep Mode Control Functions ----------------------------------------------*/
+
+/**
+  * @brief  Set sleep mode on both BQ76952 chips
+  * @param  disable_sleep: 0 = enable sleep mode, 1 = disable sleep mode
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Sends SLEEP_ENABLE (0x0099) or SLEEP_DISABLE (0x009A) subcommand to both chips
+  */
+HAL_StatusTypeDef BQ_SetSleepMode(uint8_t disable_sleep);
+
+/**
+  * @brief  Get current sleep mode setting
+  * @retval uint8_t: 0 = sleep enabled, 1 = sleep disabled
+  * @note   Returns the last commanded sleep mode state
+  */
+uint8_t BQ_GetSleepMode(void);
 
 #ifdef __cplusplus
 }

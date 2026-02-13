@@ -56,6 +56,11 @@
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
 "C_Cpp_Runner.msvcSecureNoWarnings": false,
+<<<<<<< Updated upstream
 "stm32-for-vscode.openOCDPath": false,
 "stm32-for-vscode.makePath": false
+=======
+"cortex-debug.armToolchainPath": "c:\\Users\\Ali\\AppData\\Roaming\\Code\\User\\globalStorage\\bmd.stm32-for-vscode\\@xpack-dev-tools\\arm-none-eabi-gcc\\14.2.1-1.1.1\\.content\\bin",
+"cortex-debug.openocdPath": "c:\\Users\\Ali\\AppData\\Roaming\\Code\\User\\globalStorage\\bmd.stm32-for-vscode\\@xpack-dev-tools\\openocd\\0.12.0-6.1\\.content\\bin\\openocd.EXE"
+>>>>>>> Stashed changes
 }

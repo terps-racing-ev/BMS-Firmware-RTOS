@@ -1672,3 +1672,118 @@ HAL_StatusTypeDef BQ_GetAlarmRawStatus(I2C_HandleTypeDef *hi2c, uint8_t device_a
     osMutexRelease(mutex);
     return status;
 }
+
+/* Sleep Mode Control Functions ----------------------------------------------*/
+
+// Sleep mode state (0 = sleep enabled, 1 = sleep disabled)
+static uint8_t g_sleep_disabled = 0;  // Default: sleep enabled
+
+/**
+  * @brief  Set sleep current on a BQ76952 chip
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  current_ma: Sleep current in milliamps
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Requires entering CONFIG_UPDATE mode to modify data memory.
+  *         Sleep Current register (0x9248) is in Power:Sleep section.
+  */
+static HAL_StatusTypeDef BQ76952_SetSleepCurrent(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                                  uint16_t current_ma)
+{
+    HAL_StatusTypeDef status;
+    
+    // Step 1: Enter CONFIG_UPDATE mode
+    status = BQ76952_SendSubcommand(hi2c, device_addr, SET_CFGUPDATE);
+    if (status != HAL_OK) {
+        return status;
+    }
+    
+    // Wait for CONFIG_UPDATE mode to be active
+    osDelay(2);
+    
+    // Step 2: Write Sleep Current (0x9248)
+    status = BQ76952_WriteDataMemoryWord(hi2c, device_addr, SleepCurrent, current_ma);
+    if (status != HAL_OK) {
+        // Try to exit CONFIG_UPDATE mode anyway
+        BQ76952_SendSubcommand(hi2c, device_addr, EXIT_CFGUPDATE);
+        osDelay(5);
+        return status;
+    }
+    
+    // Wait for flash write to complete
+    osDelay(5);
+    
+    // Step 3: Exit CONFIG_UPDATE mode
+    status = BQ76952_SendSubcommand(hi2c, device_addr, EXIT_CFGUPDATE);
+    
+    return status;
+}
+
+/**
+  * @brief  Set sleep mode on both BQ76952 chips
+  * @param  disable_sleep: 0 = enable sleep mode, 1 = disable sleep mode
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Sends SLEEP_ENABLE (0x0099) or SLEEP_DISABLE (0x009A) subcommand to both chips.
+  *         When enabling sleep, also sets sleep current to 100mA on both chips.
+  */
+HAL_StatusTypeDef BQ_SetSleepMode(uint8_t disable_sleep)
+{
+    HAL_StatusTypeDef status1, status2;
+    uint16_t subcmd = disable_sleep ? SLEEP_DISABLE : SLEEP_ENABLE;
+    
+    // When enabling sleep, first set the sleep current to 100mA on both chips
+    if (!disable_sleep) {
+        // Set sleep current on BMS1
+        if (osMutexAcquire(I2C1Handle, osWaitForever) != osOK) {
+            return HAL_ERROR;
+        }
+        BQ76952_SetSleepCurrent(&hi2c1, BQ76952_I2C_ADDR_BMS1, 100);  // 100mA
+        osMutexRelease(I2C1Handle);
+        
+        osDelay(5);
+        
+        // Set sleep current on BMS2
+        if (osMutexAcquire(I2C3Handle, osWaitForever) != osOK) {
+            return HAL_ERROR;
+        }
+        BQ76952_SetSleepCurrent(&hi2c3, BQ76952_I2C_ADDR_BMS2, 100);  // 100mA
+        osMutexRelease(I2C3Handle);
+        
+        osDelay(5);
+    }
+    
+    // Send sleep enable/disable command to BMS1 on I2C1
+    if (osMutexAcquire(I2C1Handle, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    status1 = BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, subcmd);
+    osMutexRelease(I2C1Handle);
+    
+    // Small delay between chip commands
+    osDelay(5);
+    
+    // Send sleep enable/disable command to BMS2 on I2C3
+    if (osMutexAcquire(I2C3Handle, osWaitForever) != osOK) {
+        return HAL_ERROR;
+    }
+    status2 = BQ76952_SendSubcommand(&hi2c3, BQ76952_I2C_ADDR_BMS2, subcmd);
+    osMutexRelease(I2C3Handle);
+    
+    // Update stored state if at least one succeeded
+    if (status1 == HAL_OK || status2 == HAL_OK) {
+        g_sleep_disabled = disable_sleep ? 1 : 0;
+    }
+    
+    // Return OK if both succeeded
+    return (status1 == HAL_OK && status2 == HAL_OK) ? HAL_OK : HAL_ERROR;
+}
+
+/**
+  * @brief  Get current sleep mode setting
+  * @retval uint8_t: 0 = sleep enabled, 1 = sleep disabled
+  * @note   Returns the last commanded sleep mode state
+  */
+uint8_t BQ_GetSleepMode(void)
+{
+    return g_sleep_disabled;
+}

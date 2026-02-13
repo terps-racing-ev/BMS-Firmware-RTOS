@@ -22,8 +22,9 @@ Send to: `0x08F0XF00` (where X = target module ID)
 | Set Min Voltage | `0x04` | Value (×100=mV) | Sets min cell voltage (e.g., 25 = 2500mV) |
 | Set Max Voltage | `0x05` | Value (×100=mV) | Sets max cell voltage (e.g., 42 = 4200mV) |
 | Get Value | `0x06` | Param selector | Retrieves current value (see table below) |
+| Set Sleep Mode | `0x07` | 0 or 1 | Sets BQ chip sleep mode (0=enable, 1=disable) |
 
-**Note:** Temperature and voltage thresholds are temporary settings that reset to defaults on power cycle.
+**Note:** Temperature and voltage thresholds are temporary settings that reset to defaults on power cycle. Sleep mode setting is also temporary.
 
 ### Parameter Selectors for Get Value (0x06)
 
@@ -34,6 +35,7 @@ Send to: `0x08F0XF00` (where X = target module ID)
 | Min Temp | `0x03` | Min temperature threshold (°C, signed) |
 | Min Voltage | `0x04` | Min voltage threshold (value × 100 = mV) |
 | Max Voltage | `0x05` | Max voltage threshold (value × 100 = mV) |
+| Sleep Mode | `0x06` | BQ chip sleep mode (0=enabled, 1=disabled) |
 
 ### Config ACK Response (Set Commands)
 
@@ -89,8 +91,11 @@ Sent from: `0x08F0XF04`
 | Set Min Temp to -20°C | `0x08F0XF00` | `03 EC` | Temporary until reset (0xEC = -20 signed) |
 | Set Min Voltage to 2500mV | `0x08F0XF00` | `04 19` | Temporary until reset (25 × 100 = 2500) |
 | Set Max Voltage to 4200mV | `0x08F0XF00` | `05 2A` | Temporary until reset (42 × 100 = 4200) |
+| Enable Sleep Mode | `0x08F0XF00` | `07 00` | Allows BQ chips to enter sleep |
+| Disable Sleep Mode | `0x08F0XF00` | `07 01` | Prevents BQ chips from sleeping |
 | Get Max Temp | `0x08F0XF00` | `06 02` | Returns current max temp threshold |
 | Get Min Voltage | `0x08F0XF00` | `06 04` | Returns current min voltage threshold |
+| Get Sleep Mode | `0x08F0XF00` | `06 06` | Returns 0=enabled, 1=disabled |
 | Reset STM32 | `0x08F0XF02` | — | Immediate reset |
 | Reset BQ76952 chips | `0x08F0XF03` | — | ~600ms reset sequence |
 
@@ -104,3 +109,4 @@ Sent from: `0x08F0XF04`
 | Min Temp Threshold | -20°C | -128 to 127°C |
 | Min Cell Voltage | 2500mV | 0-25500mV |
 | Max Cell Voltage | 4200mV | 0-25500mV |
+| Sleep Mode | Enabled (0) | 0=enabled, 1=disabled |

@@ -320,27 +320,15 @@ static uint16_t SelectCellsToBalance(uint16_t *voltages, uint8_t num_cells,
             has_adjacent = true;
         }
         
-        // Skip if adjacent (first pass)
+        // Skip if adjacent - never allow adjacent cell balancing to prevent thermal issues
         if (!has_adjacent) {
             cell_mask |= (1 << cell_idx);
             selected_count++;
         }
     }
     
-    // Second pass: if we haven't selected enough, allow adjacent
-    if (selected_count < max_cells) {
-        for (uint8_t i = 0; i < candidate_count && selected_count < max_cells; i++) {
-            uint8_t cell_idx = candidates[i].index;
-            
-            // Skip if already selected
-            if (cell_mask & (1 << cell_idx)) {
-                continue;
-            }
-            
-            cell_mask |= (1 << cell_idx);
-            selected_count++;
-        }
-    }
+    // Note: Adjacent cell balancing is disabled for thermal safety
+    // If max_cells isn't reached, those slots remain unused
     
     return cell_mask;
 }
@@ -545,6 +533,7 @@ void BalanceMgr_GetStatus(Balance_Status_t *status)
 /**
   * @brief  Stop all cell balancing immediately
   * @note   Called when exiting balance mode or on error
+  *         Sends final "stopped" messages before clearing state
   * @retval None
   */
 void BalanceMgr_StopBalancing(void)
@@ -559,22 +548,58 @@ void BalanceMgr_StopBalancing(void)
         balance_status.bms2_active_cells = 0;
         balance_status.bms1_cell_count = 0;
         balance_status.bms2_cell_count = 0;
+        balance_status.target_voltage_mv = 0;
+        balance_status.max_cells_per_chip = 0;
         balance_config.config_valid = false;
         config_received = false;
         osMutexRelease(balance_mutex);
     }
+    
+    // Send final "stopped" messages showing all zeros
+    // This indicates balancing has stopped before we stop sending messages
+    uint8_t data[8] = {0};
+    
+    // Final Balance Status: target=0, max_cells=0, cell_counts=0
+    // Still include IC temps for reference
+    int16_t bms1_temp = BQ_GetBMS1InternalTemp();
+    int16_t bms2_temp = BQ_GetBMS2InternalTemp();
+    data[0] = 0;  // Target voltage low byte = 0
+    data[1] = 0;  // Target voltage high byte = 0
+    data[2] = 0;  // Max cells per chip = 0
+    data[3] = 0;  // BMS1 count (0) | BMS2 count (0)
+    data[4] = (uint8_t)(bms1_temp & 0xFF);
+    data[5] = (uint8_t)((bms1_temp >> 8) & 0xFF);
+    data[6] = (uint8_t)(bms2_temp & 0xFF);
+    data[7] = (uint8_t)((bms2_temp >> 8) & 0xFF);
+    CAN_SendMessage(CAN_BALANCE_STATUS_ID, data, 8, CAN_PRIORITY_NORMAL);
+    
+    // Final BMS1 Balance Detail: all cells = 0, still include alarm status
+    memset(data, 0, 8);
+    uint16_t alarm_raw = 0;
+    BQ_GetAlarmRawStatus(&hi2c1, BQ76952_I2C_ADDR_BMS1, &alarm_raw);
+    data[3] = (uint8_t)(alarm_raw & 0xFF);
+    data[4] = (uint8_t)((alarm_raw >> 8) & 0xFF);
+    CAN_SendMessage(CAN_BMS1_BAL_DETAIL_ID, data, 8, CAN_PRIORITY_NORMAL);
+    
+    // Final BMS2 Balance Detail: all cells = 0, still include alarm status
+    memset(data, 0, 8);
+    alarm_raw = 0;
+    BQ_GetAlarmRawStatus(&hi2c3, BQ76952_I2C_ADDR_BMS2, &alarm_raw);
+    data[3] = (uint8_t)(alarm_raw & 0xFF);
+    data[4] = (uint8_t)((alarm_raw >> 8) & 0xFF);
+    CAN_SendMessage(CAN_BMS2_BAL_DETAIL_ID, data, 8, CAN_PRIORITY_NORMAL);
 }
 
 /**
   * @brief  Send detailed balance readback from each BMS chip via CAN
-  * @note   Reads CBSTATUS1/2/3 and AlarmRawStatus from each chip
+  * @note   Reads CB_ACTIVE_CELLS and AlarmRawStatus from each chip
   *         and sends as separate CAN messages for BMS1 and BMS2
   * @retval HAL_StatusTypeDef
   * 
   * BMS1/BMS2 Balance Detail Message Format (8 bytes each):
-  *   Byte 0: CBSTATUS1 (cells 1-8 / 10-17 ACTUALLY balancing, bit per cell)
-  *   Byte 1: CBSTATUS2 (cell 9 / 18 ACTUALLY balancing, in bit 0)
-  *   Byte 2: CBSTATUS3 (balance status flags: OTPW, OT, UT, PAUSE)
+  *   Byte 0: Cells 1-8 / 10-17 ACTUALLY balancing (bit per cell, from CB_ACTIVE_CELLS)
+  *   Byte 1: Cell 9 / 18 ACTUALLY balancing (in bit 0, from CB_ACTIVE_CELLS)
+  *   Byte 2: Reserved (was CBSTATUS3, but that's cumulative time, not status)
   *   Byte 3-4: AlarmRawStatus (16-bit, little-endian)
   *   Byte 5-7: Reserved
   */
@@ -582,24 +607,24 @@ HAL_StatusTypeDef BalanceMgr_SendDetailedStatus(void)
 {
     uint8_t data[8];
     uint16_t alarm_raw = 0;
-    uint8_t cbstatus1 = 0, cbstatus2 = 0, cbstatus3 = 0;
+    uint16_t active_cells = 0;
     HAL_StatusTypeDef status;
     
     // --- BMS1 Detail ---
     // Message format:
-    //   Byte 0: CBSTATUS1 (cells 1-8 ACTUALLY balancing, read back from BMS)
-    //   Byte 1: CBSTATUS2 (cell 9 actually balancing in bit 0)
-    //   Byte 2: CBSTATUS3 (balance status flags: OTPW, OT, UT, PAUSE)
+    //   Byte 0: Cells 1-8 ACTUALLY balancing (bit per cell, from CB_ACTIVE_CELLS)
+    //   Byte 1: Cell 9 actually balancing (in bit 0, from CB_ACTIVE_CELLS)
+    //   Byte 2: Reserved
     //   Byte 3-4: AlarmRawStatus (16-bit, little-endian)
     //   Byte 5-7: Reserved
     memset(data, 0, 8);
     
-    // Read CBSTATUS from BMS1 - shows which cells are ACTUALLY balancing
-    status = BQ_GetCBStatus(&hi2c1, BQ76952_I2C_ADDR_BMS1, &cbstatus1, &cbstatus2, &cbstatus3);
+    // Read CB_ACTIVE_CELLS from BMS1 - shows which cells are ACTUALLY balancing
+    status = BQ_GetBalanceCells(&hi2c1, BQ76952_I2C_ADDR_BMS1, &active_cells);
     if (status == HAL_OK) {
-        data[0] = cbstatus1;  // Cells 1-8 actually balancing (bit per cell)
-        data[1] = cbstatus2;  // Cell 9 in bit 0
-        data[2] = cbstatus3;  // Status flags
+        data[0] = (uint8_t)(active_cells & 0xFF);         // Cells 1-8 (bits 0-7)
+        data[1] = (uint8_t)((active_cells >> 8) & 0x01);  // Cell 9 (bit 8 -> bit 0)
+        data[2] = 0;  // Reserved
     }
     
     // Read AlarmRawStatus from BMS1
@@ -615,14 +640,14 @@ HAL_StatusTypeDef BalanceMgr_SendDetailedStatus(void)
     // --- BMS2 Detail ---
     memset(data, 0, 8);
     alarm_raw = 0;
-    cbstatus1 = cbstatus2 = cbstatus3 = 0;
+    active_cells = 0;
     
-    // Read CBSTATUS from BMS2 - shows which cells are ACTUALLY balancing
-    status = BQ_GetCBStatus(&hi2c3, BQ76952_I2C_ADDR_BMS2, &cbstatus1, &cbstatus2, &cbstatus3);
+    // Read CB_ACTIVE_CELLS from BMS2 - shows which cells are ACTUALLY balancing
+    status = BQ_GetBalanceCells(&hi2c3, BQ76952_I2C_ADDR_BMS2, &active_cells);
     if (status == HAL_OK) {
-        data[0] = cbstatus1;  // Cells 10-17 actually balancing (bit per cell)
-        data[1] = cbstatus2;  // Cell 18 in bit 0
-        data[2] = cbstatus3;  // Status flags
+        data[0] = (uint8_t)(active_cells & 0xFF);         // Cells 10-17 (bits 0-7)
+        data[1] = (uint8_t)((active_cells >> 8) & 0x01);  // Cell 18 (bit 8 -> bit 0)
+        data[2] = 0;  // Reserved
     }
     
     // Read AlarmRawStatus from BMS2

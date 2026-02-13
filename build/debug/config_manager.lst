@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   28:Drivers/CMSIS/Include/core_cm4.h ****   #pragma clang system_header   /* treat file as system include file */
   29:Drivers/CMSIS/Include/core_cm4.h **** #endif
   30:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 2
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 2
 
 
   31:Drivers/CMSIS/Include/core_cm4.h **** #ifndef __CORE_CM4_H_GENERIC
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   85:Drivers/CMSIS/Include/core_cm4.h ****     #define __FPU_USED         0U
   86:Drivers/CMSIS/Include/core_cm4.h ****   #endif
   87:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 3
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 3
 
 
   88:Drivers/CMSIS/Include/core_cm4.h **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  142:Drivers/CMSIS/Include/core_cm4.h ****       #define __FPU_USED       0U
  143:Drivers/CMSIS/Include/core_cm4.h ****     #endif
  144:Drivers/CMSIS/Include/core_cm4.h ****   #else
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 4
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 4
 
 
  145:Drivers/CMSIS/Include/core_cm4.h ****     #define __FPU_USED         0U
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  199:Drivers/CMSIS/Include/core_cm4.h ****     #warning "__NVIC_PRIO_BITS not defined in device header file; using default!"
  200:Drivers/CMSIS/Include/core_cm4.h ****   #endif
  201:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 5
 
 
  202:Drivers/CMSIS/Include/core_cm4.h ****   #ifndef __Vendor_SysTickConfig
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  256:Drivers/CMSIS/Include/core_cm4.h **** /**
  257:Drivers/CMSIS/Include/core_cm4.h ****   \brief  Union type to access the Application Program Status Register (APSR).
  258:Drivers/CMSIS/Include/core_cm4.h ****  */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 6
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 6
 
 
  259:Drivers/CMSIS/Include/core_cm4.h **** typedef union
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  313:Drivers/CMSIS/Include/core_cm4.h **** /**
  314:Drivers/CMSIS/Include/core_cm4.h ****   \brief  Union type to access the Special-Purpose Program Status Registers (xPSR).
  315:Drivers/CMSIS/Include/core_cm4.h ****  */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 7
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 7
 
 
  316:Drivers/CMSIS/Include/core_cm4.h **** typedef union
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  370:Drivers/CMSIS/Include/core_cm4.h ****  */
  371:Drivers/CMSIS/Include/core_cm4.h **** typedef union
  372:Drivers/CMSIS/Include/core_cm4.h **** {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 8
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 8
 
 
  373:Drivers/CMSIS/Include/core_cm4.h ****   struct
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  427:Drivers/CMSIS/Include/core_cm4.h **** /*@} end of group CMSIS_NVIC */
  428:Drivers/CMSIS/Include/core_cm4.h **** 
  429:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 9
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 9
 
 
  430:Drivers/CMSIS/Include/core_cm4.h **** /**
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  484:Drivers/CMSIS/Include/core_cm4.h **** 
  485:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_ICSR_PENDSVSET_Pos             28U                                            /*!< SCB 
  486:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_ICSR_PENDSVSET_Msk             (1UL << SCB_ICSR_PENDSVSET_Pos)                /*!< SCB 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 10
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 10
 
 
  487:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  541:Drivers/CMSIS/Include/core_cm4.h **** 
  542:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SCR_SLEEPDEEP_Pos               2U                                            /*!< SCB 
  543:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SCR_SLEEPDEEP_Msk              (1UL << SCB_SCR_SLEEPDEEP_Pos)                 /*!< SCB 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 11
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 11
 
 
  544:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  598:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_SVCALLACT_Pos             7U                                            /*!< SCB 
  599:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_SVCALLACT_Msk            (1UL << SCB_SHCSR_SVCALLACT_Pos)               /*!< SCB 
  600:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 12
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 12
 
 
  601:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_SHCSR_USGFAULTACT_Pos           3U                                            /*!< SCB 
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  655:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_PRECISERR_Pos            (SCB_CFSR_BUSFAULTSR_Pos + 1U)                  /*!< SCB 
  656:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_PRECISERR_Msk            (1UL << SCB_CFSR_PRECISERR_Pos)                 /*!< SCB 
  657:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 13
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 13
 
 
  658:Drivers/CMSIS/Include/core_cm4.h **** #define SCB_CFSR_IBUSERR_Pos              (SCB_CFSR_BUSFAULTSR_Pos + 0U)                  /*!< SCB 
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  712:Drivers/CMSIS/Include/core_cm4.h ****   \brief    Type definitions for the System Control and ID Register not in the SCB
  713:Drivers/CMSIS/Include/core_cm4.h ****   @{
  714:Drivers/CMSIS/Include/core_cm4.h ****  */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 14
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 14
 
 
  715:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  769:Drivers/CMSIS/Include/core_cm4.h **** #define SysTick_CTRL_COUNTFLAG_Msk         (1UL << SysTick_CTRL_COUNTFLAG_Pos)            /*!< SysT
  770:Drivers/CMSIS/Include/core_cm4.h **** 
  771:Drivers/CMSIS/Include/core_cm4.h **** #define SysTick_CTRL_CLKSOURCE_Pos          2U                                            /*!< SysT
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 15
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 15
 
 
  772:Drivers/CMSIS/Include/core_cm4.h **** #define SysTick_CTRL_CLKSOURCE_Msk         (1UL << SysTick_CTRL_CLKSOURCE_Pos)            /*!< SysT
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  826:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED4[43U];
  827:Drivers/CMSIS/Include/core_cm4.h ****   __OM  uint32_t LAR;                    /*!< Offset: 0xFB0 ( /W)  ITM Lock Access Register */
  828:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t LSR;                    /*!< Offset: 0xFB4 (R/ )  ITM Lock Status Register */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 16
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 16
 
 
  829:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED5[6U];
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  883:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_LSR_Present_Pos                 0U                                            /*!< ITM 
  884:Drivers/CMSIS/Include/core_cm4.h **** #define ITM_LSR_Present_Msk                (1UL /*<< ITM_LSR_Present_Pos*/)               /*!< ITM 
  885:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 17
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 17
 
 
  886:Drivers/CMSIS/Include/core_cm4.h **** /*@}*/ /* end of group CMSIS_ITM */
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  940:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_NOPRFCNT_Msk              (0x1UL << DWT_CTRL_NOPRFCNT_Pos)            /*!< DWT CTR
  941:Drivers/CMSIS/Include/core_cm4.h **** 
  942:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_CYCEVTENA_Pos             22U                                         /*!< DWT CTR
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 18
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 18
 
 
  943:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_CTRL_CYCEVTENA_Msk             (0x1UL << DWT_CTRL_CYCEVTENA_Pos)           /*!< DWT CTR
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  997:Drivers/CMSIS/Include/core_cm4.h **** /* DWT Folded-instruction Count Register Definitions */
  998:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FOLDCNT_FOLDCNT_Pos             0U                                         /*!< DWT FOL
  999:Drivers/CMSIS/Include/core_cm4.h **** #define DWT_FOLDCNT_FOLDCNT_Msk            (0xFFUL /*<< DWT_FOLDCNT_FOLDCNT_Pos*/)     /*!< DWT FOL
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 19
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 19
 
 
 1000:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1054:Drivers/CMSIS/Include/core_cm4.h ****         uint32_t RESERVED2[131U];
 1055:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t FFSR;                   /*!< Offset: 0x300 (R/ )  Formatter and Flush Status Regis
 1056:Drivers/CMSIS/Include/core_cm4.h ****   __IOM uint32_t FFCR;                   /*!< Offset: 0x304 (R/W)  Formatter and Flush Control Regi
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 20
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 20
 
 
 1057:Drivers/CMSIS/Include/core_cm4.h ****   __IM  uint32_t FSCR;                   /*!< Offset: 0x308 (R/ )  Formatter Synchronization Counte
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1111:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO0_ITM_bytecount_Msk        (0x3UL << TPI_FIFO0_ITM_bytecount_Pos)      /*!< TPI FIF
 1112:Drivers/CMSIS/Include/core_cm4.h **** 
 1113:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO0_ETM_ATVALID_Pos          26U                                         /*!< TPI FIF
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 21
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 21
 
 
 1114:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_FIFO0_ETM_ATVALID_Msk          (0x1UL << TPI_FIFO0_ETM_ATVALID_Pos)        /*!< TPI FIF
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1168:Drivers/CMSIS/Include/core_cm4.h **** /* TPI DEVID Register Definitions */
 1169:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_DEVID_NRZVALID_Pos             11U                                         /*!< TPI DEV
 1170:Drivers/CMSIS/Include/core_cm4.h **** #define TPI_DEVID_NRZVALID_Msk             (0x1UL << TPI_DEVID_NRZVALID_Pos)           /*!< TPI DEV
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 22
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 22
 
 
 1171:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1225:Drivers/CMSIS/Include/core_cm4.h **** /* MPU Type Register Definitions */
 1226:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_TYPE_IREGION_Pos               16U                                            /*!< MPU 
 1227:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_TYPE_IREGION_Msk               (0xFFUL << MPU_TYPE_IREGION_Pos)               /*!< MPU 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 23
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 23
 
 
 1228:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1378,7 +1378,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1282:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_SRD_Msk                   (0xFFUL << MPU_RASR_SRD_Pos)                   /*!< MPU 
 1283:Drivers/CMSIS/Include/core_cm4.h **** 
 1284:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_SIZE_Pos                   1U                                            /*!< MPU 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 24
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 24
 
 
 1285:Drivers/CMSIS/Include/core_cm4.h **** #define MPU_RASR_SIZE_Msk                  (0x1FUL << MPU_RASR_SIZE_Pos)                  /*!< MPU 
@@ -1438,7 +1438,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1339:Drivers/CMSIS/Include/core_cm4.h **** 
 1340:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_LSPACT_Pos                0U                                            /*!< FPCC
 1341:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_FPCCR_LSPACT_Msk               (1UL /*<< FPU_FPCCR_LSPACT_Pos*/)              /*!< FPCC
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 25
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 25
 
 
 1342:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1396:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_MVFR1_FtZ_mode_Msk             (0xFUL /*<< FPU_MVFR1_FtZ_mode_Pos*/)          /*!< MVFR
 1397:Drivers/CMSIS/Include/core_cm4.h **** 
 1398:Drivers/CMSIS/Include/core_cm4.h **** /* Media and FP Feature Register 2 Definitions */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 26
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 26
 
 
 1399:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1453:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_C_STEP_Msk         (1UL << CoreDebug_DHCSR_C_STEP_Pos)            /*!< Core
 1454:Drivers/CMSIS/Include/core_cm4.h **** 
 1455:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_C_HALT_Pos          1U                                            /*!< Core
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 27
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 27
 
 
 1456:Drivers/CMSIS/Include/core_cm4.h **** #define CoreDebug_DHCSR_C_HALT_Msk         (1UL << CoreDebug_DHCSR_C_HALT_Pos)            /*!< Core
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1510:Drivers/CMSIS/Include/core_cm4.h **** 
 1511:Drivers/CMSIS/Include/core_cm4.h **** /**
 1512:Drivers/CMSIS/Include/core_cm4.h ****   \ingroup    CMSIS_core_register
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 28
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 28
 
 
 1513:Drivers/CMSIS/Include/core_cm4.h ****   \defgroup   CMSIS_core_bitfield     Core register bit field macros
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1567:Drivers/CMSIS/Include/core_cm4.h **** 
 1568:Drivers/CMSIS/Include/core_cm4.h **** #define FPU_BASE            (SCS_BASE +  0x0F30UL)                    /*!< Floating Point Unit */
 1569:Drivers/CMSIS/Include/core_cm4.h **** #define FPU                 ((FPU_Type       *)     FPU_BASE      )   /*!< Floating Point Unit */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 29
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 29
 
 
 1570:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1624:Drivers/CMSIS/Include/core_cm4.h ****   #define NVIC_GetVector              __NVIC_GetVector
 1625:Drivers/CMSIS/Include/core_cm4.h **** #endif  /* (CMSIS_VECTAB_VIRTUAL) */
 1626:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 30
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 30
 
 
 1627:Drivers/CMSIS/Include/core_cm4.h **** #define NVIC_USER_IRQ_OFFSET          16
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1681:Drivers/CMSIS/Include/core_cm4.h ****   if ((int32_t)(IRQn) >= 0)
 1682:Drivers/CMSIS/Include/core_cm4.h ****   {
 1683:Drivers/CMSIS/Include/core_cm4.h ****     __COMPILER_BARRIER();
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 31
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 31
 
 
 1684:Drivers/CMSIS/Include/core_cm4.h ****     NVIC->ISER[(((uint32_t)IRQn) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)IRQn) & 0x1FUL));
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1738:Drivers/CMSIS/Include/core_cm4.h ****   if ((int32_t)(IRQn) >= 0)
 1739:Drivers/CMSIS/Include/core_cm4.h ****   {
 1740:Drivers/CMSIS/Include/core_cm4.h ****     return((uint32_t)(((NVIC->ISPR[(((uint32_t)IRQn) >> 5UL)] & (1UL << (((uint32_t)IRQn) & 0x1FUL)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 32
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 32
 
 
 1741:Drivers/CMSIS/Include/core_cm4.h ****   }
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1795:Drivers/CMSIS/Include/core_cm4.h ****     return(0U);
 1796:Drivers/CMSIS/Include/core_cm4.h ****   }
 1797:Drivers/CMSIS/Include/core_cm4.h **** }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 33
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 33
 
 
 1798:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1852:Drivers/CMSIS/Include/core_cm4.h ****   \param [in]   PreemptPriority  Preemptive priority value (starting from 0).
 1853:Drivers/CMSIS/Include/core_cm4.h ****   \param [in]       SubPriority  Subpriority value (starting from 0).
 1854:Drivers/CMSIS/Include/core_cm4.h ****   \return                        Encoded priority. Value can be used in the function \ref NVIC_SetP
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 34
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 34
 
 
 1855:Drivers/CMSIS/Include/core_cm4.h ****  */
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
 1909:Drivers/CMSIS/Include/core_cm4.h ****   (* (int *) (vectors + ((int32_t)IRQn + NVIC_USER_IRQ_OFFSET) * 4)) = vector;
 1910:Drivers/CMSIS/Include/core_cm4.h ****   /* ARM Application Note 321 states that the M4 does not require the architectural barrier */
 1911:Drivers/CMSIS/Include/core_cm4.h **** }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 35
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 35
 
 
 1912:Drivers/CMSIS/Include/core_cm4.h **** 
@@ -2098,7 +2098,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   21:Drivers/CMSIS/Include/cmsis_gcc.h ****  * See the License for the specific language governing permissions and
   22:Drivers/CMSIS/Include/cmsis_gcc.h ****  * limitations under the License.
   23:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 36
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 36
 
 
   24:Drivers/CMSIS/Include/cmsis_gcc.h **** 
@@ -2158,7 +2158,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   78:Drivers/CMSIS/Include/cmsis_gcc.h **** #ifndef   __UNALIGNED_UINT16_WRITE
   79:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic push
   80:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wpacked"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 37
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 37
 
 
   81:Drivers/CMSIS/Include/cmsis_gcc.h ****   #pragma GCC diagnostic ignored "-Wattributes"
@@ -2218,7 +2218,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  135:Drivers/CMSIS/Include/cmsis_gcc.h ****   typedef struct {
  136:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t const* src;
  137:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t* dest;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 38
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 38
 
 
  138:Drivers/CMSIS/Include/cmsis_gcc.h ****     uint32_t  wlen;
@@ -2278,7 +2278,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  192:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Enable IRQ Interrupts
  193:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Enables IRQ interrupts by clearing the I-bit in the CPSR.
  194:Drivers/CMSIS/Include/cmsis_gcc.h ****            Can only be executed in Privileged modes.
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 39
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 39
 
 
  195:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
@@ -2338,7 +2338,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  249:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  250:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR control, %0" : : "r" (control) : "memory");
  251:Drivers/CMSIS/Include/cmsis_gcc.h **** }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 40
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 40
 
 
  252:Drivers/CMSIS/Include/cmsis_gcc.h **** 
@@ -2398,7 +2398,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  306:Drivers/CMSIS/Include/cmsis_gcc.h **** }
  307:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  308:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 41
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 41
 
 
  309:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
@@ -2458,7 +2458,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  363:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
  364:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Main Stack Pointer
  365:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Main Stack Pointer (MSP).
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 42
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 42
 
 
  366:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               MSP Register value
@@ -2518,7 +2518,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  420:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the non-secure Stack Pointer (SP) when in secure state.
  421:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               SP Register value
  422:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 43
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 43
 
 
  423:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __TZ_get_SP_NS(void)
@@ -2578,7 +2578,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  477:Drivers/CMSIS/Include/cmsis_gcc.h ****   \param [in]    priMask  Priority Mask
  478:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
  479:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __set_PRIMASK(uint32_t priMask)
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 44
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 44
 
 
  480:Drivers/CMSIS/Include/cmsis_gcc.h **** {
@@ -2638,7 +2638,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  534:Drivers/CMSIS/Include/cmsis_gcc.h **** }
  535:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  536:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 45
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 45
 
 
  537:Drivers/CMSIS/Include/cmsis_gcc.h **** #if (defined (__ARM_FEATURE_CMSE ) && (__ARM_FEATURE_CMSE == 3))
@@ -2698,7 +2698,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  591:Drivers/CMSIS/Include/cmsis_gcc.h ****   \details Returns the current value of the Fault Mask register.
  592:Drivers/CMSIS/Include/cmsis_gcc.h ****   \return               Fault Mask register value
  593:Drivers/CMSIS/Include/cmsis_gcc.h ****  */
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 46
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 46
 
 
  594:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE uint32_t __get_FAULTMASK(void)
@@ -2758,7 +2758,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  648:Drivers/CMSIS/Include/cmsis_gcc.h ****      (defined (__ARM_ARCH_8M_BASE__ ) && (__ARM_ARCH_8M_BASE__ == 1))    )
  649:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  650:Drivers/CMSIS/Include/cmsis_gcc.h **** /**
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 47
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 47
 
 
  651:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Process Stack Pointer Limit
@@ -2818,7 +2818,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  705:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  706:Drivers/CMSIS/Include/cmsis_gcc.h **** #if (!(defined (__ARM_ARCH_8M_MAIN__ ) && (__ARM_ARCH_8M_MAIN__ == 1)) && \
  707:Drivers/CMSIS/Include/cmsis_gcc.h ****     (!defined (__ARM_FEATURE_CMSE) || (__ARM_FEATURE_CMSE < 3)))
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 48
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 48
 
 
  708:Drivers/CMSIS/Include/cmsis_gcc.h ****   // without main extensions, the non-secure PSPLIM is RAZ/WI
@@ -2878,7 +2878,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  762:Drivers/CMSIS/Include/cmsis_gcc.h ****   \brief   Get Main Stack Pointer Limit (non-secure)
  763:Drivers/CMSIS/Include/cmsis_gcc.h ****   Devices without ARMv8-M Main Extensions (i.e. Cortex-M23) lack the non-secure
  764:Drivers/CMSIS/Include/cmsis_gcc.h ****   Stack Pointer Limit register hence zero is returned always.
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 49
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 49
 
 
  765:Drivers/CMSIS/Include/cmsis_gcc.h **** 
@@ -2938,7 +2938,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  819:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("MSR msplim_ns, %0" : : "r" (MainStackPtrLimit));
  820:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
  821:Drivers/CMSIS/Include/cmsis_gcc.h **** }
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 50
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 50
 
 
  822:Drivers/CMSIS/Include/cmsis_gcc.h **** #endif
@@ -2998,7 +2998,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  876:Drivers/CMSIS/Include/cmsis_gcc.h **** 
  877:Drivers/CMSIS/Include/cmsis_gcc.h **** /*@} end of CMSIS_Core_RegAccFunctions */
  878:Drivers/CMSIS/Include/cmsis_gcc.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 51
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 51
 
 
  879:Drivers/CMSIS/Include/cmsis_gcc.h **** 
@@ -3058,7 +3058,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  933:Drivers/CMSIS/Include/cmsis_gcc.h **** __STATIC_FORCEINLINE void __ISB(void)
  934:Drivers/CMSIS/Include/cmsis_gcc.h **** {
  935:Drivers/CMSIS/Include/cmsis_gcc.h ****   __ASM volatile ("isb 0xF":::"memory");
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 52
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 52
 
 
  936:Drivers/CMSIS/Include/cmsis_gcc.h **** }
@@ -3118,7 +3118,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   74              	.LBE9:
   75              	.LBE8:
 1941:Drivers/CMSIS/Include/core_cm4.h **** 
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 53
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 53
 
 
 1942:Drivers/CMSIS/Include/core_cm4.h ****   for(;;)                                                           /* wait until reset */
@@ -3178,7 +3178,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   26:Core/Src/config_manager.c **** 
   27:Core/Src/config_manager.c **** /* External function prototypes ----------------------------------------------*/
   28:Core/Src/config_manager.c **** extern HAL_StatusTypeDef CAN_SendMessage(uint32_t id, uint8_t *data, uint8_t length, uint8_t priori
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 54
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 54
 
 
   29:Core/Src/config_manager.c **** extern HAL_StatusTypeDef CAN_ReconfigureFilters(void);
@@ -3238,7 +3238,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   83:Core/Src/config_manager.c ****     
   84:Core/Src/config_manager.c ****     // Initialize CAN IDs with module offset
   85:Core/Src/config_manager.c ****     Config_InitCANIDs();
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 55
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 55
 
 
   86:Core/Src/config_manager.c **** }
@@ -3298,7 +3298,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  120:Core/Src/config_manager.c ****     id = module_id;
  123              		.loc 1 120 5 view .LVU21
  124              		.loc 1 120 8 is_stmt 0 view .LVU22
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 56
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 56
 
 
  125 0010 054B     		ldr	r3, .L9+4
@@ -3358,7 +3358,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  136:Core/Src/config_manager.c ****     uint32_t flash_value = *(__IO uint32_t*)CONFIG_FLASH_MODULE_ADDR;
  166              		.loc 1 136 5 view .LVU31
  167              		.loc 1 136 14 is_stmt 0 view .LVU32
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 57
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 57
 
 
  168 0000 054B     		ldr	r3, .L15
@@ -3418,7 +3418,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  202              	.LFE295:
  204              		.section	.text.Config_WriteModuleIDToFlash,"ax",%progbits
  205              		.align	1
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 58
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 58
 
 
  206              		.global	Config_WriteModuleIDToFlash
@@ -3478,7 +3478,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  239              		.loc 1 172 5 is_stmt 1 view .LVU52
  240              		.loc 1 172 8 is_stmt 0 view .LVU53
  241 0014 00BB     		cbnz	r0, .L21
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 59
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 59
 
 
  173:Core/Src/config_manager.c ****         return -1;
@@ -3538,7 +3538,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  197:Core/Src/config_manager.c ****     uint64_t data = ((uint64_t)flash_value << 32) | (uint64_t)flash_value;
  272              		.loc 1 197 5 is_stmt 1 view .LVU70
  273              	.LVL14:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 60
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 60
 
 
  198:Core/Src/config_manager.c ****     
@@ -3598,7 +3598,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  164:Core/Src/config_manager.c ****     }
  317              		.loc 1 164 16 view .LVU82
  318 0052 4FF0FF30 		mov	r0, #-1
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 61
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 61
 
 
  319              	.LVL23:
@@ -3658,7 +3658,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  367              		.loc 1 102 5 is_stmt 1 view .LVU91
  102:Core/Src/config_manager.c ****     
  368              		.loc 1 102 21 is_stmt 0 view .LVU92
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 62
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 62
 
 
  369 0006 FFF7FEFF 		bl	Config_WriteModuleIDToFlash
@@ -3718,7 +3718,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  409              		.loc 1 217 19 is_stmt 0 view .LVU101
  410 0006 0003     		lsls	r0, r0, #12
  411              	.LVL32:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 63
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 63
 
 
  412              		.loc 1 217 19 view .LVU102
@@ -3778,7 +3778,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  459 0040 43F40171 		orr	r1, r3, #516
  460              		.loc 1 224 22 view .LVU124
  461 0044 2E4A     		ldr	r2, .L39+44
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 64
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 64
 
 
  462 0046 1160     		str	r1, [r2]
@@ -3838,7 +3838,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  509 007c 2D4A     		ldr	r2, .L39+96
  510 007e 1360     		str	r3, [r2]
  232:Core/Src/config_manager.c ****     CAN_BMS_RESET_CMD_ID = CAN_ID(CAN_BMS_RESET_CMD_BASE, mod_id);
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 65
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 65
 
 
  511              		.loc 1 232 5 is_stmt 1 view .LVU146
@@ -3898,7 +3898,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  559 00b6 1360     		str	r3, [r2]
  239:Core/Src/config_manager.c ****     CAN_BMS2_BAL_DETAIL_ID = CAN_ID(CAN_BMS2_BAL_DETAIL_BASE, mod_id);
  560              		.loc 1 239 5 is_stmt 1 view .LVU167
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 66
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 66
 
 
  561              		.loc 1 239 30 is_stmt 0 view .LVU168
@@ -3958,7 +3958,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  612 013c 00000000 		.word	CAN_BMS_RESET_CMD_ID
  613 0140 040FF008 		.word	149950212
  614 0144 00000000 		.word	CAN_BMS_RESET_ACK_ID
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 67
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 67
 
 
  615 0148 050FF008 		.word	149950213
@@ -4018,7 +4018,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
   82:Core/Src/config_manager.c ****     
  665              		.loc 1 82 5 is_stmt 1 view .LVU183
   82:Core/Src/config_manager.c ****     
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 68
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 68
 
 
  666              		.loc 1 82 17 is_stmt 0 view .LVU184
@@ -4073,12 +4073,12 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  703              		.loc 1 253 5 view .LVU189
  704              		.loc 1 253 8 is_stmt 0 view .LVU190
  705 0000 0028     		cmp	r0, #0
- 706 0002 00F02481 		beq	.L69
+ 706 0002 00F04F81 		beq	.L73
  707              		.loc 1 253 22 discriminator 1 view .LVU191
  708 0006 0129     		cmp	r1, #1
- 709 0008 40F22181 		bls	.L69
+ 709 0008 40F24C81 		bls	.L73
  252:Core/Src/config_manager.c ****     if (data == NULL || length < 2) {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 69
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 69
 
 
  710              		.loc 1 252 1 view .LVU192
@@ -4117,53 +4117,54 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  262:Core/Src/config_manager.c ****     switch (command) {
  735              		.loc 1 262 5 view .LVU200
  736 001a 6B1E     		subs	r3, r5, #1
- 737 001c 052B     		cmp	r3, #5
- 738 001e 00F2F580 		bhi	.L45
- 739 0022 DFE803F0 		tbb	[pc, r3]
+ 737 001c 062B     		cmp	r3, #6
+ 738 001e 51D8     		bhi	.L45
+ 739 0020 DFE813F0 		tbh	[pc, r3, lsl #1]
  740              	.L51:
- 741 0026 03       		.byte	(.L56-.L51)/2
- 742 0027 2E       		.byte	(.L55-.L51)/2
- 743 0028 4F       		.byte	(.L54-.L51)/2
- 744 0029 70       		.byte	(.L53-.L51)/2
- 745 002a 9F       		.byte	(.L52-.L51)/2
- 746 002b CE       		.byte	(.L50-.L51)/2
- 747              		.p2align 1
- 748              	.L56:
- 749              	.LBB11:
+ 741 0024 0700     		.2byte	(.L57-.L51)/2
+ 742 0026 3000     		.2byte	(.L56-.L51)/2
+ 743 0028 5200     		.2byte	(.L55-.L51)/2
+ 744 002a 7300     		.2byte	(.L54-.L51)/2
+ 745 002c A200     		.2byte	(.L53-.L51)/2
+ 746 002e D100     		.2byte	(.L52-.L51)/2
+ 747 0030 1A01     		.2byte	(.L50-.L51)/2
+ 748              		.p2align 1
+ 749              	.L57:
+ 750              	.LBB11:
  263:Core/Src/config_manager.c ****         case CONFIG_CMD_SET_MODULE_ID:
  264:Core/Src/config_manager.c ****         {
  265:Core/Src/config_manager.c ****             // Get current module ID before changing
  266:Core/Src/config_manager.c ****             uint8_t old_module_id = Config_GetModuleID();
- 750              		.loc 1 266 13 view .LVU201
- 751              		.loc 1 266 37 is_stmt 0 view .LVU202
- 752 002c FFF7FEFF 		bl	Config_GetModuleID
- 753              	.LVL40:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 70
+ 751              		.loc 1 266 13 view .LVU201
+ 752              		.loc 1 266 37 is_stmt 0 view .LVU202
+ 753 0032 FFF7FEFF 		bl	Config_GetModuleID
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 70
 
 
- 754              		.loc 1 266 37 view .LVU203
- 755 0030 0646     		mov	r6, r0
- 756              	.LVL41:
+ 754              	.LVL40:
+ 755              		.loc 1 266 37 view .LVU203
+ 756 0036 0646     		mov	r6, r0
+ 757              	.LVL41:
  267:Core/Src/config_manager.c ****             
  268:Core/Src/config_manager.c ****             // Try to write new module ID to flash
  269:Core/Src/config_manager.c ****             int8_t result = Config_SetModuleID(value);
- 757              		.loc 1 269 13 is_stmt 1 view .LVU204
- 758              		.loc 1 269 29 is_stmt 0 view .LVU205
- 759 0032 2046     		mov	r0, r4
- 760 0034 FFF7FEFF 		bl	Config_SetModuleID
- 761              	.LVL42:
+ 758              		.loc 1 269 13 is_stmt 1 view .LVU204
+ 759              		.loc 1 269 29 is_stmt 0 view .LVU205
+ 760 0038 2046     		mov	r0, r4
+ 761 003a FFF7FEFF 		bl	Config_SetModuleID
+ 762              	.LVL42:
  270:Core/Src/config_manager.c ****             
  271:Core/Src/config_manager.c ****             // Determine status
  272:Core/Src/config_manager.c ****             if (result == 0) {
- 762              		.loc 1 272 13 is_stmt 1 view .LVU206
- 763              		.loc 1 272 16 is_stmt 0 view .LVU207
- 764 0038 0746     		mov	r7, r0
- 765 003a 00BB     		cbnz	r0, .L65
+ 763              		.loc 1 272 13 is_stmt 1 view .LVU206
+ 764              		.loc 1 272 16 is_stmt 0 view .LVU207
+ 765 003e 0746     		mov	r7, r0
+ 766 0040 F0B9     		cbnz	r0, .L68
  273:Core/Src/config_manager.c ****                 status = CONFIG_STATUS_RESET_REQUIRED; // Success - reset needed
- 766              		.loc 1 273 24 view .LVU208
- 767 003c 0223     		movs	r3, #2
- 768              	.L57:
- 769              	.LVL43:
+ 767              		.loc 1 273 24 view .LVU208
+ 768 0042 0223     		movs	r3, #2
+ 769              	.L58:
+ 770              	.LVL43:
  274:Core/Src/config_manager.c ****             } else {
  275:Core/Src/config_manager.c ****                 status = CONFIG_STATUS_FAIL;
  276:Core/Src/config_manager.c ****             }
@@ -4175,79 +4176,78 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  282:Core/Src/config_manager.c ****             // Byte 3: New module ID (will be active after reset)
  283:Core/Src/config_manager.c ****             // Bytes 4-7: Reserved
  284:Core/Src/config_manager.c ****             ack_data[0] = command;
- 770              		.loc 1 284 13 is_stmt 1 view .LVU209
- 771              		.loc 1 284 25 is_stmt 0 view .LVU210
- 772 003e 8DF80050 		strb	r5, [sp]
+ 771              		.loc 1 284 13 is_stmt 1 view .LVU209
+ 772              		.loc 1 284 25 is_stmt 0 view .LVU210
+ 773 0044 8DF80050 		strb	r5, [sp]
  285:Core/Src/config_manager.c ****             ack_data[1] = status;
- 773              		.loc 1 285 13 is_stmt 1 view .LVU211
- 774              		.loc 1 285 25 is_stmt 0 view .LVU212
- 775 0042 8DF80130 		strb	r3, [sp, #1]
+ 774              		.loc 1 285 13 is_stmt 1 view .LVU211
+ 775              		.loc 1 285 25 is_stmt 0 view .LVU212
+ 776 0048 8DF80130 		strb	r3, [sp, #1]
  286:Core/Src/config_manager.c ****             ack_data[2] = old_module_id;
- 776              		.loc 1 286 13 is_stmt 1 view .LVU213
- 777              		.loc 1 286 25 is_stmt 0 view .LVU214
- 778 0046 8DF80260 		strb	r6, [sp, #2]
+ 777              		.loc 1 286 13 is_stmt 1 view .LVU213
+ 778              		.loc 1 286 25 is_stmt 0 view .LVU214
+ 779 004c 8DF80260 		strb	r6, [sp, #2]
  287:Core/Src/config_manager.c ****             ack_data[3] = value;
- 779              		.loc 1 287 13 is_stmt 1 view .LVU215
- 780              		.loc 1 287 25 is_stmt 0 view .LVU216
- 781 004a 8DF80340 		strb	r4, [sp, #3]
+ 780              		.loc 1 287 13 is_stmt 1 view .LVU215
+ 781              		.loc 1 287 25 is_stmt 0 view .LVU216
+ 782 0050 8DF80340 		strb	r4, [sp, #3]
  288:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
- 782              		.loc 1 288 13 is_stmt 1 view .LVU217
- 783              		.loc 1 288 25 is_stmt 0 view .LVU218
- 784 004e 0023     		movs	r3, #0
- 785              	.LVL44:
- 786              		.loc 1 288 25 view .LVU219
- 787 0050 8DF80430 		strb	r3, [sp, #4]
+ 783              		.loc 1 288 13 is_stmt 1 view .LVU217
+ 784              		.loc 1 288 25 is_stmt 0 view .LVU218
+ 785 0054 0023     		movs	r3, #0
+ 786              	.LVL44:
+ 787              		.loc 1 288 25 view .LVU219
+ 788 0056 8DF80430 		strb	r3, [sp, #4]
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 71
+
+
  289:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 71
-
-
- 788              		.loc 1 289 13 is_stmt 1 view .LVU220
- 789              		.loc 1 289 25 is_stmt 0 view .LVU221
- 790 0054 8DF80530 		strb	r3, [sp, #5]
+ 789              		.loc 1 289 13 is_stmt 1 view .LVU220
+ 790              		.loc 1 289 25 is_stmt 0 view .LVU221
+ 791 005a 8DF80530 		strb	r3, [sp, #5]
  290:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
- 791              		.loc 1 290 13 is_stmt 1 view .LVU222
- 792              		.loc 1 290 25 is_stmt 0 view .LVU223
- 793 0058 8DF80630 		strb	r3, [sp, #6]
+ 792              		.loc 1 290 13 is_stmt 1 view .LVU222
+ 793              		.loc 1 290 25 is_stmt 0 view .LVU223
+ 794 005e 8DF80630 		strb	r3, [sp, #6]
  291:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
- 794              		.loc 1 291 13 is_stmt 1 view .LVU224
- 795              		.loc 1 291 25 is_stmt 0 view .LVU225
- 796 005c 8DF80730 		strb	r3, [sp, #7]
+ 795              		.loc 1 291 13 is_stmt 1 view .LVU224
+ 796              		.loc 1 291 25 is_stmt 0 view .LVU225
+ 797 0062 8DF80730 		strb	r3, [sp, #7]
  292:Core/Src/config_manager.c ****             
  293:Core/Src/config_manager.c ****             // Send acknowledgement using current (old) module ID
  294:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
- 797              		.loc 1 294 13 is_stmt 1 view .LVU226
- 798 0060 0123     		movs	r3, #1
- 799 0062 0822     		movs	r2, #8
- 800 0064 6946     		mov	r1, sp
- 801 0066 7A48     		ldr	r0, .L72
- 802              	.LVL45:
- 803              		.loc 1 294 13 is_stmt 0 view .LVU227
- 804 0068 0068     		ldr	r0, [r0]
- 805 006a FFF7FEFF 		bl	CAN_SendMessage
- 806              	.LVL46:
+ 798              		.loc 1 294 13 is_stmt 1 view .LVU226
+ 799 0066 0123     		movs	r3, #1
+ 800 0068 0822     		movs	r2, #8
+ 801 006a 6946     		mov	r1, sp
+ 802 006c 8E48     		ldr	r0, .L76
+ 803              	.LVL45:
+ 804              		.loc 1 294 13 is_stmt 0 view .LVU227
+ 805 006e 0068     		ldr	r0, [r0]
+ 806 0070 FFF7FEFF 		bl	CAN_SendMessage
+ 807              	.LVL46:
  295:Core/Src/config_manager.c ****             
  296:Core/Src/config_manager.c ****             // If successful, wait briefly for ACK to transmit, then reset
  297:Core/Src/config_manager.c ****             if (result == 0) {
- 807              		.loc 1 297 13 is_stmt 1 view .LVU228
- 808              		.loc 1 297 16 is_stmt 0 view .LVU229
- 809 006e 002F     		cmp	r7, #0
- 810 0070 40F0CC80 		bne	.L45
+ 808              		.loc 1 297 13 is_stmt 1 view .LVU228
+ 809              		.loc 1 297 16 is_stmt 0 view .LVU229
+ 810 0074 37BB     		cbnz	r7, .L45
  298:Core/Src/config_manager.c ****                 osDelay(100); // Give time for CAN message to transmit
  811              		.loc 1 298 17 is_stmt 1 view .LVU230
- 812 0074 6420     		movs	r0, #100
- 813 0076 FFF7FEFF 		bl	osDelay
+ 812 0076 6420     		movs	r0, #100
+ 813 0078 FFF7FEFF 		bl	osDelay
  814              	.LVL47:
  299:Core/Src/config_manager.c ****                 NVIC_SystemReset(); // Reset the microcontroller
  815              		.loc 1 299 17 view .LVU231
- 816 007a FFF7FEFF 		bl	__NVIC_SystemReset
+ 816 007c FFF7FEFF 		bl	__NVIC_SystemReset
  817              	.LVL48:
- 818              	.L65:
+ 818              	.L68:
  275:Core/Src/config_manager.c ****             }
  819              		.loc 1 275 24 is_stmt 0 view .LVU232
- 820 007e 2B46     		mov	r3, r5
- 821 0080 DDE7     		b	.L57
+ 820 0080 2B46     		mov	r3, r5
+ 821 0082 DFE7     		b	.L58
  822              	.LVL49:
- 823              	.L55:
+ 823              	.L56:
  275:Core/Src/config_manager.c ****             }
  824              		.loc 1 275 24 view .LVU233
  825              	.LBE11:
@@ -4258,7 +4258,7 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  303:Core/Src/config_manager.c ****         
  304:Core/Src/config_manager.c ****         case CONFIG_CMD_SET_MAX_TEMP:
  305:Core/Src/config_manager.c ****         {
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 72
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 72
 
 
  306:Core/Src/config_manager.c ****             // Set maximum thermistor temperature threshold (temporary, resets on restart)
@@ -4266,10 +4266,10 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  308:Core/Src/config_manager.c ****             int8_t old_max_temp = CellTemp_GetMaxTemp();
  827              		.loc 1 308 13 is_stmt 1 view .LVU234
  828              		.loc 1 308 35 is_stmt 0 view .LVU235
- 829 0082 FFF7FEFF 		bl	CellTemp_GetMaxTemp
+ 829 0084 FFF7FEFF 		bl	CellTemp_GetMaxTemp
  830              	.LVL50:
  831              		.loc 1 308 35 view .LVU236
- 832 0086 0646     		mov	r6, r0
+ 832 0088 0646     		mov	r6, r0
  833              	.LVL51:
  309:Core/Src/config_manager.c ****             int8_t new_max_temp = (int8_t)value;
  834              		.loc 1 309 13 is_stmt 1 view .LVU237
@@ -4277,15 +4277,15 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  311:Core/Src/config_manager.c ****             // Set new max temperature threshold
  312:Core/Src/config_manager.c ****             CellTemp_SetMaxTemp(new_max_temp);
  835              		.loc 1 312 13 view .LVU238
- 836 0088 60B2     		sxtb	r0, r4
- 837 008a FFF7FEFF 		bl	CellTemp_SetMaxTemp
+ 836 008a 60B2     		sxtb	r0, r4
+ 837 008c FFF7FEFF 		bl	CellTemp_SetMaxTemp
  838              	.LVL52:
  313:Core/Src/config_manager.c ****             
  314:Core/Src/config_manager.c ****             // Verify it was set
  315:Core/Src/config_manager.c ****             int8_t actual_new_temp = CellTemp_GetMaxTemp();
  839              		.loc 1 315 13 view .LVU239
  840              		.loc 1 315 38 is_stmt 0 view .LVU240
- 841 008e FFF7FEFF 		bl	CellTemp_GetMaxTemp
+ 841 0090 FFF7FEFF 		bl	CellTemp_GetMaxTemp
  842              	.LVL53:
  316:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
  843              		.loc 1 316 13 is_stmt 1 view .LVU241
@@ -4299,60 +4299,57 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  324:Core/Src/config_manager.c ****             ack_data[0] = command;
  844              		.loc 1 324 13 view .LVU242
  845              		.loc 1 324 25 is_stmt 0 view .LVU243
- 846 0092 8DF80050 		strb	r5, [sp]
+ 846 0094 8DF80050 		strb	r5, [sp]
  325:Core/Src/config_manager.c ****             ack_data[1] = status;
  847              		.loc 1 325 13 is_stmt 1 view .LVU244
  848              		.loc 1 325 25 is_stmt 0 view .LVU245
- 849 0096 0023     		movs	r3, #0
- 850 0098 8DF80130 		strb	r3, [sp, #1]
+ 849 0098 0023     		movs	r3, #0
+ 850 009a 8DF80130 		strb	r3, [sp, #1]
  326:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)old_max_temp;
  851              		.loc 1 326 13 is_stmt 1 view .LVU246
  852              		.loc 1 326 25 is_stmt 0 view .LVU247
- 853 009c 8DF80260 		strb	r6, [sp, #2]
+ 853 009e 8DF80260 		strb	r6, [sp, #2]
  327:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)actual_new_temp;
  854              		.loc 1 327 13 is_stmt 1 view .LVU248
  855              		.loc 1 327 25 is_stmt 0 view .LVU249
- 856 00a0 8DF80300 		strb	r0, [sp, #3]
+ 856 00a2 8DF80300 		strb	r0, [sp, #3]
  328:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
  857              		.loc 1 328 13 is_stmt 1 view .LVU250
  858              		.loc 1 328 25 is_stmt 0 view .LVU251
- 859 00a4 8DF80430 		strb	r3, [sp, #4]
+ 859 00a6 8DF80430 		strb	r3, [sp, #4]
  329:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 73
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 73
 
 
  860              		.loc 1 329 13 is_stmt 1 view .LVU252
  861              		.loc 1 329 25 is_stmt 0 view .LVU253
- 862 00a8 8DF80530 		strb	r3, [sp, #5]
+ 862 00aa 8DF80530 		strb	r3, [sp, #5]
  330:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
  863              		.loc 1 330 13 is_stmt 1 view .LVU254
  864              		.loc 1 330 25 is_stmt 0 view .LVU255
- 865 00ac 8DF80630 		strb	r3, [sp, #6]
+ 865 00ae 8DF80630 		strb	r3, [sp, #6]
  331:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
  866              		.loc 1 331 13 is_stmt 1 view .LVU256
  867              		.loc 1 331 25 is_stmt 0 view .LVU257
- 868 00b0 8DF80730 		strb	r3, [sp, #7]
+ 868 00b2 8DF80730 		strb	r3, [sp, #7]
  332:Core/Src/config_manager.c ****             
  333:Core/Src/config_manager.c ****             // Send acknowledgement
  334:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
  869              		.loc 1 334 13 is_stmt 1 view .LVU258
- 870 00b4 0123     		movs	r3, #1
- 871 00b6 0822     		movs	r2, #8
- 872 00b8 6946     		mov	r1, sp
- 873 00ba 6548     		ldr	r0, .L72
+ 870 00b6 0123     		movs	r3, #1
+ 871 00b8 0822     		movs	r2, #8
+ 872 00ba 6946     		mov	r1, sp
+ 873 00bc 7A48     		ldr	r0, .L76
  874              	.LVL54:
  875              		.loc 1 334 13 is_stmt 0 view .LVU259
- 876 00bc 0068     		ldr	r0, [r0]
- 877 00be FFF7FEFF 		bl	CAN_SendMessage
+ 876 00be 0068     		ldr	r0, [r0]
+ 877 00c0 FFF7FEFF 		bl	CAN_SendMessage
  878              	.LVL55:
  335:Core/Src/config_manager.c ****             break;
  879              		.loc 1 335 13 is_stmt 1 view .LVU260
- 880 00c2 A3E0     		b	.L45
- 881              	.LVL56:
- 882              	.L54:
- 883              		.loc 1 335 13 is_stmt 0 view .LVU261
- 884              	.LBE12:
- 885              	.LBB13:
+ 880              	.L45:
+ 881              		.loc 1 335 13 is_stmt 0 view .LVU261
+ 882              	.LBE12:
  336:Core/Src/config_manager.c ****         }
  337:Core/Src/config_manager.c ****         
  338:Core/Src/config_manager.c ****         case CONFIG_CMD_SET_MIN_TEMP:
@@ -4360,34 +4357,14 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  340:Core/Src/config_manager.c ****             // Set minimum thermistor temperature threshold (temporary, resets on restart)
  341:Core/Src/config_manager.c ****             // Value is in degrees Celsius (signed: -128 to 127)
  342:Core/Src/config_manager.c ****             int8_t old_min_temp = CellTemp_GetMinTemp();
- 886              		.loc 1 342 13 is_stmt 1 view .LVU262
- 887              		.loc 1 342 35 is_stmt 0 view .LVU263
- 888 00c4 FFF7FEFF 		bl	CellTemp_GetMinTemp
- 889              	.LVL57:
- 890              		.loc 1 342 35 view .LVU264
- 891 00c8 0646     		mov	r6, r0
- 892              	.LVL58:
  343:Core/Src/config_manager.c ****             int8_t new_min_temp = (int8_t)value;
- 893              		.loc 1 343 13 is_stmt 1 view .LVU265
  344:Core/Src/config_manager.c ****             
  345:Core/Src/config_manager.c ****             // Set new min temperature threshold
  346:Core/Src/config_manager.c ****             CellTemp_SetMinTemp(new_min_temp);
- 894              		.loc 1 346 13 view .LVU266
- 895 00ca 60B2     		sxtb	r0, r4
- 896 00cc FFF7FEFF 		bl	CellTemp_SetMinTemp
- 897              	.LVL59:
  347:Core/Src/config_manager.c ****             
  348:Core/Src/config_manager.c ****             // Verify it was set
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 74
-
-
  349:Core/Src/config_manager.c ****             int8_t actual_new_temp = CellTemp_GetMinTemp();
- 898              		.loc 1 349 13 view .LVU267
- 899              		.loc 1 349 38 is_stmt 0 view .LVU268
- 900 00d0 FFF7FEFF 		bl	CellTemp_GetMinTemp
- 901              	.LVL60:
  350:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
- 902              		.loc 1 350 13 is_stmt 1 view .LVU269
  351:Core/Src/config_manager.c ****             
  352:Core/Src/config_manager.c ****             // Prepare acknowledgement message
  353:Core/Src/config_manager.c ****             // Byte 0: Command echo
@@ -4395,62 +4372,20 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  355:Core/Src/config_manager.c ****             // Byte 2: Old min temp (°C, signed)
  356:Core/Src/config_manager.c ****             // Byte 3: New min temp (°C, signed)
  357:Core/Src/config_manager.c ****             ack_data[0] = command;
- 903              		.loc 1 357 13 view .LVU270
- 904              		.loc 1 357 25 is_stmt 0 view .LVU271
- 905 00d4 8DF80050 		strb	r5, [sp]
  358:Core/Src/config_manager.c ****             ack_data[1] = status;
- 906              		.loc 1 358 13 is_stmt 1 view .LVU272
- 907              		.loc 1 358 25 is_stmt 0 view .LVU273
- 908 00d8 0023     		movs	r3, #0
- 909 00da 8DF80130 		strb	r3, [sp, #1]
  359:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)old_min_temp;
- 910              		.loc 1 359 13 is_stmt 1 view .LVU274
- 911              		.loc 1 359 25 is_stmt 0 view .LVU275
- 912 00de 8DF80260 		strb	r6, [sp, #2]
  360:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)actual_new_temp;
- 913              		.loc 1 360 13 is_stmt 1 view .LVU276
- 914              		.loc 1 360 25 is_stmt 0 view .LVU277
- 915 00e2 8DF80300 		strb	r0, [sp, #3]
  361:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
- 916              		.loc 1 361 13 is_stmt 1 view .LVU278
- 917              		.loc 1 361 25 is_stmt 0 view .LVU279
- 918 00e6 8DF80430 		strb	r3, [sp, #4]
  362:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
- 919              		.loc 1 362 13 is_stmt 1 view .LVU280
- 920              		.loc 1 362 25 is_stmt 0 view .LVU281
- 921 00ea 8DF80530 		strb	r3, [sp, #5]
  363:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
- 922              		.loc 1 363 13 is_stmt 1 view .LVU282
- 923              		.loc 1 363 25 is_stmt 0 view .LVU283
- 924 00ee 8DF80630 		strb	r3, [sp, #6]
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 74
+
+
  364:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
- 925              		.loc 1 364 13 is_stmt 1 view .LVU284
- 926              		.loc 1 364 25 is_stmt 0 view .LVU285
- 927 00f2 8DF80730 		strb	r3, [sp, #7]
  365:Core/Src/config_manager.c ****             
  366:Core/Src/config_manager.c ****             // Send acknowledgement
  367:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
- 928              		.loc 1 367 13 is_stmt 1 view .LVU286
- 929 00f6 0123     		movs	r3, #1
- 930 00f8 0822     		movs	r2, #8
- 931 00fa 6946     		mov	r1, sp
- 932 00fc 5448     		ldr	r0, .L72
- 933              	.LVL61:
- 934              		.loc 1 367 13 is_stmt 0 view .LVU287
- 935 00fe 0068     		ldr	r0, [r0]
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 75
-
-
- 936 0100 FFF7FEFF 		bl	CAN_SendMessage
- 937              	.LVL62:
  368:Core/Src/config_manager.c ****             break;
- 938              		.loc 1 368 13 is_stmt 1 view .LVU288
- 939 0104 82E0     		b	.L45
- 940              	.LVL63:
- 941              	.L53:
- 942              		.loc 1 368 13 is_stmt 0 view .LVU289
- 943              	.LBE13:
- 944              	.LBB14:
  369:Core/Src/config_manager.c ****         }
  370:Core/Src/config_manager.c ****         
  371:Core/Src/config_manager.c ****         case CONFIG_CMD_SET_MIN_VOLTAGE:
@@ -4458,39 +4393,14 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  373:Core/Src/config_manager.c ****             // Set minimum cell voltage threshold (temporary, resets on restart)
  374:Core/Src/config_manager.c ****             // Value is voltage/100, e.g. 25 = 2500mV
  375:Core/Src/config_manager.c ****             uint16_t old_min_voltage = BQ_GetMinVoltage();
- 945              		.loc 1 375 13 is_stmt 1 view .LVU290
- 946              		.loc 1 375 40 is_stmt 0 view .LVU291
- 947 0106 FFF7FEFF 		bl	BQ_GetMinVoltage
- 948              	.LVL64:
- 949              		.loc 1 375 40 view .LVU292
- 950 010a 0646     		mov	r6, r0
- 951              	.LVL65:
  376:Core/Src/config_manager.c ****             uint16_t new_min_voltage_mv = (uint16_t)value * 100;
- 952              		.loc 1 376 13 is_stmt 1 view .LVU293
- 953              		.loc 1 376 22 is_stmt 0 view .LVU294
- 954 010c 04EB8404 		add	r4, r4, r4, lsl #2
- 955              	.LVL66:
- 956              		.loc 1 376 22 view .LVU295
- 957 0110 04EB8404 		add	r4, r4, r4, lsl #2
- 958              	.LVL67:
  377:Core/Src/config_manager.c ****             
  378:Core/Src/config_manager.c ****             // Set new min voltage threshold
  379:Core/Src/config_manager.c ****             BQ_SetMinVoltage(new_min_voltage_mv);
- 959              		.loc 1 379 13 is_stmt 1 view .LVU296
- 960 0114 A000     		lsls	r0, r4, #2
- 961 0116 FFF7FEFF 		bl	BQ_SetMinVoltage
- 962              	.LVL68:
  380:Core/Src/config_manager.c ****             
  381:Core/Src/config_manager.c ****             // Verify it was set
  382:Core/Src/config_manager.c ****             uint16_t actual_new_voltage = BQ_GetMinVoltage();
- 963              		.loc 1 382 13 view .LVU297
- 964              		.loc 1 382 43 is_stmt 0 view .LVU298
- 965 011a FFF7FEFF 		bl	BQ_GetMinVoltage
- 966              	.LVL69:
- 967 011e 0346     		mov	r3, r0
- 968              	.LVL70:
  383:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
- 969              		.loc 1 383 13 is_stmt 1 view .LVU299
  384:Core/Src/config_manager.c ****             
  385:Core/Src/config_manager.c ****             // Prepare acknowledgement message
  386:Core/Src/config_manager.c ****             // Byte 0: Command echo
@@ -4498,74 +4408,17 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  388:Core/Src/config_manager.c ****             // Byte 2: Old min voltage (value * 100 = mV)
  389:Core/Src/config_manager.c ****             // Byte 3: New min voltage (value * 100 = mV)
  390:Core/Src/config_manager.c ****             ack_data[0] = command;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 76
-
-
- 970              		.loc 1 390 13 view .LVU300
- 971              		.loc 1 390 25 is_stmt 0 view .LVU301
- 972 0120 8DF80050 		strb	r5, [sp]
  391:Core/Src/config_manager.c ****             ack_data[1] = status;
- 973              		.loc 1 391 13 is_stmt 1 view .LVU302
- 974              		.loc 1 391 25 is_stmt 0 view .LVU303
- 975 0124 0022     		movs	r2, #0
- 976 0126 8DF80120 		strb	r2, [sp, #1]
  392:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)(old_min_voltage / 100);
- 977              		.loc 1 392 13 is_stmt 1 view .LVU304
- 978              		.loc 1 392 27 is_stmt 0 view .LVU305
- 979 012a 4A49     		ldr	r1, .L72+4
- 980 012c A1FB0606 		umull	r0, r6, r1, r6
- 981              	.LVL71:
- 982              		.loc 1 392 27 view .LVU306
- 983 0130 C6F34716 		ubfx	r6, r6, #5, #8
- 984              		.loc 1 392 25 view .LVU307
- 985 0134 8DF80260 		strb	r6, [sp, #2]
  393:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
- 986              		.loc 1 393 13 is_stmt 1 view .LVU308
- 987              		.loc 1 393 27 is_stmt 0 view .LVU309
- 988 0138 A1FB0313 		umull	r1, r3, r1, r3
- 989              	.LVL72:
- 990              		.loc 1 393 27 view .LVU310
- 991 013c C3F34713 		ubfx	r3, r3, #5, #8
- 992              		.loc 1 393 25 view .LVU311
- 993 0140 8DF80330 		strb	r3, [sp, #3]
  394:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
- 994              		.loc 1 394 13 is_stmt 1 view .LVU312
- 995              		.loc 1 394 25 is_stmt 0 view .LVU313
- 996 0144 8DF80420 		strb	r2, [sp, #4]
  395:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
- 997              		.loc 1 395 13 is_stmt 1 view .LVU314
- 998              		.loc 1 395 25 is_stmt 0 view .LVU315
- 999 0148 8DF80520 		strb	r2, [sp, #5]
  396:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
- 1000              		.loc 1 396 13 is_stmt 1 view .LVU316
- 1001              		.loc 1 396 25 is_stmt 0 view .LVU317
- 1002 014c 8DF80620 		strb	r2, [sp, #6]
  397:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
- 1003              		.loc 1 397 13 is_stmt 1 view .LVU318
- 1004              		.loc 1 397 25 is_stmt 0 view .LVU319
- 1005 0150 8DF80720 		strb	r2, [sp, #7]
  398:Core/Src/config_manager.c ****             
  399:Core/Src/config_manager.c ****             // Send acknowledgement
  400:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
- 1006              		.loc 1 400 13 is_stmt 1 view .LVU320
- 1007 0154 0123     		movs	r3, #1
- 1008 0156 0822     		movs	r2, #8
- 1009 0158 6946     		mov	r1, sp
- 1010 015a 3D48     		ldr	r0, .L72
- 1011 015c 0068     		ldr	r0, [r0]
- 1012 015e FFF7FEFF 		bl	CAN_SendMessage
- 1013              	.LVL73:
  401:Core/Src/config_manager.c ****             break;
- 1014              		.loc 1 401 13 view .LVU321
- 1015 0162 53E0     		b	.L45
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 77
-
-
- 1016              	.LVL74:
- 1017              	.L52:
- 1018              		.loc 1 401 13 is_stmt 0 view .LVU322
- 1019              	.LBE14:
- 1020              	.LBB15:
  402:Core/Src/config_manager.c ****         }
  403:Core/Src/config_manager.c ****         
  404:Core/Src/config_manager.c ****         case CONFIG_CMD_SET_MAX_VOLTAGE:
@@ -4573,114 +4426,35 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  406:Core/Src/config_manager.c ****             // Set maximum cell voltage threshold (temporary, resets on restart)
  407:Core/Src/config_manager.c ****             // Value is voltage/100, e.g. 42 = 4200mV
  408:Core/Src/config_manager.c ****             uint16_t old_max_voltage = BQ_GetMaxVoltage();
- 1021              		.loc 1 408 13 is_stmt 1 view .LVU323
- 1022              		.loc 1 408 40 is_stmt 0 view .LVU324
- 1023 0164 FFF7FEFF 		bl	BQ_GetMaxVoltage
- 1024              	.LVL75:
- 1025              		.loc 1 408 40 view .LVU325
- 1026 0168 0646     		mov	r6, r0
- 1027              	.LVL76:
  409:Core/Src/config_manager.c ****             uint16_t new_max_voltage_mv = (uint16_t)value * 100;
- 1028              		.loc 1 409 13 is_stmt 1 view .LVU326
- 1029              		.loc 1 409 22 is_stmt 0 view .LVU327
- 1030 016a 04EB8404 		add	r4, r4, r4, lsl #2
- 1031              	.LVL77:
- 1032              		.loc 1 409 22 view .LVU328
- 1033 016e 04EB8404 		add	r4, r4, r4, lsl #2
- 1034              	.LVL78:
  410:Core/Src/config_manager.c ****             
  411:Core/Src/config_manager.c ****             // Set new max voltage threshold
  412:Core/Src/config_manager.c ****             BQ_SetMaxVoltage(new_max_voltage_mv);
- 1035              		.loc 1 412 13 is_stmt 1 view .LVU329
- 1036 0172 A000     		lsls	r0, r4, #2
- 1037 0174 FFF7FEFF 		bl	BQ_SetMaxVoltage
- 1038              	.LVL79:
  413:Core/Src/config_manager.c ****             
  414:Core/Src/config_manager.c ****             // Verify it was set
  415:Core/Src/config_manager.c ****             uint16_t actual_new_voltage = BQ_GetMaxVoltage();
- 1039              		.loc 1 415 13 view .LVU330
- 1040              		.loc 1 415 43 is_stmt 0 view .LVU331
- 1041 0178 FFF7FEFF 		bl	BQ_GetMaxVoltage
- 1042              	.LVL80:
- 1043 017c 0346     		mov	r3, r0
- 1044              	.LVL81:
  416:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
- 1045              		.loc 1 416 13 is_stmt 1 view .LVU332
  417:Core/Src/config_manager.c ****             
  418:Core/Src/config_manager.c ****             // Prepare acknowledgement message
  419:Core/Src/config_manager.c ****             // Byte 0: Command echo
  420:Core/Src/config_manager.c ****             // Byte 1: Status (0x00 = success)
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 75
+
+
  421:Core/Src/config_manager.c ****             // Byte 2: Old max voltage (value * 100 = mV)
  422:Core/Src/config_manager.c ****             // Byte 3: New max voltage (value * 100 = mV)
  423:Core/Src/config_manager.c ****             ack_data[0] = command;
- 1046              		.loc 1 423 13 view .LVU333
- 1047              		.loc 1 423 25 is_stmt 0 view .LVU334
- 1048 017e 8DF80050 		strb	r5, [sp]
  424:Core/Src/config_manager.c ****             ack_data[1] = status;
- 1049              		.loc 1 424 13 is_stmt 1 view .LVU335
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 78
-
-
- 1050              		.loc 1 424 25 is_stmt 0 view .LVU336
- 1051 0182 0022     		movs	r2, #0
- 1052 0184 8DF80120 		strb	r2, [sp, #1]
  425:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)(old_max_voltage / 100);
- 1053              		.loc 1 425 13 is_stmt 1 view .LVU337
- 1054              		.loc 1 425 27 is_stmt 0 view .LVU338
- 1055 0188 3249     		ldr	r1, .L72+4
- 1056 018a A1FB0606 		umull	r0, r6, r1, r6
- 1057              	.LVL82:
- 1058              		.loc 1 425 27 view .LVU339
- 1059 018e C6F34716 		ubfx	r6, r6, #5, #8
- 1060              		.loc 1 425 25 view .LVU340
- 1061 0192 8DF80260 		strb	r6, [sp, #2]
  426:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
- 1062              		.loc 1 426 13 is_stmt 1 view .LVU341
- 1063              		.loc 1 426 27 is_stmt 0 view .LVU342
- 1064 0196 A1FB0313 		umull	r1, r3, r1, r3
- 1065              	.LVL83:
- 1066              		.loc 1 426 27 view .LVU343
- 1067 019a C3F34713 		ubfx	r3, r3, #5, #8
- 1068              		.loc 1 426 25 view .LVU344
- 1069 019e 8DF80330 		strb	r3, [sp, #3]
  427:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
- 1070              		.loc 1 427 13 is_stmt 1 view .LVU345
- 1071              		.loc 1 427 25 is_stmt 0 view .LVU346
- 1072 01a2 8DF80420 		strb	r2, [sp, #4]
  428:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
- 1073              		.loc 1 428 13 is_stmt 1 view .LVU347
- 1074              		.loc 1 428 25 is_stmt 0 view .LVU348
- 1075 01a6 8DF80520 		strb	r2, [sp, #5]
  429:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
- 1076              		.loc 1 429 13 is_stmt 1 view .LVU349
- 1077              		.loc 1 429 25 is_stmt 0 view .LVU350
- 1078 01aa 8DF80620 		strb	r2, [sp, #6]
  430:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
- 1079              		.loc 1 430 13 is_stmt 1 view .LVU351
- 1080              		.loc 1 430 25 is_stmt 0 view .LVU352
- 1081 01ae 8DF80720 		strb	r2, [sp, #7]
  431:Core/Src/config_manager.c ****             
  432:Core/Src/config_manager.c ****             // Send acknowledgement
  433:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
- 1082              		.loc 1 433 13 is_stmt 1 view .LVU353
- 1083 01b2 0123     		movs	r3, #1
- 1084 01b4 0822     		movs	r2, #8
- 1085 01b6 6946     		mov	r1, sp
- 1086 01b8 2548     		ldr	r0, .L72
- 1087 01ba 0068     		ldr	r0, [r0]
- 1088 01bc FFF7FEFF 		bl	CAN_SendMessage
- 1089              	.LVL84:
  434:Core/Src/config_manager.c ****             break;
- 1090              		.loc 1 434 13 view .LVU354
- 1091 01c0 24E0     		b	.L45
- 1092              	.LVL85:
- 1093              	.L50:
- 1094              		.loc 1 434 13 is_stmt 0 view .LVU355
- 1095              	.LBE15:
- 1096              	.LBB16:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 79
-
-
  435:Core/Src/config_manager.c ****         }
  436:Core/Src/config_manager.c ****         
  437:Core/Src/config_manager.c ****         case CONFIG_CMD_GET_VALUE:
@@ -4688,39 +4462,13 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  439:Core/Src/config_manager.c ****             // Get current configuration value
  440:Core/Src/config_manager.c ****             // Byte 1 (value) specifies which parameter to retrieve
  441:Core/Src/config_manager.c ****             uint8_t param = value;
- 1097              		.loc 1 441 13 is_stmt 1 view .LVU356
  442:Core/Src/config_manager.c ****             uint16_t param_value = 0;
- 1098              		.loc 1 442 13 view .LVU357
  443:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
- 1099              		.loc 1 443 13 view .LVU358
  444:Core/Src/config_manager.c ****             
  445:Core/Src/config_manager.c ****             switch (param) {
- 1100              		.loc 1 445 13 view .LVU359
- 1101 01c2 631E     		subs	r3, r4, #1
- 1102 01c4 042B     		cmp	r3, #4
- 1103 01c6 3FD8     		bhi	.L66
- 1104 01c8 DFE803F0 		tbb	[pc, r3]
- 1105              	.L60:
- 1106 01cc 03       		.byte	(.L64-.L60)/2
- 1107 01cd 22       		.byte	(.L63-.L60)/2
- 1108 01ce 27       		.byte	(.L62-.L60)/2
- 1109 01cf 2C       		.byte	(.L61-.L60)/2
- 1110 01d0 35       		.byte	(.L59-.L60)/2
- 1111 01d1 00       		.p2align 1
- 1112              	.L64:
  446:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MODULE_ID:
  447:Core/Src/config_manager.c ****                     param_value = Config_GetModuleID();
- 1113              		.loc 1 447 21 view .LVU360
- 1114              		.loc 1 447 35 is_stmt 0 view .LVU361
- 1115 01d2 FFF7FEFF 		bl	Config_GetModuleID
- 1116              	.LVL86:
  448:Core/Src/config_manager.c ****                     break;
- 1117              		.loc 1 448 21 is_stmt 1 view .LVU362
- 443:Core/Src/config_manager.c ****             
- 1118              		.loc 1 443 20 is_stmt 0 view .LVU363
- 1119 01d6 0023     		movs	r3, #0
- 1120              	.LVL87:
- 1121              	.L58:
  449:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MAX_TEMP:
  450:Core/Src/config_manager.c ****                     param_value = (uint8_t)CellTemp_GetMaxTemp();
  451:Core/Src/config_manager.c ****                     break;
@@ -4733,470 +4481,1017 @@ ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 1
  458:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MAX_VOLTAGE:
  459:Core/Src/config_manager.c ****                     param_value = BQ_GetMaxVoltage() / 100;  // Return as value*100=mV
  460:Core/Src/config_manager.c ****                     break;
- 461:Core/Src/config_manager.c ****                 default:
- 462:Core/Src/config_manager.c ****                     status = CONFIG_STATUS_FAIL;
+ 461:Core/Src/config_manager.c ****                 case CONFIG_PARAM_SLEEP_MODE:
+ 462:Core/Src/config_manager.c ****                     param_value = BQ_GetSleepMode();  // 0=enabled, 1=disabled
  463:Core/Src/config_manager.c ****                     break;
- 464:Core/Src/config_manager.c ****             }
- 465:Core/Src/config_manager.c ****             
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 80
+ 464:Core/Src/config_manager.c ****                 default:
+ 465:Core/Src/config_manager.c ****                     status = CONFIG_STATUS_FAIL;
+ 466:Core/Src/config_manager.c ****                     break;
+ 467:Core/Src/config_manager.c ****             }
+ 468:Core/Src/config_manager.c ****             
+ 469:Core/Src/config_manager.c ****             // Prepare acknowledgement message
+ 470:Core/Src/config_manager.c ****             // Byte 0: Command echo (0x06)
+ 471:Core/Src/config_manager.c ****             // Byte 1: Status (0x00 = success, 0x01 = invalid parameter)
+ 472:Core/Src/config_manager.c ****             // Byte 2: Parameter selector echo
+ 473:Core/Src/config_manager.c ****             // Byte 3: Current value (low byte)
+ 474:Core/Src/config_manager.c ****             // Byte 4: Current value (high byte, for 16-bit values like raw mV)
+ 475:Core/Src/config_manager.c ****             // Bytes 5-7: Reserved
+ 476:Core/Src/config_manager.c ****             ack_data[0] = command;
+ 477:Core/Src/config_manager.c ****             ack_data[1] = status;
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 76
 
 
- 466:Core/Src/config_manager.c ****             // Prepare acknowledgement message
- 467:Core/Src/config_manager.c ****             // Byte 0: Command echo (0x06)
- 468:Core/Src/config_manager.c ****             // Byte 1: Status (0x00 = success, 0x01 = invalid parameter)
- 469:Core/Src/config_manager.c ****             // Byte 2: Parameter selector echo
- 470:Core/Src/config_manager.c ****             // Byte 3: Current value (low byte)
- 471:Core/Src/config_manager.c ****             // Byte 4: Current value (high byte, for 16-bit values like raw mV)
- 472:Core/Src/config_manager.c ****             // Bytes 5-7: Reserved
- 473:Core/Src/config_manager.c ****             ack_data[0] = command;
- 1122              		.loc 1 473 13 is_stmt 1 view .LVU364
- 1123              		.loc 1 473 25 is_stmt 0 view .LVU365
- 1124 01d8 8DF80050 		strb	r5, [sp]
- 474:Core/Src/config_manager.c ****             ack_data[1] = status;
- 1125              		.loc 1 474 13 is_stmt 1 view .LVU366
- 1126              		.loc 1 474 25 is_stmt 0 view .LVU367
- 1127 01dc 8DF80130 		strb	r3, [sp, #1]
- 475:Core/Src/config_manager.c ****             ack_data[2] = param;
- 1128              		.loc 1 475 13 is_stmt 1 view .LVU368
- 1129              		.loc 1 475 25 is_stmt 0 view .LVU369
- 1130 01e0 8DF80240 		strb	r4, [sp, #2]
- 476:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(param_value & 0xFF);
- 1131              		.loc 1 476 13 is_stmt 1 view .LVU370
- 1132              		.loc 1 476 25 is_stmt 0 view .LVU371
- 1133 01e4 8DF80300 		strb	r0, [sp, #3]
- 477:Core/Src/config_manager.c ****             ack_data[4] = (uint8_t)((param_value >> 8) & 0xFF);
- 1134              		.loc 1 477 13 is_stmt 1 view .LVU372
- 1135              		.loc 1 477 27 is_stmt 0 view .LVU373
- 1136 01e8 C0F30720 		ubfx	r0, r0, #8, #8
- 1137              	.LVL88:
- 1138              		.loc 1 477 25 view .LVU374
- 1139 01ec 8DF80400 		strb	r0, [sp, #4]
- 478:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
- 1140              		.loc 1 478 13 is_stmt 1 view .LVU375
- 1141              		.loc 1 478 25 is_stmt 0 view .LVU376
- 1142 01f0 0023     		movs	r3, #0
- 1143              	.LVL89:
- 1144              		.loc 1 478 25 view .LVU377
- 1145 01f2 8DF80530 		strb	r3, [sp, #5]
- 479:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
- 1146              		.loc 1 479 13 is_stmt 1 view .LVU378
- 1147              		.loc 1 479 25 is_stmt 0 view .LVU379
- 1148 01f6 8DF80630 		strb	r3, [sp, #6]
- 480:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
- 1149              		.loc 1 480 13 is_stmt 1 view .LVU380
- 1150              		.loc 1 480 25 is_stmt 0 view .LVU381
- 1151 01fa 8DF80730 		strb	r3, [sp, #7]
- 481:Core/Src/config_manager.c ****             
- 482:Core/Src/config_manager.c ****             // Send acknowledgement
- 483:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
- 1152              		.loc 1 483 13 is_stmt 1 view .LVU382
- 1153 01fe 0123     		movs	r3, #1
- 1154 0200 0822     		movs	r2, #8
- 1155 0202 6946     		mov	r1, sp
- 1156 0204 1248     		ldr	r0, .L72
- 1157 0206 0068     		ldr	r0, [r0]
- 1158 0208 FFF7FEFF 		bl	CAN_SendMessage
- 1159              	.LVL90:
- 484:Core/Src/config_manager.c ****             break;
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 81
+ 478:Core/Src/config_manager.c ****             ack_data[2] = param;
+ 479:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(param_value & 0xFF);
+ 480:Core/Src/config_manager.c ****             ack_data[4] = (uint8_t)((param_value >> 8) & 0xFF);
+ 481:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 482:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 483:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 484:Core/Src/config_manager.c ****             
+ 485:Core/Src/config_manager.c ****             // Send acknowledgement
+ 486:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+ 487:Core/Src/config_manager.c ****             break;
+ 488:Core/Src/config_manager.c ****         }
+ 489:Core/Src/config_manager.c ****         
+ 490:Core/Src/config_manager.c ****         case CONFIG_CMD_SET_SLEEP:
+ 491:Core/Src/config_manager.c ****         {
+ 492:Core/Src/config_manager.c ****             // Set BQ chip sleep mode
+ 493:Core/Src/config_manager.c ****             // Byte 1 (value): 0 = enable sleep, 1 = disable sleep
+ 494:Core/Src/config_manager.c ****             uint8_t old_sleep_mode = BQ_GetSleepMode();
+ 495:Core/Src/config_manager.c ****             uint8_t new_sleep_mode = (value != 0) ? 1 : 0;  // Normalize to 0 or 1
+ 496:Core/Src/config_manager.c ****             
+ 497:Core/Src/config_manager.c ****             // Send command to both BQ chips
+ 498:Core/Src/config_manager.c ****             HAL_StatusTypeDef result = BQ_SetSleepMode(new_sleep_mode);
+ 499:Core/Src/config_manager.c ****             
+ 500:Core/Src/config_manager.c ****             // Determine status
+ 501:Core/Src/config_manager.c ****             if (result == HAL_OK) {
+ 502:Core/Src/config_manager.c ****                 status = CONFIG_STATUS_SUCCESS;
+ 503:Core/Src/config_manager.c ****             } else {
+ 504:Core/Src/config_manager.c ****                 status = CONFIG_STATUS_FAIL;
+ 505:Core/Src/config_manager.c ****             }
+ 506:Core/Src/config_manager.c ****             
+ 507:Core/Src/config_manager.c ****             // Get actual new value after command
+ 508:Core/Src/config_manager.c ****             uint8_t actual_sleep_mode = BQ_GetSleepMode();
+ 509:Core/Src/config_manager.c ****             
+ 510:Core/Src/config_manager.c ****             // Prepare acknowledgement message
+ 511:Core/Src/config_manager.c ****             // Byte 0: Command echo (0x07)
+ 512:Core/Src/config_manager.c ****             // Byte 1: Status (0x00 = success, 0x01 = fail)
+ 513:Core/Src/config_manager.c ****             // Byte 2: Old sleep mode (0=enabled, 1=disabled)
+ 514:Core/Src/config_manager.c ****             // Byte 3: New sleep mode (0=enabled, 1=disabled)
+ 515:Core/Src/config_manager.c ****             // Bytes 4-7: Reserved
+ 516:Core/Src/config_manager.c ****             ack_data[0] = command;
+ 517:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 518:Core/Src/config_manager.c ****             ack_data[2] = old_sleep_mode;
+ 519:Core/Src/config_manager.c ****             ack_data[3] = actual_sleep_mode;
+ 520:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 521:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 522:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 523:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 524:Core/Src/config_manager.c ****             
+ 525:Core/Src/config_manager.c ****             // Send acknowledgement
+ 526:Core/Src/config_manager.c ****             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+ 527:Core/Src/config_manager.c ****             break;
+ 528:Core/Src/config_manager.c ****         }
+ 529:Core/Src/config_manager.c ****             
+ 530:Core/Src/config_manager.c ****         default:
+ 531:Core/Src/config_manager.c ****             // Unknown command, ignore (no ACK sent)
+ 532:Core/Src/config_manager.c ****             break;
+ 533:Core/Src/config_manager.c ****     }
+ 534:Core/Src/config_manager.c **** }
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 77
 
 
- 1160              		.loc 1 484 13 view .LVU383
- 1161              	.L45:
- 1162              		.loc 1 484 13 is_stmt 0 view .LVU384
- 1163              	.LBE16:
- 485:Core/Src/config_manager.c ****         }
- 486:Core/Src/config_manager.c ****             
- 487:Core/Src/config_manager.c ****         default:
- 488:Core/Src/config_manager.c ****             // Unknown command, ignore (no ACK sent)
- 489:Core/Src/config_manager.c ****             break;
- 490:Core/Src/config_manager.c ****     }
- 491:Core/Src/config_manager.c **** }
- 1164              		.loc 1 491 1 view .LVU385
- 1165 020c 03B0     		add	sp, sp, #12
- 1166              		.cfi_remember_state
- 1167              		.cfi_def_cfa_offset 20
- 1168              		@ sp needed
- 1169 020e F0BD     		pop	{r4, r5, r6, r7, pc}
+ 883              		.loc 1 534 1 view .LVU262
+ 884 00c4 03B0     		add	sp, sp, #12
+ 885              		.cfi_remember_state
+ 886              		.cfi_def_cfa_offset 20
+ 887              		@ sp needed
+ 888 00c6 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 889              	.LVL56:
+ 890              	.L55:
+ 891              		.cfi_restore_state
+ 892              	.LBB13:
+ 342:Core/Src/config_manager.c ****             int8_t new_min_temp = (int8_t)value;
+ 893              		.loc 1 342 13 is_stmt 1 view .LVU263
+ 342:Core/Src/config_manager.c ****             int8_t new_min_temp = (int8_t)value;
+ 894              		.loc 1 342 35 is_stmt 0 view .LVU264
+ 895 00c8 FFF7FEFF 		bl	CellTemp_GetMinTemp
+ 896              	.LVL57:
+ 342:Core/Src/config_manager.c ****             int8_t new_min_temp = (int8_t)value;
+ 897              		.loc 1 342 35 view .LVU265
+ 898 00cc 0646     		mov	r6, r0
+ 899              	.LVL58:
+ 343:Core/Src/config_manager.c ****             
+ 900              		.loc 1 343 13 is_stmt 1 view .LVU266
+ 346:Core/Src/config_manager.c ****             
+ 901              		.loc 1 346 13 view .LVU267
+ 902 00ce 60B2     		sxtb	r0, r4
+ 903 00d0 FFF7FEFF 		bl	CellTemp_SetMinTemp
+ 904              	.LVL59:
+ 349:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
+ 905              		.loc 1 349 13 view .LVU268
+ 349:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
+ 906              		.loc 1 349 38 is_stmt 0 view .LVU269
+ 907 00d4 FFF7FEFF 		bl	CellTemp_GetMinTemp
+ 908              	.LVL60:
+ 350:Core/Src/config_manager.c ****             
+ 909              		.loc 1 350 13 is_stmt 1 view .LVU270
+ 357:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 910              		.loc 1 357 13 view .LVU271
+ 357:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 911              		.loc 1 357 25 is_stmt 0 view .LVU272
+ 912 00d8 8DF80050 		strb	r5, [sp]
+ 358:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)old_min_temp;
+ 913              		.loc 1 358 13 is_stmt 1 view .LVU273
+ 358:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)old_min_temp;
+ 914              		.loc 1 358 25 is_stmt 0 view .LVU274
+ 915 00dc 0023     		movs	r3, #0
+ 916 00de 8DF80130 		strb	r3, [sp, #1]
+ 359:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)actual_new_temp;
+ 917              		.loc 1 359 13 is_stmt 1 view .LVU275
+ 359:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)actual_new_temp;
+ 918              		.loc 1 359 25 is_stmt 0 view .LVU276
+ 919 00e2 8DF80260 		strb	r6, [sp, #2]
+ 360:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 920              		.loc 1 360 13 is_stmt 1 view .LVU277
+ 360:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 921              		.loc 1 360 25 is_stmt 0 view .LVU278
+ 922 00e6 8DF80300 		strb	r0, [sp, #3]
+ 361:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 78
+
+
+ 923              		.loc 1 361 13 is_stmt 1 view .LVU279
+ 361:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 924              		.loc 1 361 25 is_stmt 0 view .LVU280
+ 925 00ea 8DF80430 		strb	r3, [sp, #4]
+ 362:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 926              		.loc 1 362 13 is_stmt 1 view .LVU281
+ 362:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 927              		.loc 1 362 25 is_stmt 0 view .LVU282
+ 928 00ee 8DF80530 		strb	r3, [sp, #5]
+ 363:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 929              		.loc 1 363 13 is_stmt 1 view .LVU283
+ 363:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 930              		.loc 1 363 25 is_stmt 0 view .LVU284
+ 931 00f2 8DF80630 		strb	r3, [sp, #6]
+ 364:Core/Src/config_manager.c ****             
+ 932              		.loc 1 364 13 is_stmt 1 view .LVU285
+ 364:Core/Src/config_manager.c ****             
+ 933              		.loc 1 364 25 is_stmt 0 view .LVU286
+ 934 00f6 8DF80730 		strb	r3, [sp, #7]
+ 367:Core/Src/config_manager.c ****             break;
+ 935              		.loc 1 367 13 is_stmt 1 view .LVU287
+ 936 00fa 0123     		movs	r3, #1
+ 937 00fc 0822     		movs	r2, #8
+ 938 00fe 6946     		mov	r1, sp
+ 939 0100 6948     		ldr	r0, .L76
+ 940              	.LVL61:
+ 367:Core/Src/config_manager.c ****             break;
+ 941              		.loc 1 367 13 is_stmt 0 view .LVU288
+ 942 0102 0068     		ldr	r0, [r0]
+ 943 0104 FFF7FEFF 		bl	CAN_SendMessage
+ 944              	.LVL62:
+ 368:Core/Src/config_manager.c ****         }
+ 945              		.loc 1 368 13 is_stmt 1 view .LVU289
+ 946 0108 DCE7     		b	.L45
+ 947              	.LVL63:
+ 948              	.L54:
+ 368:Core/Src/config_manager.c ****         }
+ 949              		.loc 1 368 13 is_stmt 0 view .LVU290
+ 950              	.LBE13:
+ 951              	.LBB14:
+ 375:Core/Src/config_manager.c ****             uint16_t new_min_voltage_mv = (uint16_t)value * 100;
+ 952              		.loc 1 375 13 is_stmt 1 view .LVU291
+ 375:Core/Src/config_manager.c ****             uint16_t new_min_voltage_mv = (uint16_t)value * 100;
+ 953              		.loc 1 375 40 is_stmt 0 view .LVU292
+ 954 010a FFF7FEFF 		bl	BQ_GetMinVoltage
+ 955              	.LVL64:
+ 375:Core/Src/config_manager.c ****             uint16_t new_min_voltage_mv = (uint16_t)value * 100;
+ 956              		.loc 1 375 40 view .LVU293
+ 957 010e 0646     		mov	r6, r0
+ 958              	.LVL65:
+ 376:Core/Src/config_manager.c ****             
+ 959              		.loc 1 376 13 is_stmt 1 view .LVU294
+ 376:Core/Src/config_manager.c ****             
+ 960              		.loc 1 376 22 is_stmt 0 view .LVU295
+ 961 0110 04EB8404 		add	r4, r4, r4, lsl #2
+ 962              	.LVL66:
+ 376:Core/Src/config_manager.c ****             
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 79
+
+
+ 963              		.loc 1 376 22 view .LVU296
+ 964 0114 04EB8404 		add	r4, r4, r4, lsl #2
+ 965              	.LVL67:
+ 379:Core/Src/config_manager.c ****             
+ 966              		.loc 1 379 13 is_stmt 1 view .LVU297
+ 967 0118 A000     		lsls	r0, r4, #2
+ 968 011a FFF7FEFF 		bl	BQ_SetMinVoltage
+ 969              	.LVL68:
+ 382:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
+ 970              		.loc 1 382 13 view .LVU298
+ 382:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
+ 971              		.loc 1 382 43 is_stmt 0 view .LVU299
+ 972 011e FFF7FEFF 		bl	BQ_GetMinVoltage
+ 973              	.LVL69:
+ 974 0122 0346     		mov	r3, r0
+ 975              	.LVL70:
+ 383:Core/Src/config_manager.c ****             
+ 976              		.loc 1 383 13 is_stmt 1 view .LVU300
+ 390:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 977              		.loc 1 390 13 view .LVU301
+ 390:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 978              		.loc 1 390 25 is_stmt 0 view .LVU302
+ 979 0124 8DF80050 		strb	r5, [sp]
+ 391:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)(old_min_voltage / 100);
+ 980              		.loc 1 391 13 is_stmt 1 view .LVU303
+ 391:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)(old_min_voltage / 100);
+ 981              		.loc 1 391 25 is_stmt 0 view .LVU304
+ 982 0128 0022     		movs	r2, #0
+ 983 012a 8DF80120 		strb	r2, [sp, #1]
+ 392:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 984              		.loc 1 392 13 is_stmt 1 view .LVU305
+ 392:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 985              		.loc 1 392 27 is_stmt 0 view .LVU306
+ 986 012e 5F49     		ldr	r1, .L76+4
+ 987 0130 A1FB0606 		umull	r0, r6, r1, r6
+ 988              	.LVL71:
+ 392:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 989              		.loc 1 392 27 view .LVU307
+ 990 0134 C6F34716 		ubfx	r6, r6, #5, #8
+ 392:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 991              		.loc 1 392 25 view .LVU308
+ 992 0138 8DF80260 		strb	r6, [sp, #2]
+ 393:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 993              		.loc 1 393 13 is_stmt 1 view .LVU309
+ 393:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 994              		.loc 1 393 27 is_stmt 0 view .LVU310
+ 995 013c A1FB0313 		umull	r1, r3, r1, r3
+ 996              	.LVL72:
+ 393:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 997              		.loc 1 393 27 view .LVU311
+ 998 0140 C3F34713 		ubfx	r3, r3, #5, #8
+ 393:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 999              		.loc 1 393 25 view .LVU312
+ 1000 0144 8DF80330 		strb	r3, [sp, #3]
+ 394:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1001              		.loc 1 394 13 is_stmt 1 view .LVU313
+ 394:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 80
+
+
+ 1002              		.loc 1 394 25 is_stmt 0 view .LVU314
+ 1003 0148 8DF80420 		strb	r2, [sp, #4]
+ 395:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1004              		.loc 1 395 13 is_stmt 1 view .LVU315
+ 395:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1005              		.loc 1 395 25 is_stmt 0 view .LVU316
+ 1006 014c 8DF80520 		strb	r2, [sp, #5]
+ 396:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1007              		.loc 1 396 13 is_stmt 1 view .LVU317
+ 396:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1008              		.loc 1 396 25 is_stmt 0 view .LVU318
+ 1009 0150 8DF80620 		strb	r2, [sp, #6]
+ 397:Core/Src/config_manager.c ****             
+ 1010              		.loc 1 397 13 is_stmt 1 view .LVU319
+ 397:Core/Src/config_manager.c ****             
+ 1011              		.loc 1 397 25 is_stmt 0 view .LVU320
+ 1012 0154 8DF80720 		strb	r2, [sp, #7]
+ 400:Core/Src/config_manager.c ****             break;
+ 1013              		.loc 1 400 13 is_stmt 1 view .LVU321
+ 1014 0158 0123     		movs	r3, #1
+ 1015 015a 0822     		movs	r2, #8
+ 1016 015c 6946     		mov	r1, sp
+ 1017 015e 5248     		ldr	r0, .L76
+ 1018 0160 0068     		ldr	r0, [r0]
+ 1019 0162 FFF7FEFF 		bl	CAN_SendMessage
+ 1020              	.LVL73:
+ 401:Core/Src/config_manager.c ****         }
+ 1021              		.loc 1 401 13 view .LVU322
+ 1022 0166 ADE7     		b	.L45
+ 1023              	.LVL74:
+ 1024              	.L53:
+ 401:Core/Src/config_manager.c ****         }
+ 1025              		.loc 1 401 13 is_stmt 0 view .LVU323
+ 1026              	.LBE14:
+ 1027              	.LBB15:
+ 408:Core/Src/config_manager.c ****             uint16_t new_max_voltage_mv = (uint16_t)value * 100;
+ 1028              		.loc 1 408 13 is_stmt 1 view .LVU324
+ 408:Core/Src/config_manager.c ****             uint16_t new_max_voltage_mv = (uint16_t)value * 100;
+ 1029              		.loc 1 408 40 is_stmt 0 view .LVU325
+ 1030 0168 FFF7FEFF 		bl	BQ_GetMaxVoltage
+ 1031              	.LVL75:
+ 408:Core/Src/config_manager.c ****             uint16_t new_max_voltage_mv = (uint16_t)value * 100;
+ 1032              		.loc 1 408 40 view .LVU326
+ 1033 016c 0646     		mov	r6, r0
+ 1034              	.LVL76:
+ 409:Core/Src/config_manager.c ****             
+ 1035              		.loc 1 409 13 is_stmt 1 view .LVU327
+ 409:Core/Src/config_manager.c ****             
+ 1036              		.loc 1 409 22 is_stmt 0 view .LVU328
+ 1037 016e 04EB8404 		add	r4, r4, r4, lsl #2
+ 1038              	.LVL77:
+ 409:Core/Src/config_manager.c ****             
+ 1039              		.loc 1 409 22 view .LVU329
+ 1040 0172 04EB8404 		add	r4, r4, r4, lsl #2
+ 1041              	.LVL78:
+ 412:Core/Src/config_manager.c ****             
+ 1042              		.loc 1 412 13 is_stmt 1 view .LVU330
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 81
+
+
+ 1043 0176 A000     		lsls	r0, r4, #2
+ 1044 0178 FFF7FEFF 		bl	BQ_SetMaxVoltage
+ 1045              	.LVL79:
+ 415:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
+ 1046              		.loc 1 415 13 view .LVU331
+ 415:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
+ 1047              		.loc 1 415 43 is_stmt 0 view .LVU332
+ 1048 017c FFF7FEFF 		bl	BQ_GetMaxVoltage
+ 1049              	.LVL80:
+ 1050 0180 0346     		mov	r3, r0
+ 1051              	.LVL81:
+ 416:Core/Src/config_manager.c ****             
+ 1052              		.loc 1 416 13 is_stmt 1 view .LVU333
+ 423:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 1053              		.loc 1 423 13 view .LVU334
+ 423:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 1054              		.loc 1 423 25 is_stmt 0 view .LVU335
+ 1055 0182 8DF80050 		strb	r5, [sp]
+ 424:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)(old_max_voltage / 100);
+ 1056              		.loc 1 424 13 is_stmt 1 view .LVU336
+ 424:Core/Src/config_manager.c ****             ack_data[2] = (uint8_t)(old_max_voltage / 100);
+ 1057              		.loc 1 424 25 is_stmt 0 view .LVU337
+ 1058 0186 0022     		movs	r2, #0
+ 1059 0188 8DF80120 		strb	r2, [sp, #1]
+ 425:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 1060              		.loc 1 425 13 is_stmt 1 view .LVU338
+ 425:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 1061              		.loc 1 425 27 is_stmt 0 view .LVU339
+ 1062 018c 4749     		ldr	r1, .L76+4
+ 1063 018e A1FB0606 		umull	r0, r6, r1, r6
+ 1064              	.LVL82:
+ 425:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 1065              		.loc 1 425 27 view .LVU340
+ 1066 0192 C6F34716 		ubfx	r6, r6, #5, #8
+ 425:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(actual_new_voltage / 100);
+ 1067              		.loc 1 425 25 view .LVU341
+ 1068 0196 8DF80260 		strb	r6, [sp, #2]
+ 426:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 1069              		.loc 1 426 13 is_stmt 1 view .LVU342
+ 426:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 1070              		.loc 1 426 27 is_stmt 0 view .LVU343
+ 1071 019a A1FB0313 		umull	r1, r3, r1, r3
+ 1072              	.LVL83:
+ 426:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 1073              		.loc 1 426 27 view .LVU344
+ 1074 019e C3F34713 		ubfx	r3, r3, #5, #8
+ 426:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 1075              		.loc 1 426 25 view .LVU345
+ 1076 01a2 8DF80330 		strb	r3, [sp, #3]
+ 427:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1077              		.loc 1 427 13 is_stmt 1 view .LVU346
+ 427:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1078              		.loc 1 427 25 is_stmt 0 view .LVU347
+ 1079 01a6 8DF80420 		strb	r2, [sp, #4]
+ 428:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1080              		.loc 1 428 13 is_stmt 1 view .LVU348
+ 428:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 82
+
+
+ 1081              		.loc 1 428 25 is_stmt 0 view .LVU349
+ 1082 01aa 8DF80520 		strb	r2, [sp, #5]
+ 429:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1083              		.loc 1 429 13 is_stmt 1 view .LVU350
+ 429:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1084              		.loc 1 429 25 is_stmt 0 view .LVU351
+ 1085 01ae 8DF80620 		strb	r2, [sp, #6]
+ 430:Core/Src/config_manager.c ****             
+ 1086              		.loc 1 430 13 is_stmt 1 view .LVU352
+ 430:Core/Src/config_manager.c ****             
+ 1087              		.loc 1 430 25 is_stmt 0 view .LVU353
+ 1088 01b2 8DF80720 		strb	r2, [sp, #7]
+ 433:Core/Src/config_manager.c ****             break;
+ 1089              		.loc 1 433 13 is_stmt 1 view .LVU354
+ 1090 01b6 0123     		movs	r3, #1
+ 1091 01b8 0822     		movs	r2, #8
+ 1092 01ba 6946     		mov	r1, sp
+ 1093 01bc 3A48     		ldr	r0, .L76
+ 1094 01be 0068     		ldr	r0, [r0]
+ 1095 01c0 FFF7FEFF 		bl	CAN_SendMessage
+ 1096              	.LVL84:
+ 434:Core/Src/config_manager.c ****         }
+ 1097              		.loc 1 434 13 view .LVU355
+ 1098 01c4 7EE7     		b	.L45
+ 1099              	.LVL85:
+ 1100              	.L52:
+ 434:Core/Src/config_manager.c ****         }
+ 1101              		.loc 1 434 13 is_stmt 0 view .LVU356
+ 1102              	.LBE15:
+ 1103              	.LBB16:
+ 441:Core/Src/config_manager.c ****             uint16_t param_value = 0;
+ 1104              		.loc 1 441 13 is_stmt 1 view .LVU357
+ 442:Core/Src/config_manager.c ****             status = CONFIG_STATUS_SUCCESS;
+ 1105              		.loc 1 442 13 view .LVU358
+ 443:Core/Src/config_manager.c ****             
+ 1106              		.loc 1 443 13 view .LVU359
+ 445:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MODULE_ID:
+ 1107              		.loc 1 445 13 view .LVU360
+ 1108 01c6 631E     		subs	r3, r4, #1
+ 1109 01c8 052B     		cmp	r3, #5
+ 1110 01ca 42D8     		bhi	.L69
+ 1111 01cc DFE803F0 		tbb	[pc, r3]
+ 1112              	.L61:
+ 1113 01d0 03       		.byte	(.L66-.L61)/2
+ 1114 01d1 21       		.byte	(.L65-.L61)/2
+ 1115 01d2 26       		.byte	(.L64-.L61)/2
+ 1116 01d3 2B       		.byte	(.L63-.L61)/2
+ 1117 01d4 34       		.byte	(.L62-.L61)/2
+ 1118 01d5 3D       		.byte	(.L60-.L61)/2
+ 1119              		.p2align 1
+ 1120              	.L66:
+ 447:Core/Src/config_manager.c ****                     break;
+ 1121              		.loc 1 447 21 view .LVU361
+ 447:Core/Src/config_manager.c ****                     break;
+ 1122              		.loc 1 447 35 is_stmt 0 view .LVU362
+ 1123 01d6 FFF7FEFF 		bl	Config_GetModuleID
+ 1124              	.LVL86:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 83
+
+
+ 448:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MAX_TEMP:
+ 1125              		.loc 1 448 21 is_stmt 1 view .LVU363
+ 443:Core/Src/config_manager.c ****             
+ 1126              		.loc 1 443 20 is_stmt 0 view .LVU364
+ 1127 01da 0023     		movs	r3, #0
+ 1128              	.LVL87:
+ 1129              	.L59:
+ 476:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 1130              		.loc 1 476 13 is_stmt 1 view .LVU365
+ 476:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 1131              		.loc 1 476 25 is_stmt 0 view .LVU366
+ 1132 01dc 8DF80050 		strb	r5, [sp]
+ 477:Core/Src/config_manager.c ****             ack_data[2] = param;
+ 1133              		.loc 1 477 13 is_stmt 1 view .LVU367
+ 477:Core/Src/config_manager.c ****             ack_data[2] = param;
+ 1134              		.loc 1 477 25 is_stmt 0 view .LVU368
+ 1135 01e0 8DF80130 		strb	r3, [sp, #1]
+ 478:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(param_value & 0xFF);
+ 1136              		.loc 1 478 13 is_stmt 1 view .LVU369
+ 478:Core/Src/config_manager.c ****             ack_data[3] = (uint8_t)(param_value & 0xFF);
+ 1137              		.loc 1 478 25 is_stmt 0 view .LVU370
+ 1138 01e4 8DF80240 		strb	r4, [sp, #2]
+ 479:Core/Src/config_manager.c ****             ack_data[4] = (uint8_t)((param_value >> 8) & 0xFF);
+ 1139              		.loc 1 479 13 is_stmt 1 view .LVU371
+ 479:Core/Src/config_manager.c ****             ack_data[4] = (uint8_t)((param_value >> 8) & 0xFF);
+ 1140              		.loc 1 479 25 is_stmt 0 view .LVU372
+ 1141 01e8 8DF80300 		strb	r0, [sp, #3]
+ 480:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1142              		.loc 1 480 13 is_stmt 1 view .LVU373
+ 480:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1143              		.loc 1 480 27 is_stmt 0 view .LVU374
+ 1144 01ec C0F30720 		ubfx	r0, r0, #8, #8
+ 1145              	.LVL88:
+ 480:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1146              		.loc 1 480 25 view .LVU375
+ 1147 01f0 8DF80400 		strb	r0, [sp, #4]
+ 481:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1148              		.loc 1 481 13 is_stmt 1 view .LVU376
+ 481:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1149              		.loc 1 481 25 is_stmt 0 view .LVU377
+ 1150 01f4 0023     		movs	r3, #0
+ 1151              	.LVL89:
+ 481:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1152              		.loc 1 481 25 view .LVU378
+ 1153 01f6 8DF80530 		strb	r3, [sp, #5]
+ 482:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1154              		.loc 1 482 13 is_stmt 1 view .LVU379
+ 482:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1155              		.loc 1 482 25 is_stmt 0 view .LVU380
+ 1156 01fa 8DF80630 		strb	r3, [sp, #6]
+ 483:Core/Src/config_manager.c ****             
+ 1157              		.loc 1 483 13 is_stmt 1 view .LVU381
+ 483:Core/Src/config_manager.c ****             
+ 1158              		.loc 1 483 25 is_stmt 0 view .LVU382
+ 1159 01fe 8DF80730 		strb	r3, [sp, #7]
+ 486:Core/Src/config_manager.c ****             break;
+ 1160              		.loc 1 486 13 is_stmt 1 view .LVU383
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 84
+
+
+ 1161 0202 0123     		movs	r3, #1
+ 1162 0204 0822     		movs	r2, #8
+ 1163 0206 6946     		mov	r1, sp
+ 1164 0208 2748     		ldr	r0, .L76
+ 1165 020a 0068     		ldr	r0, [r0]
+ 1166 020c FFF7FEFF 		bl	CAN_SendMessage
+ 1167              	.LVL90:
+ 487:Core/Src/config_manager.c ****         }
+ 1168              		.loc 1 487 13 view .LVU384
+ 1169 0210 58E7     		b	.L45
  1170              	.LVL91:
- 1171              	.L63:
- 1172              		.cfi_restore_state
- 1173              	.LBB17:
+ 1171              	.L65:
  450:Core/Src/config_manager.c ****                     break;
- 1174              		.loc 1 450 21 is_stmt 1 view .LVU386
+ 1172              		.loc 1 450 21 view .LVU385
  450:Core/Src/config_manager.c ****                     break;
- 1175              		.loc 1 450 44 is_stmt 0 view .LVU387
- 1176 0210 FFF7FEFF 		bl	CellTemp_GetMaxTemp
- 1177              	.LVL92:
+ 1173              		.loc 1 450 44 is_stmt 0 view .LVU386
+ 1174 0212 FFF7FEFF 		bl	CellTemp_GetMaxTemp
+ 1175              	.LVL92:
  450:Core/Src/config_manager.c ****                     break;
- 1178              		.loc 1 450 35 discriminator 1 view .LVU388
- 1179 0214 C0B2     		uxtb	r0, r0
- 1180              	.LVL93:
+ 1176              		.loc 1 450 35 discriminator 1 view .LVU387
+ 1177 0216 C0B2     		uxtb	r0, r0
+ 1178              	.LVL93:
  451:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MIN_TEMP:
- 1181              		.loc 1 451 21 is_stmt 1 view .LVU389
+ 1179              		.loc 1 451 21 is_stmt 1 view .LVU388
  443:Core/Src/config_manager.c ****             
- 1182              		.loc 1 443 20 is_stmt 0 view .LVU390
- 1183 0216 0023     		movs	r3, #0
+ 1180              		.loc 1 443 20 is_stmt 0 view .LVU389
+ 1181 0218 0023     		movs	r3, #0
  451:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MIN_TEMP:
- 1184              		.loc 1 451 21 view .LVU391
- 1185 0218 DEE7     		b	.L58
- 1186              	.LVL94:
- 1187              	.L62:
+ 1182              		.loc 1 451 21 view .LVU390
+ 1183 021a DFE7     		b	.L59
+ 1184              	.LVL94:
+ 1185              	.L64:
  453:Core/Src/config_manager.c ****                     break;
- 1188              		.loc 1 453 21 is_stmt 1 view .LVU392
+ 1186              		.loc 1 453 21 is_stmt 1 view .LVU391
  453:Core/Src/config_manager.c ****                     break;
- 1189              		.loc 1 453 44 is_stmt 0 view .LVU393
- 1190 021a FFF7FEFF 		bl	CellTemp_GetMinTemp
- 1191              	.LVL95:
+ 1187              		.loc 1 453 44 is_stmt 0 view .LVU392
+ 1188 021c FFF7FEFF 		bl	CellTemp_GetMinTemp
+ 1189              	.LVL95:
  453:Core/Src/config_manager.c ****                     break;
- 1192              		.loc 1 453 35 discriminator 1 view .LVU394
- 1193 021e C0B2     		uxtb	r0, r0
- 1194              	.LVL96:
+ 1190              		.loc 1 453 35 discriminator 1 view .LVU393
+ 1191 0220 C0B2     		uxtb	r0, r0
+ 1192              	.LVL96:
  454:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MIN_VOLTAGE:
- 1195              		.loc 1 454 21 is_stmt 1 view .LVU395
+ 1193              		.loc 1 454 21 is_stmt 1 view .LVU394
  443:Core/Src/config_manager.c ****             
- 1196              		.loc 1 443 20 is_stmt 0 view .LVU396
- 1197 0220 0023     		movs	r3, #0
+ 1194              		.loc 1 443 20 is_stmt 0 view .LVU395
+ 1195 0222 0023     		movs	r3, #0
  454:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MIN_VOLTAGE:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 82
+ 1196              		.loc 1 454 21 view .LVU396
+ 1197 0224 DAE7     		b	.L59
+ 1198              	.LVL97:
+ 1199              	.L63:
+ 456:Core/Src/config_manager.c ****                     break;
+ 1200              		.loc 1 456 21 is_stmt 1 view .LVU397
+ 456:Core/Src/config_manager.c ****                     break;
+ 1201              		.loc 1 456 35 is_stmt 0 view .LVU398
+ 1202 0226 FFF7FEFF 		bl	BQ_GetMinVoltage
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 85
 
 
- 1198              		.loc 1 454 21 view .LVU397
- 1199 0222 D9E7     		b	.L58
- 1200              	.LVL97:
- 1201              	.L61:
+ 1203              	.LVL98:
  456:Core/Src/config_manager.c ****                     break;
- 1202              		.loc 1 456 21 is_stmt 1 view .LVU398
- 456:Core/Src/config_manager.c ****                     break;
- 1203              		.loc 1 456 35 is_stmt 0 view .LVU399
- 1204 0224 FFF7FEFF 		bl	BQ_GetMinVoltage
- 1205              	.LVL98:
- 456:Core/Src/config_manager.c ****                     break;
- 1206              		.loc 1 456 33 discriminator 1 view .LVU400
- 1207 0228 0A4B     		ldr	r3, .L72+4
- 1208 022a A3FB0030 		umull	r3, r0, r3, r0
- 1209 022e C0F34F10 		ubfx	r0, r0, #5, #16
- 1210              	.LVL99:
+ 1204              		.loc 1 456 33 discriminator 1 view .LVU399
+ 1205 022a 204B     		ldr	r3, .L76+4
+ 1206 022c A3FB0030 		umull	r3, r0, r3, r0
+ 1207 0230 C0F34F10 		ubfx	r0, r0, #5, #16
+ 1208              	.LVL99:
  457:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MAX_VOLTAGE:
- 1211              		.loc 1 457 21 is_stmt 1 view .LVU401
+ 1209              		.loc 1 457 21 is_stmt 1 view .LVU400
  443:Core/Src/config_manager.c ****             
- 1212              		.loc 1 443 20 is_stmt 0 view .LVU402
- 1213 0232 0023     		movs	r3, #0
+ 1210              		.loc 1 443 20 is_stmt 0 view .LVU401
+ 1211 0234 0023     		movs	r3, #0
  457:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MAX_VOLTAGE:
- 1214              		.loc 1 457 21 view .LVU403
- 1215 0234 D0E7     		b	.L58
- 1216              	.LVL100:
- 1217              	.L59:
+ 1212              		.loc 1 457 21 view .LVU402
+ 1213 0236 D1E7     		b	.L59
+ 1214              	.LVL100:
+ 1215              	.L62:
  459:Core/Src/config_manager.c ****                     break;
- 1218              		.loc 1 459 21 is_stmt 1 view .LVU404
+ 1216              		.loc 1 459 21 is_stmt 1 view .LVU403
  459:Core/Src/config_manager.c ****                     break;
- 1219              		.loc 1 459 35 is_stmt 0 view .LVU405
- 1220 0236 FFF7FEFF 		bl	BQ_GetMaxVoltage
- 1221              	.LVL101:
+ 1217              		.loc 1 459 35 is_stmt 0 view .LVU404
+ 1218 0238 FFF7FEFF 		bl	BQ_GetMaxVoltage
+ 1219              	.LVL101:
  459:Core/Src/config_manager.c ****                     break;
- 1222              		.loc 1 459 33 discriminator 1 view .LVU406
- 1223 023a 064B     		ldr	r3, .L72+4
- 1224 023c A3FB0030 		umull	r3, r0, r3, r0
- 1225 0240 C0F34F10 		ubfx	r0, r0, #5, #16
- 1226              	.LVL102:
- 460:Core/Src/config_manager.c ****                 default:
- 1227              		.loc 1 460 21 is_stmt 1 view .LVU407
+ 1220              		.loc 1 459 33 discriminator 1 view .LVU405
+ 1221 023c 1B4B     		ldr	r3, .L76+4
+ 1222 023e A3FB0030 		umull	r3, r0, r3, r0
+ 1223 0242 C0F34F10 		ubfx	r0, r0, #5, #16
+ 1224              	.LVL102:
+ 460:Core/Src/config_manager.c ****                 case CONFIG_PARAM_SLEEP_MODE:
+ 1225              		.loc 1 460 21 is_stmt 1 view .LVU406
  443:Core/Src/config_manager.c ****             
- 1228              		.loc 1 443 20 is_stmt 0 view .LVU408
- 1229 0244 0023     		movs	r3, #0
- 460:Core/Src/config_manager.c ****                 default:
- 1230              		.loc 1 460 21 view .LVU409
- 1231 0246 C7E7     		b	.L58
- 1232              	.LVL103:
- 1233              	.L66:
+ 1226              		.loc 1 443 20 is_stmt 0 view .LVU407
+ 1227 0246 0023     		movs	r3, #0
+ 460:Core/Src/config_manager.c ****                 case CONFIG_PARAM_SLEEP_MODE:
+ 1228              		.loc 1 460 21 view .LVU408
+ 1229 0248 C8E7     		b	.L59
+ 1230              	.LVL103:
+ 1231              	.L60:
+ 462:Core/Src/config_manager.c ****                     break;
+ 1232              		.loc 1 462 21 is_stmt 1 view .LVU409
+ 462:Core/Src/config_manager.c ****                     break;
+ 1233              		.loc 1 462 35 is_stmt 0 view .LVU410
+ 1234 024a FFF7FEFF 		bl	BQ_GetSleepMode
+ 1235              	.LVL104:
+ 463:Core/Src/config_manager.c ****                 default:
+ 1236              		.loc 1 463 21 is_stmt 1 view .LVU411
+ 443:Core/Src/config_manager.c ****             
+ 1237              		.loc 1 443 20 is_stmt 0 view .LVU412
+ 1238 024e 0023     		movs	r3, #0
+ 463:Core/Src/config_manager.c ****                 default:
+ 1239              		.loc 1 463 21 view .LVU413
+ 1240 0250 C4E7     		b	.L59
+ 1241              	.LVL105:
+ 1242              	.L69:
  445:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MODULE_ID:
- 1234              		.loc 1 445 13 view .LVU410
- 1235 0248 0020     		movs	r0, #0
- 1236              	.LVL104:
+ 1243              		.loc 1 445 13 view .LVU414
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 86
+
+
+ 1244 0252 0020     		movs	r0, #0
+ 1245              	.LVL106:
  445:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MODULE_ID:
- 1237              		.loc 1 445 13 view .LVU411
- 1238 024a 0123     		movs	r3, #1
- 1239 024c C4E7     		b	.L58
- 1240              	.LVL105:
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 83
-
-
- 1241              	.L69:
- 1242              		.cfi_def_cfa_offset 0
- 1243              		.cfi_restore 4
- 1244              		.cfi_restore 5
- 1245              		.cfi_restore 6
- 1246              		.cfi_restore 7
- 1247              		.cfi_restore 14
+ 1246              		.loc 1 445 13 view .LVU415
+ 1247 0254 0123     		movs	r3, #1
+ 1248 0256 C1E7     		b	.L59
+ 1249              	.LVL107:
+ 1250              	.L50:
  445:Core/Src/config_manager.c ****                 case CONFIG_PARAM_MODULE_ID:
- 1248              		.loc 1 445 13 view .LVU412
- 1249 024e 7047     		bx	lr
- 1250              	.L73:
- 1251              		.align	2
- 1252              	.L72:
- 1253 0250 00000000 		.word	CAN_CONFIG_ACK_ID
- 1254 0254 1F85EB51 		.word	1374389535
- 1255              	.LBE17:
- 1256              		.cfi_endproc
- 1257              	.LFE298:
- 1259              		.section	.rodata.str1.4,"aMS",%progbits,1
- 1260              		.align	2
- 1261              	.LC0:
- 1262 0000 436F6E66 		.ascii	"ConfigMutex\000"
- 1262      69674D75 
- 1262      74657800 
- 1263              		.global	CAN_I2C_DIAG_ID
- 1264              		.section	.bss.CAN_I2C_DIAG_ID,"aw",%nobits
- 1265              		.align	2
- 1268              	CAN_I2C_DIAG_ID:
- 1269 0000 00000000 		.space	4
- 1270              		.global	CAN_DEBUG_RESPONSE_ID
- 1271              		.section	.bss.CAN_DEBUG_RESPONSE_ID,"aw",%nobits
- 1272              		.align	2
- 1275              	CAN_DEBUG_RESPONSE_ID:
- 1276 0000 00000000 		.space	4
- 1277              		.global	CAN_BMS2_BAL_DETAIL_ID
- 1278              		.section	.bss.CAN_BMS2_BAL_DETAIL_ID,"aw",%nobits
- 1279              		.align	2
- 1282              	CAN_BMS2_BAL_DETAIL_ID:
- 1283 0000 00000000 		.space	4
- 1284              		.global	CAN_BMS1_BAL_DETAIL_ID
- 1285              		.section	.bss.CAN_BMS1_BAL_DETAIL_ID,"aw",%nobits
- 1286              		.align	2
- 1289              	CAN_BMS1_BAL_DETAIL_ID:
- 1290 0000 00000000 		.space	4
- 1291              		.global	CAN_BALANCE_STATUS_ID
- 1292              		.section	.bss.CAN_BALANCE_STATUS_ID,"aw",%nobits
- 1293              		.align	2
- 1296              	CAN_BALANCE_STATUS_ID:
- 1297 0000 00000000 		.space	4
- 1298              		.global	CAN_BALANCE_CFG_ID
- 1299              		.section	.bss.CAN_BALANCE_CFG_ID,"aw",%nobits
- 1300              		.align	2
- 1303              	CAN_BALANCE_CFG_ID:
- 1304 0000 00000000 		.space	4
- 1305              		.global	CAN_BALANCE_ACK_ID
- 1306              		.section	.bss.CAN_BALANCE_ACK_ID,"aw",%nobits
- 1307              		.align	2
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 84
+ 1251              		.loc 1 445 13 view .LVU416
+ 1252              	.LBE16:
+ 1253              	.LBB17:
+ 494:Core/Src/config_manager.c ****             uint8_t new_sleep_mode = (value != 0) ? 1 : 0;  // Normalize to 0 or 1
+ 1254              		.loc 1 494 13 is_stmt 1 view .LVU417
+ 494:Core/Src/config_manager.c ****             uint8_t new_sleep_mode = (value != 0) ? 1 : 0;  // Normalize to 0 or 1
+ 1255              		.loc 1 494 38 is_stmt 0 view .LVU418
+ 1256 0258 FFF7FEFF 		bl	BQ_GetSleepMode
+ 1257              	.LVL108:
+ 494:Core/Src/config_manager.c ****             uint8_t new_sleep_mode = (value != 0) ? 1 : 0;  // Normalize to 0 or 1
+ 1258              		.loc 1 494 38 view .LVU419
+ 1259 025c 0646     		mov	r6, r0
+ 1260              	.LVL109:
+ 495:Core/Src/config_manager.c ****             
+ 1261              		.loc 1 495 13 is_stmt 1 view .LVU420
+ 498:Core/Src/config_manager.c ****             
+ 1262              		.loc 1 498 13 view .LVU421
+ 498:Core/Src/config_manager.c ****             
+ 1263              		.loc 1 498 40 is_stmt 0 view .LVU422
+ 1264 025e 201E     		subs	r0, r4, #0
+ 1265 0260 18BF     		it	ne
+ 1266 0262 0120     		movne	r0, #1
+ 1267 0264 FFF7FEFF 		bl	BQ_SetSleepMode
+ 1268              	.LVL110:
+ 501:Core/Src/config_manager.c ****                 status = CONFIG_STATUS_SUCCESS;
+ 1269              		.loc 1 501 13 is_stmt 1 view .LVU423
+ 501:Core/Src/config_manager.c ****                 status = CONFIG_STATUS_SUCCESS;
+ 1270              		.loc 1 501 16 is_stmt 0 view .LVU424
+ 1271 0268 0446     		mov	r4, r0
+ 1272              	.LVL111:
+ 501:Core/Src/config_manager.c ****                 status = CONFIG_STATUS_SUCCESS;
+ 1273              		.loc 1 501 16 view .LVU425
+ 1274 026a 00B1     		cbz	r0, .L67
+ 504:Core/Src/config_manager.c ****             }
+ 1275              		.loc 1 504 24 view .LVU426
+ 1276 026c 0124     		movs	r4, #1
+ 1277              	.L67:
+ 1278              	.LVL112:
+ 508:Core/Src/config_manager.c ****             
+ 1279              		.loc 1 508 13 is_stmt 1 view .LVU427
+ 508:Core/Src/config_manager.c ****             
+ 1280              		.loc 1 508 41 is_stmt 0 view .LVU428
+ 1281 026e FFF7FEFF 		bl	BQ_GetSleepMode
+ 1282              	.LVL113:
+ 516:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 1283              		.loc 1 516 13 is_stmt 1 view .LVU429
+ 516:Core/Src/config_manager.c ****             ack_data[1] = status;
+ 1284              		.loc 1 516 25 is_stmt 0 view .LVU430
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 87
 
 
- 1310              	CAN_BALANCE_ACK_ID:
- 1311 0000 00000000 		.space	4
- 1312              		.global	CAN_BALANCE_CMD_ID
- 1313              		.section	.bss.CAN_BALANCE_CMD_ID,"aw",%nobits
- 1314              		.align	2
- 1317              	CAN_BALANCE_CMD_ID:
- 1318 0000 00000000 		.space	4
- 1319              		.global	CAN_BMS_RESET_ACK_ID
- 1320              		.section	.bss.CAN_BMS_RESET_ACK_ID,"aw",%nobits
- 1321              		.align	2
- 1324              	CAN_BMS_RESET_ACK_ID:
- 1325 0000 00000000 		.space	4
- 1326              		.global	CAN_BMS_RESET_CMD_ID
- 1327              		.section	.bss.CAN_BMS_RESET_CMD_ID,"aw",%nobits
- 1328              		.align	2
- 1331              	CAN_BMS_RESET_CMD_ID:
- 1332 0000 00000000 		.space	4
- 1333              		.global	CAN_RESET_CMD_ID
- 1334              		.section	.bss.CAN_RESET_CMD_ID,"aw",%nobits
- 1335              		.align	2
- 1338              	CAN_RESET_CMD_ID:
- 1339 0000 00000000 		.space	4
- 1340              		.global	CAN_CONFIG_ACK_ID
- 1341              		.section	.bss.CAN_CONFIG_ACK_ID,"aw",%nobits
- 1342              		.align	2
- 1345              	CAN_CONFIG_ACK_ID:
- 1346 0000 00000000 		.space	4
- 1347              		.global	CAN_BMS_STATS_ID
- 1348              		.section	.bss.CAN_BMS_STATS_ID,"aw",%nobits
- 1349              		.align	2
- 1352              	CAN_BMS_STATS_ID:
- 1353 0000 00000000 		.space	4
- 1354              		.global	CAN_BMS_HEARTBEAT_ID
- 1355              		.section	.bss.CAN_BMS_HEARTBEAT_ID,"aw",%nobits
- 1356              		.align	2
- 1359              	CAN_BMS_HEARTBEAT_ID:
- 1360 0000 00000000 		.space	4
- 1361              		.global	CAN_BMS2_STATUS_ID
- 1362              		.section	.bss.CAN_BMS2_STATUS_ID,"aw",%nobits
- 1363              		.align	2
- 1366              	CAN_BMS2_STATUS_ID:
- 1367 0000 00000000 		.space	4
- 1368              		.global	CAN_BMS1_STATUS_ID
- 1369              		.section	.bss.CAN_BMS1_STATUS_ID,"aw",%nobits
- 1370              		.align	2
- 1373              	CAN_BMS1_STATUS_ID:
- 1374 0000 00000000 		.space	4
- 1375              		.global	CAN_VOLTAGE_5_ID
- 1376              		.section	.bss.CAN_VOLTAGE_5_ID,"aw",%nobits
- 1377              		.align	2
- 1380              	CAN_VOLTAGE_5_ID:
- 1381 0000 00000000 		.space	4
- 1382              		.global	CAN_VOLTAGE_4_ID
- 1383              		.section	.bss.CAN_VOLTAGE_4_ID,"aw",%nobits
- 1384              		.align	2
- 1387              	CAN_VOLTAGE_4_ID:
- 1388 0000 00000000 		.space	4
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 85
+ 1285 0272 8DF80050 		strb	r5, [sp]
+ 517:Core/Src/config_manager.c ****             ack_data[2] = old_sleep_mode;
+ 1286              		.loc 1 517 13 is_stmt 1 view .LVU431
+ 517:Core/Src/config_manager.c ****             ack_data[2] = old_sleep_mode;
+ 1287              		.loc 1 517 25 is_stmt 0 view .LVU432
+ 1288 0276 8DF80140 		strb	r4, [sp, #1]
+ 518:Core/Src/config_manager.c ****             ack_data[3] = actual_sleep_mode;
+ 1289              		.loc 1 518 13 is_stmt 1 view .LVU433
+ 518:Core/Src/config_manager.c ****             ack_data[3] = actual_sleep_mode;
+ 1290              		.loc 1 518 25 is_stmt 0 view .LVU434
+ 1291 027a 8DF80260 		strb	r6, [sp, #2]
+ 519:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 1292              		.loc 1 519 13 is_stmt 1 view .LVU435
+ 519:Core/Src/config_manager.c ****             ack_data[4] = 0x00;
+ 1293              		.loc 1 519 25 is_stmt 0 view .LVU436
+ 1294 027e 8DF80300 		strb	r0, [sp, #3]
+ 520:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1295              		.loc 1 520 13 is_stmt 1 view .LVU437
+ 520:Core/Src/config_manager.c ****             ack_data[5] = 0x00;
+ 1296              		.loc 1 520 25 is_stmt 0 view .LVU438
+ 1297 0282 0023     		movs	r3, #0
+ 1298 0284 8DF80430 		strb	r3, [sp, #4]
+ 521:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1299              		.loc 1 521 13 is_stmt 1 view .LVU439
+ 521:Core/Src/config_manager.c ****             ack_data[6] = 0x00;
+ 1300              		.loc 1 521 25 is_stmt 0 view .LVU440
+ 1301 0288 8DF80530 		strb	r3, [sp, #5]
+ 522:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1302              		.loc 1 522 13 is_stmt 1 view .LVU441
+ 522:Core/Src/config_manager.c ****             ack_data[7] = 0x00;
+ 1303              		.loc 1 522 25 is_stmt 0 view .LVU442
+ 1304 028c 8DF80630 		strb	r3, [sp, #6]
+ 523:Core/Src/config_manager.c ****             
+ 1305              		.loc 1 523 13 is_stmt 1 view .LVU443
+ 523:Core/Src/config_manager.c ****             
+ 1306              		.loc 1 523 25 is_stmt 0 view .LVU444
+ 1307 0290 8DF80730 		strb	r3, [sp, #7]
+ 526:Core/Src/config_manager.c ****             break;
+ 1308              		.loc 1 526 13 is_stmt 1 view .LVU445
+ 1309 0294 0123     		movs	r3, #1
+ 1310 0296 0822     		movs	r2, #8
+ 1311 0298 6946     		mov	r1, sp
+ 1312 029a 0348     		ldr	r0, .L76
+ 1313              	.LVL114:
+ 526:Core/Src/config_manager.c ****             break;
+ 1314              		.loc 1 526 13 is_stmt 0 view .LVU446
+ 1315 029c 0068     		ldr	r0, [r0]
+ 1316 029e FFF7FEFF 		bl	CAN_SendMessage
+ 1317              	.LVL115:
+ 527:Core/Src/config_manager.c ****         }
+ 1318              		.loc 1 527 13 is_stmt 1 view .LVU447
+ 1319 02a2 0FE7     		b	.L45
+ 1320              	.LVL116:
+ 1321              	.L73:
+ 1322              		.cfi_def_cfa_offset 0
+ 1323              		.cfi_restore 4
+ 1324              		.cfi_restore 5
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 88
 
 
- 1389              		.global	CAN_VOLTAGE_3_ID
- 1390              		.section	.bss.CAN_VOLTAGE_3_ID,"aw",%nobits
- 1391              		.align	2
- 1394              	CAN_VOLTAGE_3_ID:
- 1395 0000 00000000 		.space	4
- 1396              		.global	CAN_VOLTAGE_2_ID
- 1397              		.section	.bss.CAN_VOLTAGE_2_ID,"aw",%nobits
- 1398              		.align	2
- 1401              	CAN_VOLTAGE_2_ID:
- 1402 0000 00000000 		.space	4
- 1403              		.global	CAN_VOLTAGE_1_ID
- 1404              		.section	.bss.CAN_VOLTAGE_1_ID,"aw",%nobits
- 1405              		.align	2
- 1408              	CAN_VOLTAGE_1_ID:
- 1409 0000 00000000 		.space	4
- 1410              		.global	CAN_VOLTAGE_0_ID
- 1411              		.section	.bss.CAN_VOLTAGE_0_ID,"aw",%nobits
- 1412              		.align	2
- 1415              	CAN_VOLTAGE_0_ID:
- 1416 0000 00000000 		.space	4
- 1417              		.global	CAN_TEMP_SUMMARY_ID
- 1418              		.section	.bss.CAN_TEMP_SUMMARY_ID,"aw",%nobits
- 1419              		.align	2
- 1422              	CAN_TEMP_SUMMARY_ID:
- 1423 0000 00000000 		.space	4
- 1424              		.global	CAN_TEMP_RAW_ID
- 1425              		.section	.bss.CAN_TEMP_RAW_ID,"aw",%nobits
- 1426              		.align	2
- 1429              	CAN_TEMP_RAW_ID:
- 1430 0000 00000000 		.space	4
- 1431              		.global	CAN_TEMP_ID
- 1432              		.section	.bss.CAN_TEMP_ID,"aw",%nobits
- 1433              		.align	2
- 1436              	CAN_TEMP_ID:
- 1437 0000 00000000 		.space	4
- 1438              		.section	.bss.config_mutex,"aw",%nobits
- 1439              		.align	2
- 1442              	config_mutex:
- 1443 0000 00000000 		.space	4
- 1444              		.section	.bss.module_id,"aw",%nobits
- 1447              	module_id:
- 1448 0000 00       		.space	1
- 1449              		.section	.rodata
+ 1325              		.cfi_restore 6
+ 1326              		.cfi_restore 7
+ 1327              		.cfi_restore 14
+ 527:Core/Src/config_manager.c ****         }
+ 1328              		.loc 1 527 13 is_stmt 0 view .LVU448
+ 1329 02a4 7047     		bx	lr
+ 1330              	.L77:
+ 1331 02a6 00BF     		.align	2
+ 1332              	.L76:
+ 1333 02a8 00000000 		.word	CAN_CONFIG_ACK_ID
+ 1334 02ac 1F85EB51 		.word	1374389535
+ 1335              	.LBE17:
+ 1336              		.cfi_endproc
+ 1337              	.LFE298:
+ 1339              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 1340              		.align	2
+ 1341              	.LC0:
+ 1342 0000 436F6E66 		.ascii	"ConfigMutex\000"
+ 1342      69674D75 
+ 1342      74657800 
+ 1343              		.global	CAN_I2C_DIAG_ID
+ 1344              		.section	.bss.CAN_I2C_DIAG_ID,"aw",%nobits
+ 1345              		.align	2
+ 1348              	CAN_I2C_DIAG_ID:
+ 1349 0000 00000000 		.space	4
+ 1350              		.global	CAN_DEBUG_RESPONSE_ID
+ 1351              		.section	.bss.CAN_DEBUG_RESPONSE_ID,"aw",%nobits
+ 1352              		.align	2
+ 1355              	CAN_DEBUG_RESPONSE_ID:
+ 1356 0000 00000000 		.space	4
+ 1357              		.global	CAN_BMS2_BAL_DETAIL_ID
+ 1358              		.section	.bss.CAN_BMS2_BAL_DETAIL_ID,"aw",%nobits
+ 1359              		.align	2
+ 1362              	CAN_BMS2_BAL_DETAIL_ID:
+ 1363 0000 00000000 		.space	4
+ 1364              		.global	CAN_BMS1_BAL_DETAIL_ID
+ 1365              		.section	.bss.CAN_BMS1_BAL_DETAIL_ID,"aw",%nobits
+ 1366              		.align	2
+ 1369              	CAN_BMS1_BAL_DETAIL_ID:
+ 1370 0000 00000000 		.space	4
+ 1371              		.global	CAN_BALANCE_STATUS_ID
+ 1372              		.section	.bss.CAN_BALANCE_STATUS_ID,"aw",%nobits
+ 1373              		.align	2
+ 1376              	CAN_BALANCE_STATUS_ID:
+ 1377 0000 00000000 		.space	4
+ 1378              		.global	CAN_BALANCE_CFG_ID
+ 1379              		.section	.bss.CAN_BALANCE_CFG_ID,"aw",%nobits
+ 1380              		.align	2
+ 1383              	CAN_BALANCE_CFG_ID:
+ 1384 0000 00000000 		.space	4
+ 1385              		.global	CAN_BALANCE_ACK_ID
+ 1386              		.section	.bss.CAN_BALANCE_ACK_ID,"aw",%nobits
+ 1387              		.align	2
+ 1390              	CAN_BALANCE_ACK_ID:
+ 1391 0000 00000000 		.space	4
+ 1392              		.global	CAN_BALANCE_CMD_ID
+ 1393              		.section	.bss.CAN_BALANCE_CMD_ID,"aw",%nobits
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 89
+
+
+ 1394              		.align	2
+ 1397              	CAN_BALANCE_CMD_ID:
+ 1398 0000 00000000 		.space	4
+ 1399              		.global	CAN_BMS_RESET_ACK_ID
+ 1400              		.section	.bss.CAN_BMS_RESET_ACK_ID,"aw",%nobits
+ 1401              		.align	2
+ 1404              	CAN_BMS_RESET_ACK_ID:
+ 1405 0000 00000000 		.space	4
+ 1406              		.global	CAN_BMS_RESET_CMD_ID
+ 1407              		.section	.bss.CAN_BMS_RESET_CMD_ID,"aw",%nobits
+ 1408              		.align	2
+ 1411              	CAN_BMS_RESET_CMD_ID:
+ 1412 0000 00000000 		.space	4
+ 1413              		.global	CAN_RESET_CMD_ID
+ 1414              		.section	.bss.CAN_RESET_CMD_ID,"aw",%nobits
+ 1415              		.align	2
+ 1418              	CAN_RESET_CMD_ID:
+ 1419 0000 00000000 		.space	4
+ 1420              		.global	CAN_CONFIG_ACK_ID
+ 1421              		.section	.bss.CAN_CONFIG_ACK_ID,"aw",%nobits
+ 1422              		.align	2
+ 1425              	CAN_CONFIG_ACK_ID:
+ 1426 0000 00000000 		.space	4
+ 1427              		.global	CAN_BMS_STATS_ID
+ 1428              		.section	.bss.CAN_BMS_STATS_ID,"aw",%nobits
+ 1429              		.align	2
+ 1432              	CAN_BMS_STATS_ID:
+ 1433 0000 00000000 		.space	4
+ 1434              		.global	CAN_BMS_HEARTBEAT_ID
+ 1435              		.section	.bss.CAN_BMS_HEARTBEAT_ID,"aw",%nobits
+ 1436              		.align	2
+ 1439              	CAN_BMS_HEARTBEAT_ID:
+ 1440 0000 00000000 		.space	4
+ 1441              		.global	CAN_BMS2_STATUS_ID
+ 1442              		.section	.bss.CAN_BMS2_STATUS_ID,"aw",%nobits
+ 1443              		.align	2
+ 1446              	CAN_BMS2_STATUS_ID:
+ 1447 0000 00000000 		.space	4
+ 1448              		.global	CAN_BMS1_STATUS_ID
+ 1449              		.section	.bss.CAN_BMS1_STATUS_ID,"aw",%nobits
  1450              		.align	2
- 1451              		.set	.LANCHOR0,. + 0
- 1452              	.LC2:
- 1453 0000 00000000 		.word	.LC0
- 1454 0004 03000000 		.word	3
- 1455 0008 00000000 		.word	0
- 1456 000c 00000000 		.word	0
- 1457              		.text
- 1458              	.Letext0:
- 1459              		.file 4 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1460              		.file 5 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
- 1461              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
- 1462              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash.h"
- 1463              		.file 8 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 86
+ 1453              	CAN_BMS1_STATUS_ID:
+ 1454 0000 00000000 		.space	4
+ 1455              		.global	CAN_VOLTAGE_5_ID
+ 1456              		.section	.bss.CAN_VOLTAGE_5_ID,"aw",%nobits
+ 1457              		.align	2
+ 1460              	CAN_VOLTAGE_5_ID:
+ 1461 0000 00000000 		.space	4
+ 1462              		.global	CAN_VOLTAGE_4_ID
+ 1463              		.section	.bss.CAN_VOLTAGE_4_ID,"aw",%nobits
+ 1464              		.align	2
+ 1467              	CAN_VOLTAGE_4_ID:
+ 1468 0000 00000000 		.space	4
+ 1469              		.global	CAN_VOLTAGE_3_ID
+ 1470              		.section	.bss.CAN_VOLTAGE_3_ID,"aw",%nobits
+ 1471              		.align	2
+ 1474              	CAN_VOLTAGE_3_ID:
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 90
 
 
- 1464              		.file 9 "Core/Inc/can_ids.h"
- 1465              		.file 10 "Core/Inc/bq_handler.h"
- 1466              		.file 11 "Core/Inc/cell_temp_handler.h"
- 1467              		.file 12 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ex.h"
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 87
+ 1475 0000 00000000 		.space	4
+ 1476              		.global	CAN_VOLTAGE_2_ID
+ 1477              		.section	.bss.CAN_VOLTAGE_2_ID,"aw",%nobits
+ 1478              		.align	2
+ 1481              	CAN_VOLTAGE_2_ID:
+ 1482 0000 00000000 		.space	4
+ 1483              		.global	CAN_VOLTAGE_1_ID
+ 1484              		.section	.bss.CAN_VOLTAGE_1_ID,"aw",%nobits
+ 1485              		.align	2
+ 1488              	CAN_VOLTAGE_1_ID:
+ 1489 0000 00000000 		.space	4
+ 1490              		.global	CAN_VOLTAGE_0_ID
+ 1491              		.section	.bss.CAN_VOLTAGE_0_ID,"aw",%nobits
+ 1492              		.align	2
+ 1495              	CAN_VOLTAGE_0_ID:
+ 1496 0000 00000000 		.space	4
+ 1497              		.global	CAN_TEMP_SUMMARY_ID
+ 1498              		.section	.bss.CAN_TEMP_SUMMARY_ID,"aw",%nobits
+ 1499              		.align	2
+ 1502              	CAN_TEMP_SUMMARY_ID:
+ 1503 0000 00000000 		.space	4
+ 1504              		.global	CAN_TEMP_RAW_ID
+ 1505              		.section	.bss.CAN_TEMP_RAW_ID,"aw",%nobits
+ 1506              		.align	2
+ 1509              	CAN_TEMP_RAW_ID:
+ 1510 0000 00000000 		.space	4
+ 1511              		.global	CAN_TEMP_ID
+ 1512              		.section	.bss.CAN_TEMP_ID,"aw",%nobits
+ 1513              		.align	2
+ 1516              	CAN_TEMP_ID:
+ 1517 0000 00000000 		.space	4
+ 1518              		.section	.bss.config_mutex,"aw",%nobits
+ 1519              		.align	2
+ 1522              	config_mutex:
+ 1523 0000 00000000 		.space	4
+ 1524              		.section	.bss.module_id,"aw",%nobits
+ 1527              	module_id:
+ 1528 0000 00       		.space	1
+ 1529              		.section	.rodata
+ 1530              		.align	2
+ 1531              		.set	.LANCHOR0,. + 0
+ 1532              	.LC2:
+ 1533 0000 00000000 		.word	.LC0
+ 1534 0004 03000000 		.word	3
+ 1535 0008 00000000 		.word	0
+ 1536 000c 00000000 		.word	0
+ 1537              		.text
+ 1538              	.Letext0:
+ 1539              		.file 4 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 1540              		.file 5 "C:/Users/Ali/AppData/Roaming/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tool
+ 1541              		.file 6 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h"
+ 1542              		.file 7 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash.h"
+ 1543              		.file 8 "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h"
+ 1544              		.file 9 "Core/Inc/can_ids.h"
+ 1545              		.file 10 "Core/Inc/bq_handler.h"
+ 1546              		.file 11 "Core/Inc/cell_temp_handler.h"
+ 1547              		.file 12 "Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_flash_ex.h"
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 91
+
+
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 92
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 config_manager.c
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:21     .text.__NVIC_SystemReset:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:26     .text.__NVIC_SystemReset:00000000 __NVIC_SystemReset
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:89     .text.__NVIC_SystemReset:0000001c $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:95     .text.Config_GetModuleID:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:101    .text.Config_GetModuleID:00000000 Config_GetModuleID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:147    .text.Config_GetModuleID:00000024 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1442   .bss.config_mutex:00000000 config_mutex
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1447   .bss.module_id:00000000 module_id
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:153    .text.Config_ReadModuleIDFromFlash:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:159    .text.Config_ReadModuleIDFromFlash:00000000 Config_ReadModuleIDFromFlash
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:198    .text.Config_ReadModuleIDFromFlash:00000018 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:205    .text.Config_WriteModuleIDToFlash:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:211    .text.Config_WriteModuleIDToFlash:00000000 Config_WriteModuleIDToFlash
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:340    .text.Config_WriteModuleIDToFlash:00000064 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:345    .text.Config_SetModuleID:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:351    .text.Config_SetModuleID:00000000 Config_SetModuleID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:388    .text.Config_InitCANIDs:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:394    .text.Config_InitCANIDs:00000000 Config_InitCANIDs
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:586    .text.Config_InitCANIDs:000000d4 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1436   .bss.CAN_TEMP_ID:00000000 CAN_TEMP_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1429   .bss.CAN_TEMP_RAW_ID:00000000 CAN_TEMP_RAW_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1422   .bss.CAN_TEMP_SUMMARY_ID:00000000 CAN_TEMP_SUMMARY_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1415   .bss.CAN_VOLTAGE_0_ID:00000000 CAN_VOLTAGE_0_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1408   .bss.CAN_VOLTAGE_1_ID:00000000 CAN_VOLTAGE_1_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1401   .bss.CAN_VOLTAGE_2_ID:00000000 CAN_VOLTAGE_2_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1394   .bss.CAN_VOLTAGE_3_ID:00000000 CAN_VOLTAGE_3_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1387   .bss.CAN_VOLTAGE_4_ID:00000000 CAN_VOLTAGE_4_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1380   .bss.CAN_VOLTAGE_5_ID:00000000 CAN_VOLTAGE_5_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1373   .bss.CAN_BMS1_STATUS_ID:00000000 CAN_BMS1_STATUS_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1366   .bss.CAN_BMS2_STATUS_ID:00000000 CAN_BMS2_STATUS_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1359   .bss.CAN_BMS_HEARTBEAT_ID:00000000 CAN_BMS_HEARTBEAT_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1352   .bss.CAN_BMS_STATS_ID:00000000 CAN_BMS_STATS_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1345   .bss.CAN_CONFIG_ACK_ID:00000000 CAN_CONFIG_ACK_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1338   .bss.CAN_RESET_CMD_ID:00000000 CAN_RESET_CMD_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1331   .bss.CAN_BMS_RESET_CMD_ID:00000000 CAN_BMS_RESET_CMD_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1324   .bss.CAN_BMS_RESET_ACK_ID:00000000 CAN_BMS_RESET_ACK_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1317   .bss.CAN_BALANCE_CMD_ID:00000000 CAN_BALANCE_CMD_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1310   .bss.CAN_BALANCE_ACK_ID:00000000 CAN_BALANCE_ACK_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1303   .bss.CAN_BALANCE_CFG_ID:00000000 CAN_BALANCE_CFG_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1296   .bss.CAN_BALANCE_STATUS_ID:00000000 CAN_BALANCE_STATUS_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1289   .bss.CAN_BMS1_BAL_DETAIL_ID:00000000 CAN_BMS1_BAL_DETAIL_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1282   .bss.CAN_BMS2_BAL_DETAIL_ID:00000000 CAN_BMS2_BAL_DETAIL_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1275   .bss.CAN_DEBUG_RESPONSE_ID:00000000 CAN_DEBUG_RESPONSE_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1268   .bss.CAN_I2C_DIAG_ID:00000000 CAN_I2C_DIAG_ID
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:635    .text.Config_Init:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:641    .text.Config_Init:00000000 Config_Init
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:683    .text.Config_Init:00000028 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:690    .text.Config_ProcessCANCommand:00000000 $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:696    .text.Config_ProcessCANCommand:00000000 Config_ProcessCANCommand
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:741    .text.Config_ProcessCANCommand:00000026 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:747    .text.Config_ProcessCANCommand:0000002c $t
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1106   .text.Config_ProcessCANCommand:000001cc $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1253   .text.Config_ProcessCANCommand:00000250 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1260   .rodata.str1.4:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1265   .bss.CAN_I2C_DIAG_ID:00000000 $d
-ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s 			page 88
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:21     .text.__NVIC_SystemReset:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:26     .text.__NVIC_SystemReset:00000000 __NVIC_SystemReset
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:89     .text.__NVIC_SystemReset:0000001c $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:95     .text.Config_GetModuleID:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:101    .text.Config_GetModuleID:00000000 Config_GetModuleID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:147    .text.Config_GetModuleID:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1522   .bss.config_mutex:00000000 config_mutex
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1527   .bss.module_id:00000000 module_id
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:153    .text.Config_ReadModuleIDFromFlash:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:159    .text.Config_ReadModuleIDFromFlash:00000000 Config_ReadModuleIDFromFlash
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:198    .text.Config_ReadModuleIDFromFlash:00000018 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:205    .text.Config_WriteModuleIDToFlash:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:211    .text.Config_WriteModuleIDToFlash:00000000 Config_WriteModuleIDToFlash
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:340    .text.Config_WriteModuleIDToFlash:00000064 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:345    .text.Config_SetModuleID:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:351    .text.Config_SetModuleID:00000000 Config_SetModuleID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:388    .text.Config_InitCANIDs:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:394    .text.Config_InitCANIDs:00000000 Config_InitCANIDs
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:586    .text.Config_InitCANIDs:000000d4 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1516   .bss.CAN_TEMP_ID:00000000 CAN_TEMP_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1509   .bss.CAN_TEMP_RAW_ID:00000000 CAN_TEMP_RAW_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1502   .bss.CAN_TEMP_SUMMARY_ID:00000000 CAN_TEMP_SUMMARY_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1495   .bss.CAN_VOLTAGE_0_ID:00000000 CAN_VOLTAGE_0_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1488   .bss.CAN_VOLTAGE_1_ID:00000000 CAN_VOLTAGE_1_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1481   .bss.CAN_VOLTAGE_2_ID:00000000 CAN_VOLTAGE_2_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1474   .bss.CAN_VOLTAGE_3_ID:00000000 CAN_VOLTAGE_3_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1467   .bss.CAN_VOLTAGE_4_ID:00000000 CAN_VOLTAGE_4_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1460   .bss.CAN_VOLTAGE_5_ID:00000000 CAN_VOLTAGE_5_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1453   .bss.CAN_BMS1_STATUS_ID:00000000 CAN_BMS1_STATUS_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1446   .bss.CAN_BMS2_STATUS_ID:00000000 CAN_BMS2_STATUS_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1439   .bss.CAN_BMS_HEARTBEAT_ID:00000000 CAN_BMS_HEARTBEAT_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1432   .bss.CAN_BMS_STATS_ID:00000000 CAN_BMS_STATS_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1425   .bss.CAN_CONFIG_ACK_ID:00000000 CAN_CONFIG_ACK_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1418   .bss.CAN_RESET_CMD_ID:00000000 CAN_RESET_CMD_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1411   .bss.CAN_BMS_RESET_CMD_ID:00000000 CAN_BMS_RESET_CMD_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1404   .bss.CAN_BMS_RESET_ACK_ID:00000000 CAN_BMS_RESET_ACK_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1397   .bss.CAN_BALANCE_CMD_ID:00000000 CAN_BALANCE_CMD_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1390   .bss.CAN_BALANCE_ACK_ID:00000000 CAN_BALANCE_ACK_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1383   .bss.CAN_BALANCE_CFG_ID:00000000 CAN_BALANCE_CFG_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1376   .bss.CAN_BALANCE_STATUS_ID:00000000 CAN_BALANCE_STATUS_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1369   .bss.CAN_BMS1_BAL_DETAIL_ID:00000000 CAN_BMS1_BAL_DETAIL_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1362   .bss.CAN_BMS2_BAL_DETAIL_ID:00000000 CAN_BMS2_BAL_DETAIL_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1355   .bss.CAN_DEBUG_RESPONSE_ID:00000000 CAN_DEBUG_RESPONSE_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1348   .bss.CAN_I2C_DIAG_ID:00000000 CAN_I2C_DIAG_ID
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:635    .text.Config_Init:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:641    .text.Config_Init:00000000 Config_Init
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:683    .text.Config_Init:00000028 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:690    .text.Config_ProcessCANCommand:00000000 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:696    .text.Config_ProcessCANCommand:00000000 Config_ProcessCANCommand
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:741    .text.Config_ProcessCANCommand:00000024 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:748    .text.Config_ProcessCANCommand:00000032 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1113   .text.Config_ProcessCANCommand:000001d0 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1119   .text.Config_ProcessCANCommand:000001d6 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1333   .text.Config_ProcessCANCommand:000002a8 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1340   .rodata.str1.4:00000000 $d
+ARM GAS  C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s 			page 93
 
 
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1272   .bss.CAN_DEBUG_RESPONSE_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1279   .bss.CAN_BMS2_BAL_DETAIL_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1286   .bss.CAN_BMS1_BAL_DETAIL_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1293   .bss.CAN_BALANCE_STATUS_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1300   .bss.CAN_BALANCE_CFG_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1307   .bss.CAN_BALANCE_ACK_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1314   .bss.CAN_BALANCE_CMD_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1321   .bss.CAN_BMS_RESET_ACK_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1328   .bss.CAN_BMS_RESET_CMD_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1335   .bss.CAN_RESET_CMD_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1342   .bss.CAN_CONFIG_ACK_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1349   .bss.CAN_BMS_STATS_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1356   .bss.CAN_BMS_HEARTBEAT_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1363   .bss.CAN_BMS2_STATUS_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1370   .bss.CAN_BMS1_STATUS_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1377   .bss.CAN_VOLTAGE_5_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1384   .bss.CAN_VOLTAGE_4_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1391   .bss.CAN_VOLTAGE_3_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1398   .bss.CAN_VOLTAGE_2_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1405   .bss.CAN_VOLTAGE_1_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1412   .bss.CAN_VOLTAGE_0_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1419   .bss.CAN_TEMP_SUMMARY_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1426   .bss.CAN_TEMP_RAW_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1433   .bss.CAN_TEMP_ID:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1439   .bss.config_mutex:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1448   .bss.module_id:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1450   .rodata:00000000 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1111   .text.Config_ProcessCANCommand:000001d1 $d
-C:\Users\Ali\AppData\Local\Temp\ccuOr4SF.s:1111   .text.Config_ProcessCANCommand:000001d2 $t
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1345   .bss.CAN_I2C_DIAG_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1352   .bss.CAN_DEBUG_RESPONSE_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1359   .bss.CAN_BMS2_BAL_DETAIL_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1366   .bss.CAN_BMS1_BAL_DETAIL_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1373   .bss.CAN_BALANCE_STATUS_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1380   .bss.CAN_BALANCE_CFG_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1387   .bss.CAN_BALANCE_ACK_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1394   .bss.CAN_BALANCE_CMD_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1401   .bss.CAN_BMS_RESET_ACK_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1408   .bss.CAN_BMS_RESET_CMD_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1415   .bss.CAN_RESET_CMD_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1422   .bss.CAN_CONFIG_ACK_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1429   .bss.CAN_BMS_STATS_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1436   .bss.CAN_BMS_HEARTBEAT_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1443   .bss.CAN_BMS2_STATUS_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1450   .bss.CAN_BMS1_STATUS_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1457   .bss.CAN_VOLTAGE_5_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1464   .bss.CAN_VOLTAGE_4_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1471   .bss.CAN_VOLTAGE_3_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1478   .bss.CAN_VOLTAGE_2_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1485   .bss.CAN_VOLTAGE_1_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1492   .bss.CAN_VOLTAGE_0_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1499   .bss.CAN_TEMP_SUMMARY_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1506   .bss.CAN_TEMP_RAW_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1513   .bss.CAN_TEMP_ID:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1519   .bss.config_mutex:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1528   .bss.module_id:00000000 $d
+C:\Users\Ali\AppData\Local\Temp\ccWQI1fJ.s:1530   .rodata:00000000 $d
 
 UNDEFINED SYMBOLS
 osMutexAcquire
@@ -5216,3 +5511,5 @@ BQ_GetMinVoltage
 BQ_SetMinVoltage
 BQ_GetMaxVoltage
 BQ_SetMaxVoltage
+BQ_GetSleepMode
+BQ_SetSleepMode
