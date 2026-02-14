@@ -1,6 +1,7 @@
 # Prerequisites
 *.d
 build/
+.stm32env
 
 # Object files
 *.o
@@ -25,7 +26,7 @@ build/
 *.lo
 
 # Shared objects (inc. Windows DLLs)
-*.dll
+
 *.so
 *.so.*
 *.dylib
