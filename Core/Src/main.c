@@ -469,6 +469,12 @@ static void MX_CAN1_Init(void)
     Error_Handler();
   }
 
+  // Enable robust CAN fault handling (preserved across CubeMX regeneration)
+  // ABOM: automatic recovery from Bus-Off per CAN specification
+  // NART: clear to enable automatic retransmission for transient failures
+  SET_BIT(hcan1.Instance->MCR, CAN_MCR_ABOM);
+  CLEAR_BIT(hcan1.Instance->MCR, CAN_MCR_NART);
+
   /* USER CODE END CAN1_Init 2 */
 
 }

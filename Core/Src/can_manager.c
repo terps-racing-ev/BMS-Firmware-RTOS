@@ -26,18 +26,29 @@
 #include "bq_handler.h"
 #include "balance_manager.h"
 
+/* Private defines -----------------------------------------------------------*/
+#define CAN_HEALTH_CHECK_INTERVAL_MS  200U
+#define CAN_RECOVERY_COOLDOWN_MS      500U
+
 /* Private variables ---------------------------------------------------------*/
 osMessageQueueId_t CANTxQueueHandle = NULL;
 osMessageQueueId_t CANRxQueueHandle = NULL;
 
 static CAN_Statistics_t can_stats = {0};
+static volatile uint8_t g_can_recovery_requested = 0;
+static volatile uint32_t g_can_pending_error_flags = 0;
+static volatile uint32_t g_can_last_hal_error = HAL_CAN_ERROR_NONE;
+static uint32_t g_last_can_recovery_tick = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 static void CAN_ProcessTxQueue(void);
 static void CAN_ProcessRxMessage(CAN_Message_t *msg);
 static HAL_StatusTypeDef CAN_TransmitMessage(CAN_Message_t *msg);
 static void CAN_ConfigureFilters(void);
-static void CAN_ConfigureFilters(void);
+static uint32_t CAN_GetNotificationFlags(void);
+static void CAN_RequestRecoveryFromISR(void);
+static void CAN_ProcessPendingErrors(void);
+static HAL_StatusTypeDef CAN_PerformRecovery(void);
 
 /* Function Implementations --------------------------------------------------*/
 
@@ -62,17 +73,101 @@ HAL_StatusTypeDef CAN_Manager_Init(void)
     // NOTE: CAN filter is now configured in MX_CAN1_Init() BEFORE HAL_CAN_Start()
     // This is critical - filters must be configured before starting CAN!
     
-    // Activate CAN RX FIFO notifications (CAN must already be started)
-    if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING | 
-                                              CAN_IT_RX_FIFO1_MSG_PENDING |
-                                              CAN_IT_ERROR |
-                                              CAN_IT_BUSOFF) != HAL_OK) {
+    // Activate CAN notifications (CAN must already be started)
+    if (HAL_CAN_ActivateNotification(&hcan1, CAN_GetNotificationFlags()) != HAL_OK) {
         return HAL_ERROR;
     }
     
     // Reset statistics
     CAN_ResetStatistics();
     
+    return HAL_OK;
+}
+
+/**
+  * @brief  Get full notification mask used by CAN manager
+  * @retval Notification bitmask
+  */
+static uint32_t CAN_GetNotificationFlags(void)
+{
+    return (CAN_IT_RX_FIFO0_MSG_PENDING |
+            CAN_IT_RX_FIFO1_MSG_PENDING |
+            CAN_IT_ERROR |
+            CAN_IT_BUSOFF |
+            CAN_IT_ERROR_WARNING |
+            CAN_IT_ERROR_PASSIVE |
+            CAN_IT_LAST_ERROR_CODE);
+}
+
+/**
+  * @brief  Request CAN recovery from ISR-safe context
+  * @retval None
+  */
+static void CAN_RequestRecoveryFromISR(void)
+{
+    g_can_recovery_requested = 1;
+}
+
+/**
+  * @brief  Apply pending CAN communication error flags in task context
+  * @retval None
+  */
+static void CAN_ProcessPendingErrors(void)
+{
+    uint32_t pending_flags = g_can_pending_error_flags;
+
+    if (pending_flags == 0U) {
+        return;
+    }
+
+    g_can_pending_error_flags = 0U;
+
+    if ((pending_flags & ERROR_CAN_RX_OVERFLOW) != 0U) {
+        ErrorMgr_SetError(ERROR_CAN_RX_OVERFLOW);
+    }
+
+    if ((pending_flags & ERROR_CAN_TX_TIMEOUT) != 0U) {
+        ErrorMgr_SetError(ERROR_CAN_TX_TIMEOUT);
+    }
+
+    if ((pending_flags & ERROR_CAN_BUS_OFF) != 0U) {
+        ErrorMgr_SetError(ERROR_CAN_BUS_OFF);
+    }
+}
+
+/**
+  * @brief  Recover CAN peripheral after severe error state
+  * @retval HAL_StatusTypeDef
+  */
+static HAL_StatusTypeDef CAN_PerformRecovery(void)
+{
+    if (HAL_CAN_Stop(&hcan1) != HAL_OK) {
+        return HAL_ERROR;
+    }
+
+    CAN_ConfigureFilters();
+
+    if (HAL_CAN_Start(&hcan1) != HAL_OK) {
+        return HAL_ERROR;
+    }
+
+    if (HAL_CAN_ActivateNotification(&hcan1, CAN_GetNotificationFlags()) != HAL_OK) {
+        return HAL_ERROR;
+    }
+
+    HAL_CAN_ResetError(&hcan1);
+
+    g_can_recovery_requested = 0;
+    g_can_pending_error_flags &= ~(ERROR_CAN_BUS_OFF | ERROR_CAN_TX_TIMEOUT | ERROR_CAN_RX_OVERFLOW);
+    g_can_last_hal_error = HAL_CAN_ERROR_NONE;
+    g_last_can_recovery_tick = osKernelGetTickCount();
+
+    can_stats.can_recovery_count++;
+
+    ErrorMgr_ClearError(ERROR_CAN_BUS_OFF);
+    ErrorMgr_ClearError(ERROR_CAN_TX_TIMEOUT);
+    ErrorMgr_ClearError(ERROR_CAN_RX_OVERFLOW);
+
     return HAL_OK;
 }
 
@@ -212,6 +307,16 @@ static HAL_StatusTypeDef CAN_TransmitMessage(CAN_Message_t *msg)
     
     // All retries failed
     can_stats.tx_error_count++;
+
+    if ((HAL_CAN_GetError(&hcan1) & HAL_CAN_ERROR_TIMEOUT) != 0U) {
+        ErrorMgr_SetError(ERROR_CAN_TX_TIMEOUT);
+    }
+
+    if ((HAL_CAN_GetError(&hcan1) & HAL_CAN_ERROR_BOF) != 0U) {
+        g_can_pending_error_flags |= ERROR_CAN_BUS_OFF;
+        CAN_RequestRecoveryFromISR();
+    }
+
     return HAL_ERROR;
 }
 
@@ -359,6 +464,7 @@ void CAN_ManagerTask(void *argument)
     uint32_t last_stats_tick = 0;
     uint32_t last_uptime_tick = 0;
     uint32_t last_balance_status_tick = 0;
+    uint32_t last_can_health_tick = 0;
     uint32_t current_tick = 0;
     
     // Wait 100ms for system to stabilize
@@ -369,6 +475,7 @@ void CAN_ManagerTask(void *argument)
     last_stats_tick = osKernelGetTickCount();
     last_uptime_tick = osKernelGetTickCount();
     last_balance_status_tick = osKernelGetTickCount();
+    last_can_health_tick = osKernelGetTickCount();
     
     /* Infinite loop */
     for(;;)
@@ -399,6 +506,26 @@ void CAN_ManagerTask(void *argument)
         if ((current_tick - last_uptime_tick) >= 1000) {
             ErrorMgr_UpdateUptime();
             last_uptime_tick = current_tick;
+        }
+
+        // Periodic CAN health monitor and automated fault recovery
+        if ((current_tick - last_can_health_tick) >= CAN_HEALTH_CHECK_INTERVAL_MS) {
+            uint32_t can_error = HAL_CAN_GetError(&hcan1);
+
+            CAN_ProcessPendingErrors();
+
+            if (((can_error & HAL_CAN_ERROR_BOF) != 0U) ||
+                ((g_can_last_hal_error & HAL_CAN_ERROR_BOF) != 0U)) {
+                g_can_pending_error_flags |= ERROR_CAN_BUS_OFF;
+                CAN_RequestRecoveryFromISR();
+            }
+
+            if ((g_can_recovery_requested != 0U) &&
+                ((current_tick - g_last_can_recovery_tick) >= CAN_RECOVERY_COOLDOWN_MS)) {
+                (void)CAN_PerformRecovery();
+            }
+
+            last_can_health_tick = current_tick;
         }
         
         // Send balance status every 1 second during balancing
@@ -562,19 +689,36 @@ bool CAN_IsMessageForThisModule(uint32_t can_id) {
 void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
 {
     uint32_t error = HAL_CAN_GetError(hcan);
-    
-    // Check for bus-off condition
-    if (error & HAL_CAN_ERROR_BOF) {
-        can_stats.bus_off_count++;
-        
-        // Set CAN bus-off error flag
-        ErrorMgr_SetError(ERROR_CAN_BUS_OFF);
-        
-        // Attempt to recover from bus-off
-        // Note: May need to stop and restart CAN peripheral
+
+    if (error == HAL_CAN_ERROR_NONE) {
+        return;
     }
-    
-    // Handle other errors as needed
+
+    can_stats.can_error_count++;
+    g_can_last_hal_error = error;
+
+    if ((error & HAL_CAN_ERROR_BOF) != 0U) {
+        can_stats.bus_off_count++;
+        g_can_pending_error_flags |= ERROR_CAN_BUS_OFF;
+        CAN_RequestRecoveryFromISR();
+    }
+
+    if ((error & HAL_CAN_ERROR_EWG) != 0U) {
+        can_stats.error_warning_count++;
+    }
+
+    if ((error & HAL_CAN_ERROR_EPV) != 0U) {
+        can_stats.error_passive_count++;
+    }
+
+    if ((error & (HAL_CAN_ERROR_RX_FOV0 | HAL_CAN_ERROR_RX_FOV1)) != 0U) {
+        can_stats.rx_overflow_count++;
+        g_can_pending_error_flags |= ERROR_CAN_RX_OVERFLOW;
+    }
+
+    if ((error & HAL_CAN_ERROR_TIMEOUT) != 0U) {
+        g_can_pending_error_flags |= ERROR_CAN_TX_TIMEOUT;
+    }
 }
 
 /**

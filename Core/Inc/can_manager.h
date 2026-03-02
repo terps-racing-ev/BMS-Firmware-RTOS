@@ -61,6 +61,11 @@ typedef struct {
     uint32_t rx_message_count;      // Received messages
     uint32_t rx_queue_full_count;   // Times RX queue was full
     uint32_t bus_off_count;         // CAN bus-off events
+  uint32_t can_recovery_count;    // Successful CAN peripheral recoveries
+  uint32_t can_error_count;       // Total CAN HAL error callback events
+  uint32_t error_warning_count;   // Error warning state events (EWG)
+  uint32_t error_passive_count;   // Error passive state events (EPV)
+  uint32_t rx_overflow_count;     // RX FIFO overflow events
 } CAN_Statistics_t;
 
 /* External Variables --------------------------------------------------------*/
