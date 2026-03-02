@@ -1,6 +1,5 @@
 # Prerequisites
 *.d
-build/
 .stm32env
 
 # Object files
@@ -57,3 +56,12 @@ dkms.conf
 # debug information files
 *.dwo
 CLAUDE.md
+
+# Build artifacts (ignore everything under build/)
+build/**
+
+# Keep final firmware artifacts tracked
+!build/
+!build/debug/
+!build/debug/BMS-Firmware-RTOS.bin
+!build/debug/BMS-Firmware-RTOS.elf

@@ -580,6 +580,10 @@ void BalanceMgr_StopBalancing(void)
   */
 HAL_StatusTypeDef BalanceMgr_SendDetailedStatus(void)
 {
+    if (StateMachine_GetState() != BMS_STATE_BALANCING) {
+        return HAL_OK;
+    }
+
     uint8_t data[8];
     uint16_t alarm_raw = 0;
     uint8_t cbstatus1 = 0, cbstatus2 = 0, cbstatus3 = 0;
