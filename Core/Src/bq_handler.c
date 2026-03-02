@@ -1160,6 +1160,43 @@ HAL_StatusTypeDef BQ_ResetChips(void)
 }
 
 /**
+  * @brief  Wake both BQ76952 chips and disable sleep mode
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR/HAL_TIMEOUT on failure
+  * @note   Sends SLEEP_DISABLE subcommand to BMS1 and BMS2.
+  *         This function is intended for startup use before RTOS scheduling begins.
+  */
+HAL_StatusTypeDef BQ_WakeChips(void)
+{
+    HAL_StatusTypeDef status;
+    uint8_t tx_buf[3];
+    volatile uint32_t delay_count;
+
+    tx_buf[0] = 0x3E;
+    tx_buf[1] = (uint8_t)(SLEEP_DISABLE & 0xFF);
+    tx_buf[2] = (uint8_t)((SLEEP_DISABLE >> 8) & 0xFF);
+
+    status = HAL_I2C_Master_Transmit(&hi2c1, (BQ76952_I2C_ADDR_BMS1 << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+
+    for (delay_count = 0; delay_count < 20000U; delay_count++) {
+        __NOP();
+    }
+
+    status = HAL_I2C_Master_Transmit(&hi2c3, (BQ76952_I2C_ADDR_BMS2 << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+    if (status != HAL_OK) {
+        return status;
+    }
+
+    for (delay_count = 0; delay_count < 20000U; delay_count++) {
+        __NOP();
+    }
+
+    return HAL_OK;
+}
+
+/**
   * @brief  Get last I2C1 error code for diagnostics
   * @retval uint32_t: HAL I2C error code
   */

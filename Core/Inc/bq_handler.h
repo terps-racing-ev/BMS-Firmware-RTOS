@@ -41,7 +41,7 @@ extern "C" {
 #define BMS2_NUM_CELLS              9       /**< Number of cells monitored by BMS2 (cells 10-18) */
 
 #define VOLTAGE_READ_INTERVAL_MS    250     /**< Cell voltage reading interval (500ms = 2Hz) */
-#define VOLTAGE_CAN_INTERVAL_MS     250     /**< CAN transmission interval for voltage data */
+#define VOLTAGE_CAN_INTERVAL_MS     500     /**< CAN transmission interval for voltage data */
 
 #define I2C_TIMEOUT_MS              100     /**< I2C communication timeout */
 
@@ -197,6 +197,14 @@ void BQ_CheckLimits_BMS2(BQ_Data_BMS2_t *data);
   *         The reset pin is active-high and should be held high for at least 500ms.
   */
 HAL_StatusTypeDef BQ_ResetChips(void);
+
+/**
+  * @brief  Wake both BQ76952 chips and disable sleep mode
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR/HAL_TIMEOUT on failure
+  * @note   Sends SLEEP_DISABLE subcommand to BMS1 and BMS2 over I2C.
+  *         Intended to be called during startup before RTOS tasks begin.
+  */
+HAL_StatusTypeDef BQ_WakeChips(void);
 
 /**
   * @brief  Enable or disable fault reporting from BQ handler

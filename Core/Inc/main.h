@@ -100,7 +100,7 @@ void Error_Handler(void);
   * Channel mapping (MUX_SIG3:MUX_SIG2:MUX_SIG1) is unchanged:
   *   Channel 0 = 000, Channel 1 = 001, ... Channel 7 = 111
   */
-// #define MUX_SIG_USE_OPEN_DRAIN
+#define MUX_SIG_USE_OPEN_DRAIN
 
 /**
   * @brief  Bootloader application validity flag defines

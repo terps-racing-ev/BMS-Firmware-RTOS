@@ -178,6 +178,10 @@ int main(void)
   MX_I2C1_Init();
   MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
+
+  // Wake BQ76952 chips from sleep and keep them in normal mode
+  // Continue startup even on failure; monitor tasks will report communication faults
+  (void)BQ_WakeChips();
   
   // Check bootloader application validity flag at startup
   {
