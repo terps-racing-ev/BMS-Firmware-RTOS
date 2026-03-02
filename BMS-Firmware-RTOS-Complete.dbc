@@ -221,8 +221,8 @@ BO_ 2297430028 Cell_Temp_48_51: 8 BMS_Module_0
 BO_ 2297430029 Cell_Temp_52_55: 8 BMS_Module_0
  SG_ Temp_052 : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Temp_053 : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_054 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_055 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_1_054 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_2_055 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297430273 Cell_Temp_Summary_0: 8 BMS_Module_0
  SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
@@ -456,8 +456,8 @@ BO_ 2297434124 Cell_Temp_104_107: 8 BMS_Module_1
 BO_ 2297434125 Cell_Temp_108_111: 8 BMS_Module_1
  SG_ Temp_108 : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Temp_109 : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_110 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_111 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_1_110 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_2_111 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297434369 Cell_Temp_Summary_1: 8 BMS_Module_1
  SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
@@ -691,8 +691,8 @@ BO_ 2297438220 Cell_Temp_160_163: 8 BMS_Module_2
 BO_ 2297438221 Cell_Temp_164_167: 8 BMS_Module_2
  SG_ Temp_164 : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Temp_165 : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_166 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_167 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_1_166 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_2_167 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297438465 Cell_Temp_Summary_2: 8 BMS_Module_2
  SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
@@ -926,8 +926,8 @@ BO_ 2297442316 Cell_Temp_216_219: 8 BMS_Module_3
 BO_ 2297442317 Cell_Temp_220_223: 8 BMS_Module_3
  SG_ Temp_220 : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Temp_221 : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_222 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_223 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_1_222 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_2_223 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297442561 Cell_Temp_Summary_3: 8 BMS_Module_3
  SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
@@ -1161,8 +1161,8 @@ BO_ 2297446412 Cell_Temp_272_275: 8 BMS_Module_4
 BO_ 2297446413 Cell_Temp_276_279: 8 BMS_Module_4
  SG_ Temp_276 : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Temp_277 : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_278 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_279 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_1_278 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_2_279 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297446657 Cell_Temp_Summary_4: 8 BMS_Module_4
  SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
@@ -1396,8 +1396,8 @@ BO_ 2297450508 Cell_Temp_328_331: 8 BMS_Module_5
 BO_ 2297450509 Cell_Temp_332_335: 8 BMS_Module_5
  SG_ Temp_332 : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Temp_333 : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_334 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Temp_335 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_1_334 : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
+ SG_ Ambient_Temp_2_335 : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host
 
 BO_ 2297450753 Cell_Temp_Summary_5: 8 BMS_Module_5
  SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host

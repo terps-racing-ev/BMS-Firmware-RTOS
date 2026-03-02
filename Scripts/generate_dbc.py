@@ -3,6 +3,7 @@
 Generate complete DBC file for BMS Firmware with all 6 modules
 Each module has:
 - 14 temperature messages (56 thermistors total per module)
+- Thermistors 54 and 55 (per module) are ambient sensors
 - 1 temperature summary message (min/max cell temp, BMS1/BMS2 IC temp)
 - 6 voltage messages (18 cells total per module, 3 cells per message)
 - 1 heartbeat message
@@ -288,8 +289,18 @@ def generate_dbc():
             lines.append(f'BO_ {dbc_id} Cell_Temp_{therm_start}_{therm_end}: 8 BMS_Module_{module}')
             for i in range(4):
                 therm_num = therm_start + i
+                local_therm_num = therm_num - therm_base
                 bit_start = i * 16
-                lines.append(f' SG_ Temp_{therm_num:03d} : {bit_start}|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+
+                # Last two thermistors per module are ambient sensors
+                if local_therm_num == 54:
+                    signal_name = f'Ambient_Temp_1_{therm_num:03d}'
+                elif local_therm_num == 55:
+                    signal_name = f'Ambient_Temp_2_{therm_num:03d}'
+                else:
+                    signal_name = f'Temp_{therm_num:03d}'
+
+                lines.append(f' SG_ {signal_name} : {bit_start}|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
             lines.append('')
         
         # Cell Temperature Summary: base 0x08F00101 + module_offset
@@ -556,7 +567,7 @@ if __name__ == '__main__':
     print(f"  - Total: 199 messages")
     print(f"")
     print(f"Per module breakdown:")
-    print(f"  - 14 temperature messages (56 thermistors, 4 per message)")
+    print(f"  - 14 temperature messages (54 cell thermistors + 2 ambient thermistors, 4 per message)")
     print(f"  - 1 temperature summary message (min/max cell temp, BMS1/BMS2 IC temp)")
     print(f"  - 6 voltage messages (18 cells, 3 per message)")
     print(f"  - 2 BMS chip status messages (BMS1 and BMS2 stack voltage, alarm, temp)")
