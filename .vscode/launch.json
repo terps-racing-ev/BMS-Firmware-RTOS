@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/Ali/Development/BMS-Firmware-RTOS",
-      "program": "c:/Users/Ali/Development/BMS-Firmware-RTOS/build/Debug/outDebug",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/build/debug/BMS-Firmware-RTOS.elf",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

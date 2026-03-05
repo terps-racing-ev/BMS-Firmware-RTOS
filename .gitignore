@@ -1,6 +1,5 @@
 # Prerequisites
 *.d
-.stm32env
 
 # Object files
 *.o
@@ -57,11 +56,13 @@ dkms.conf
 *.dwo
 CLAUDE.md
 
-# Build artifacts (ignore everything under build/)
-build/**
+# Build artifacts
+build/
 
-# Keep final firmware artifacts tracked
-!build/
-!build/debug/
-!build/debug/BMS-Firmware-RTOS.bin
-!build/debug/BMS-Firmware-RTOS.elf
+# Python caches
+__pycache__/
+*.pyc
+
+# VS Code user/machine-local settings
+.vscode/settings.json
+.vscode/c_cpp_properties.json
