@@ -27,8 +27,16 @@ STM32L432KC FreeRTOS firmware for a battery management system monitoring 18 cell
 # Build (via VS Code tasks — preferred)
 # Use task "Build STM" or "Build Clean STM" from the command palette
 
-# Build via Make
-make -j
+# Build via terminal (PowerShell, from repo root)
+& "$env:APPDATA\Code\User\globalStorage\bmd.stm32-for-vscode\@xpack-dev-tools\windows-build-tools\4.4.1-3.1\.content\bin\make.EXE" -j16 DEBUG=1 -f STM32Make.make
+
+# Clean + rebuild via terminal (PowerShell)
+& "$env:APPDATA\Code\User\globalStorage\bmd.stm32-for-vscode\@xpack-dev-tools\windows-build-tools\4.4.1-3.1\.content\bin\make.EXE" clean -f STM32Make.make
+& "$env:APPDATA\Code\User\globalStorage\bmd.stm32-for-vscode\@xpack-dev-tools\windows-build-tools\4.4.1-3.1\.content\bin\make.EXE" -j16 DEBUG=1 -f STM32Make.make
+
+# Notes:
+# - .stm32env supplies ARM_GCC_PATH/OPENOCD and should use $(USERPROFILE)-based paths.
+# - If tool versions change, update the version segment in the make/openocd paths above.
 
 # Flash via OpenOCD
 # Use task "Flash STM", or: openocd -f openocd.cfg
