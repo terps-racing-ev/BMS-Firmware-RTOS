@@ -410,9 +410,11 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
     // Check for balance command message
     if (base_id == (CAN_BALANCE_CMD_BASE & 0xFFFF0FFF)) {
         uint8_t ack_data[8] = {0};
+        uint8_t bms1_enable = msg->data[0];
+        uint8_t bms2_enable = msg->data[1];
         
         // Process balance command and get status
-        uint8_t balance_status = BalanceMgr_ProcessCommand();
+        uint8_t balance_status = BalanceMgr_ProcessCommand(bms1_enable, bms2_enable);
         
         // Prepare acknowledgement message
         // Byte 0: Status (BALANCE_STATUS_*)
@@ -539,6 +541,10 @@ void CAN_ManagerTask(void *argument)
             // Keep timer aligned while idle to avoid stale interval accumulation
             last_balance_status_tick = current_tick;
         }
+
+        // Run balance manager periodic logic every loop iteration.
+        // Internal timers gate refresh (5s) and re-evaluation (40s).
+        BalanceMgr_Execute();
         
         // Check balance timeout (runs every 10ms loop iteration)
         BalanceMgr_CheckTimeout();

@@ -56,7 +56,7 @@ def generate_dbc():
     lines.append('')
     
     # Nodes
-    lines.append('BU_: BMS_Module_0 BMS_Module_1 BMS_Module_2 BMS_Module_3 BMS_Module_4 BMS_Module_5 CAN_Host')
+    lines.append('BU_: BMS_Module_0 BMS_Module_1 BMS_Module_2 BMS_Module_3 BMS_Module_4 BMS_Module_5 CAN_Host Current_Sensor')
     lines.append('')
     
     # Attribute definitions
@@ -72,6 +72,19 @@ def generate_dbc():
     dbc_id = can_id | 0x80000000
     lines.append(f'BO_ {dbc_id} BMS_Debug_Request: 8 CAN_Host')
     lines.append(' SG_ Request_Type : 0|8@1+ (1,0) [0|255] "" BMS_Module_0,BMS_Module_1,BMS_Module_2,BMS_Module_3,BMS_Module_4,BMS_Module_5')
+    lines.append('')
+
+    # Current sensor message (standard CAN ID 0x0CC)
+    # Bytes 0-1: LC current, signed int16, little-endian, 0.1 A/bit
+    # Bytes 2-3: HC current, signed int16, little-endian, 0.1 A/bit
+    # Bytes 4-7: Reserved (currently zero)
+    lines.append('BO_ 204 Current_Sensor_Data: 8 Current_Sensor')
+    lines.append(' SG_ LC_Current : 0|16@1- (0.1,0) [-3276.8|3276.7] "A" CAN_Host')
+    lines.append(' SG_ HC_Current : 16|16@1- (0.1,0) [-3276.8|3276.7] "A" CAN_Host')
+    lines.append(' SG_ Reserved_4 : 32|8@1+ (1,0) [0|255] "" CAN_Host')
+    lines.append(' SG_ Reserved_5 : 40|8@1+ (1,0) [0|255] "" CAN_Host')
+    lines.append(' SG_ Reserved_6 : 48|8@1+ (1,0) [0|255] "" CAN_Host')
+    lines.append(' SG_ Reserved_7 : 56|8@1+ (1,0) [0|255] "" CAN_Host')
     lines.append('')
     
     # Per-module messages
@@ -164,8 +177,9 @@ def generate_dbc():
         can_id = 0x08F00F05 + module_offset
         dbc_id = can_id | 0x80000000
         message_ids.append(dbc_id)
-        lines.append(f'BO_ {dbc_id} BMS_Balance_Command_{module}: 1 CAN_Host')
-        lines.append(f' SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_{module}')
+        lines.append(f'BO_ {dbc_id} BMS_Balance_Command_{module}: 2 CAN_Host')
+        lines.append(f' SG_ BMS1_Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_{module}')
+        lines.append(f' SG_ BMS2_Balance_Enable : 8|8@1+ (1,0) [0|1] "" BMS_Module_{module}')
         lines.append('')
         
         # Balance ACK: base 0x08F00F06 + module_offset
@@ -361,10 +375,12 @@ def generate_dbc():
     
     # Comments
     lines.append('CM_ BO_ 2297433872 "Debug info request broadcast to all modules";')
+    lines.append('CM_ BO_ 204 "Current sensor node data: LC/HC currents, 0.1A signed little-endian";')
     lines.append('')
     
     # VFrameFormat attributes for all messages
     lines.append('// Extended CAN ID markers')
+    lines.append('BA_ "VFrameFormat" BO_ 204 0;')
     lines.append('BA_ "VFrameFormat" BO_ 2297433872 1;')
     for msg_id in message_ids:
         lines.append(f'BA_ "VFrameFormat" BO_ {msg_id} 1;')
@@ -404,7 +420,8 @@ def generate_dbc():
     for module in range(6):
         can_id = 0x08F00F05 + (module << 12)
         dbc_id = can_id | 0x80000000
-        lines.append(f'VAL_ {dbc_id} Balance_Enable 0 "Disable" 1 "Enable";')
+        lines.append(f'VAL_ {dbc_id} BMS1_Balance_Enable 0 "Disable" 1 "Enable";')
+        lines.append(f'VAL_ {dbc_id} BMS2_Balance_Enable 0 "Disable" 1 "Enable";')
     
     # BMS State for all heartbeat messages
     for module in range(6):
@@ -558,20 +575,14 @@ if __name__ == '__main__':
     print(f"Generated {output_file}")
     print(f"Total lines: {len(dbc_content.splitlines())}")
     
-    # Count messages
-    message_count = dbc_content.count('BO_ ')
+    # Count only actual message definition lines (exclude BA_DEF_ BO_, CM_ BO_, etc.)
+    message_count = sum(1 for line in dbc_content.splitlines() if line.startswith('BO_ '))
+    fixed_messages = 2  # Current sensor + debug request
+    module_messages = message_count - fixed_messages
+    per_module = module_messages // 6 if module_messages >= 0 else 0
+
     print(f"Total messages: {message_count}")
+    print(f"  - 1 current sensor message (ID 0x0CC, standard CAN)")
     print(f"  - 1 broadcast message (Debug Request)")
-    print(f"  - 6 modules × 33 messages = 198 messages")
-    print(f"    (Config Command, Config ACK, Reset Command, BMS Chip Reset Command, BMS Chip Reset ACK, Debug Response, I2C Diagnostics, Balance Command, Heartbeat, CAN Stats, BMS1 Status, BMS2 Status, 14 Temp, 1 Temp Summary, 6 Voltage)")
-    print(f"  - Total: 199 messages")
+    print(f"  - 6 modules × {per_module} messages = {module_messages} messages")
     print(f"")
-    print(f"Per module breakdown:")
-    print(f"  - 14 temperature messages (54 cell thermistors + 2 ambient thermistors, 4 per message)")
-    print(f"  - 1 temperature summary message (min/max cell temp, BMS1/BMS2 IC temp)")
-    print(f"  - 6 voltage messages (18 cells, 3 per message)")
-    print(f"  - 2 BMS chip status messages (BMS1 and BMS2 stack voltage, alarm, temp)")
-    print(f"  - 1 config command, 1 config ACK, 1 STM32 reset command")
-    print(f"  - 1 BMS chip reset command, 1 BMS chip reset ACK")
-    print(f"  - 1 balance command (host to module)")
-    print(f"  - 1 heartbeat, 1 CAN stats, 1 debug response, 1 I2C diagnostics")

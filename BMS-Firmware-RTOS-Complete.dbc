@@ -29,7 +29,7 @@ NS_ :
 
 BS_:
 
-BU_: BMS_Module_0 BMS_Module_1 BMS_Module_2 BMS_Module_3 BMS_Module_4 BMS_Module_5 CAN_Host
+BU_: BMS_Module_0 BMS_Module_1 BMS_Module_2 BMS_Module_3 BMS_Module_4 BMS_Module_5 CAN_Host Current_Sensor
 
 BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN";
 BA_DEF_ BO_  "GenMsgCycleTime" INT 0 10000;
@@ -38,6 +38,14 @@ BA_DEF_DEF_  "GenMsgCycleTime" 0;
 
 BO_ 2297433872 BMS_Debug_Request: 8 CAN_Host
  SG_ Request_Type : 0|8@1+ (1,0) [0|255] "" BMS_Module_0,BMS_Module_1,BMS_Module_2,BMS_Module_3,BMS_Module_4,BMS_Module_5
+
+BO_ 204 Current_Sensor_Data: 8 Current_Sensor
+ SG_ LC_Current : 0|16@1- (0.1,0) [-3276.8|3276.7] "A" CAN_Host
+ SG_ HC_Current : 16|16@1- (0.1,0) [-3276.8|3276.7] "A" CAN_Host
+ SG_ Reserved_4 : 32|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Reserved_5 : 40|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Reserved_6 : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Reserved_7 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
 // ============== Module 0 (Thermistors 0-55) ==============
 
@@ -78,8 +86,9 @@ BO_ 2297433874 BMS_I2C_Diagnostics_0: 8 BMS_Module_0
  SG_ Reserved_3 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_4 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
-BO_ 2297433861 BMS_Balance_Command_0: 1 CAN_Host
- SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_0
+BO_ 2297433861 BMS_Balance_Command_0: 2 CAN_Host
+ SG_ BMS1_Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_0
+ SG_ BMS2_Balance_Enable : 8|8@1+ (1,0) [0|1] "" BMS_Module_0
 
 BO_ 2297433862 BMS_Balance_ACK_0: 8 BMS_Module_0
  SG_ Balance_Status : 0|8@1+ (1,0) [0|255] "" CAN_Host
@@ -313,8 +322,9 @@ BO_ 2297437970 BMS_I2C_Diagnostics_1: 8 BMS_Module_1
  SG_ Reserved_3 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_4 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
-BO_ 2297437957 BMS_Balance_Command_1: 1 CAN_Host
- SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_1
+BO_ 2297437957 BMS_Balance_Command_1: 2 CAN_Host
+ SG_ BMS1_Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_1
+ SG_ BMS2_Balance_Enable : 8|8@1+ (1,0) [0|1] "" BMS_Module_1
 
 BO_ 2297437958 BMS_Balance_ACK_1: 8 BMS_Module_1
  SG_ Balance_Status : 0|8@1+ (1,0) [0|255] "" CAN_Host
@@ -548,8 +558,9 @@ BO_ 2297442066 BMS_I2C_Diagnostics_2: 8 BMS_Module_2
  SG_ Reserved_3 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_4 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
-BO_ 2297442053 BMS_Balance_Command_2: 1 CAN_Host
- SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_2
+BO_ 2297442053 BMS_Balance_Command_2: 2 CAN_Host
+ SG_ BMS1_Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_2
+ SG_ BMS2_Balance_Enable : 8|8@1+ (1,0) [0|1] "" BMS_Module_2
 
 BO_ 2297442054 BMS_Balance_ACK_2: 8 BMS_Module_2
  SG_ Balance_Status : 0|8@1+ (1,0) [0|255] "" CAN_Host
@@ -783,8 +794,9 @@ BO_ 2297446162 BMS_I2C_Diagnostics_3: 8 BMS_Module_3
  SG_ Reserved_3 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_4 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
-BO_ 2297446149 BMS_Balance_Command_3: 1 CAN_Host
- SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_3
+BO_ 2297446149 BMS_Balance_Command_3: 2 CAN_Host
+ SG_ BMS1_Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_3
+ SG_ BMS2_Balance_Enable : 8|8@1+ (1,0) [0|1] "" BMS_Module_3
 
 BO_ 2297446150 BMS_Balance_ACK_3: 8 BMS_Module_3
  SG_ Balance_Status : 0|8@1+ (1,0) [0|255] "" CAN_Host
@@ -1018,8 +1030,9 @@ BO_ 2297450258 BMS_I2C_Diagnostics_4: 8 BMS_Module_4
  SG_ Reserved_3 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_4 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
-BO_ 2297450245 BMS_Balance_Command_4: 1 CAN_Host
- SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_4
+BO_ 2297450245 BMS_Balance_Command_4: 2 CAN_Host
+ SG_ BMS1_Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_4
+ SG_ BMS2_Balance_Enable : 8|8@1+ (1,0) [0|1] "" BMS_Module_4
 
 BO_ 2297450246 BMS_Balance_ACK_4: 8 BMS_Module_4
  SG_ Balance_Status : 0|8@1+ (1,0) [0|255] "" CAN_Host
@@ -1253,8 +1266,9 @@ BO_ 2297454354 BMS_I2C_Diagnostics_5: 8 BMS_Module_5
  SG_ Reserved_3 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_4 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
-BO_ 2297454341 BMS_Balance_Command_5: 1 CAN_Host
- SG_ Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_5
+BO_ 2297454341 BMS_Balance_Command_5: 2 CAN_Host
+ SG_ BMS1_Balance_Enable : 0|8@1+ (1,0) [0|1] "" BMS_Module_5
+ SG_ BMS2_Balance_Enable : 8|8@1+ (1,0) [0|1] "" BMS_Module_5
 
 BO_ 2297454342 BMS_Balance_ACK_5: 8 BMS_Module_5
  SG_ Balance_Status : 0|8@1+ (1,0) [0|255] "" CAN_Host
@@ -1450,8 +1464,10 @@ BO_ 2297451015 BMS2_Chip_Status_5: 8 BMS_Module_5
  SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
 CM_ BO_ 2297433872 "Debug info request broadcast to all modules";
+CM_ BO_ 204 "Current sensor node data: LC/HC currents, 0.1A signed little-endian";
 
 // Extended CAN ID markers
+BA_ "VFrameFormat" BO_ 204 0;
 BA_ "VFrameFormat" BO_ 2297433872 1;
 BA_ "VFrameFormat" BO_ 2297433856 1;
 BA_ "VFrameFormat" BO_ 2297433857 1;
@@ -1703,12 +1719,18 @@ VAL_ 2297442052 Status 0 "Success" 1 "Failed";
 VAL_ 2297446148 Status 0 "Success" 1 "Failed";
 VAL_ 2297450244 Status 0 "Success" 1 "Failed";
 VAL_ 2297454340 Status 0 "Success" 1 "Failed";
-VAL_ 2297433861 Balance_Enable 0 "Disable" 1 "Enable";
-VAL_ 2297437957 Balance_Enable 0 "Disable" 1 "Enable";
-VAL_ 2297442053 Balance_Enable 0 "Disable" 1 "Enable";
-VAL_ 2297446149 Balance_Enable 0 "Disable" 1 "Enable";
-VAL_ 2297450245 Balance_Enable 0 "Disable" 1 "Enable";
-VAL_ 2297454341 Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297433861 BMS1_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297433861 BMS2_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297437957 BMS1_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297437957 BMS2_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297442053 BMS1_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297442053 BMS2_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297446149 BMS1_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297446149 BMS2_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297450245 BMS1_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297450245 BMS2_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297454341 BMS1_Balance_Enable 0 "Disable" 1 "Enable";
+VAL_ 2297454341 BMS2_Balance_Enable 0 "Disable" 1 "Enable";
 VAL_ 2297430784 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";
 VAL_ 2297434880 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";
 VAL_ 2297438976 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";

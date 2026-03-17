@@ -44,12 +44,16 @@ static uint32_t last_balance_cfg_tick = 0;      /**< Tick of last balance config
 static uint32_t last_reevaluate_tick = 0;       /**< Tick of last cell re-evaluation */
 static uint32_t last_refresh_tick = 0;          /**< Tick of last CB_ACTIVE_CELLS refresh */
 static uint32_t last_status_tick = 0;           /**< Tick of last status message */
+static uint32_t ocv_settle_start_tick = 0;      /**< Tick when OCV settling started */
 static bool balance_timeout_active = false;     /**< Whether balance timeout is active */
 static bool config_received = false;            /**< Whether config has been received */
+static bool ocv_settling = false;               /**< Whether OCV settling delay is active */
 
 static Balance_Config_t balance_config = {
     .target_voltage_mv = BALANCE_DEFAULT_TARGET_MV,
     .max_cells_per_chip = BALANCE_DEFAULT_MAX_CELLS,
+    .bms1_enabled = false,
+    .bms2_enabled = false,
     .last_config_tick = 0,
     .config_valid = false
 };
@@ -65,6 +69,7 @@ static const osMutexAttr_t balance_mutex_attributes = {
 static uint16_t SelectCellsToBalance(uint16_t *voltages, uint8_t num_cells, 
                                       uint16_t target_mv, uint8_t max_cells);
 static uint8_t CountBits(uint16_t value);
+static void SendStoppedDetailMessages(void);
 
 /* Function Implementations --------------------------------------------------*/
 
@@ -79,12 +84,16 @@ HAL_StatusTypeDef BalanceMgr_Init(void)
     last_reevaluate_tick = 0;
     last_refresh_tick = 0;
     last_status_tick = 0;
+    ocv_settle_start_tick = 0;
     balance_timeout_active = false;
     config_received = false;
+    ocv_settling = false;
     
     // Reset config to defaults
     balance_config.target_voltage_mv = BALANCE_DEFAULT_TARGET_MV;
     balance_config.max_cells_per_chip = BALANCE_DEFAULT_MAX_CELLS;
+    balance_config.bms1_enabled = false;
+    balance_config.bms2_enabled = false;
     balance_config.config_valid = false;
     
     // Clear status
@@ -104,10 +113,14 @@ HAL_StatusTypeDef BalanceMgr_Init(void)
   * @note   This refreshes the balance timeout and attempts to enter/stay in balance mode
   * @retval uint8_t: Status code (BALANCE_STATUS_*)
   */
-uint8_t BalanceMgr_ProcessCommand(void)
+uint8_t BalanceMgr_ProcessCommand(uint8_t bms1_enable, uint8_t bms2_enable)
 {
     uint8_t status = BALANCE_STATUS_SUCCESS;
     BMS_State_t current_state;
+    bool bms1_requested = (bms1_enable != 0U);
+    bool bms2_requested = (bms2_enable != 0U);
+    bool bms1_was_enabled;
+    bool bms2_was_enabled;
     
     if (osMutexAcquire(balance_mutex, osWaitForever) != osOK) {
         return BALANCE_STATUS_FAULT;
@@ -120,9 +133,32 @@ uint8_t BalanceMgr_ProcessCommand(void)
     }
     
     current_state = StateMachine_GetState();
+    bms1_was_enabled = balance_config.bms1_enabled;
+    bms2_was_enabled = balance_config.bms2_enabled;
     
     // Check current state - can only enter balancing from IDLE or CHARGING
     if (current_state == BMS_STATE_BALANCING) {
+        balance_config.bms1_enabled = bms1_requested;
+        balance_config.bms2_enabled = bms2_requested;
+
+        if (bms1_was_enabled && !bms1_requested) {
+            BQ_StopBalancing(&hi2c1, BQ76952_I2C_ADDR_BMS1);
+            balance_status.bms1_active_cells = 0;
+            balance_status.bms1_cell_count = 0;
+        } else if (!bms1_was_enabled && bms1_requested) {
+            BQ_ConfigureBalancingSpeed(&hi2c1, BQ76952_I2C_ADDR_BMS1);
+            last_reevaluate_tick = 0;
+        }
+
+        if (bms2_was_enabled && !bms2_requested) {
+            BQ_StopBalancing(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+            balance_status.bms2_active_cells = 0;
+            balance_status.bms2_cell_count = 0;
+        } else if (!bms2_was_enabled && bms2_requested) {
+            BQ_ConfigureBalancingSpeed(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+            last_reevaluate_tick = 0;
+        }
+
         // Already balancing - just refresh the timeout
         last_balance_cmd_tick = osKernelGetTickCount();
         balance_timeout_active = true;
@@ -130,16 +166,23 @@ uint8_t BalanceMgr_ProcessCommand(void)
     }
     else if (current_state == BMS_STATE_IDLE || current_state == BMS_STATE_CHARGING) {
         // Allowed to enter balancing mode
-        
-        // Configure BQ76952 for maximum balancing current (CB_LOOP_SLOW = 11)
-        // This sets eighth-speed mode for better average balancing current
-        BQ_ConfigureBalancingSpeed(&hi2c1, BQ76952_I2C_ADDR_BMS1);
-        BQ_ConfigureBalancingSpeed(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+        balance_config.bms1_enabled = bms1_requested;
+        balance_config.bms2_enabled = bms2_requested;
+
+        // Configure balancing speed only for chips enabled by the host command.
+        if (balance_config.bms1_enabled) {
+            BQ_ConfigureBalancingSpeed(&hi2c1, BQ76952_I2C_ADDR_BMS1);
+        }
+        if (balance_config.bms2_enabled) {
+            BQ_ConfigureBalancingSpeed(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+        }
         
         StateMachine_SetState(BMS_STATE_BALANCING);
         last_balance_cmd_tick = osKernelGetTickCount();
         last_reevaluate_tick = 0;  // Force immediate evaluation
         last_refresh_tick = 0;     // Force immediate refresh
+        ocv_settling = false;
+        ocv_settle_start_tick = 0;
         balance_timeout_active = true;
         status = BALANCE_STATUS_SUCCESS;
     }
@@ -220,6 +263,8 @@ void BalanceMgr_CheckTimeout(void)
             StateMachine_SetState(BMS_STATE_IDLE);
             balance_timeout_active = false;
             config_received = false;
+            ocv_settling = false;
+            ocv_settle_start_tick = 0;
             last_balance_cmd_tick = 0;
             last_balance_cfg_tick = 0;
         }
@@ -230,13 +275,22 @@ void BalanceMgr_CheckTimeout(void)
             if (cfg_elapsed >= BALANCE_CFG_TIMEOUT_MS) {
                 // Config timeout - stop active balancing but stay in balance mode
                 // Host needs to resend config to continue
-                BQ_StopBalancing(&hi2c1, BQ76952_I2C_ADDR_BMS1);
-                BQ_StopBalancing(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+                if (balance_config.bms1_enabled) {
+                    BQ_StopBalancing(&hi2c1, BQ76952_I2C_ADDR_BMS1);
+                }
+                if (balance_config.bms2_enabled) {
+                    BQ_StopBalancing(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+                }
                 balance_config.config_valid = false;
+                ocv_settling = false;
+                ocv_settle_start_tick = 0;
                 balance_status.bms1_active_cells = 0;
                 balance_status.bms2_active_cells = 0;
                 balance_status.bms1_cell_count = 0;
                 balance_status.bms2_cell_count = 0;
+
+                // Send an immediate final detail update showing all balancing off.
+                SendStoppedDetailMessages();
             }
         }
     }
@@ -261,6 +315,20 @@ static uint8_t CountBits(uint16_t value)
         value >>= 1;
     }
     return count;
+}
+
+/**
+    * @brief  Send final balance detail messages showing all cells off
+    * @note   Used when balancing is stopped so the host receives one explicit
+    *         all-off confirmation before periodic detail messages stop.
+    * @retval None
+    */
+static void SendStoppedDetailMessages(void)
+{
+        uint8_t data[8] = {0};
+
+        CAN_SendMessage(CAN_BMS1_BAL_DETAIL_ID, data, 8, CAN_PRIORITY_NORMAL);
+        CAN_SendMessage(CAN_BMS2_BAL_DETAIL_ID, data, 8, CAN_PRIORITY_NORMAL);
 }
 
 /**
@@ -372,6 +440,7 @@ void BalanceMgr_Execute(void)
     
     // Check if it's time to re-evaluate cell selection (every 40 seconds)
     bool should_evaluate = false;
+    bool evaluate_after_settle = false;
     if (last_reevaluate_tick == 0) {
         should_evaluate = true;  // First run
     } else {
@@ -393,12 +462,40 @@ void BalanceMgr_Execute(void)
         }
     }
     
-    if (should_evaluate) {
-        // Re-evaluate which cells to balance based on current voltages
+    if (ocv_settling) {
+        uint32_t settle_elapsed = current_tick - ocv_settle_start_tick;
+        if (settle_elapsed < BALANCE_OCV_SETTLE_MS) {
+            osMutexRelease(balance_mutex);
+            return;
+        }
+
+        // OCV settle window completed; perform selection using settled voltages.
+        ocv_settling = false;
+        evaluate_after_settle = true;
+    } else if (should_evaluate) {
+        // Stop balancing first, then wait for open-circuit voltages to settle.
+        if (balance_config.bms1_enabled) {
+            BQ_StopBalancing(&hi2c1, BQ76952_I2C_ADDR_BMS1);
+        }
+        if (balance_config.bms2_enabled) {
+            BQ_StopBalancing(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+        }
+        balance_status.bms1_active_cells = 0;
+        balance_status.bms2_active_cells = 0;
+        balance_status.bms1_cell_count = 0;
+        balance_status.bms2_cell_count = 0;
+        ocv_settling = true;
+        ocv_settle_start_tick = current_tick;
+        osMutexRelease(balance_mutex);
+        return;
+    }
+
+    if (evaluate_after_settle) {
+        // Re-evaluate which cells to balance based on settled voltages.
         BQ_Data_t bms1_data;
         BQ_Data_BMS2_t bms2_data;
-        
-        if (BQ_GetData(&bms1_data) == HAL_OK && bms1_data.valid) {
+
+        if (balance_config.bms1_enabled && BQ_GetData(&bms1_data) == HAL_OK && bms1_data.valid) {
             // Select cells to balance for BMS1 (cells 1-9)
             uint16_t bms1_mask = SelectCellsToBalance(
                 bms1_data.cell_voltage_mv,
@@ -412,9 +509,12 @@ void BalanceMgr_Execute(void)
                 balance_status.bms1_active_cells = bms1_mask;
                 balance_status.bms1_cell_count = CountBits(bms1_mask);
             }
+        } else {
+            balance_status.bms1_active_cells = 0;
+            balance_status.bms1_cell_count = 0;
         }
-        
-        if (BQ_GetData_BMS2(&bms2_data) == HAL_OK && bms2_data.valid) {
+
+        if (balance_config.bms2_enabled && BQ_GetData_BMS2(&bms2_data) == HAL_OK && bms2_data.valid) {
             // Select cells to balance for BMS2 (cells 10-18, stored as 0-8)
             uint16_t bms2_mask = SelectCellsToBalance(
                 bms2_data.cell_voltage_mv,
@@ -428,16 +528,23 @@ void BalanceMgr_Execute(void)
                 balance_status.bms2_active_cells = bms2_mask;
                 balance_status.bms2_cell_count = CountBits(bms2_mask);
             }
+        } else {
+            balance_status.bms2_active_cells = 0;
+            balance_status.bms2_cell_count = 0;
         }
-        
+
         last_reevaluate_tick = current_tick;
         last_refresh_tick = current_tick;  // Also counts as a refresh
     }
     else if (should_refresh) {
         // Just refresh the CB_ACTIVE_CELLS command with same cell selection
         // This prevents BQ76952's internal 10-second timeout from stopping balancing
-        BQ_SetBalanceCells(&hi2c1, BQ76952_I2C_ADDR_BMS1, balance_status.bms1_active_cells);
-        BQ_SetBalanceCells(&hi2c3, BQ76952_I2C_ADDR_BMS2, balance_status.bms2_active_cells);
+        if (balance_config.bms1_enabled) {
+            BQ_SetBalanceCells(&hi2c1, BQ76952_I2C_ADDR_BMS1, balance_status.bms1_active_cells);
+        }
+        if (balance_config.bms2_enabled) {
+            BQ_SetBalanceCells(&hi2c3, BQ76952_I2C_ADDR_BMS2, balance_status.bms2_active_cells);
+        }
         
         last_refresh_tick = current_tick;
     }
@@ -552,6 +659,10 @@ void BalanceMgr_StopBalancing(void)
     // Stop balancing on both chips (no mutex needed, BQ functions have their own)
     BQ_StopBalancing(&hi2c1, BQ76952_I2C_ADDR_BMS1);
     BQ_StopBalancing(&hi2c3, BQ76952_I2C_ADDR_BMS2);
+
+    // Revert balancing-time BQ settings (e.g. CB_LOOP_SLOW) and restore runtime speed.
+    BQ_ResetChips();
+    BQ_WakeChipsRTOS();
     
     // Clear status
     if (osMutexAcquire(balance_mutex, osWaitForever) == osOK) {
@@ -560,21 +671,25 @@ void BalanceMgr_StopBalancing(void)
         balance_status.bms1_cell_count = 0;
         balance_status.bms2_cell_count = 0;
         balance_config.config_valid = false;
+        ocv_settling = false;
+        ocv_settle_start_tick = 0;
         config_received = false;
         osMutexRelease(balance_mutex);
     }
+
+    SendStoppedDetailMessages();
 }
 
 /**
   * @brief  Send detailed balance readback from each BMS chip via CAN
-  * @note   Reads CBSTATUS1/2/3 and AlarmRawStatus from each chip
+    * @note   Reads CB_ACTIVE_CELLS and AlarmRawStatus from each chip
   *         and sends as separate CAN messages for BMS1 and BMS2
   * @retval HAL_StatusTypeDef
   * 
   * BMS1/BMS2 Balance Detail Message Format (8 bytes each):
-  *   Byte 0: CBSTATUS1 (cells 1-8 / 10-17 ACTUALLY balancing, bit per cell)
-  *   Byte 1: CBSTATUS2 (cell 9 / 18 ACTUALLY balancing, in bit 0)
-  *   Byte 2: CBSTATUS3 (balance status flags: OTPW, OT, UT, PAUSE)
+    *   Byte 0: CB_ACTIVE_CELLS low byte (cells 1-8 / 10-17 ACTUALLY balancing)
+    *   Byte 1: CB_ACTIVE_CELLS high byte (cell 9 / 18 in bit 0)
+    *   Byte 2: Reserved
   *   Byte 3-4: AlarmRawStatus (16-bit, little-endian)
   *   Byte 5-7: Reserved
   */
@@ -586,24 +701,23 @@ HAL_StatusTypeDef BalanceMgr_SendDetailedStatus(void)
 
     uint8_t data[8];
     uint16_t alarm_raw = 0;
-    uint8_t cbstatus1 = 0, cbstatus2 = 0, cbstatus3 = 0;
+        uint16_t active_cells = 0;
     HAL_StatusTypeDef status;
     
     // --- BMS1 Detail ---
     // Message format:
-    //   Byte 0: CBSTATUS1 (cells 1-8 ACTUALLY balancing, read back from BMS)
-    //   Byte 1: CBSTATUS2 (cell 9 actually balancing in bit 0)
-    //   Byte 2: CBSTATUS3 (balance status flags: OTPW, OT, UT, PAUSE)
+        //   Byte 0: CB_ACTIVE_CELLS low byte (cells 1-8 ACTUALLY balancing)
+        //   Byte 1: CB_ACTIVE_CELLS high byte (cell 9 in bit 0)
+        //   Byte 2: Reserved
     //   Byte 3-4: AlarmRawStatus (16-bit, little-endian)
     //   Byte 5-7: Reserved
     memset(data, 0, 8);
     
-    // Read CBSTATUS from BMS1 - shows which cells are ACTUALLY balancing
-    status = BQ_GetCBStatus(&hi2c1, BQ76952_I2C_ADDR_BMS1, &cbstatus1, &cbstatus2, &cbstatus3);
+        // Read CB_ACTIVE_CELLS from BMS1 - actual active balance mask per the BQ76952 TRM
+        status = BQ_GetBalanceCells(&hi2c1, BQ76952_I2C_ADDR_BMS1, &active_cells);
     if (status == HAL_OK) {
-        data[0] = cbstatus1;  // Cells 1-8 actually balancing (bit per cell)
-        data[1] = cbstatus2;  // Cell 9 in bit 0
-        data[2] = cbstatus3;  // Status flags
+                data[0] = (uint8_t)(active_cells & 0xFF);
+                data[1] = (uint8_t)((active_cells >> 8) & 0xFF);
     }
     
     // Read AlarmRawStatus from BMS1
@@ -619,14 +733,13 @@ HAL_StatusTypeDef BalanceMgr_SendDetailedStatus(void)
     // --- BMS2 Detail ---
     memset(data, 0, 8);
     alarm_raw = 0;
-    cbstatus1 = cbstatus2 = cbstatus3 = 0;
+    active_cells = 0;
     
-    // Read CBSTATUS from BMS2 - shows which cells are ACTUALLY balancing
-    status = BQ_GetCBStatus(&hi2c3, BQ76952_I2C_ADDR_BMS2, &cbstatus1, &cbstatus2, &cbstatus3);
+    // Read CB_ACTIVE_CELLS from BMS2 - actual active balance mask per the BQ76952 TRM
+    status = BQ_GetBalanceCells(&hi2c3, BQ76952_I2C_ADDR_BMS2, &active_cells);
     if (status == HAL_OK) {
-        data[0] = cbstatus1;  // Cells 10-17 actually balancing (bit per cell)
-        data[1] = cbstatus2;  // Cell 18 in bit 0
-        data[2] = cbstatus3;  // Status flags
+        data[0] = (uint8_t)(active_cells & 0xFF);
+        data[1] = (uint8_t)((active_cells >> 8) & 0xFF);
     }
     
     // Read AlarmRawStatus from BMS2

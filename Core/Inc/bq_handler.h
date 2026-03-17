@@ -207,6 +207,13 @@ HAL_StatusTypeDef BQ_ResetChips(void);
 HAL_StatusTypeDef BQ_WakeChips(void);
 
 /**
+  * @brief  Wake both BQ76952 chips and disable sleep mode (RTOS-safe)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR/HAL_TIMEOUT on failure
+  * @note   Uses I2C mutexes and osDelay, intended for runtime use after scheduler start.
+  */
+HAL_StatusTypeDef BQ_WakeChipsRTOS(void);
+
+/**
   * @brief  Enable or disable fault reporting from BQ handler
   * @param  enabled: 1 to enable fault reporting, 0 to disable
   * @retval None

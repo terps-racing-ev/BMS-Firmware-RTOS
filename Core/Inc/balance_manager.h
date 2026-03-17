@@ -47,6 +47,7 @@ extern "C" {
 #define BALANCE_CFG_TIMEOUT_MS      5000    /**< Balance config timeout (5 seconds) */
 #define BALANCE_REEVALUATE_MS       40000   /**< Re-evaluate cell selection (40 seconds) */
 #define BALANCE_REFRESH_MS          5000    /**< Refresh CB_ACTIVE_CELLS command (5 seconds) */
+#define BALANCE_OCV_SETTLE_MS       5000    /**< OCV settling delay before selecting cells (5 seconds) */
 #define BALANCE_STATUS_INTERVAL_MS  1000    /**< Send balance status every 1 second */
 
 #define BALANCE_MAX_CELLS_PER_CHIP  9       /**< Maximum cells that can be balanced per chip */
@@ -63,6 +64,8 @@ extern "C" {
 typedef struct {
     uint16_t target_voltage_mv;     /**< Target voltage in mV - cells above this are balanced */
     uint8_t max_cells_per_chip;     /**< Maximum cells to balance per BMS chip */
+    bool bms1_enabled;              /**< Whether balancing is enabled for BMS1 */
+    bool bms2_enabled;              /**< Whether balancing is enabled for BMS2 */
     uint32_t last_config_tick;      /**< Tick of last config message received */
     bool config_valid;              /**< Whether config has been received */
 } Balance_Config_t;
@@ -89,10 +92,12 @@ HAL_StatusTypeDef BalanceMgr_Init(void);
 
 /**
   * @brief  Process balance enable command received via CAN
+  * @param  bms1_enable: 1 to enable balancing on BMS1, 0 to disable
+  * @param  bms2_enable: 1 to enable balancing on BMS2, 0 to disable
   * @note   This refreshes the balance timeout and attempts to enter/stay in balance mode
   * @retval uint8_t: Status code (BALANCE_STATUS_*)
   */
-uint8_t BalanceMgr_ProcessCommand(void);
+uint8_t BalanceMgr_ProcessCommand(uint8_t bms1_enable, uint8_t bms2_enable);
 
 /**
   * @brief  Process balance configuration received via CAN
@@ -125,7 +130,7 @@ HAL_StatusTypeDef BalanceMgr_SendStatus(void);
 
 /**
   * @brief  Send detailed balance readback from each BMS chip via CAN
-  * @note   Reads CBSTATUS, CB_ACTIVE_CELLS, and AlarmRawStatus from each chip
+  * @note   Reads CB_ACTIVE_CELLS and AlarmRawStatus from each chip
   *         and sends as separate CAN messages for BMS1 and BMS2
   * @retval HAL_StatusTypeDef
   */

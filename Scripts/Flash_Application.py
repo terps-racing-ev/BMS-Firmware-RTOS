@@ -66,6 +66,16 @@ class CANAdapter(ABC):
         """Clear the receive queue"""
         pass
 
+    @abstractmethod
+    def set_filters(self, can_id: int, mask: int = 0x1FFFFFFF, extended: bool = True):
+        """Set receive filters to only accept messages matching can_id/mask"""
+        pass
+
+    @abstractmethod
+    def clear_filters(self):
+        """Remove all receive filters (accept all messages)"""
+        pass
+
 
 class PCANAdapter(CANAdapter):
     """Adapter wrapper for PCAN driver"""
@@ -102,6 +112,14 @@ class PCANAdapter(CANAdapter):
     def clear_receive_queue(self) -> bool:
         return self.driver.clear_receive_queue()
 
+    def set_filters(self, can_id: int, mask: int = 0x1FFFFFFF, extended: bool = True):
+        if self.driver._bus:
+            self.driver._bus.set_filters([{"can_id": can_id, "can_mask": mask, "extended": extended}])
+
+    def clear_filters(self):
+        if self.driver._bus:
+            self.driver._bus.set_filters(None)
+
 
 class CANableAdapter(CANAdapter):
     """Adapter wrapper for CANable driver"""
@@ -137,6 +155,14 @@ class CANableAdapter(CANAdapter):
 
     def clear_receive_queue(self) -> bool:
         return self.driver.clear_receive_queue()
+
+    def set_filters(self, can_id: int, mask: int = 0x1FFFFFFF, extended: bool = True):
+        if self.driver._bus:
+            self.driver._bus.set_filters([{"can_id": can_id, "can_mask": mask, "extended": extended}])
+
+    def clear_filters(self):
+        if self.driver._bus:
+            self.driver._bus.set_filters(None)
 
 
 # ============================================================================
@@ -268,6 +294,11 @@ class CANBootloaderFlash:
 
         self.connected = True
 
+        # Set receive filter to only accept bootloader responses
+        # This prevents other modules' traffic from flooding the receive buffer
+        self.driver.set_filters(CAN_BOOTLOADER_ID, mask=0x1FFFFFFF, extended=True)
+        print("✓ CAN filter set for bootloader ID 0x{:08X}".format(CAN_BOOTLOADER_ID))
+
         # Clear receive queue
         self.driver.clear_receive_queue()
 
@@ -303,6 +334,7 @@ class CANBootloaderFlash:
     def wait_response(self, timeout: float = RESPONSE_TIMEOUT) -> Optional[CANMessage]:
         """
         Wait for a response from bootloader.
+        Ignores all CAN messages not from the bootloader ID.
         
         Args:
             timeout: Maximum time to wait in seconds
@@ -313,10 +345,16 @@ class CANBootloaderFlash:
         start_time = time.time()
         
         while (time.time() - start_time) < timeout:
-            msg = self.driver.read_message(timeout=0.1)
+            remaining = timeout - (time.time() - start_time)
+            if remaining <= 0:
+                break
+            msg = self.driver.read_message(timeout=min(0.05, remaining))
             
-            if msg and msg.id == CAN_BOOTLOADER_ID:
+            if msg is None:
+                continue
+            if msg.id == CAN_BOOTLOADER_ID:
                 return msg
+            # Silently discard non-bootloader messages
         
         return None
     
@@ -340,14 +378,20 @@ class CANBootloaderFlash:
         start_time = time.time()
         
         while (time.time() - start_time) < timeout:
-            msg = self.driver.read_message(timeout=0.1)
+            remaining = timeout - (time.time() - start_time)
+            if remaining <= 0:
+                break
+            msg = self.driver.read_message(timeout=min(0.05, remaining))
             
-            if msg and msg.id == CAN_BOOTLOADER_ID:
-                if len(msg.data) > 0 and msg.data[0] == RESP_READY:
-                    version = msg.data[1] if len(msg.data) > 1 else 0
-                    if self.verbose:
-                        print(f"✓ Bootloader READY (version: {version})")
-                    return True
+            if msg is None:
+                continue
+            if msg.id != CAN_BOOTLOADER_ID:
+                continue  # Ignore non-bootloader traffic
+            if len(msg.data) > 0 and msg.data[0] == RESP_READY:
+                version = msg.data[1] if len(msg.data) > 1 else 0
+                if self.verbose:
+                    print(f"✓ Bootloader READY (version: {version})")
+                return True
         
         if self.verbose:
             print("⚠ No READY message received (bootloader may already be running)")
@@ -834,7 +878,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog='''
 Examples:
-  python Flash_Application.py --module 0                              # Use default build path, module 0
+  python Flash_Application.py --module 0                              # Flash module 0
+  python Flash_Application.py --module 0,1,2                          # Flash modules 0, 1, 2 sequentially
+  python Flash_Application.py --module all                            # Flash all modules 0-5
   python Flash_Application.py --module 0 application.bin              # Specify firmware file
   python Flash_Application.py --module 0 --adapter canable --channel 0
   python Flash_Application.py --module 0 --no-jump
@@ -861,8 +907,8 @@ Examples:
                        help='Only get bootloader status and exit')
     parser.add_argument('--list-devices', action='store_true',
                        help='List available CAN devices and exit')
-    parser.add_argument('--module', type=int, required=True,
-                       help='BMS module ID (0-5) for reset command')
+    parser.add_argument('--module', type=str, required=True,
+                       help='BMS module ID(s): single (0), comma-separated (0,1,2), or "all" for modules 0-5')
 
     args = parser.parse_args()
 
@@ -877,6 +923,27 @@ Examples:
     print(f"Version: 2.0")
     print(f"Date: October 15, 2025")
     print("="*60 + "\n")
+
+    # Parse module argument: single ID, comma-separated list, or 'all'
+    module_ids = []
+    if args.module.strip().lower() == 'all':
+        module_ids = list(range(6))  # 0-5
+    else:
+        try:
+            for part in args.module.split(','):
+                mid = int(part.strip())
+                if mid < 0 or mid > 5:
+                    print(f"✗ Invalid module ID: {mid} (must be 0-5)")
+                    return 1
+                if mid not in module_ids:
+                    module_ids.append(mid)
+        except ValueError:
+            print(f"✗ Invalid module argument: '{args.module}' (use 0-5, comma-separated, or 'all')")
+            return 1
+
+    if not module_ids:
+        print("✗ No module IDs specified")
+        return 1
 
     # List devices if requested
     if args.list_devices:
@@ -954,46 +1021,69 @@ Examples:
             status = flasher.get_status()
             return 0 if status else 1
 
-        # Validate module ID
-        if args.module < 0 or args.module > 5:
-            print(f"✗ Invalid module ID: {args.module} (must be 0-5)")
-            return 1
-        
-        # Clear any stale messages BEFORE sending reset
-        flasher.driver.clear_receive_queue()
-        
-        # Send BMS reset command to enter bootloader
-        if not flasher.send_bms_reset_command(args.module):
-            print("✗ Failed to send BMS reset command")
-            return 1
-        
-        # Wait for bootloader ready message (DO NOT clear queue - READY comes right after reset)
-        if not flasher.wait_for_bootloader_ready(timeout=3.0):
-            print("⚠ Warning: No READY message received")
-            print("  Continuing anyway - bootloader may already be running...")
-
-        # Flash firmware
-        print(f"Firmware file: {firmware_path}")
-        print(f"CAN adapter:   {adapter_name}")
+        print(f"Modules to flash: {module_ids}")
+        print(f"Firmware file:    {firmware_path}")
+        print(f"CAN adapter:      {adapter_name}")
         print(f"Read-back verify: {'Yes' if args.verify else 'No'}")
-        print(f"Jump to app:   {'Yes' if args.jump else 'No'}")
-        
-        success = flasher.flash_firmware(
-            firmware_path,
-            verify=args.verify,
-            jump=args.jump
-        )
-        
-        if success:
-            print("\n" + "="*60)
-            print("✓ FLASHING COMPLETED SUCCESSFULLY!")
-            print("="*60 + "\n")
-            return 0
-        else:
-            print("\n" + "="*60)
-            print("✗ FLASHING FAILED")
-            print("="*60 + "\n")
-            return 1
+        print(f"Jump to app:      {'Yes' if args.jump else 'No'}")
+
+        succeeded = []
+        failed = []
+
+        for i, module_id in enumerate(module_ids):
+            print(f"\n{'#'*60}")
+            print(f"# Module {module_id}  ({i+1}/{len(module_ids)})")
+            print(f"{'#'*60}")
+
+            # Clear any stale messages BEFORE sending reset
+            flasher.driver.clear_receive_queue()
+            
+            # Send BMS reset command to enter bootloader
+            if not flasher.send_bms_reset_command(module_id):
+                print(f"✗ Failed to send BMS reset command to module {module_id}")
+                failed.append(module_id)
+                continue
+            
+            # Wait for bootloader ready message
+            if not flasher.wait_for_bootloader_ready(timeout=3.0):
+                print("⚠ Warning: No READY message received")
+                print("  Continuing anyway - bootloader may already be running...")
+
+            # Flash firmware
+            success = flasher.flash_firmware(
+                firmware_path,
+                verify=args.verify,
+                jump=args.jump
+            )
+            
+            if success:
+                print(f"\n✓ Module {module_id} flashed successfully!")
+                succeeded.append(module_id)
+            else:
+                print(f"\n✗ Module {module_id} flashing FAILED — aborting.")
+                failed.append(module_id)
+                # Remaining modules are not attempted
+                remaining = module_ids[i+1:]
+                if remaining:
+                    print(f"  Skipped modules: {remaining}")
+                break
+
+            # Brief delay between modules to let the just-flashed module boot
+            if i < len(module_ids) - 1:
+                print("\nWaiting before next module...")
+                time.sleep(1.0)
+
+        # Print summary
+        print(f"\n{'='*60}")
+        print("FLASH SUMMARY")
+        print(f"{'='*60}")
+        if succeeded:
+            print(f"✓ Succeeded: {succeeded}")
+        if failed:
+            print(f"✗ Failed:    {failed}")
+        print(f"{'='*60}\n")
+
+        return 0 if not failed else 1
     
     except KeyboardInterrupt:
         print("\n\n✗ Interrupted by user")

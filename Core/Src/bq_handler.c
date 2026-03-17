@@ -1197,6 +1197,53 @@ HAL_StatusTypeDef BQ_WakeChips(void)
 }
 
 /**
+  * @brief  Wake both BQ76952 chips and disable sleep mode (RTOS-safe)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR/HAL_TIMEOUT on failure
+  * @note   Uses I2C mutexes and osDelay, intended for runtime use after scheduler start.
+  */
+HAL_StatusTypeDef BQ_WakeChipsRTOS(void)
+{
+    HAL_StatusTypeDef status;
+    uint8_t tx_buf[3];
+
+    tx_buf[0] = 0x3E;
+    tx_buf[1] = (uint8_t)(SLEEP_DISABLE & 0xFF);
+    tx_buf[2] = (uint8_t)((SLEEP_DISABLE >> 8) & 0xFF);
+
+    if (I2C1Handle != NULL) {
+        if (osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS) != osOK) {
+            return HAL_ERROR;
+        }
+    }
+
+    status = HAL_I2C_Master_Transmit(&hi2c1, (BQ76952_I2C_ADDR_BMS1 << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+
+    if (I2C1Handle != NULL) {
+        osMutexRelease(I2C1Handle);
+    }
+
+    if (status != HAL_OK) {
+        return status;
+    }
+
+    osDelay(2);
+
+    if (I2C3Handle != NULL) {
+        if (osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS) != osOK) {
+            return HAL_ERROR;
+        }
+    }
+
+    status = HAL_I2C_Master_Transmit(&hi2c3, (BQ76952_I2C_ADDR_BMS2 << 1), tx_buf, 3, I2C_TIMEOUT_MS);
+
+    if (I2C3Handle != NULL) {
+        osMutexRelease(I2C3Handle);
+    }
+
+    return status;
+}
+
+/**
   * @brief  Get last I2C1 error code for diagnostics
   * @retval uint32_t: HAL I2C error code
   */
