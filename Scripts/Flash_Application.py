@@ -2,8 +2,9 @@
 import sys
 import time
 import argparse
+import binascii
 from pathlib import Path
-from typing import Optional, Tuple, Union
+from typing import List, Optional, Tuple, Union
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 
@@ -181,6 +182,9 @@ CMD_JUMP_TO_APP = 0x04
 CMD_GET_STATUS = 0x05
 CMD_SET_ADDRESS = 0x06
 CMD_WRITE_DATA = 0x07
+CMD_GET_ACTIVE_BANK = 0x08
+CMD_SET_IMAGE_INFO = 0x09
+CMD_VERIFY_BANK = 0x0A
 
 # Responses
 RESP_ACK = 0x10
@@ -208,10 +212,12 @@ ERR_FLASH_WRITE_FAILED = 0x04
 ERR_INVALID_DATA_LENGTH = 0x05
 ERR_NO_VALID_APP = 0x06
 ERR_TIMEOUT = 0x07
+ERR_CRC_MISMATCH = 0x08
 
 # Memory Configuration
-APP_START_ADDRESS = 0x08008000
-APP_MAX_SIZE = 208 * 1024  # 208 KB (last 16KB reserved for permanent storage)
+BANK_A_ADDRESS = 0x08008000
+BANK_B_ADDRESS = 0x08022000
+BANK_SIZE = 104 * 1024
 
 # Timing
 RESPONSE_TIMEOUT = 1.0       # Normal response timeout (seconds)
@@ -234,7 +240,8 @@ ERROR_DESCRIPTIONS = {
     ERR_FLASH_WRITE_FAILED: "Flash write failed",
     ERR_INVALID_DATA_LENGTH: "Invalid data length",
     ERR_NO_VALID_APP: "No valid application",
-    ERR_TIMEOUT: "Operation timeout"
+    ERR_TIMEOUT: "Operation timeout",
+    ERR_CRC_MISMATCH: "CRC mismatch"
 }
 
 
@@ -254,6 +261,25 @@ class BootloaderStatus:
         state_name = states[self.state] if self.state < len(states) else 'UNKNOWN'
         error_desc = ERROR_DESCRIPTIONS.get(self.error, f'Unknown error {self.error}')
         return f"State: {state_name}, Error: {error_desc}, Bytes Written: {self.bytes_written}"
+
+
+@dataclass
+class BankStatus:
+    active_bank: int
+    bank_a_valid: int
+    bank_b_valid: int
+
+    @property
+    def inactive_bank(self) -> int:
+        return 1 if self.active_bank == 0 else 0
+
+    @property
+    def inactive_start_address(self) -> int:
+        return BANK_B_ADDRESS if self.active_bank == 0 else BANK_A_ADDRESS
+
+    def __str__(self):
+        active_name = 'A' if self.active_bank == 0 else 'B'
+        return f"Active bank: {active_name}, valid(A/B): {self.bank_a_valid}/{self.bank_b_valid}"
 
 
 # ============================================================================
@@ -499,6 +525,80 @@ class CANBootloaderFlash:
         else:
             print(f"✗ Unexpected response: 0x{resp.data[0]:02X}")
             return False
+
+    def get_active_bank(self) -> Optional[BankStatus]:
+        """Query active bank and validity flags from bootloader."""
+        if self.verbose:
+            print("Querying active bank...")
+
+        if not self.send_command(CMD_GET_ACTIVE_BANK, []):
+            return None
+
+        resp = self.wait_response()
+        if not resp or len(resp.data) < 4:
+            if self.verbose:
+                print("✗ No response or invalid response")
+            return None
+
+        if resp.data[0] == RESP_DATA:
+            status = BankStatus(
+                active_bank=resp.data[1],
+                bank_a_valid=resp.data[2],
+                bank_b_valid=resp.data[3],
+            )
+            if self.verbose:
+                print(f"✓ {status}")
+            return status
+
+        return None
+
+    def set_image_info(self, crc32: int, image_size: int) -> bool:
+        """Send expected CRC32 and image size for the just-flashed inactive bank."""
+        if image_size <= 0 or image_size > BANK_SIZE:
+            print(f"✗ Invalid image size: {image_size}")
+            return False
+
+        payload = [
+            (crc32 >> 24) & 0xFF,
+            (crc32 >> 16) & 0xFF,
+            (crc32 >> 8) & 0xFF,
+            crc32 & 0xFF,
+            (image_size >> 16) & 0xFF,
+            (image_size >> 8) & 0xFF,
+            image_size & 0xFF,
+        ]
+
+        if not self.send_command(CMD_SET_IMAGE_INFO, payload):
+            return False
+
+        resp = self.wait_response()
+        if not resp:
+            return False
+
+        if resp.data[0] == RESP_ACK:
+            return True
+
+        if resp.data[0] == RESP_NACK:
+            error_code = resp.data[1] if len(resp.data) > 1 else 0
+            print(f"✗ Set image info failed: {ERROR_DESCRIPTIONS.get(error_code, f'Error {error_code}')}")
+        return False
+
+    def verify_inactive_bank_crc(self) -> bool:
+        """Trigger bootloader-side CRC verification on the inactive bank."""
+        if not self.send_command(CMD_VERIFY_BANK, []):
+            return False
+
+        resp = self.wait_response(timeout=ERASE_TIMEOUT)
+        if not resp:
+            return False
+
+        if resp.data[0] == RESP_ACK:
+            return True
+
+        if resp.data[0] == RESP_NACK:
+            error_code = resp.data[1] if len(resp.data) > 1 else 0
+            print(f"✗ Verify failed: {ERROR_DESCRIPTIONS.get(error_code, f'Error {error_code}')}")
+        return False
     
     def set_address(self, address: int) -> bool:
         """
@@ -634,7 +734,7 @@ class CANBootloaderFlash:
             data = data + b'\xFF' * padding_needed
         return data
     
-    def write_firmware(self, firmware_data: bytes) -> bool:
+    def write_firmware(self, firmware_data: bytes, start_address: int) -> bool:
         """
         Write complete firmware to flash using 4-byte chunks.
         
@@ -657,7 +757,7 @@ class CANBootloaderFlash:
         print()
         
         # Set initial address
-        if not self.set_address(APP_START_ADDRESS):
+        if not self.set_address(start_address):
             print("✗ Failed to set initial address")
             return False
         
@@ -701,7 +801,7 @@ class CANBootloaderFlash:
         
         return True
     
-    def verify_flash(self, expected_data: bytes) -> bool:
+    def verify_flash(self, expected_data: bytes, start_address: int) -> bool:
         """
         Verify flashed data by reading back and comparing.
         
@@ -715,7 +815,7 @@ class CANBootloaderFlash:
         print("Verifying flash contents...")
         print("="*60)
         
-        address = APP_START_ADDRESS
+        address = start_address
         bytes_verified = 0
         chunk_size = 4  # Read 4 bytes at a time for consistency with write
         
@@ -760,6 +860,42 @@ class CANBootloaderFlash:
         print(f"  Total time: {elapsed:.1f}s\n")
         
         return True
+
+    @staticmethod
+    def select_firmware_for_bank(input_path: Path, target_bank: int) -> Optional[Path]:
+        """Pick bank-specific firmware when _a/_b artifacts exist."""
+        target_suffix = '_a' if target_bank == 0 else '_b'
+        other_suffix = '_b' if target_bank == 0 else '_a'
+
+        def candidates_for(base_path: Path, suffix: str) -> List[Path]:
+            stem = base_path.stem
+            variants = []
+            if stem.endswith('-debug'):
+                root = stem[:-6]
+                variants.append(base_path.with_name(root + suffix + '-debug' + base_path.suffix))
+            elif stem.endswith('-release'):
+                root = stem[:-8]
+                variants.append(base_path.with_name(root + suffix + '-release' + base_path.suffix))
+            variants.append(base_path.with_name(stem + suffix + base_path.suffix))
+            return variants
+
+        stem = input_path.stem
+        if stem.endswith(target_suffix):
+            return input_path
+
+        if stem.endswith(other_suffix):
+            candidate = input_path.with_name(stem[:-2] + target_suffix + input_path.suffix)
+            if candidate.exists():
+                return candidate
+
+        for candidate in candidates_for(input_path, target_suffix):
+            if candidate.exists():
+                return candidate
+
+        if input_path.exists():
+            return input_path
+
+        return None
     
     def jump_to_application(self) -> bool:
         """
@@ -809,30 +945,44 @@ class CANBootloaderFlash:
         Returns:
             True if flashing successful
         """
+        bank_status = self.get_active_bank()
+        if not bank_status:
+            print("✗ Failed to query active bank")
+            return False
+
+        target_bank = bank_status.inactive_bank
+        target_address = bank_status.inactive_start_address
+        selected_firmware = self.select_firmware_for_bank(firmware_path, target_bank)
+        if not selected_firmware or not selected_firmware.exists():
+            print("✗ Could not resolve firmware file for inactive bank")
+            return False
+
+        target_name = 'A' if target_bank == 0 else 'B'
+
         # Read firmware file
         print(f"\n{'='*60}")
-        print(f"Loading firmware: {firmware_path.name}")
+        print(f"Loading firmware: {selected_firmware.name}")
         print(f"{'='*60}")
+        print(f"Target bank: {target_name} @ 0x{target_address:08X}")
         
         try:
-            firmware_data = firmware_path.read_bytes()
+            firmware_data = selected_firmware.read_bytes()
             original_size = len(firmware_data)
 
-            # Truncate to APP_MAX_SIZE if larger (last 16KB reserved for permanent storage)
-            if original_size > APP_MAX_SIZE:
-                print(f"⚠ Firmware size ({original_size} bytes) exceeds {APP_MAX_SIZE} bytes")
-                print(f"  Truncating to {APP_MAX_SIZE} bytes (last 16KB reserved for permanent storage)")
-                firmware_data = firmware_data[:APP_MAX_SIZE]
-                original_size = len(firmware_data)
+            if original_size > BANK_SIZE:
+                print(f"✗ Firmware size ({original_size} bytes) exceeds bank size {BANK_SIZE} bytes")
+                return False
 
             # Pad to 4-byte boundary (ensures 8-byte alignment)
             firmware_data = self.pad_to_4byte_boundary(firmware_data)
+            crc32 = binascii.crc32(firmware_data) & 0xFFFFFFFF
 
             print(f"✓ Loaded {original_size} bytes ({original_size/1024:.2f} KB)")
             if len(firmware_data) != original_size:
                 print(f"  Padded to {len(firmware_data)} bytes (4-byte aligned)\n")
             else:
                 print()
+            print(f"Expected CRC32: 0x{crc32:08X}")
         except Exception as e:
             print(f"✗ Failed to read firmware file: {e}")
             return False
@@ -848,12 +998,20 @@ class CANBootloaderFlash:
             return False
         
         # Write firmware
-        if not self.write_firmware(firmware_data):
+        if not self.write_firmware(firmware_data, target_address):
+            return False
+
+        # Bootloader-side CRC verification
+        if not self.set_image_info(crc32, len(firmware_data)):
+            print("✗ Failed to send image info")
+            return False
+
+        if not self.verify_inactive_bank_crc():
             return False
         
         # Verify by reading back
         if verify:
-            if not self.verify_flash(firmware_data):
+            if not self.verify_flash(firmware_data, target_address):
                 print("⚠ Warning: Flash verification failed")
                 return False
         

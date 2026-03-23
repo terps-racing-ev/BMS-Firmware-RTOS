@@ -2,6 +2,25 @@
 	"version": "2.0.0",
 	"tasks": [
         {
+            "label": "Build App A+B",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-f",
+                "dual_build.mk"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
             "label": "Build STM",
             "type": "process",
             "command": "${command:stm32-for-vscode.build}",
@@ -10,7 +29,7 @@
             },
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
             "problemMatcher": [
                 "$gcc"
@@ -25,7 +44,7 @@
             },
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
             "problemMatcher": [
                 "$gcc"
@@ -40,7 +59,7 @@
             },
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
             "problemMatcher": [
                 "$gcc"
