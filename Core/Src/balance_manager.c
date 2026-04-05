@@ -38,6 +38,9 @@ extern uint32_t CAN_BALANCE_STATUS_ID;
 extern uint32_t CAN_BMS1_BAL_DETAIL_ID;
 extern uint32_t CAN_BMS2_BAL_DETAIL_ID;
 
+#define BALANCE_LED_Pin GPIO_PIN_3
+#define BALANCE_LED_GPIO_Port GPIOB
+
 /* Private variables ---------------------------------------------------------*/
 static uint32_t last_balance_cmd_tick = 0;      /**< Tick of last balance enable command */
 static uint32_t last_balance_cfg_tick = 0;      /**< Tick of last balance config message */
@@ -69,6 +72,8 @@ static const osMutexAttr_t balance_mutex_attributes = {
 static uint16_t SelectCellsToBalance(uint16_t *voltages, uint8_t num_cells, 
                                       uint16_t target_mv, uint8_t max_cells);
 static uint8_t CountBits(uint16_t value);
+static void BalanceLed_Init(void);
+static void BalanceLed_Update(void);
 static void SendStoppedDetailMessages(void);
 
 /* Function Implementations --------------------------------------------------*/
@@ -79,6 +84,8 @@ static void SendStoppedDetailMessages(void);
   */
 HAL_StatusTypeDef BalanceMgr_Init(void)
 {
+    BalanceLed_Init();
+
     last_balance_cmd_tick = 0;
     last_balance_cfg_tick = 0;
     last_reevaluate_tick = 0;
@@ -98,6 +105,7 @@ HAL_StatusTypeDef BalanceMgr_Init(void)
     
     // Clear status
     memset(&balance_status, 0, sizeof(Balance_Status_t));
+    BalanceLed_Update();
     
     // Create mutex for thread-safe access
     balance_mutex = osMutexNew(&balance_mutex_attributes);
@@ -163,6 +171,7 @@ uint8_t BalanceMgr_ProcessCommand(uint8_t bms1_enable, uint8_t bms2_enable)
         last_balance_cmd_tick = osKernelGetTickCount();
         balance_timeout_active = true;
         status = BALANCE_STATUS_SUCCESS;
+        BalanceLed_Update();
     }
     else if (current_state == BMS_STATE_IDLE || current_state == BMS_STATE_CHARGING) {
         // Allowed to enter balancing mode
@@ -185,6 +194,7 @@ uint8_t BalanceMgr_ProcessCommand(uint8_t bms1_enable, uint8_t bms2_enable)
         ocv_settle_start_tick = 0;
         balance_timeout_active = true;
         status = BALANCE_STATUS_SUCCESS;
+        BalanceLed_Update();
     }
     else {
         // Not in a valid state to enter balancing
@@ -267,6 +277,7 @@ void BalanceMgr_CheckTimeout(void)
             ocv_settle_start_tick = 0;
             last_balance_cmd_tick = 0;
             last_balance_cfg_tick = 0;
+            BalanceLed_Update();
         }
         
         // Check config timeout (5 seconds) - if config was received but stopped
@@ -288,6 +299,7 @@ void BalanceMgr_CheckTimeout(void)
                 balance_status.bms2_active_cells = 0;
                 balance_status.bms1_cell_count = 0;
                 balance_status.bms2_cell_count = 0;
+                BalanceLed_Update();
 
                 // Send an immediate final detail update showing all balancing off.
                 SendStoppedDetailMessages();
@@ -315,6 +327,40 @@ static uint8_t CountBits(uint16_t value)
         value >>= 1;
     }
     return count;
+}
+
+/**
+  * @brief  Initialize the Nucleo balance activity LED GPIO
+  * @retval None
+  */
+static void BalanceLed_Init(void)
+{
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    HAL_GPIO_WritePin(BALANCE_LED_GPIO_Port, BALANCE_LED_Pin, GPIO_PIN_RESET);
+
+    GPIO_InitStruct.Pin = BALANCE_LED_Pin;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    HAL_GPIO_Init(BALANCE_LED_GPIO_Port, &GPIO_InitStruct);
+}
+
+/**
+  * @brief  Update the Nucleo balance activity LED state
+  * @retval None
+  */
+static void BalanceLed_Update(void)
+{
+    GPIO_PinState led_state = GPIO_PIN_RESET;
+
+    if ((StateMachine_GetState() == BMS_STATE_BALANCING) &&
+        ((balance_status.bms1_active_cells != 0U) || (balance_status.bms2_active_cells != 0U))) {
+        led_state = GPIO_PIN_SET;
+    }
+
+    HAL_GPIO_WritePin(BALANCE_LED_GPIO_Port, BALANCE_LED_Pin, led_state);
 }
 
 /**
@@ -486,6 +532,7 @@ void BalanceMgr_Execute(void)
         balance_status.bms2_cell_count = 0;
         ocv_settling = true;
         ocv_settle_start_tick = current_tick;
+        BalanceLed_Update();
         osMutexRelease(balance_mutex);
         return;
     }
@@ -535,6 +582,7 @@ void BalanceMgr_Execute(void)
 
         last_reevaluate_tick = current_tick;
         last_refresh_tick = current_tick;  // Also counts as a refresh
+        BalanceLed_Update();
     }
     else if (should_refresh) {
         // Just refresh the CB_ACTIVE_CELLS command with same cell selection
@@ -547,6 +595,7 @@ void BalanceMgr_Execute(void)
         }
         
         last_refresh_tick = current_tick;
+        BalanceLed_Update();
     }
     
     // Update status with current config
@@ -674,6 +723,7 @@ void BalanceMgr_StopBalancing(void)
         ocv_settling = false;
         ocv_settle_start_tick = 0;
         config_received = false;
+        BalanceLed_Update();
         osMutexRelease(balance_mutex);
     }
 
