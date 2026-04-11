@@ -283,6 +283,16 @@ BO_ 2297430535 BMS2_Chip_Status_0: 8 BMS_Module_0
  SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
+BO_ 2297430536 BMS1_Voltage_Summary_0: 6 BMS_Module_0
+ SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
+BO_ 2297430537 BMS2_Voltage_Summary_0: 6 BMS_Module_0
+ SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
 // ============== Module 1 (Thermistors 56-111) ==============
 
 BO_ 2297437952 BMS_Config_Command_1: 8 CAN_Host
@@ -518,6 +528,16 @@ BO_ 2297434631 BMS2_Chip_Status_1: 8 BMS_Module_1
  SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
+BO_ 2297434632 BMS1_Voltage_Summary_1: 6 BMS_Module_1
+ SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
+BO_ 2297434633 BMS2_Voltage_Summary_1: 6 BMS_Module_1
+ SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
 // ============== Module 2 (Thermistors 112-167) ==============
 
@@ -755,6 +775,16 @@ BO_ 2297438727 BMS2_Chip_Status_2: 8 BMS_Module_2
  SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
+BO_ 2297438728 BMS1_Voltage_Summary_2: 6 BMS_Module_2
+ SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
+BO_ 2297438729 BMS2_Voltage_Summary_2: 6 BMS_Module_2
+ SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
 // ============== Module 3 (Thermistors 168-223) ==============
 
 BO_ 2297446144 BMS_Config_Command_3: 8 CAN_Host
@@ -990,6 +1020,16 @@ BO_ 2297442823 BMS2_Chip_Status_3: 8 BMS_Module_3
  SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
+BO_ 2297442824 BMS1_Voltage_Summary_3: 6 BMS_Module_3
+ SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
+BO_ 2297442825 BMS2_Voltage_Summary_3: 6 BMS_Module_3
+ SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
 // ============== Module 4 (Thermistors 224-279) ==============
 
@@ -1227,6 +1267,16 @@ BO_ 2297446919 BMS2_Chip_Status_4: 8 BMS_Module_4
  SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
+BO_ 2297446920 BMS1_Voltage_Summary_4: 6 BMS_Module_4
+ SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
+BO_ 2297446921 BMS2_Voltage_Summary_4: 6 BMS_Module_4
+ SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
 // ============== Module 5 (Thermistors 280-335) ==============
 
 BO_ 2297454336 BMS_Config_Command_5: 8 CAN_Host
@@ -1463,6 +1513,16 @@ BO_ 2297451015 BMS2_Chip_Status_5: 8 BMS_Module_5
  SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
  SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
+BO_ 2297451016 BMS1_Voltage_Summary_5: 6 BMS_Module_5
+ SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
+BO_ 2297451017 BMS2_Voltage_Summary_5: 6 BMS_Module_5
+ SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
+ SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
+
 CM_ BO_ 2297433872 "Debug info request broadcast to all modules";
 CM_ BO_ 204 "Current sensor node data: LC/HC currents, 0.1A signed little-endian";
 
@@ -1507,6 +1567,8 @@ BA_ "VFrameFormat" BO_ 2297430532 1;
 BA_ "VFrameFormat" BO_ 2297430533 1;
 BA_ "VFrameFormat" BO_ 2297430534 1;
 BA_ "VFrameFormat" BO_ 2297430535 1;
+BA_ "VFrameFormat" BO_ 2297430536 1;
+BA_ "VFrameFormat" BO_ 2297430537 1;
 BA_ "VFrameFormat" BO_ 2297437952 1;
 BA_ "VFrameFormat" BO_ 2297437953 1;
 BA_ "VFrameFormat" BO_ 2297437954 1;
@@ -1545,6 +1607,8 @@ BA_ "VFrameFormat" BO_ 2297434628 1;
 BA_ "VFrameFormat" BO_ 2297434629 1;
 BA_ "VFrameFormat" BO_ 2297434630 1;
 BA_ "VFrameFormat" BO_ 2297434631 1;
+BA_ "VFrameFormat" BO_ 2297434632 1;
+BA_ "VFrameFormat" BO_ 2297434633 1;
 BA_ "VFrameFormat" BO_ 2297442048 1;
 BA_ "VFrameFormat" BO_ 2297442049 1;
 BA_ "VFrameFormat" BO_ 2297442050 1;
@@ -1583,6 +1647,8 @@ BA_ "VFrameFormat" BO_ 2297438724 1;
 BA_ "VFrameFormat" BO_ 2297438725 1;
 BA_ "VFrameFormat" BO_ 2297438726 1;
 BA_ "VFrameFormat" BO_ 2297438727 1;
+BA_ "VFrameFormat" BO_ 2297438728 1;
+BA_ "VFrameFormat" BO_ 2297438729 1;
 BA_ "VFrameFormat" BO_ 2297446144 1;
 BA_ "VFrameFormat" BO_ 2297446145 1;
 BA_ "VFrameFormat" BO_ 2297446146 1;
@@ -1621,6 +1687,8 @@ BA_ "VFrameFormat" BO_ 2297442820 1;
 BA_ "VFrameFormat" BO_ 2297442821 1;
 BA_ "VFrameFormat" BO_ 2297442822 1;
 BA_ "VFrameFormat" BO_ 2297442823 1;
+BA_ "VFrameFormat" BO_ 2297442824 1;
+BA_ "VFrameFormat" BO_ 2297442825 1;
 BA_ "VFrameFormat" BO_ 2297450240 1;
 BA_ "VFrameFormat" BO_ 2297450241 1;
 BA_ "VFrameFormat" BO_ 2297450242 1;
@@ -1659,6 +1727,8 @@ BA_ "VFrameFormat" BO_ 2297446916 1;
 BA_ "VFrameFormat" BO_ 2297446917 1;
 BA_ "VFrameFormat" BO_ 2297446918 1;
 BA_ "VFrameFormat" BO_ 2297446919 1;
+BA_ "VFrameFormat" BO_ 2297446920 1;
+BA_ "VFrameFormat" BO_ 2297446921 1;
 BA_ "VFrameFormat" BO_ 2297454336 1;
 BA_ "VFrameFormat" BO_ 2297454337 1;
 BA_ "VFrameFormat" BO_ 2297454338 1;
@@ -1697,6 +1767,8 @@ BA_ "VFrameFormat" BO_ 2297451012 1;
 BA_ "VFrameFormat" BO_ 2297451013 1;
 BA_ "VFrameFormat" BO_ 2297451014 1;
 BA_ "VFrameFormat" BO_ 2297451015 1;
+BA_ "VFrameFormat" BO_ 2297451016 1;
+BA_ "VFrameFormat" BO_ 2297451017 1;
 
 // Message cycle times (ms)
 BA_ "GenMsgCycleTime" BO_ 2297433861 5000;

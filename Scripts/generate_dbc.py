@@ -6,6 +6,7 @@ Each module has:
 - Thermistors 54 and 55 (per module) are ambient sensors
 - 1 temperature summary message (min/max cell temp, BMS1/BMS2 IC temp)
 - 6 voltage messages (18 cells total per module, 3 cells per message)
+- 2 voltage summary messages (BMS1/BMS2 avg, min, max)
 - 1 heartbeat message
 - 1 CAN stats message
 - 1 config command message
@@ -372,6 +373,28 @@ def generate_dbc():
         lines.append(' SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append(' SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append('')
+
+        # BMS1 Voltage Summary: base 0x08F00208 + module_offset
+        # Bytes 0-1: Average voltage (mV), 2-3: Min voltage (mV), 4-5: Max voltage (mV)
+        can_id = 0x08F00208 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS1_Voltage_Summary_{module}: 6 BMS_Module_{module}')
+        lines.append(' SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append('')
+
+        # BMS2 Voltage Summary: base 0x08F00209 + module_offset
+        # Bytes 0-1: Average voltage (mV), 2-3: Min voltage (mV), 4-5: Max voltage (mV)
+        can_id = 0x08F00209 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS2_Voltage_Summary_{module}: 6 BMS_Module_{module}')
+        lines.append(' SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append('')
     
     # Comments
     lines.append('CM_ BO_ 2297433872 "Debug info request broadcast to all modules";')
@@ -397,6 +420,8 @@ def generate_dbc():
         elif msg_base == 0x8101:  # Temperature summary message
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
         elif msg_base >= 0x8200 and msg_base <= 0x8205:  # Voltage messages
+            lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
+        elif msg_base == 0x8208 or msg_base == 0x8209:  # BMS voltage summary messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
         elif (msg_base & 0xFF) == 0x05 and (msg_base & 0x0F00) == 0x0F00:  # Balance Command (0x8F05)
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')

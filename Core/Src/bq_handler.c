@@ -507,11 +507,39 @@ HAL_StatusTypeDef BQ_SendCANMessage(BQ_Data_t *data)
 {
     HAL_StatusTypeDef status = HAL_OK;
     uint8_t can_data[8];
-    
+
     if (data == NULL) {
         return HAL_ERROR;
     }
+
+    // Calculate average, min, and max
+    uint32_t volt_avg = 0;
+    uint16_t volt_min = 0, volt_max = 0;
+    for (int i = 0; i < BMS1_NUM_CELLS; i++) {
+        uint16_t curr_voltage = data->cell_voltage_mv[i];
+        volt_avg = volt_avg + curr_voltage;
+        if (volt_min == 0 || curr_voltage < volt_min)
+            volt_min = curr_voltage;
+        if (volt_max == 0 || curr_voltage > volt_max)
+            volt_max = curr_voltage;
+    }
+    volt_avg = volt_avg / BMS1_NUM_CELLS;
+
+    // BMS1 Summary Message (avg, min, max)
+    can_data[0] = (uint8_t)(volt_avg & 0xFF);
+    can_data[1] = (uint8_t)((volt_avg >> 8) & 0xFF);
+    can_data[2] = (uint8_t)(volt_min & 0xFF);
+    can_data[3] = (uint8_t)((volt_min >> 8) & 0xFF);
+    can_data[4] = (uint8_t)(volt_max & 0xFF);
+    can_data[5] = (uint8_t)((volt_max >> 8) & 0xFF);
+    can_data[6] = 0x00;  // Padding
+    can_data[7] = 0x00;  // Padding
     
+    status = CAN_SendMessage(CAN_VOLTAGE_BMS_1_SUMMARY_ID, can_data, 6, CAN_PRIORITY_NORMAL);
+    if (status != HAL_OK) {
+        return status;
+    }
+
     // Message 0: Cells 1-3 (6 bytes)
     can_data[0] = (uint8_t)(data->cell_voltage_mv[0] & 0xFF);
     can_data[1] = (uint8_t)((data->cell_voltage_mv[0] >> 8) & 0xFF);
@@ -909,6 +937,34 @@ HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
         return HAL_ERROR;
     }
     
+    // Calculate average, min, and max
+    uint32_t volt_avg = 0;
+    uint16_t volt_min = 0, volt_max = 0;
+    for (int i = 0; i < BMS2_NUM_CELLS; i++) {
+        uint16_t curr_voltage = data->cell_voltage_mv[i];
+        volt_avg = volt_avg + curr_voltage;
+        if (volt_min == 0 || curr_voltage < volt_min)
+            volt_min = curr_voltage;
+        if (volt_max == 0 || curr_voltage > volt_max)
+            volt_max = curr_voltage;
+    }
+    volt_avg = volt_avg / BMS2_NUM_CELLS;
+
+    // BMS1 Summary Message (avg, min, max)
+    can_data[0] = (uint8_t)(volt_avg & 0xFF);
+    can_data[1] = (uint8_t)((volt_avg >> 8) & 0xFF);
+    can_data[2] = (uint8_t)(volt_min & 0xFF);
+    can_data[3] = (uint8_t)((volt_min >> 8) & 0xFF);
+    can_data[4] = (uint8_t)(volt_max & 0xFF);
+    can_data[5] = (uint8_t)((volt_max >> 8) & 0xFF);
+    can_data[6] = 0x00;  // Padding
+    can_data[7] = 0x00;  // Padding
+    
+    status = CAN_SendMessage(CAN_VOLTAGE_BMS_2_SUMMARY_ID, can_data, 6, CAN_PRIORITY_NORMAL);
+    if (status != HAL_OK) {
+        return status;
+    }
+
     // Message 3: Cells 10-12 (6 bytes)
     can_data[0] = (uint8_t)(data->cell_voltage_mv[0] & 0xFF);
     can_data[1] = (uint8_t)((data->cell_voltage_mv[0] >> 8) & 0xFF);
