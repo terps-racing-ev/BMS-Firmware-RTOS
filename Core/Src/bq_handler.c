@@ -518,8 +518,8 @@ HAL_StatusTypeDef BQ_SendCANMessage(BQ_Data_t *data)
     uint8_t volt_min_id, volt_max_id;
     for (int i = 0; i < BMS1_NUM_CELLS; i++) {
         uint16_t curr_voltage = data->cell_voltage_mv[i];
-        volt_avg = volt_avg + curr_voltage;
-        if (volt_min == 0 || curr_voltage < volt_min){
+        volt_avg += curr_voltage;
+        if (volt_min == 0 || curr_voltage < volt_min)
             volt_min = curr_voltage;
             volt_min_id = i + 1;
         }
@@ -948,8 +948,8 @@ HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
     uint8_t volt_min_id, volt_max_id;
     for (int i = 0; i < BMS2_NUM_CELLS; i++) {
         uint16_t curr_voltage = data->cell_voltage_mv[i];
-        volt_avg = volt_avg + curr_voltage;
-        if (volt_min == 0 || curr_voltage < volt_min){
+        volt_avg += curr_voltage;
+        if (volt_min == 0 || curr_voltage < volt_min)
             volt_min = curr_voltage;
             volt_min_id = BMS1_NUM_CELLS + i + 1;
         }
