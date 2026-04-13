@@ -515,13 +515,18 @@ HAL_StatusTypeDef BQ_SendCANMessage(BQ_Data_t *data)
     // Calculate average, min, and max
     uint32_t volt_avg = 0;
     uint16_t volt_min = 0, volt_max = 0;
+    uint8_t volt_min_id, volt_max_id;
     for (int i = 0; i < BMS1_NUM_CELLS; i++) {
         uint16_t curr_voltage = data->cell_voltage_mv[i];
         volt_avg = volt_avg + curr_voltage;
-        if (volt_min == 0 || curr_voltage < volt_min)
+        if (volt_min == 0 || curr_voltage < volt_min){
             volt_min = curr_voltage;
-        if (volt_max == 0 || curr_voltage > volt_max)
+            volt_min_id = i + 1;
+        }
+        if (volt_max == 0 || curr_voltage > volt_max){
             volt_max = curr_voltage;
+            volt_max_id = i + 1;
+        }
     }
     volt_avg = volt_avg / BMS1_NUM_CELLS;
 
@@ -532,10 +537,10 @@ HAL_StatusTypeDef BQ_SendCANMessage(BQ_Data_t *data)
     can_data[3] = (uint8_t)((volt_min >> 8) & 0xFF);
     can_data[4] = (uint8_t)(volt_max & 0xFF);
     can_data[5] = (uint8_t)((volt_max >> 8) & 0xFF);
-    can_data[6] = 0x00;  // Padding
-    can_data[7] = 0x00;  // Padding
+    can_data[6] = volt_min_id;  // Padding
+    can_data[7] = volt_max_id;  // Padding
     
-    status = CAN_SendMessage(CAN_VOLTAGE_BMS_1_SUMMARY_ID, can_data, 6, CAN_PRIORITY_NORMAL);
+    status = CAN_SendMessage(CAN_VOLTAGE_BMS_1_SUMMARY_ID, can_data, 8, CAN_PRIORITY_NORMAL);
     if (status != HAL_OK) {
         return status;
     }
@@ -940,13 +945,18 @@ HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
     // Calculate average, min, and max
     uint32_t volt_avg = 0;
     uint16_t volt_min = 0, volt_max = 0;
+    uint8_t volt_min_id, volt_max_id;
     for (int i = 0; i < BMS2_NUM_CELLS; i++) {
         uint16_t curr_voltage = data->cell_voltage_mv[i];
         volt_avg = volt_avg + curr_voltage;
-        if (volt_min == 0 || curr_voltage < volt_min)
+        if (volt_min == 0 || curr_voltage < volt_min){
             volt_min = curr_voltage;
-        if (volt_max == 0 || curr_voltage > volt_max)
+            volt_min_id = BMS1_NUM_CELLS + i + 1;
+        }
+        if (volt_max == 0 || curr_voltage > volt_max){
             volt_max = curr_voltage;
+            volt_max_id = BMS1_NUM_CELLS + i + 1;
+        }
     }
     volt_avg = volt_avg / BMS2_NUM_CELLS;
 
@@ -957,10 +967,10 @@ HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
     can_data[3] = (uint8_t)((volt_min >> 8) & 0xFF);
     can_data[4] = (uint8_t)(volt_max & 0xFF);
     can_data[5] = (uint8_t)((volt_max >> 8) & 0xFF);
-    can_data[6] = 0x00;  // Padding
-    can_data[7] = 0x00;  // Padding
+    can_data[6] = volt_min_id;
+    can_data[7] = volt_max_id;
     
-    status = CAN_SendMessage(CAN_VOLTAGE_BMS_2_SUMMARY_ID, can_data, 6, CAN_PRIORITY_NORMAL);
+    status = CAN_SendMessage(CAN_VOLTAGE_BMS_2_SUMMARY_ID, can_data, 8, CAN_PRIORITY_NORMAL);
     if (status != HAL_OK) {
         return status;
     }
