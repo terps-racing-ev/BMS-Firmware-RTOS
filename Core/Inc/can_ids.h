@@ -64,6 +64,9 @@ extern "C" {
 #define CAN_BMS1_STATUS_BASE    0x08F00206  /**< Base for BMS1 chip status (stack voltage, alarm, temp) */
 #define CAN_BMS2_STATUS_BASE    0x08F00207  /**< Base for BMS2 chip status (stack voltage, alarm, temp) */
 
+#define CAN_VOLTAGE_BMS_1_SUMMARY_BASE 0x08F00208 /**< Base for BMS1 Voltage summary (average, min, max) */
+#define CAN_VOLTAGE_BMS_2_SUMMARY_BASE 0x08F00209 /**< Base for BMS2 Voltage summary (average, min, max) */
+
 /* BMS Status Messages */
 #define CAN_BMS_HEARTBEAT_BASE  0x08F00300  /**< Base for BMS heartbeat/status message */
 #define CAN_BMS_STATS_BASE      0x08F00301  /**< Base for BMS CAN statistics (RX/TX counters) */
@@ -111,6 +114,8 @@ extern uint32_t CAN_VOLTAGE_4_ID;    /**< Voltage message 4 ID (cells 13-15, wit
 extern uint32_t CAN_VOLTAGE_5_ID;    /**< Voltage message 5 ID (cells 16-18, with module offset) */
 extern uint32_t CAN_BMS1_STATUS_ID;  /**< BMS1 chip status ID (with module offset) */
 extern uint32_t CAN_BMS2_STATUS_ID;  /**< BMS2 chip status ID (with module offset) */
+extern uint32_t CAN_VOLTAGE_BMS_1_SUMMARY_ID; /**< BMS1 Voltage summary ID (average, min, max) */
+extern uint32_t CAN_VOLTAGE_BMS_2_SUMMARY_ID; /**< BMS2 Voltage summary ID (average, min, max) */
 extern uint32_t CAN_BMS_HEARTBEAT_ID; /**< BMS heartbeat ID (with module offset) */
 extern uint32_t CAN_BMS_STATS_ID;    /**< BMS statistics ID (with module offset) */
 extern uint32_t CAN_CONFIG_ACK_ID;   /**< Config ACK ID (with module offset) */

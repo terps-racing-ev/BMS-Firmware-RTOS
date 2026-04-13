@@ -661,7 +661,10 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
 {
     float min_temp = 200.0f;   // Start with high value
     float max_temp = -200.0f;  // Start with low value
+    float avg_temp = 0.0f;
     uint8_t valid_count = 0;
+    uint8_t min_temp_id;
+    uint8_t max_temp_id;
     
     // Find min/max cell temperatures (excluding ambient thermistors 54 and 55)
     for (uint8_t i = 0; i < TOTAL_THERMISTORS; i++) {
@@ -679,10 +682,14 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
             if (temp > -126.0f) {
                 if (temp < min_temp) {
                     min_temp = temp;
+                    min_temp_id = i + 1;
+
                 }
                 if (temp > max_temp) {
                     max_temp = temp;
+                    max_temp_id = i + 1;
                 }
+                avg_temp += temp;
                 valid_count++;
             }
         }
@@ -692,15 +699,15 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
     if (valid_count == 0) {
         min_temp = -127.0f;
         max_temp = -127.0f;
+    } else {
+        avg_temp = avg_temp / valid_count;
     }
+
     
     // Convert to 0.1°C units (signed 16-bit)
     int16_t min_temp_raw = (int16_t)(min_temp * 10.0f);
     int16_t max_temp_raw = (int16_t)(max_temp * 10.0f);
-    
-    // Get BMS chip internal temperatures (already in 0.1°C units)
-    int16_t bms1_temp = BQ_GetBMS1InternalTemp();
-    int16_t bms2_temp = BQ_GetBMS2InternalTemp();
+    int16_t avg_temp_raw = (int16_t)(avg_temp * 10.0f);
     
     // Pack CAN message
     uint8_t can_data[8];
@@ -708,10 +715,10 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
     can_data[1] = (uint8_t)((min_temp_raw >> 8) & 0xFF);
     can_data[2] = (uint8_t)(max_temp_raw & 0xFF);
     can_data[3] = (uint8_t)((max_temp_raw >> 8) & 0xFF);
-    can_data[4] = (uint8_t)(bms1_temp & 0xFF);
-    can_data[5] = (uint8_t)((bms1_temp >> 8) & 0xFF);
-    can_data[6] = (uint8_t)(bms2_temp & 0xFF);
-    can_data[7] = (uint8_t)((bms2_temp >> 8) & 0xFF);
+    can_data[4] = (uint8_t)(avg_temp_raw & 0xFF);
+    can_data[5] = (uint8_t)((avg_temp_raw >> 8) & 0xFF);
+    can_data[6] = min_temp_id;
+    can_data[7] = max_temp_id;
     
     return CAN_SendMessage(CAN_TEMP_SUMMARY_ID, can_data, 8, CAN_PRIORITY_NORMAL);
 }

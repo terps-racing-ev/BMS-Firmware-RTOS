@@ -4,8 +4,9 @@ Generate complete DBC file for BMS Firmware with all 6 modules
 Each module has:
 - 14 temperature messages (56 thermistors total per module)
 - Thermistors 54 and 55 (per module) are ambient sensors
-- 1 temperature summary message (min/max cell temp, BMS1/BMS2 IC temp)
+- 1 temperature summary message (min/max/avg cell temp, min/max thermistor IDs)
 - 6 voltage messages (18 cells total per module, 3 cells per message)
+- 2 voltage summary messages (BMS1/BMS2 avg, min, max, min/max cell IDs)
 - 1 heartbeat message
 - 1 CAN stats message
 - 1 config command message
@@ -318,15 +319,17 @@ def generate_dbc():
             lines.append('')
         
         # Cell Temperature Summary: base 0x08F00101 + module_offset
-        # Contains min/max cell temp and BMS1/BMS2 IC internal temperatures
+        # Bytes 0-1: Min cell temp (0.1 degC), 2-3: Max cell temp (0.1 degC)
+        # Bytes 4-5: Avg cell temp (0.1 degC), 6: Min temp thermistor ID, 7: Max temp thermistor ID
         can_id = 0x08F00101 + module_offset
         dbc_id = can_id | 0x80000000
         message_ids.append(dbc_id)
         lines.append(f'BO_ {dbc_id} Cell_Temp_Summary_{module}: 8 BMS_Module_{module}')
         lines.append(' SG_ Min_Cell_Temp : 0|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
         lines.append(' SG_ Max_Cell_Temp : 16|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
-        lines.append(' SG_ BMS1_IC_Temp : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
-        lines.append(' SG_ BMS2_IC_Temp : 48|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append(' SG_ Avg_Cell_Temp : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
+        lines.append(' SG_ Min_Cell_Temp_ID : 48|8@1+ (1,0) [1|54] "" CAN_Host')
+        lines.append(' SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host')
         lines.append('')
         
         # 6 Voltage messages (0x08F00200 through 0x08F00205 + module_offset)
@@ -372,6 +375,34 @@ def generate_dbc():
         lines.append(' SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append(' SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host')
         lines.append('')
+
+        # BMS1 Voltage Summary: base 0x08F00208 + module_offset
+        # Bytes 0-1: Average voltage (mV), 2-3: Min voltage (mV), 4-5: Max voltage (mV)
+        # Byte 6: Min voltage cell ID (1-9), Byte 7: Max voltage cell ID (1-9)
+        can_id = 0x08F00208 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS1_Voltage_Summary_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS1_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS1_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS1_Min_Voltage_Cell_ID : 48|8@1+ (1,0) [1|9] "" CAN_Host')
+        lines.append(' SG_ BMS1_Max_Voltage_Cell_ID : 56|8@1+ (1,0) [1|9] "" CAN_Host')
+        lines.append('')
+
+        # BMS2 Voltage Summary: base 0x08F00209 + module_offset
+        # Bytes 0-1: Average voltage (mV), 2-3: Min voltage (mV), 4-5: Max voltage (mV)
+        # Byte 6: Min voltage cell ID (10-18), Byte 7: Max voltage cell ID (10-18)
+        can_id = 0x08F00209 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} BMS2_Voltage_Summary_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ BMS2_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS2_Voltage_Min : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS2_Voltage_Max : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+        lines.append(' SG_ BMS2_Min_Voltage_Cell_ID : 48|8@1+ (1,0) [10|18] "" CAN_Host')
+        lines.append(' SG_ BMS2_Max_Voltage_Cell_ID : 56|8@1+ (1,0) [10|18] "" CAN_Host')
+        lines.append('')
     
     # Comments
     lines.append('CM_ BO_ 2297433872 "Debug info request broadcast to all modules";')
@@ -397,6 +428,8 @@ def generate_dbc():
         elif msg_base == 0x8101:  # Temperature summary message
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
         elif msg_base >= 0x8200 and msg_base <= 0x8205:  # Voltage messages
+            lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
+        elif msg_base == 0x8208 or msg_base == 0x8209:  # BMS voltage summary messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
         elif (msg_base & 0xFF) == 0x05 and (msg_base & 0x0F00) == 0x0F00:  # Balance Command (0x8F05)
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
