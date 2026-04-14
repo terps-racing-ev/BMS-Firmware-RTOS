@@ -352,28 +352,36 @@ def generate_dbc():
                 lines.append(f' SG_ Cell_{cell_num:03d}_Voltage : {bit_start}|16@1+ (1,0) [0|5000] "mV" CAN_Host')
             lines.append('')
         
-        # BMS1 Chip Status: base 0x08F00206 + module_offset
+        # Combined Chip Status: base 0x08F00206 + module_offset
+        # Byte 0: BMS1 Stack Voltage (200mV/bit), Byte 1: BMS2 Stack Voltage (200mV/bit)
+        # Byte 2: BMS1 IC Temp (1°C/bit, offset -40), Byte 3: BMS2 IC Temp (1°C/bit, offset -40)
+        # Bytes 4-5: BMS1 Alarm Status (16-bit LE bitmask), Bytes 6-7: BMS2 Alarm Status (16-bit LE bitmask)
         can_id = 0x08F00206 + module_offset
         dbc_id = can_id | 0x80000000
         message_ids.append(dbc_id)
-        lines.append(f'BO_ {dbc_id} BMS1_Chip_Status_{module}: 8 BMS_Module_{module}')
-        lines.append(' SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host')
-        lines.append(' SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host')
-        lines.append(' SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
-        lines.append(' SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host')
-        lines.append(' SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host')
-        lines.append('')
-        
-        # BMS2 Chip Status: base 0x08F00207 + module_offset
-        can_id = 0x08F00207 + module_offset
-        dbc_id = can_id | 0x80000000
-        message_ids.append(dbc_id)
-        lines.append(f'BO_ {dbc_id} BMS2_Chip_Status_{module}: 8 BMS_Module_{module}')
-        lines.append(' SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host')
-        lines.append(' SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host')
-        lines.append(' SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
-        lines.append(' SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host')
-        lines.append(' SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append(f'BO_ {dbc_id} BMS_Chip_Status_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ BMS1_Stack_Voltage : 0|8@1+ (0.2,0) [0|51] "V" CAN_Host')
+        lines.append(' SG_ BMS2_Stack_Voltage : 8|8@1+ (0.2,0) [0|51] "V" CAN_Host')
+        lines.append(' SG_ BMS1_IC_Temperature : 16|8@1+ (1,-40) [-40|215] "degC" CAN_Host')
+        lines.append(' SG_ BMS2_IC_Temperature : 24|8@1+ (1,-40) [-40|215] "degC" CAN_Host')
+        # BMS1 Alarm Status individual bits (bits 32-47)
+        lines.append(' SG_ BMS1_Alarm_SSA : 32|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS1_Alarm_SSB : 33|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS1_Alarm_SSC : 34|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS1_Alarm_CB : 35|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS1_Alarm_XCHG : 40|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS1_Alarm_XDSG : 41|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS1_Alarm_INITCOMP : 44|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS1_Alarm_FULLSCAN : 45|1@1+ (1,0) [0|1] "" CAN_Host')
+        # BMS2 Alarm Status individual bits (bits 48-63)
+        lines.append(' SG_ BMS2_Alarm_SSA : 48|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS2_Alarm_SSB : 49|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS2_Alarm_SSC : 50|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS2_Alarm_CB : 51|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS2_Alarm_XCHG : 56|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS2_Alarm_XDSG : 57|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS2_Alarm_INITCOMP : 60|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ BMS2_Alarm_FULLSCAN : 61|1@1+ (1,0) [0|1] "" CAN_Host')
         lines.append('')
 
         # BMS1 Voltage Summary: base 0x08F00208 + module_offset
@@ -589,6 +597,22 @@ def generate_dbc():
         can_id = 0x08F00F0A + (module << 12)
         dbc_id = can_id | 0x80000000
         lines.append(f'VAL_ {dbc_id} BMS2_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 "SafetyA+B" 5 "CB+SafetyA" 6 "CB+SafetyB" 7 "CB+SafetyA+B" 8 "PermFailA" 16 "PermFailB" 32 "PermFailC" 64 "PermFailD" 256 "Charging" 512 "Discharging" 260 "CB+Charging" 516 "CB+Discharging";')
+    
+    lines.append('')
+    
+    # Combined Chip Status alarm bit enumerations
+    alarm_bit_signals = [
+        'BMS1_Alarm_SSA', 'BMS1_Alarm_SSB', 'BMS1_Alarm_SSC', 'BMS1_Alarm_CB',
+        'BMS1_Alarm_XCHG', 'BMS1_Alarm_XDSG', 'BMS1_Alarm_INITCOMP', 'BMS1_Alarm_FULLSCAN',
+        'BMS2_Alarm_SSA', 'BMS2_Alarm_SSB', 'BMS2_Alarm_SSC', 'BMS2_Alarm_CB',
+        'BMS2_Alarm_XCHG', 'BMS2_Alarm_XDSG', 'BMS2_Alarm_INITCOMP', 'BMS2_Alarm_FULLSCAN',
+    ]
+    lines.append('// Combined Chip Status alarm bit values')
+    for module in range(6):
+        can_id = 0x08F00206 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        for sig in alarm_bit_signals:
+            lines.append(f'VAL_ {dbc_id} {sig} 0 "Clear" 1 "Active";')
     
     return '\n'.join(lines)
 

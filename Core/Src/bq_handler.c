@@ -35,8 +35,7 @@ extern uint32_t CAN_VOLTAGE_2_ID;
 extern uint32_t CAN_VOLTAGE_3_ID;
 extern uint32_t CAN_VOLTAGE_4_ID;
 extern uint32_t CAN_VOLTAGE_5_ID;
-extern uint32_t CAN_BMS1_STATUS_ID;
-extern uint32_t CAN_BMS2_STATUS_ID;
+extern uint32_t CAN_CHIP_STATUS_ID;
 
 /* Private variables ---------------------------------------------------------*/
 static BQ_Data_t voltage_data_bms1 = {0};
@@ -61,6 +60,12 @@ static uint8_t g_fault_reporting_enabled = BQ_FAULT_REPORTING_DEFAULT;
 static int16_t g_bms1_internal_temp = 0;  // BMS1 internal die temperature
 static int16_t g_bms2_internal_temp = 0;  // BMS2 internal die temperature
 
+// BMS chip status data (updated each read cycle, sent in combined CAN message)
+static uint16_t g_bms1_stack_voltage = 0;  // BMS1 stack voltage (10mV/LSB from register)
+static uint16_t g_bms1_alarm_status = 0;   // BMS1 alarm status bitmask
+static uint16_t g_bms2_stack_voltage = 0;  // BMS2 stack voltage (10mV/LSB from register)
+static uint16_t g_bms2_alarm_status = 0;   // BMS2 alarm status bitmask
+
 // Runtime voltage thresholds (can be set via CAN, reset to defaults on reboot)
 static uint16_t g_cell_voltage_min_mv = CELL_VOLTAGE_MIN_MV;  // Min cell voltage threshold
 static uint16_t g_cell_voltage_max_mv = CELL_VOLTAGE_MAX_MV;  // Max cell voltage threshold
@@ -75,6 +80,9 @@ static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t
 static HAL_StatusTypeDef BQ76952_SendSubcommand(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
                                                  uint16_t subcmd);
 static HAL_StatusTypeDef I2C_RecoverBus(I2C_HandleTypeDef *hi2c);
+static HAL_StatusTypeDef BQ_UpdateChipData(I2C_HandleTypeDef *hi2c, uint8_t device_addr,
+                                            uint16_t *stack_voltage_out, uint16_t *alarm_status_out);
+static HAL_StatusTypeDef BQ_SendCombinedChipStatus(void);
 
 /**
   * @brief  Recover I2C bus from stuck state
@@ -338,8 +346,11 @@ void BQ_MonitorTask(void *argument)
             // When I2C fails, the voltages will be 0 or old data
             BQ_SendCANMessage(&voltage_data_bms1);
             
-            // Send BMS1 chip status (stack voltage, alarm, temp)
-            BQ_SendChipStatus(&hi2c1, BQ76952_I2C_ADDR_BMS1, CAN_BMS1_STATUS_ID);
+            // Update BMS1 chip data (stack voltage, alarm status)
+            BQ_UpdateChipData(&hi2c1, BQ76952_I2C_ADDR_BMS1, &g_bms1_stack_voltage, &g_bms1_alarm_status);
+            
+            // Send combined chip status for both BMS1 and BMS2
+            BQ_SendCombinedChipStatus();
             
             last_can_tick = current_tick;
         }
@@ -886,8 +897,9 @@ void BQ_MonitorTask_BMS2(void *argument)
             // When I2C fails, the voltages will be 0 or old data
             BQ_SendCANMessage_BMS2(&voltage_data_bms2);
             
-            // Send BMS2 chip status (stack voltage, alarm, temp)
-            BQ_SendChipStatus(&hi2c3, BQ76952_I2C_ADDR_BMS2, CAN_BMS2_STATUS_ID);
+            // Update BMS2 chip data (stack voltage, alarm status)
+            // Combined status message is sent by BMS1 task
+            BQ_UpdateChipData(&hi2c3, BQ76952_I2C_ADDR_BMS2, &g_bms2_stack_voltage, &g_bms2_alarm_status);
             
             last_can_tick = current_tick;
         }
@@ -1088,19 +1100,19 @@ HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
 }
 
 /**
-  * @brief  Send BMS chip status via CAN (stack voltage, alarm status, TS2 temperature)
-  * @param  device_addr: BQ76952 I2C device address (0x08 for BMS1, 0x09 for BMS2)
+  * @brief  Update chip status data (stack voltage, alarm status) from a BQ76952 chip
   * @param  hi2c: I2C handle
-  * @param  can_id: CAN message ID to use
+  * @param  device_addr: BQ76952 I2C device address
+  * @param  stack_voltage_out: Pointer to store stack voltage (10mV/LSB)
+  * @param  alarm_status_out: Pointer to store alarm status bitmask
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
-HAL_StatusTypeDef BQ_SendChipStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint32_t can_id)
+static HAL_StatusTypeDef BQ_UpdateChipData(I2C_HandleTypeDef *hi2c, uint8_t device_addr,
+                                            uint16_t *stack_voltage_out, uint16_t *alarm_status_out)
 {
     HAL_StatusTypeDef status;
     uint16_t stack_voltage = 0;
     uint16_t alarm_status = 0;
-    int16_t ts2_temp = 0;
-    uint8_t can_data[8];
     
     // Determine which mutex to use based on I2C handle
     osMutexId_t i2c_mutex = NULL;
@@ -1135,35 +1147,53 @@ HAL_StatusTypeDef BQ_SendChipStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr
         return status;
     }
     
-    // Read TS2 Temperature (0x72)
-    status = BQ76952_ReadRegister16(hi2c, device_addr, TS2Temperature, (uint16_t*)&ts2_temp);
-    if (status != HAL_OK) {
-        if (i2c_mutex != NULL) {
-            osMutexRelease(i2c_mutex);
-        }
-        return status;
-    }
-    
-    // Release I2C mutex before CAN operation
+    // Release I2C mutex
     if (i2c_mutex != NULL) {
         osMutexRelease(i2c_mutex);
     }
     
-    // Pack CAN message:
-    // Bytes 0-1: Stack Voltage (mV, unsigned 16-bit)
-    // Bytes 2-3: Alarm Status (unsigned 16-bit)
-    // Bytes 4-5: TS2 Temperature (0.1°C, signed 16-bit)
-    // Bytes 6-7: Reserved
-    can_data[0] = (uint8_t)(stack_voltage & 0xFF);
-    can_data[1] = (uint8_t)((stack_voltage >> 8) & 0xFF);
-    can_data[2] = (uint8_t)(alarm_status & 0xFF);
-    can_data[3] = (uint8_t)((alarm_status >> 8) & 0xFF);
-    can_data[4] = (uint8_t)(ts2_temp & 0xFF);
-    can_data[5] = (uint8_t)((ts2_temp >> 8) & 0xFF);
-    can_data[6] = 0x00;  // Reserved
-    can_data[7] = 0x00;  // Reserved
+    // Store results in provided output pointers
+    *stack_voltage_out = stack_voltage;
+    *alarm_status_out = alarm_status;
     
-    return CAN_SendMessage(can_id, can_data, 8, CAN_PRIORITY_NORMAL);
+    return HAL_OK;
+}
+
+/**
+  * @brief  Send combined chip status for both BMS1 and BMS2 via a single CAN message
+  * @note   Layout: [BMS1_StackV(1B) | BMS2_StackV(1B) | BMS1_ICTemp(1B) | BMS2_ICTemp(1B) |
+  *                  BMS1_Alarm(2B) | BMS2_Alarm(2B)]
+  *         Stack voltage: raw / 20 → 200mV per bit
+  *         IC temp: (0.1°C value / 10) + 40 → 1°C per bit, offset -40
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  */
+static HAL_StatusTypeDef BQ_SendCombinedChipStatus(void)
+{
+    uint8_t can_data[8];
+    
+    // Byte 0: BMS1 stack voltage (200mV per bit)
+    // Register value is in 10mV units, divide by 20 to get 200mV units
+    can_data[0] = (uint8_t)(g_bms1_stack_voltage / 20);
+    
+    // Byte 1: BMS2 stack voltage (200mV per bit)
+    can_data[1] = (uint8_t)(g_bms2_stack_voltage / 20);
+    
+    // Byte 2: BMS1 IC temperature (1°C per bit, offset -40)
+    // g_bms1_internal_temp is in 0.1°C units, divide by 10 and add 40
+    can_data[2] = (uint8_t)((g_bms1_internal_temp / 10) + 40);
+    
+    // Byte 3: BMS2 IC temperature (1°C per bit, offset -40)
+    can_data[3] = (uint8_t)((g_bms2_internal_temp / 10) + 40);
+    
+    // Bytes 4-5: BMS1 alarm status (16-bit LE)
+    can_data[4] = (uint8_t)(g_bms1_alarm_status & 0xFF);
+    can_data[5] = (uint8_t)((g_bms1_alarm_status >> 8) & 0xFF);
+    
+    // Bytes 6-7: BMS2 alarm status (16-bit LE)
+    can_data[6] = (uint8_t)(g_bms2_alarm_status & 0xFF);
+    can_data[7] = (uint8_t)((g_bms2_alarm_status >> 8) & 0xFF);
+    
+    return CAN_SendMessage(CAN_CHIP_STATUS_ID, can_data, 8, CAN_PRIORITY_NORMAL);
 }
 
 /**

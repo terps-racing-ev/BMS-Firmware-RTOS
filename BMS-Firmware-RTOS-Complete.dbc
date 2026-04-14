@@ -270,19 +270,27 @@ BO_ 2297430533 Cell_Voltage_16_18: 6 BMS_Module_0
  SG_ Cell_017_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_018_Voltage : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
-BO_ 2297430534 BMS1_Chip_Status_0: 8 BMS_Module_0
- SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
-
-BO_ 2297430535 BMS2_Chip_Status_0: 8 BMS_Module_0
- SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+BO_ 2297430534 BMS_Chip_Status_0: 8 BMS_Module_0
+ SG_ BMS1_Stack_Voltage : 0|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS2_Stack_Voltage : 8|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS1_IC_Temperature : 16|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS2_IC_Temperature : 24|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS1_Alarm_SSA : 32|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSB : 33|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSC : 34|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_CB : 35|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XCHG : 40|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XDSG : 41|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_INITCOMP : 44|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_FULLSCAN : 45|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSA : 48|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSB : 49|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSC : 50|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_CB : 51|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XCHG : 56|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XDSG : 57|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_INITCOMP : 60|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_FULLSCAN : 61|1@1+ (1,0) [0|1] "" CAN_Host
 
 BO_ 2297430536 BMS1_Voltage_Summary_0: 8 BMS_Module_0
  SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -521,19 +529,27 @@ BO_ 2297434629 Cell_Voltage_34_36: 6 BMS_Module_1
  SG_ Cell_035_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_036_Voltage : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
-BO_ 2297434630 BMS1_Chip_Status_1: 8 BMS_Module_1
- SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
-
-BO_ 2297434631 BMS2_Chip_Status_1: 8 BMS_Module_1
- SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+BO_ 2297434630 BMS_Chip_Status_1: 8 BMS_Module_1
+ SG_ BMS1_Stack_Voltage : 0|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS2_Stack_Voltage : 8|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS1_IC_Temperature : 16|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS2_IC_Temperature : 24|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS1_Alarm_SSA : 32|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSB : 33|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSC : 34|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_CB : 35|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XCHG : 40|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XDSG : 41|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_INITCOMP : 44|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_FULLSCAN : 45|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSA : 48|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSB : 49|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSC : 50|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_CB : 51|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XCHG : 56|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XDSG : 57|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_INITCOMP : 60|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_FULLSCAN : 61|1@1+ (1,0) [0|1] "" CAN_Host
 
 BO_ 2297434632 BMS1_Voltage_Summary_1: 8 BMS_Module_1
  SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -772,19 +788,27 @@ BO_ 2297438725 Cell_Voltage_52_54: 6 BMS_Module_2
  SG_ Cell_053_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_054_Voltage : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
-BO_ 2297438726 BMS1_Chip_Status_2: 8 BMS_Module_2
- SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
-
-BO_ 2297438727 BMS2_Chip_Status_2: 8 BMS_Module_2
- SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+BO_ 2297438726 BMS_Chip_Status_2: 8 BMS_Module_2
+ SG_ BMS1_Stack_Voltage : 0|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS2_Stack_Voltage : 8|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS1_IC_Temperature : 16|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS2_IC_Temperature : 24|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS1_Alarm_SSA : 32|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSB : 33|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSC : 34|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_CB : 35|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XCHG : 40|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XDSG : 41|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_INITCOMP : 44|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_FULLSCAN : 45|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSA : 48|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSB : 49|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSC : 50|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_CB : 51|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XCHG : 56|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XDSG : 57|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_INITCOMP : 60|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_FULLSCAN : 61|1@1+ (1,0) [0|1] "" CAN_Host
 
 BO_ 2297438728 BMS1_Voltage_Summary_2: 8 BMS_Module_2
  SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1023,19 +1047,27 @@ BO_ 2297442821 Cell_Voltage_70_72: 6 BMS_Module_3
  SG_ Cell_071_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_072_Voltage : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
-BO_ 2297442822 BMS1_Chip_Status_3: 8 BMS_Module_3
- SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
-
-BO_ 2297442823 BMS2_Chip_Status_3: 8 BMS_Module_3
- SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+BO_ 2297442822 BMS_Chip_Status_3: 8 BMS_Module_3
+ SG_ BMS1_Stack_Voltage : 0|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS2_Stack_Voltage : 8|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS1_IC_Temperature : 16|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS2_IC_Temperature : 24|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS1_Alarm_SSA : 32|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSB : 33|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSC : 34|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_CB : 35|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XCHG : 40|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XDSG : 41|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_INITCOMP : 44|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_FULLSCAN : 45|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSA : 48|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSB : 49|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSC : 50|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_CB : 51|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XCHG : 56|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XDSG : 57|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_INITCOMP : 60|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_FULLSCAN : 61|1@1+ (1,0) [0|1] "" CAN_Host
 
 BO_ 2297442824 BMS1_Voltage_Summary_3: 8 BMS_Module_3
  SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1274,19 +1306,27 @@ BO_ 2297446917 Cell_Voltage_88_90: 6 BMS_Module_4
  SG_ Cell_089_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_090_Voltage : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
-BO_ 2297446918 BMS1_Chip_Status_4: 8 BMS_Module_4
- SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
-
-BO_ 2297446919 BMS2_Chip_Status_4: 8 BMS_Module_4
- SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+BO_ 2297446918 BMS_Chip_Status_4: 8 BMS_Module_4
+ SG_ BMS1_Stack_Voltage : 0|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS2_Stack_Voltage : 8|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS1_IC_Temperature : 16|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS2_IC_Temperature : 24|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS1_Alarm_SSA : 32|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSB : 33|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSC : 34|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_CB : 35|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XCHG : 40|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XDSG : 41|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_INITCOMP : 44|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_FULLSCAN : 45|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSA : 48|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSB : 49|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSC : 50|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_CB : 51|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XCHG : 56|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XDSG : 57|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_INITCOMP : 60|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_FULLSCAN : 61|1@1+ (1,0) [0|1] "" CAN_Host
 
 BO_ 2297446920 BMS1_Voltage_Summary_4: 8 BMS_Module_4
  SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1525,19 +1565,27 @@ BO_ 2297451013 Cell_Voltage_106_108: 6 BMS_Module_5
  SG_ Cell_107_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_108_Voltage : 32|16@1+ (1,0) [0|5000] "mV" CAN_Host
 
-BO_ 2297451014 BMS1_Chip_Status_5: 8 BMS_Module_5
- SG_ BMS1_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS1_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS1_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
-
-BO_ 2297451015 BMS2_Chip_Status_5: 8 BMS_Module_5
- SG_ BMS2_Stack_Voltage : 0|16@1+ (10,0) [0|655350] "mV" CAN_Host
- SG_ BMS2_Alarm_Status : 16|16@1+ (1,0) [0|65535] "" CAN_Host
- SG_ BMS2_TS2_Temperature : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
- SG_ Reserved_1 : 48|8@1+ (1,0) [0|255] "" CAN_Host
- SG_ Reserved_2 : 56|8@1+ (1,0) [0|255] "" CAN_Host
+BO_ 2297451014 BMS_Chip_Status_5: 8 BMS_Module_5
+ SG_ BMS1_Stack_Voltage : 0|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS2_Stack_Voltage : 8|8@1+ (0.2,0) [0|51] "V" CAN_Host
+ SG_ BMS1_IC_Temperature : 16|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS2_IC_Temperature : 24|8@1+ (1,-40) [-40|215] "degC" CAN_Host
+ SG_ BMS1_Alarm_SSA : 32|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSB : 33|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_SSC : 34|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_CB : 35|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XCHG : 40|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_XDSG : 41|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_INITCOMP : 44|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS1_Alarm_FULLSCAN : 45|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSA : 48|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSB : 49|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_SSC : 50|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_CB : 51|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XCHG : 56|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_XDSG : 57|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_INITCOMP : 60|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ BMS2_Alarm_FULLSCAN : 61|1@1+ (1,0) [0|1] "" CAN_Host
 
 BO_ 2297451016 BMS1_Voltage_Summary_5: 8 BMS_Module_5
  SG_ BMS1_Voltage_Average : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1596,7 +1644,6 @@ BA_ "VFrameFormat" BO_ 2297430531 1;
 BA_ "VFrameFormat" BO_ 2297430532 1;
 BA_ "VFrameFormat" BO_ 2297430533 1;
 BA_ "VFrameFormat" BO_ 2297430534 1;
-BA_ "VFrameFormat" BO_ 2297430535 1;
 BA_ "VFrameFormat" BO_ 2297430536 1;
 BA_ "VFrameFormat" BO_ 2297430537 1;
 BA_ "VFrameFormat" BO_ 2297437952 1;
@@ -1636,7 +1683,6 @@ BA_ "VFrameFormat" BO_ 2297434627 1;
 BA_ "VFrameFormat" BO_ 2297434628 1;
 BA_ "VFrameFormat" BO_ 2297434629 1;
 BA_ "VFrameFormat" BO_ 2297434630 1;
-BA_ "VFrameFormat" BO_ 2297434631 1;
 BA_ "VFrameFormat" BO_ 2297434632 1;
 BA_ "VFrameFormat" BO_ 2297434633 1;
 BA_ "VFrameFormat" BO_ 2297442048 1;
@@ -1676,7 +1722,6 @@ BA_ "VFrameFormat" BO_ 2297438723 1;
 BA_ "VFrameFormat" BO_ 2297438724 1;
 BA_ "VFrameFormat" BO_ 2297438725 1;
 BA_ "VFrameFormat" BO_ 2297438726 1;
-BA_ "VFrameFormat" BO_ 2297438727 1;
 BA_ "VFrameFormat" BO_ 2297438728 1;
 BA_ "VFrameFormat" BO_ 2297438729 1;
 BA_ "VFrameFormat" BO_ 2297446144 1;
@@ -1716,7 +1761,6 @@ BA_ "VFrameFormat" BO_ 2297442819 1;
 BA_ "VFrameFormat" BO_ 2297442820 1;
 BA_ "VFrameFormat" BO_ 2297442821 1;
 BA_ "VFrameFormat" BO_ 2297442822 1;
-BA_ "VFrameFormat" BO_ 2297442823 1;
 BA_ "VFrameFormat" BO_ 2297442824 1;
 BA_ "VFrameFormat" BO_ 2297442825 1;
 BA_ "VFrameFormat" BO_ 2297450240 1;
@@ -1756,7 +1800,6 @@ BA_ "VFrameFormat" BO_ 2297446915 1;
 BA_ "VFrameFormat" BO_ 2297446916 1;
 BA_ "VFrameFormat" BO_ 2297446917 1;
 BA_ "VFrameFormat" BO_ 2297446918 1;
-BA_ "VFrameFormat" BO_ 2297446919 1;
 BA_ "VFrameFormat" BO_ 2297446920 1;
 BA_ "VFrameFormat" BO_ 2297446921 1;
 BA_ "VFrameFormat" BO_ 2297454336 1;
@@ -1796,7 +1839,6 @@ BA_ "VFrameFormat" BO_ 2297451011 1;
 BA_ "VFrameFormat" BO_ 2297451012 1;
 BA_ "VFrameFormat" BO_ 2297451013 1;
 BA_ "VFrameFormat" BO_ 2297451014 1;
-BA_ "VFrameFormat" BO_ 2297451015 1;
 BA_ "VFrameFormat" BO_ 2297451016 1;
 BA_ "VFrameFormat" BO_ 2297451017 1;
 
@@ -2067,3 +2109,101 @@ VAL_ 2297450249 BMS1_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 
 VAL_ 2297450250 BMS2_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 "SafetyA+B" 5 "CB+SafetyA" 6 "CB+SafetyB" 7 "CB+SafetyA+B" 8 "PermFailA" 16 "PermFailB" 32 "PermFailC" 64 "PermFailD" 256 "Charging" 512 "Discharging" 260 "CB+Charging" 516 "CB+Discharging";
 VAL_ 2297454345 BMS1_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 "SafetyA+B" 5 "CB+SafetyA" 6 "CB+SafetyB" 7 "CB+SafetyA+B" 8 "PermFailA" 16 "PermFailB" 32 "PermFailC" 64 "PermFailD" 256 "Charging" 512 "Discharging" 260 "CB+Charging" 516 "CB+Discharging";
 VAL_ 2297454346 BMS2_Alarm_Raw 0 "None" 4 "CB_Active" 1 "SafetyA" 2 "SafetyB" 3 "SafetyA+B" 5 "CB+SafetyA" 6 "CB+SafetyB" 7 "CB+SafetyA+B" 8 "PermFailA" 16 "PermFailB" 32 "PermFailC" 64 "PermFailD" 256 "Charging" 512 "Discharging" 260 "CB+Charging" 516 "CB+Discharging";
+
+// Combined Chip Status alarm bit values
+VAL_ 2297430534 BMS1_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS1_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS1_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS1_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS1_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS1_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS1_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS1_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297430534 BMS2_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS1_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297434630 BMS2_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS1_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297438726 BMS2_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS1_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297442822 BMS2_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS1_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297446918 BMS2_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS1_Alarm_FULLSCAN 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_SSA 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_SSB 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_SSC 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_CB 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_XCHG 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_XDSG 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_INITCOMP 0 "Clear" 1 "Active";
+VAL_ 2297451014 BMS2_Alarm_FULLSCAN 0 "Clear" 1 "Active";
