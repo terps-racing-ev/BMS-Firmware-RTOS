@@ -65,9 +65,15 @@ static int16_t g_bms2_internal_temp = 0;  // BMS2 internal die temperature
 static uint16_t g_cell_voltage_min_mv = CELL_VOLTAGE_MIN_MV;  // Min cell voltage threshold
 static uint16_t g_cell_voltage_max_mv = CELL_VOLTAGE_MAX_MV;  // Max cell voltage threshold
 
+// BQ76952 power mode tracking (protected by power_mode_mutex)
+static BQ_PowerMode_t g_bq_power_mode = BQ_DEFAULT_POWER_MODE;
+static osMutexId_t power_mode_mutex = NULL;
+
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef BQ76952_ReadRegister16(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
                                                  uint16_t reg_addr, uint16_t *value);
+static HAL_StatusTypeDef BQ76952_SendSubcommand(I2C_HandleTypeDef *hi2c, uint8_t device_addr, 
+                                                 uint16_t subcmd);
 static HAL_StatusTypeDef I2C_RecoverBus(I2C_HandleTypeDef *hi2c);
 
 /**
@@ -218,6 +224,9 @@ void BQ_MonitorTask(void *argument)
     
     voltage_mutex = osMutexNew(&mutex_attr);
     
+    // Initialize power mode (only once, from BMS1 monitor task)
+    BQ_InitPowerMode();
+    
     // Wait for system initialization
     osDelay(500);
     
@@ -231,8 +240,26 @@ void BQ_MonitorTask(void *argument)
     {
         current_tick = osKernelGetTickCount();
         
-        // Read cell voltages at specified interval
-        if ((current_tick - last_read_tick) >= VOLTAGE_READ_INTERVAL_MS) {
+        // Select intervals based on current power mode
+        BQ_PowerMode_t current_mode = BQ_GetPowerMode();
+        uint32_t read_interval = (current_mode == BQ_MODE_SLEEP) ? BQ_SLEEP_READ_INTERVAL_MS : BQ_NORMAL_READ_INTERVAL_MS;
+        uint32_t can_interval  = (current_mode == BQ_MODE_SLEEP) ? BQ_SLEEP_CAN_INTERVAL_MS  : BQ_NORMAL_CAN_INTERVAL_MS;
+        
+        // Read cell voltages at mode-dependent interval
+        if ((current_tick - last_read_tick) >= read_interval) {
+            
+            // In SLEEP mode: wake chip before reading
+            if (current_mode == BQ_MODE_SLEEP) {
+                if (I2C1Handle != NULL) {
+                    osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS);
+                }
+                BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, SLEEP_DISABLE);
+                if (I2C1Handle != NULL) {
+                    osMutexRelease(I2C1Handle);
+                }
+                osDelay(2);
+            }
+            
             // Read BMS1 (cells 1-9 on I2C1)
             status = BQ_ReadBMS1(&voltage_data_bms1);
             
@@ -273,6 +300,17 @@ void BQ_MonitorTask(void *argument)
                 }
             }
             
+            // In SLEEP mode: put chip back to sleep after reading
+            if (current_mode == BQ_MODE_SLEEP) {
+                if (I2C1Handle != NULL) {
+                    osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS);
+                }
+                BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, SLEEP_ENABLE);
+                if (I2C1Handle != NULL) {
+                    osMutexRelease(I2C1Handle);
+                }
+            }
+            
             last_read_tick = current_tick;
         }
         
@@ -294,8 +332,8 @@ void BQ_MonitorTask(void *argument)
             last_internal_temp_tick = current_tick;
         }
         
-        // Send CAN messages at specified interval
-        if ((current_tick - last_can_tick) >= VOLTAGE_CAN_INTERVAL_MS) {
+        // Send CAN messages at mode-dependent interval
+        if ((current_tick - last_can_tick) >= can_interval) {
             // Send voltage data via CAN (send even if invalid for debugging)
             // When I2C fails, the voltages will be 0 or old data
             BQ_SendCANMessage(&voltage_data_bms1);
@@ -519,7 +557,7 @@ HAL_StatusTypeDef BQ_SendCANMessage(BQ_Data_t *data)
     for (int i = 0; i < BMS1_NUM_CELLS; i++) {
         uint16_t curr_voltage = data->cell_voltage_mv[i];
         volt_avg += curr_voltage;
-        if (volt_min == 0 || curr_voltage < volt_min)
+        if (volt_min == 0 || curr_voltage < volt_min) {
             volt_min = curr_voltage;
             volt_min_id = i + 1;
         }
@@ -750,8 +788,26 @@ void BQ_MonitorTask_BMS2(void *argument)
     {
         current_tick = osKernelGetTickCount();
         
-        // Read cell voltages at specified interval
-        if ((current_tick - last_read_tick) >= VOLTAGE_READ_INTERVAL_MS) {
+        // Select intervals based on current power mode
+        BQ_PowerMode_t current_mode = BQ_GetPowerMode();
+        uint32_t read_interval = (current_mode == BQ_MODE_SLEEP) ? BQ_SLEEP_READ_INTERVAL_MS : BQ_NORMAL_READ_INTERVAL_MS;
+        uint32_t can_interval  = (current_mode == BQ_MODE_SLEEP) ? BQ_SLEEP_CAN_INTERVAL_MS  : BQ_NORMAL_CAN_INTERVAL_MS;
+        
+        // Read cell voltages at mode-dependent interval
+        if ((current_tick - last_read_tick) >= read_interval) {
+            
+            // In SLEEP mode: wake chip before reading
+            if (current_mode == BQ_MODE_SLEEP) {
+                if (I2C3Handle != NULL) {
+                    osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS);
+                }
+                BQ76952_SendSubcommand(&hi2c3, BQ76952_I2C_ADDR_BMS2, SLEEP_DISABLE);
+                if (I2C3Handle != NULL) {
+                    osMutexRelease(I2C3Handle);
+                }
+                osDelay(2);
+            }
+            
             // Read BMS2 (cells 10-18 on I2C3)
             status = BQ_ReadBMS2(&voltage_data_bms2);
             
@@ -792,6 +848,17 @@ void BQ_MonitorTask_BMS2(void *argument)
                 }
             }
             
+            // In SLEEP mode: put chip back to sleep after reading
+            if (current_mode == BQ_MODE_SLEEP) {
+                if (I2C3Handle != NULL) {
+                    osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS);
+                }
+                BQ76952_SendSubcommand(&hi2c3, BQ76952_I2C_ADDR_BMS2, SLEEP_ENABLE);
+                if (I2C3Handle != NULL) {
+                    osMutexRelease(I2C3Handle);
+                }
+            }
+            
             last_read_tick = current_tick;
         }
         
@@ -813,8 +880,8 @@ void BQ_MonitorTask_BMS2(void *argument)
             last_internal_temp_tick = current_tick;
         }
         
-        // Send CAN messages at specified interval
-        if ((current_tick - last_can_tick) >= VOLTAGE_CAN_INTERVAL_MS) {
+        // Send CAN messages at mode-dependent interval
+        if ((current_tick - last_can_tick) >= can_interval) {
             // Send voltage data via CAN (send even if invalid for debugging)
             // When I2C fails, the voltages will be 0 or old data
             BQ_SendCANMessage_BMS2(&voltage_data_bms2);
@@ -949,7 +1016,7 @@ HAL_StatusTypeDef BQ_SendCANMessage_BMS2(BQ_Data_BMS2_t *data)
     for (int i = 0; i < BMS2_NUM_CELLS; i++) {
         uint16_t curr_voltage = data->cell_voltage_mv[i];
         volt_avg += curr_voltage;
-        if (volt_min == 0 || curr_voltage < volt_min)
+        if (volt_min == 0 || curr_voltage < volt_min) {
             volt_min = curr_voltage;
             volt_min_id = BMS1_NUM_CELLS + i + 1;
         }
@@ -1307,6 +1374,168 @@ HAL_StatusTypeDef BQ_WakeChipsRTOS(void)
     }
 
     return status;
+}
+
+/**
+  * @brief  Set BQ76952 power mode for both chips (NORMAL or SLEEP)
+  * @param  mode: Desired power mode (BQ_MODE_NORMAL or BQ_MODE_SLEEP)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR if either chip fails
+  * @note   Sends SLEEP_ENABLE or SLEEP_DISABLE to both BMS1 and BMS2.
+  *         If the second chip fails, the first chip is rolled back.
+  */
+HAL_StatusTypeDef BQ_SetPowerMode(BQ_PowerMode_t mode)
+{
+    HAL_StatusTypeDef status;
+    uint16_t subcmd = (mode == BQ_MODE_SLEEP) ? SLEEP_ENABLE : SLEEP_DISABLE;
+    uint16_t rollback_subcmd = (mode == BQ_MODE_SLEEP) ? SLEEP_DISABLE : SLEEP_ENABLE;
+
+    // Send to BMS1
+    if (I2C1Handle != NULL) {
+        if (osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS) != osOK) {
+            return HAL_ERROR;
+        }
+    }
+    status = BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, subcmd);
+    if (I2C1Handle != NULL) {
+        osMutexRelease(I2C1Handle);
+    }
+    if (status != HAL_OK) {
+        return status;
+    }
+
+    osDelay(2);
+
+    // Send to BMS2
+    if (I2C3Handle != NULL) {
+        if (osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS) != osOK) {
+            // Roll back BMS1
+            if (I2C1Handle != NULL) {
+                osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS);
+            }
+            BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, rollback_subcmd);
+            if (I2C1Handle != NULL) {
+                osMutexRelease(I2C1Handle);
+            }
+            return HAL_ERROR;
+        }
+    }
+    status = BQ76952_SendSubcommand(&hi2c3, BQ76952_I2C_ADDR_BMS2, subcmd);
+    if (I2C3Handle != NULL) {
+        osMutexRelease(I2C3Handle);
+    }
+
+    if (status != HAL_OK) {
+        // Roll back BMS1
+        if (I2C1Handle != NULL) {
+            osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS);
+        }
+        BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, rollback_subcmd);
+        if (I2C1Handle != NULL) {
+            osMutexRelease(I2C1Handle);
+        }
+        return status;
+    }
+
+    // Update cached mode
+    if (power_mode_mutex != NULL) {
+        osMutexAcquire(power_mode_mutex, osWaitForever);
+    }
+    g_bq_power_mode = mode;
+    if (power_mode_mutex != NULL) {
+        osMutexRelease(power_mode_mutex);
+    }
+
+    return HAL_OK;
+}
+
+/**
+  * @brief  Get current BQ76952 power mode (cached value)
+  * @retval BQ_PowerMode_t: Current power mode
+  */
+BQ_PowerMode_t BQ_GetPowerMode(void)
+{
+    BQ_PowerMode_t mode;
+    if (power_mode_mutex != NULL) {
+        osMutexAcquire(power_mode_mutex, osWaitForever);
+    }
+    mode = g_bq_power_mode;
+    if (power_mode_mutex != NULL) {
+        osMutexRelease(power_mode_mutex);
+    }
+    return mode;
+}
+
+/**
+  * @brief  Read actual power mode from a BQ76952 chip via Battery Status register
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  mode: Pointer to store detected power mode
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Reads Battery Status (0x12) bit 15 to determine if chip is in SLEEP.
+  *         Caller must hold the appropriate I2C mutex.
+  */
+HAL_StatusTypeDef BQ_ReadChipPowerMode(I2C_HandleTypeDef *hi2c, uint8_t device_addr, BQ_PowerMode_t *mode)
+{
+    HAL_StatusTypeDef status;
+    uint16_t batt_status = 0;
+
+    if (mode == NULL) {
+        return HAL_ERROR;
+    }
+
+    status = BQ76952_ReadRegister16(hi2c, device_addr, BatteryStatus, &batt_status);
+    if (status != HAL_OK) {
+        return status;
+    }
+
+    *mode = (batt_status & BQ_BATT_STATUS_SLEEP_BIT) ? BQ_MODE_SLEEP : BQ_MODE_NORMAL;
+    return HAL_OK;
+}
+
+/**
+  * @brief  Initialize BQ76952 power mode at startup
+  * @retval HAL_StatusTypeDef: HAL_OK on success
+  * @note   Creates power mode mutex, reads actual mode from both chips,
+  *         and forces BQ_DEFAULT_POWER_MODE if needed.
+  */
+HAL_StatusTypeDef BQ_InitPowerMode(void)
+{
+    BQ_PowerMode_t bms1_mode, bms2_mode;
+    HAL_StatusTypeDef status;
+
+    // Create power mode mutex
+    const osMutexAttr_t pm_mutex_attr = {
+        .name = "PowerModeMutex",
+        .attr_bits = osMutexPrioInherit,
+        .cb_mem = NULL,
+        .cb_size = 0U
+    };
+    power_mode_mutex = osMutexNew(&pm_mutex_attr);
+
+    // Read actual mode from BMS1
+    if (I2C1Handle != NULL) {
+        osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS);
+    }
+    status = BQ_ReadChipPowerMode(&hi2c1, BQ76952_I2C_ADDR_BMS1, &bms1_mode);
+    if (I2C1Handle != NULL) {
+        osMutexRelease(I2C1Handle);
+    }
+
+    // Read actual mode from BMS2
+    if (I2C3Handle != NULL) {
+        osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS);
+    }
+    if (status == HAL_OK) {
+        status = BQ_ReadChipPowerMode(&hi2c3, BQ76952_I2C_ADDR_BMS2, &bms2_mode);
+    }
+    if (I2C3Handle != NULL) {
+        osMutexRelease(I2C3Handle);
+    }
+
+    // Force default mode regardless (ensures both chips are synchronized)
+    BQ_SetPowerMode(BQ_DEFAULT_POWER_MODE);
+
+    return HAL_OK;
 }
 
 /**

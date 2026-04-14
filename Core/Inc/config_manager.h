@@ -53,6 +53,7 @@ extern "C" {
 #define CONFIG_CMD_SET_MIN_VOLTAGE 0x04 // Command to set min cell voltage (value * 100 = mV, e.g. 25 = 2500mV)
 #define CONFIG_CMD_SET_MAX_VOLTAGE 0x05 // Command to set max cell voltage (value * 100 = mV, e.g. 42 = 4200mV)
 #define CONFIG_CMD_GET_VALUE     0x06   // Command to get current config value
+#define CONFIG_CMD_SET_BQ_MODE  0x07   // Command to set BQ76952 power mode (0=NORMAL, 1=SLEEP)
 
 /* Parameter Selectors for GET_VALUE command ---------------------------------*/
 #define CONFIG_PARAM_MODULE_ID   0x01   // Get current module ID
@@ -60,6 +61,20 @@ extern "C" {
 #define CONFIG_PARAM_MIN_TEMP    0x03   // Get min temperature threshold
 #define CONFIG_PARAM_MIN_VOLTAGE 0x04   // Get min voltage threshold
 #define CONFIG_PARAM_MAX_VOLTAGE 0x05   // Get max voltage threshold
+#define CONFIG_PARAM_BQ_MODE    0x06   // Get BQ76952 power mode (0=NORMAL, 1=SLEEP)
+#define CONFIG_PARAM_BQ_NORMAL_READ_INT  0x07  // Get BQ normal mode read interval (ms)
+#define CONFIG_PARAM_BQ_NORMAL_CAN_INT   0x08  // Get BQ normal mode CAN interval (ms)
+#define CONFIG_PARAM_BQ_SLEEP_READ_INT   0x09  // Get BQ sleep mode read interval (ms)
+#define CONFIG_PARAM_BQ_SLEEP_CAN_INT    0x0A  // Get BQ sleep mode CAN interval (ms)
+#define CONFIG_PARAM_I2C_TIMEOUT         0x0B  // Get I2C timeout (ms)
+#define CONFIG_PARAM_BAL_CMD_TIMEOUT     0x0C  // Get balance command timeout (ms)
+#define CONFIG_PARAM_BAL_REEVALUATE      0x0D  // Get balance reevaluate interval (ms)
+#define CONFIG_PARAM_BAL_REFRESH         0x0E  // Get balance refresh interval (ms)
+#define CONFIG_PARAM_BAL_OCV_SETTLE      0x0F  // Get balance OCV settle time (ms)
+#define CONFIG_PARAM_BAL_STATUS_INT      0x10  // Get balance status interval (ms)
+#define CONFIG_PARAM_CAN_HEARTBEAT_INT   0x11  // Get CAN heartbeat interval (ms)
+#define CONFIG_PARAM_TEMP_SUMMARY_INT    0x12  // Get temperature summary interval (ms)
+#define CONFIG_PARAM_CAN_TX_TIMEOUT      0x13  // Get CAN TX timeout (ms)
 
 /* CAN Response Status Codes -------------------------------------------------*/
 #define CONFIG_STATUS_SUCCESS 0x00      // Command successful

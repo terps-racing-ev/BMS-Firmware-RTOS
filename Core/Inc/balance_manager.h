@@ -47,7 +47,7 @@ extern "C" {
 #define BALANCE_CFG_TIMEOUT_MS      5000    /**< Balance config timeout (5 seconds) */
 #define BALANCE_REEVALUATE_MS       40000   /**< Re-evaluate cell selection (40 seconds) */
 #define BALANCE_REFRESH_MS          5000    /**< Refresh CB_ACTIVE_CELLS command (5 seconds) */
-#define BALANCE_OCV_SETTLE_MS       5000    /**< OCV settling delay before selecting cells (5 seconds) */
+#define BALANCE_OCV_SETTLE_MS       10000    /**< OCV settling delay before selecting cells (10 seconds) */
 #define BALANCE_STATUS_INTERVAL_MS  1000    /**< Send balance status every 1 second */
 
 #define BALANCE_MAX_CELLS_PER_CHIP  9       /**< Maximum cells that can be balanced per chip */

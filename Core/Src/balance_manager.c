@@ -51,6 +51,7 @@ static uint32_t ocv_settle_start_tick = 0;      /**< Tick when OCV settling star
 static bool balance_timeout_active = false;     /**< Whether balance timeout is active */
 static bool config_received = false;            /**< Whether config has been received */
 static bool ocv_settling = false;               /**< Whether OCV settling delay is active */
+static BQ_PowerMode_t saved_bq_mode = BQ_DEFAULT_POWER_MODE;  /**< BQ mode saved before balancing */
 
 static Balance_Config_t balance_config = {
     .target_voltage_mv = BALANCE_DEFAULT_TARGET_MV,
@@ -177,6 +178,12 @@ uint8_t BalanceMgr_ProcessCommand(uint8_t bms1_enable, uint8_t bms2_enable)
         // Allowed to enter balancing mode
         balance_config.bms1_enabled = bms1_requested;
         balance_config.bms2_enabled = bms2_requested;
+
+        // Save current BQ power mode and force NORMAL for balancing
+        saved_bq_mode = BQ_GetPowerMode();
+        if (saved_bq_mode != BQ_MODE_NORMAL) {
+            BQ_SetPowerMode(BQ_MODE_NORMAL);
+        }
 
         // Configure balancing speed only for chips enabled by the host command.
         if (balance_config.bms1_enabled) {
@@ -711,7 +718,9 @@ void BalanceMgr_StopBalancing(void)
 
     // Revert balancing-time BQ settings (e.g. CB_LOOP_SLOW) and restore runtime speed.
     BQ_ResetChips();
-    BQ_WakeChipsRTOS();
+
+    // Restore the power mode that was active before balancing started
+    BQ_SetPowerMode(saved_bq_mode);
     
     // Clear status
     if (osMutexAcquire(balance_mutex, osWaitForever) == osOK) {

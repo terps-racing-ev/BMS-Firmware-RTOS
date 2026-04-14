@@ -40,12 +40,19 @@ extern "C" {
 #define BMS1_NUM_CELLS              9       /**< Number of cells monitored by BMS1 (cells 1-9) */
 #define BMS2_NUM_CELLS              9       /**< Number of cells monitored by BMS2 (cells 10-18) */
 
-#define VOLTAGE_READ_INTERVAL_MS    250     /**< Cell voltage reading interval (500ms = 2Hz) */
-#define VOLTAGE_CAN_INTERVAL_MS     500     /**< CAN transmission interval for voltage data */
+#define VOLTAGE_READ_INTERVAL_MS    250     /**< Cell voltage reading interval (legacy, use mode-specific defines) */
+#define VOLTAGE_CAN_INTERVAL_MS     500     /**< CAN transmission interval (legacy, use mode-specific defines) */
 
 #define I2C_TIMEOUT_MS              100     /**< I2C communication timeout */
 
 #define BQ_FAULT_REPORTING_DEFAULT  1       /**< Default fault reporting state (1=enabled, 0=disabled) */
+
+/* BQ76952 Power Mode Configuration ------------------------------------------*/
+#define BQ_DEFAULT_POWER_MODE       BQ_MODE_SLEEP  /**< Default power mode at startup */
+#define BQ_NORMAL_READ_INTERVAL_MS  500     /**< Cell voltage read interval in NORMAL mode (ms) */
+#define BQ_NORMAL_CAN_INTERVAL_MS   500     /**< CAN reporting interval in NORMAL mode (ms) */
+#define BQ_SLEEP_READ_INTERVAL_MS   5000    /**< Cell voltage read interval in SLEEP mode (ms) */
+#define BQ_SLEEP_CAN_INTERVAL_MS    5000    /**< CAN reporting interval in SLEEP mode (ms) */
 
 /* Voltage Limits (in millivolts) */
 #define CELL_VOLTAGE_MIN_MV         2500    /**< Minimum safe cell voltage (2.5V) */
@@ -54,6 +61,14 @@ extern "C" {
 #define CELL_VOLTAGE_WARNING_HIGH_MV 4200   /**< High voltage warning threshold (4.2V) */
 
 /* Exported types ------------------------------------------------------------*/
+
+/**
+  * @brief  BQ76952 power mode enumeration
+  */
+typedef enum {
+    BQ_MODE_NORMAL = 0,  /**< NORMAL mode: full measurement rate, higher power */
+    BQ_MODE_SLEEP  = 1   /**< SLEEP mode: reduced rate with wake-read-sleep, lower power */
+} BQ_PowerMode_t;
 
 /**
   * @brief  BQ76952 voltage data structure
@@ -212,6 +227,41 @@ HAL_StatusTypeDef BQ_WakeChips(void);
   * @note   Uses I2C mutexes and osDelay, intended for runtime use after scheduler start.
   */
 HAL_StatusTypeDef BQ_WakeChipsRTOS(void);
+
+/**
+  * @brief  Set BQ76952 power mode for both chips (NORMAL or SLEEP)
+  * @param  mode: Desired power mode (BQ_MODE_NORMAL or BQ_MODE_SLEEP)
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR if either chip fails
+  * @note   Sends SLEEP_ENABLE or SLEEP_DISABLE to both BMS1 and BMS2.
+  *         If the second chip fails, the first chip is rolled back.
+  *         Both chips are always kept in the same mode.
+  */
+HAL_StatusTypeDef BQ_SetPowerMode(BQ_PowerMode_t mode);
+
+/**
+  * @brief  Get current BQ76952 power mode (cached value)
+  * @retval BQ_PowerMode_t: Current power mode
+  */
+BQ_PowerMode_t BQ_GetPowerMode(void);
+
+/**
+  * @brief  Read actual power mode from a BQ76952 chip via Battery Status register
+  * @param  hi2c: I2C handle
+  * @param  device_addr: BQ76952 I2C device address (7-bit)
+  * @param  mode: Pointer to store detected power mode
+  * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
+  * @note   Reads Battery Status (0x12) bit 15 to determine if chip is in SLEEP.
+  *         Caller must hold the appropriate I2C mutex.
+  */
+HAL_StatusTypeDef BQ_ReadChipPowerMode(I2C_HandleTypeDef *hi2c, uint8_t device_addr, BQ_PowerMode_t *mode);
+
+/**
+  * @brief  Initialize BQ76952 power mode at startup
+  * @retval HAL_StatusTypeDef: HAL_OK on success
+  * @note   Reads actual mode from both chips and forces BQ_DEFAULT_POWER_MODE.
+  *         Must be called after RTOS scheduler starts (uses mutexes and osDelay).
+  */
+HAL_StatusTypeDef BQ_InitPowerMode(void);
 
 /**
   * @brief  Enable or disable fault reporting from BQ handler

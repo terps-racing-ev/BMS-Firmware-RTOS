@@ -291,6 +291,10 @@
 #define PFAlertD 0x10
 #define PFStatusD 0x11
 #define BatteryStatus 0x12
+
+/* Battery Status Register Bit Definitions -----------------------------------*/
+#define BQ_BATT_STATUS_SLEEP_BIT    0x8000  /**< Bit 15: 1 = device is in SLEEP mode */
+#define BQ_BATT_STATUS_SLEEP_EN_BIT 0x0004  /**< Bit 2: 1 = SLEEP mode is enabled */
 #define Cell1Voltage 0x14
 #define Cell2Voltage 0x16
 #define Cell3Voltage 0x18

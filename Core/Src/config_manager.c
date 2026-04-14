@@ -22,11 +22,17 @@
 #include "can_ids.h"
 #include "cell_temp_handler.h"
 #include "bq_handler.h"
+#include "balance_manager.h"
+#include "can_manager.h"
 #include <string.h>
 
 /* External function prototypes ----------------------------------------------*/
 extern HAL_StatusTypeDef CAN_SendMessage(uint32_t id, uint8_t *data, uint8_t length, uint8_t priority);
 extern HAL_StatusTypeDef CAN_ReconfigureFilters(void);
+
+/* External variables for BQ power mode readback -----------------------------*/
+extern I2C_HandleTypeDef hi2c1;
+extern I2C_HandleTypeDef hi2c3;
 
 /* Private variables ---------------------------------------------------------*/
 static uint8_t module_id = CONFIG_MODULE_ID_DEFAULT;
@@ -462,6 +468,85 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
                 case CONFIG_PARAM_MAX_VOLTAGE:
                     param_value = BQ_GetMaxVoltage() / 100;  // Return as value*100=mV
                     break;
+                case CONFIG_PARAM_BQ_NORMAL_READ_INT:
+                    param_value = BQ_NORMAL_READ_INTERVAL_MS;
+                    break;
+                case CONFIG_PARAM_BQ_NORMAL_CAN_INT:
+                    param_value = BQ_NORMAL_CAN_INTERVAL_MS;
+                    break;
+                case CONFIG_PARAM_BQ_SLEEP_READ_INT:
+                    param_value = BQ_SLEEP_READ_INTERVAL_MS;
+                    break;
+                case CONFIG_PARAM_BQ_SLEEP_CAN_INT:
+                    param_value = BQ_SLEEP_CAN_INTERVAL_MS;
+                    break;
+                case CONFIG_PARAM_I2C_TIMEOUT:
+                    param_value = I2C_TIMEOUT_MS;
+                    break;
+                case CONFIG_PARAM_BAL_CMD_TIMEOUT:
+                    param_value = BALANCE_CMD_TIMEOUT_MS;
+                    break;
+                case CONFIG_PARAM_BAL_REEVALUATE:
+                    param_value = BALANCE_REEVALUATE_MS;
+                    break;
+                case CONFIG_PARAM_BAL_REFRESH:
+                    param_value = BALANCE_REFRESH_MS;
+                    break;
+                case CONFIG_PARAM_BAL_OCV_SETTLE:
+                    param_value = BALANCE_OCV_SETTLE_MS;
+                    break;
+                case CONFIG_PARAM_BAL_STATUS_INT:
+                    param_value = BALANCE_STATUS_INTERVAL_MS;
+                    break;
+                case CONFIG_PARAM_CAN_HEARTBEAT_INT:
+                    param_value = CAN_HEARTBEAT_INTERVAL_MS;
+                    break;
+                case CONFIG_PARAM_TEMP_SUMMARY_INT:
+                    param_value = TEMP_SUMMARY_INTERVAL_MS;
+                    break;
+                case CONFIG_PARAM_CAN_TX_TIMEOUT:
+                    param_value = CAN_TX_TIMEOUT_MS;
+                    break;
+                case CONFIG_PARAM_BQ_MODE:
+                {
+                    // Read actual power mode from both chips via I2C
+                    BQ_PowerMode_t bms1_mode = BQ_MODE_NORMAL;
+                    BQ_PowerMode_t bms2_mode = BQ_MODE_NORMAL;
+                    HAL_StatusTypeDef bms1_status, bms2_status;
+
+                    if (I2C1Handle != NULL) {
+                        osMutexAcquire(I2C1Handle, 100);
+                    }
+                    bms1_status = BQ_ReadChipPowerMode(&hi2c1, BQ76952_I2C_ADDR_BMS1, &bms1_mode);
+                    if (I2C1Handle != NULL) {
+                        osMutexRelease(I2C1Handle);
+                    }
+
+                    if (I2C3Handle != NULL) {
+                        osMutexAcquire(I2C3Handle, 100);
+                    }
+                    bms2_status = BQ_ReadChipPowerMode(&hi2c3, BQ76952_I2C_ADDR_BMS2, &bms2_mode);
+                    if (I2C3Handle != NULL) {
+                        osMutexRelease(I2C3Handle);
+                    }
+
+                    if (bms1_status != HAL_OK || bms2_status != HAL_OK) {
+                        status = CONFIG_STATUS_FAIL;
+                    }
+
+                    // Byte 3: BMS1 actual mode, Byte 4: BMS2 actual mode
+                    ack_data[0] = command;
+                    ack_data[1] = status;
+                    ack_data[2] = param;
+                    ack_data[3] = (uint8_t)bms1_mode;
+                    ack_data[4] = (uint8_t)bms2_mode;
+                    ack_data[5] = (uint8_t)BQ_GetPowerMode();  // Cached/commanded mode
+                    ack_data[6] = 0x00;
+                    ack_data[7] = 0x00;
+
+                    CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+                    return;  // Already sent ACK, skip generic ACK below
+                }
                 default:
                     status = CONFIG_STATUS_FAIL;
                     break;
@@ -484,6 +569,66 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
             ack_data[7] = 0x00;
             
             // Send acknowledgement
+            CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+            break;
+        }
+            
+        case CONFIG_CMD_SET_BQ_MODE:
+        {
+            // Set BQ76952 power mode: 0x00 = NORMAL, 0x01 = SLEEP
+            BQ_PowerMode_t requested_mode;
+            if (value == 0x00) {
+                requested_mode = BQ_MODE_NORMAL;
+            } else if (value == 0x01) {
+                requested_mode = BQ_MODE_SLEEP;
+            } else {
+                // Invalid mode value
+                ack_data[0] = command;
+                ack_data[1] = CONFIG_STATUS_FAIL;
+                CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
+                break;
+            }
+
+            // Apply the power mode to both chips
+            HAL_StatusTypeDef set_status = BQ_SetPowerMode(requested_mode);
+
+            // Allow chips time to transition
+            osDelay(5);
+
+            // Read back actual mode from both chips for verification
+            BQ_PowerMode_t bms1_actual = BQ_MODE_NORMAL;
+            BQ_PowerMode_t bms2_actual = BQ_MODE_NORMAL;
+
+            if (I2C1Handle != NULL) {
+                osMutexAcquire(I2C1Handle, 100);
+            }
+            BQ_ReadChipPowerMode(&hi2c1, BQ76952_I2C_ADDR_BMS1, &bms1_actual);
+            if (I2C1Handle != NULL) {
+                osMutexRelease(I2C1Handle);
+            }
+
+            if (I2C3Handle != NULL) {
+                osMutexAcquire(I2C3Handle, 100);
+            }
+            BQ_ReadChipPowerMode(&hi2c3, BQ76952_I2C_ADDR_BMS2, &bms2_actual);
+            if (I2C3Handle != NULL) {
+                osMutexRelease(I2C3Handle);
+            }
+
+            status = (set_status == HAL_OK) ? CONFIG_STATUS_SUCCESS : CONFIG_STATUS_FAIL;
+
+            // ACK: byte 0 = cmd, byte 1 = status,
+            //      byte 2 = BMS1 actual mode, byte 3 = BMS2 actual mode,
+            //      byte 4 = requested mode
+            ack_data[0] = command;
+            ack_data[1] = status;
+            ack_data[2] = (uint8_t)bms1_actual;
+            ack_data[3] = (uint8_t)bms2_actual;
+            ack_data[4] = (uint8_t)requested_mode;
+            ack_data[5] = 0x00;
+            ack_data[6] = 0x00;
+            ack_data[7] = 0x00;
+
             CAN_SendMessage(CAN_CONFIG_ACK_ID, ack_data, 8, 1);
             break;
         }

@@ -525,7 +525,7 @@ def generate_dbc():
     for module in range(6):
         can_id = 0x08F00F00 + (module << 12)
         dbc_id = can_id | 0x80000000
-        lines.append(f'VAL_ {dbc_id} Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";')
+        lines.append(f'VAL_ {dbc_id} Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_BQ_MODE";')
     
     lines.append('')
     
@@ -534,7 +534,7 @@ def generate_dbc():
     for module in range(6):
         can_id = 0x08F00F01 + (module << 12)
         dbc_id = can_id | 0x80000000
-        lines.append(f'VAL_ {dbc_id} Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE";')
+        lines.append(f'VAL_ {dbc_id} Command_Echo 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_BQ_MODE";')
         lines.append(f'VAL_ {dbc_id} Status 0 "SUCCESS" 1 "FAIL" 2 "SUCCESS_RESET_REQUIRED";')
     
     lines.append('')
@@ -544,7 +544,7 @@ def generate_dbc():
     for module in range(6):
         can_id = 0x08F00F01 + (module << 12)
         dbc_id = can_id | 0x80000000
-        lines.append(f'VAL_ {dbc_id} Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE";')
+        lines.append(f'VAL_ {dbc_id} Byte2_OldVal_or_Param 1 "MODULE_ID" 2 "MAX_TEMP" 3 "MIN_TEMP" 4 "MIN_VOLTAGE" 5 "MAX_VOLTAGE" 6 "BQ_MODE" 7 "BQ_NORMAL_READ_INT" 8 "BQ_NORMAL_CAN_INT" 9 "BQ_SLEEP_READ_INT" 10 "BQ_SLEEP_CAN_INT" 11 "I2C_TIMEOUT" 12 "BAL_CMD_TIMEOUT" 13 "BAL_REEVALUATE" 14 "BAL_REFRESH" 15 "BAL_OCV_SETTLE" 16 "BAL_STATUS_INT" 17 "CAN_HEARTBEAT_INT" 18 "TEMP_SUMMARY_INT" 19 "CAN_TX_TIMEOUT";')
     
     lines.append('')
     
