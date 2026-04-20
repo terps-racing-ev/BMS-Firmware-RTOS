@@ -485,7 +485,7 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
                     param_value = BALANCE_CMD_TIMEOUT_MS;
                     break;
                 case CONFIG_PARAM_BAL_REEVALUATE:
-                    param_value = BALANCE_REEVALUATE_MS;
+                    param_value = BALANCE_REEVALUATE_SEC;
                     break;
                 case CONFIG_PARAM_BAL_REFRESH:
                     param_value = BALANCE_REFRESH_MS;

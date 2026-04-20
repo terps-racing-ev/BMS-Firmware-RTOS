@@ -68,7 +68,7 @@ extern "C" {
 #define CONFIG_PARAM_BQ_SLEEP_CAN_INT    0x0A  // Get BQ sleep mode CAN interval (ms)
 #define CONFIG_PARAM_I2C_TIMEOUT         0x0B  // Get I2C timeout (ms)
 #define CONFIG_PARAM_BAL_CMD_TIMEOUT     0x0C  // Get balance command timeout (ms)
-#define CONFIG_PARAM_BAL_REEVALUATE      0x0D  // Get balance reevaluate interval (ms)
+#define CONFIG_PARAM_BAL_REEVALUATE      0x0D  // Get balance reevaluate interval (seconds)
 #define CONFIG_PARAM_BAL_REFRESH         0x0E  // Get balance refresh interval (ms)
 #define CONFIG_PARAM_BAL_OCV_SETTLE      0x0F  // Get balance OCV settle time (ms)
 #define CONFIG_PARAM_BAL_STATUS_INT      0x10  // Get balance status interval (ms)

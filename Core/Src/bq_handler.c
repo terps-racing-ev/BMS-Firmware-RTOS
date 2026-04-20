@@ -256,18 +256,6 @@ void BQ_MonitorTask(void *argument)
         // Read cell voltages at mode-dependent interval
         if ((current_tick - last_read_tick) >= read_interval) {
             
-            // In SLEEP mode: wake chip before reading
-            if (current_mode == BQ_MODE_SLEEP) {
-                if (I2C1Handle != NULL) {
-                    osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS);
-                }
-                BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, SLEEP_DISABLE);
-                if (I2C1Handle != NULL) {
-                    osMutexRelease(I2C1Handle);
-                }
-                osDelay(2);
-            }
-            
             // Read BMS1 (cells 1-9 on I2C1)
             status = BQ_ReadBMS1(&voltage_data_bms1);
             
@@ -305,17 +293,6 @@ void BQ_MonitorTask(void *argument)
                     
                     // Check voltage limits and set error/warning flags
                     BQ_CheckLimits(&voltage_data_bms1);
-                }
-            }
-            
-            // In SLEEP mode: put chip back to sleep after reading
-            if (current_mode == BQ_MODE_SLEEP) {
-                if (I2C1Handle != NULL) {
-                    osMutexAcquire(I2C1Handle, I2C_TIMEOUT_MS);
-                }
-                BQ76952_SendSubcommand(&hi2c1, BQ76952_I2C_ADDR_BMS1, SLEEP_ENABLE);
-                if (I2C1Handle != NULL) {
-                    osMutexRelease(I2C1Handle);
                 }
             }
             
@@ -807,18 +784,6 @@ void BQ_MonitorTask_BMS2(void *argument)
         // Read cell voltages at mode-dependent interval
         if ((current_tick - last_read_tick) >= read_interval) {
             
-            // In SLEEP mode: wake chip before reading
-            if (current_mode == BQ_MODE_SLEEP) {
-                if (I2C3Handle != NULL) {
-                    osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS);
-                }
-                BQ76952_SendSubcommand(&hi2c3, BQ76952_I2C_ADDR_BMS2, SLEEP_DISABLE);
-                if (I2C3Handle != NULL) {
-                    osMutexRelease(I2C3Handle);
-                }
-                osDelay(2);
-            }
-            
             // Read BMS2 (cells 10-18 on I2C3)
             status = BQ_ReadBMS2(&voltage_data_bms2);
             
@@ -856,17 +821,6 @@ void BQ_MonitorTask_BMS2(void *argument)
                     
                     // Check voltage limits and set error/warning flags
                     BQ_CheckLimits_BMS2(&voltage_data_bms2);
-                }
-            }
-            
-            // In SLEEP mode: put chip back to sleep after reading
-            if (current_mode == BQ_MODE_SLEEP) {
-                if (I2C3Handle != NULL) {
-                    osMutexAcquire(I2C3Handle, I2C_TIMEOUT_MS);
-                }
-                BQ76952_SendSubcommand(&hi2c3, BQ76952_I2C_ADDR_BMS2, SLEEP_ENABLE);
-                if (I2C3Handle != NULL) {
-                    osMutexRelease(I2C3Handle);
                 }
             }
             

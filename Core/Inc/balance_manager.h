@@ -16,7 +16,7 @@
   * - Max cells per BMS chip - limits concurrent balancing
   *
   * The module selects highest voltage cells above target, with spacing
-  * to avoid adjacent cells when possible. Re-evaluates every 40 seconds.
+  * to avoid adjacent cells when possible. Re-evaluates every 120 seconds.
   *
   * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
@@ -45,9 +45,10 @@ extern "C" {
 /* Defines -------------------------------------------------------------------*/
 #define BALANCE_CMD_TIMEOUT_MS      5000    /**< Balance command timeout (5 seconds) */
 #define BALANCE_CFG_TIMEOUT_MS      5000    /**< Balance config timeout (5 seconds) */
-#define BALANCE_REEVALUATE_MS       40000   /**< Re-evaluate cell selection (40 seconds) */
+#define BALANCE_REEVALUATE_SEC      120U    /**< Re-evaluate cell selection interval (seconds) */
+#define BALANCE_REEVALUATE_MS       ((uint32_t)BALANCE_REEVALUATE_SEC * 1000U) /**< Re-evaluate cell selection (120 seconds) */
 #define BALANCE_REFRESH_MS          5000    /**< Refresh CB_ACTIVE_CELLS command (5 seconds) */
-#define BALANCE_OCV_SETTLE_MS       10000    /**< OCV settling delay before selecting cells (10 seconds) */
+#define BALANCE_OCV_SETTLE_MS       5000    /**< OCV settling delay before selecting cells (10 seconds) */
 #define BALANCE_STATUS_INTERVAL_MS  1000    /**< Send balance status every 1 second */
 
 #define BALANCE_MAX_CELLS_PER_CHIP  9       /**< Maximum cells that can be balanced per chip */
@@ -117,7 +118,7 @@ void BalanceMgr_CheckTimeout(void);
 /**
   * @brief  Execute balancing logic - select and balance cells
   * @note   Should be called periodically from the CAN manager task
-  *         Re-evaluates cell selection every 40 seconds
+  *         Re-evaluates cell selection every 120 seconds
   * @retval None
   */
 void BalanceMgr_Execute(void);

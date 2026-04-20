@@ -51,8 +51,8 @@ extern "C" {
 #define BQ_DEFAULT_POWER_MODE       BQ_MODE_SLEEP  /**< Default power mode at startup */
 #define BQ_NORMAL_READ_INTERVAL_MS  500     /**< Cell voltage read interval in NORMAL mode (ms) */
 #define BQ_NORMAL_CAN_INTERVAL_MS   500     /**< CAN reporting interval in NORMAL mode (ms) */
-#define BQ_SLEEP_READ_INTERVAL_MS   5000    /**< Cell voltage read interval in SLEEP mode (ms) */
-#define BQ_SLEEP_CAN_INTERVAL_MS    5000    /**< CAN reporting interval in SLEEP mode (ms) */
+#define BQ_SLEEP_READ_INTERVAL_MS   2000    /**< Cell voltage read interval in SLEEP mode (ms) */
+#define BQ_SLEEP_CAN_INTERVAL_MS    2000    /**< CAN reporting interval in SLEEP mode (ms) */
 
 /* Voltage Limits (in millivolts) */
 #define CELL_VOLTAGE_MIN_MV         2500    /**< Minimum safe cell voltage (2.5V) */

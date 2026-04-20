@@ -42,7 +42,7 @@ Send to: `0x08F0XF00` (where X = target module ID)
 | BQ Sleep CAN Interval | `0x0A` | BQ sleep mode CAN reporting interval (ms, 16-bit) |
 | I2C Timeout | `0x0B` | I2C communication timeout (ms) |
 | Balance Cmd Timeout | `0x0C` | Balance command timeout (ms, 16-bit) |
-| Balance Reevaluate | `0x0D` | Balance cell re-evaluation interval (ms, 16-bit) |
+| Balance Reevaluate | `0x0D` | Balance cell re-evaluation interval (seconds, 16-bit) |
 | Balance Refresh | `0x0E` | Balance CB_ACTIVE_CELLS refresh interval (ms, 16-bit) |
 | Balance OCV Settle | `0x0F` | Balance OCV settling delay (ms, 16-bit) |
 | Balance Status Interval | `0x10` | Balance status CAN report interval (ms, 16-bit) |
@@ -138,7 +138,7 @@ Sent from: `0x08F0XF04`
 | Get BQ Mode | `0x08F0XF00` | `06 06` | Returns actual mode from both chips |
 | Get BQ Normal Read Int | `0x08F0XF00` | `06 07` | Returns 500 (ms, 16-bit: byte3=low, byte4=high) |
 | Get BQ Sleep Read Int | `0x08F0XF00` | `06 09` | Returns 5000 (ms, 16-bit) |
-| Get Balance Reevaluate | `0x08F0XF00` | `06 0D` | Returns 40000 (ms, 16-bit) |
+| Get Balance Reevaluate | `0x08F0XF00` | `06 0D` | Returns 120 (seconds, 16-bit) |
 | Get CAN Heartbeat Int | `0x08F0XF00` | `06 11` | Returns 1000 (ms, 16-bit) |
 | Get Temp Summary Int | `0x08F0XF00` | `06 12` | Returns 5000 (ms, 16-bit) |
 | Reset STM32 | `0x08F0XF02` | — | Immediate reset |
@@ -166,7 +166,7 @@ Sent from: `0x08F0XF04`
 | BQ Sleep CAN Interval | 5000ms | CAN report interval in SLEEP mode |
 | I2C Timeout | 100ms | I2C communication timeout |
 | Balance Command Timeout | 5000ms | Balance command timeout |
-| Balance Reevaluate | 40000ms | Cell selection re-evaluation period |
+| Balance Reevaluate | 120s | Cell selection re-evaluation period |
 | Balance Refresh | 5000ms | CB_ACTIVE_CELLS refresh period |
 | Balance OCV Settle | 10000ms | OCV settling delay before cell selection |
 | Balance Status Interval | 1000ms | Balance status CAN report interval |

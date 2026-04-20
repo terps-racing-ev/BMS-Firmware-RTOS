@@ -467,12 +467,12 @@ static uint16_t SelectCellsToBalance(uint16_t *voltages, uint8_t num_cells,
 }
 
 /**
-  * @brief  Execute balancing logic - select and balance cells
-  * @note   Should be called periodically from the CAN manager task
-  *         Re-evaluates cell selection every 40 seconds
-  *         Refreshes CB_ACTIVE_CELLS command every 5 seconds to prevent BQ76952 timeout
-  * @retval None
-  */
+    * @brief  Execute balancing logic - select and balance cells
+    * @note   Should be called periodically from the CAN manager task
+    *         Re-evaluates cell selection every 120 seconds
+    *         Refreshes CB_ACTIVE_CELLS command every 5 seconds to prevent BQ76952 timeout
+    * @retval None
+    */
 void BalanceMgr_Execute(void)
 {
     if (StateMachine_GetState() != BMS_STATE_BALANCING) {
@@ -491,7 +491,7 @@ void BalanceMgr_Execute(void)
         return;
     }
     
-    // Check if it's time to re-evaluate cell selection (every 40 seconds)
+    // Check if it's time to re-evaluate cell selection (every 120 seconds)
     bool should_evaluate = false;
     bool evaluate_after_settle = false;
     if (last_reevaluate_tick == 0) {
