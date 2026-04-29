@@ -30,6 +30,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "can_manager.h"
 #include "bq76952.h"
 #include <stdbool.h>
 
@@ -401,6 +402,23 @@ HAL_StatusTypeDef BQ_GetCBStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr,
   * @retval HAL_StatusTypeDef: HAL_OK on success, HAL_ERROR on failure
   */
 HAL_StatusTypeDef BQ_GetAlarmRawStatus(I2C_HandleTypeDef *hi2c, uint8_t device_addr, uint16_t *alarm_status);
+
+/**
+  * @brief  CAN dispatch matcher for the BQ76952 reset command message
+  * @param  msg: Received CAN message
+  * @retval true if msg is a BQ reset command for this module
+  */
+bool BQ_MatchResetCommand(const CAN_Message_t *msg);
+
+/**
+  * @brief  CAN dispatch handler for the BQ76952 reset command message
+  * @param  msg: Received CAN message (already matched)
+  * @note   Releases BMSResetSemHandle and sends acknowledgement.
+  *         The actual reset sequence runs in BMSResetHandlerTask to avoid
+  *         blocking the CAN manager during the 600ms reset.
+  * @retval None
+  */
+void BQ_HandleResetCommand(const CAN_Message_t *msg);
 
 #ifdef __cplusplus
 }

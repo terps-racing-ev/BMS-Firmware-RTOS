@@ -50,6 +50,32 @@ static void CAN_RequestRecoveryFromISR(void);
 static void CAN_ProcessPendingErrors(void);
 static HAL_StatusTypeDef CAN_PerformRecovery(void);
 
+/* Local dispatch matcher/handlers (debug-request, plain-reset) --------------*/
+static bool CAN_MatchDebugRequest(const CAN_Message_t *msg);
+static void CAN_HandleDebugRequest(const CAN_Message_t *msg);
+static bool CAN_MatchResetCommand(const CAN_Message_t *msg);
+static void CAN_HandleResetCommand(const CAN_Message_t *msg);
+
+/* Periodic tick helpers ----------------------------------------------------*/
+static void CAN_TickHeartbeat(uint32_t now, uint32_t *last_tick);
+static void CAN_TickStats(uint32_t now, uint32_t *last_tick);
+static void CAN_TickUptime(uint32_t now, uint32_t *last_tick);
+static void CAN_TickHealth(uint32_t now, uint32_t *last_tick);
+static void CAN_TickBalance(uint32_t now, uint32_t *last_status_tick);
+
+/* CAN dispatch table --------------------------------------------------------*/
+/* Order matters: first matcher to return true wins. Place broadcast/debug    */
+/* entries first so they short-circuit module-specific handlers.              */
+static const CAN_DispatchEntry_t g_can_dispatch[] = {
+    { CAN_MatchDebugRequest,    CAN_HandleDebugRequest,    "DebugRequest"    },
+    { Config_MatchCANCommand,   Config_HandleCANCommand,   "ConfigCmd"       },
+    { CAN_MatchResetCommand,    CAN_HandleResetCommand,    "ResetCmd"        },
+    { BQ_MatchResetCommand,     BQ_HandleResetCommand,     "BMSResetCmd"     },
+    { BalanceMgr_MatchCommand,  BalanceMgr_HandleCommand,  "BalanceCmd"      },
+    { BalanceMgr_MatchConfig,   BalanceMgr_HandleConfig,   "BalanceCfg"      },
+};
+#define CAN_DISPATCH_COUNT (sizeof(g_can_dispatch) / sizeof(g_can_dispatch[0]))
+
 /* Function Implementations --------------------------------------------------*/
 
 /**
@@ -69,10 +95,13 @@ HAL_StatusTypeDef CAN_Manager_Init(void)
     if (CANRxQueueHandle == NULL) {
         return HAL_ERROR;
     }
-    
-    // NOTE: CAN filter is now configured in MX_CAN1_Init() BEFORE HAL_CAN_Start()
-    // This is critical - filters must be configured before starting CAN!
-    
+
+    // Reconfigure filters with the runtime module ID. MX_CAN1_Init() set up a
+    // permissive accept-all filter pre-Config_Init; replace it now with the
+    // proper module-specific + broadcast filters. HAL_CAN_ConfigFilter() can
+    // be called while the peripheral is started.
+    CAN_ConfigureFilters();
+
     // Activate CAN notifications (CAN must already be started)
     if (HAL_CAN_ActivateNotification(&hcan1, CAN_GetNotificationFlags()) != HAL_OK) {
         return HAL_ERROR;
@@ -172,32 +201,59 @@ static HAL_StatusTypeDef CAN_PerformRecovery(void)
 }
 
 /**
+  * @brief  Pack a 29-bit extended CAN ID + mask into a CAN_FilterTypeDef
+  *         using the STM32 32-bit filter scale layout.
+  * @note   Filter register layout: (id << 3) | IDE(=0x4) | RTR(=0).
+  *         The mask covers the same bit positions; we always require IDE=1
+  *         so standard frames are rejected.
+  */
+static void CAN_PackExtFilter(uint32_t id, uint32_t id_mask,
+                              CAN_FilterTypeDef *cfg)
+{
+    uint32_t filt_id  = (id      << 3) | 0x4U;   // IDE bit
+    uint32_t filt_msk = (id_mask << 3) | 0x4U;   // also require IDE=1
+
+    cfg->FilterIdHigh     = (uint16_t)((filt_id  >> 16) & 0xFFFFU);
+    cfg->FilterIdLow      = (uint16_t)( filt_id        & 0xFFFFU);
+    cfg->FilterMaskIdHigh = (uint16_t)((filt_msk >> 16) & 0xFFFFU);
+    cfg->FilterMaskIdLow  = (uint16_t)( filt_msk        & 0xFFFFU);
+}
+
+/**
   * @brief  Configure CAN filters to accept messages for current module ID
   * @retval None
-  * @note   TEMPORARY: Accept ALL extended CAN messages for debugging
-  *         TODO: Restore module-specific filtering once RX is working
+  * @note   Two banks:
+  *           Bank 0 → FIFO0: mask filter on bits [15:12] = current module ID.
+  *                            Accepts every per-module message addressed to us.
+  *           Bank 1 → FIFO1: mask filter requiring exact match against
+  *                            CAN_DEBUG_REQUEST_ID (broadcast).
+  *         Module-specific filtering is now done in hardware; the software
+  *         CAN_IsMessageForThisModule() check in the RX ISR is redundant
+  *         (kept as a defensive cross-check).
   */
 static void CAN_ConfigureFilters(void)
 {
+    extern uint8_t Config_GetModuleID(void);
+    uint8_t module_id = Config_GetModuleID();
     CAN_FilterTypeDef filterConfig;
-    
-    // TEMPORARY DEBUG: Accept ALL extended CAN IDs
-    // This disables filtering to verify RX path is working
-    
+
+    /* --- Bank 0: per-module messages -> FIFO0 --- */
     filterConfig.FilterBank = 0;
     filterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
     filterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
-    
-    // Accept all extended IDs: ID=0, Mask=0 means "don't care about any bits"
-    filterConfig.FilterIdHigh = 0x0000;
-    filterConfig.FilterIdLow = 0x0004;   // Only IDE bit set (extended ID)
-    filterConfig.FilterMaskIdHigh = 0x0000;  // Don't care about any ID bits
-    filterConfig.FilterMaskIdLow = 0x0004;   // But we DO care about IDE bit (only extended)
-    
     filterConfig.FilterFIFOAssignment = CAN_RX_FIFO0;
     filterConfig.FilterActivation = ENABLE;
     filterConfig.SlaveStartFilterBank = 14;
-    
+
+    CAN_PackExtFilter(((uint32_t)module_id) << CAN_MODULE_ID_SHIFT,
+                      CAN_MODULE_ID_MASK,
+                      &filterConfig);
+    HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
+
+    /* --- Bank 1: broadcast (debug request) -> FIFO1 --- */
+    filterConfig.FilterBank = 1;
+    filterConfig.FilterFIFOAssignment = CAN_RX_FIFO1;
+    CAN_PackExtFilter(CAN_DEBUG_REQUEST_ID, 0x1FFFFFFFU, &filterConfig);
     HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
 }
 
@@ -349,109 +405,48 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
     // RX messages not for this module are filtered out
     // in the HAL callback function
 
+    if (msg == NULL) {
+        return;
+    }
+
     can_stats.rx_message_count++;
 
-    // Check for debug info request FIRST (broadcast message)
-    if (msg->id == CAN_DEBUG_REQUEST_ID) {
-        // Send debug info response
-        CAN_SendDebugInfo();
-        // Also send I2C diagnostics
-        CAN_SendI2CDiagnostics();
-        return;
-    }
-
-    // Strip module ID to get base message ID (for message type identification)
-    uint32_t base_id = msg->id & 0xFFFF0FFF;
-
-    // Check for configuration command message
-    if (base_id == (CAN_CONFIG_CMD_BASE & 0xFFFF0FFF)) {
-        Config_ProcessCANCommand(msg->data, msg->length);
-        return;
-    }
-    
-    // Check for reset command message
-    if (base_id == (CAN_RESET_CMD_BASE & 0xFFFF0FFF)) {
-        // Reset command - trigger NVIC system reset
-        NVIC_SystemReset();
-        return;  // Never reached, but good practice
-    }
-    
-    // Check for BMS chip reset command message
-    if (base_id == (CAN_BMS_RESET_CMD_BASE & 0xFFFF0FFF)) {
-        // BMS chip reset command - signal reset handler task via semaphore
-        // This prevents blocking the CAN manager during the 600ms reset sequence
-        uint8_t ack_data[8] = {0};
-        osStatus_t sem_result = osOK;
-        
-        // Signal the BMS reset handler task (non-blocking)
-        if (BMSResetSemHandle != NULL) {
-            sem_result = osSemaphoreRelease(BMSResetSemHandle);
-        } else {
-            sem_result = osError;
+    // Iterate the dispatch table; first matcher wins.
+    for (size_t i = 0; i < CAN_DISPATCH_COUNT; ++i) {
+        const CAN_DispatchEntry_t *entry = &g_can_dispatch[i];
+        if (entry->match != NULL && entry->match(msg)) {
+            if (entry->handle != NULL) {
+                entry->handle(msg);
+            }
+            return;
         }
-        
-        // Prepare acknowledgement message
-        // Byte 0: Status (0x00 = success/queued, 0x01 = fail/already pending)
-        // Bytes 1-7: Reserved
-        ack_data[0] = (sem_result == osOK) ? 0x00 : 0x01;
-        ack_data[1] = 0x00;
-        ack_data[2] = 0x00;
-        ack_data[3] = 0x00;
-        ack_data[4] = 0x00;
-        ack_data[5] = 0x00;
-        ack_data[6] = 0x00;
-        ack_data[7] = 0x00;
-        
-        // Send acknowledgement
-        CAN_SendMessage(CAN_BMS_RESET_ACK_ID, ack_data, 8, CAN_PRIORITY_HIGH);
-        return;
     }
-    
-    // Check for balance command message
-    if (base_id == (CAN_BALANCE_CMD_BASE & 0xFFFF0FFF)) {
-        uint8_t ack_data[8] = {0};
-        uint8_t bms1_enable = msg->data[0];
-        uint8_t bms2_enable = msg->data[1];
-        
-        // Process balance command and get status
-        uint8_t balance_status = BalanceMgr_ProcessCommand(bms1_enable, bms2_enable);
-        
-        // Prepare acknowledgement message
-        // Byte 0: Status (BALANCE_STATUS_*)
-        // Byte 1-2: Time remaining in ms (little-endian)
-        // Bytes 3-7: Reserved
-        uint32_t time_remaining = BalanceMgr_GetTimeRemaining();
-        ack_data[0] = balance_status;
-        ack_data[1] = (uint8_t)(time_remaining & 0xFF);
-        ack_data[2] = (uint8_t)((time_remaining >> 8) & 0xFF);
-        ack_data[3] = 0x00;
-        ack_data[4] = 0x00;
-        ack_data[5] = 0x00;
-        ack_data[6] = 0x00;
-        ack_data[7] = 0x00;
-        
-        // Send acknowledgement
-        CAN_SendMessage(CAN_BALANCE_ACK_ID, ack_data, 8, CAN_PRIORITY_HIGH);
-        return;
-    }
-    
-    // Check for balance configuration message
-    if (base_id == (CAN_BALANCE_CFG_BASE & 0xFFFF0FFF)) {
-        // Parse balance config message
-        // Bytes 0-1: Target voltage in mV (little-endian)
-        // Byte 2: Max cells per chip (1-9)
-        // Bytes 3-7: Reserved
-        uint16_t target_voltage = (uint16_t)(msg->data[0]) | ((uint16_t)(msg->data[1]) << 8);
-        uint8_t max_cells = msg->data[2];
-        
-        // Process the configuration
-        BalanceMgr_ProcessConfig(target_voltage, max_cells);
-        
-        // Trigger execution immediately after config update
-        BalanceMgr_Execute();
-        return;
-    }
-    
+}
+
+/* Local dispatch matcher/handlers ------------------------------------------*/
+
+static bool CAN_MatchDebugRequest(const CAN_Message_t *msg)
+{
+    // Broadcast ID — exact match (no module nibble).
+    return (msg != NULL) && (msg->id == CAN_DEBUG_REQUEST_ID);
+}
+
+static void CAN_HandleDebugRequest(const CAN_Message_t *msg)
+{
+    (void)msg;
+    CAN_SendDebugInfo();
+    CAN_SendI2CDiagnostics();
+}
+
+static bool CAN_MatchResetCommand(const CAN_Message_t *msg)
+{
+    return (msg != NULL) && CAN_BaseIdMatches(msg->id, CAN_RESET_CMD_BASE);
+}
+
+static void CAN_HandleResetCommand(const CAN_Message_t *msg)
+{
+    (void)msg;
+    NVIC_SystemReset();
 }
 
 /**
@@ -461,98 +456,111 @@ static void CAN_ProcessRxMessage(CAN_Message_t *msg)
   */
 void CAN_ManagerTask(void *argument)
 {
+    (void)argument;
     CAN_Message_t rx_msg;
-    uint32_t last_heartbeat_tick = 0;
-    uint32_t last_stats_tick = 0;
-    uint32_t last_uptime_tick = 0;
-    uint32_t last_balance_status_tick = 0;
-    uint32_t last_can_health_tick = 0;
-    uint32_t current_tick = 0;
-    
+
     // Wait 100ms for system to stabilize
     osDelay(100);
-    
-    // Initialize timing
-    last_heartbeat_tick = osKernelGetTickCount();
-    last_stats_tick = osKernelGetTickCount();
-    last_uptime_tick = osKernelGetTickCount();
-    last_balance_status_tick = osKernelGetTickCount();
-    last_can_health_tick = osKernelGetTickCount();
-    
+
+    uint32_t now = osKernelGetTickCount();
+    uint32_t last_heartbeat_tick       = now;
+    uint32_t last_stats_tick           = now;
+    uint32_t last_uptime_tick          = now;
+    uint32_t last_balance_status_tick  = now;
+    uint32_t last_can_health_tick      = now;
+
     /* Infinite loop */
-    for(;;)
+    for (;;)
     {
-        current_tick = osKernelGetTickCount();
-        
-        // Process any received messages from RX queue
+        now = osKernelGetTickCount();
+
+        /* --- Drain RX queue --- */
         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
             CAN_ProcessRxMessage(&rx_msg);
         }
-        
-        // Process TX queue and send pending messages
+
+        /* --- Drain TX queue --- */
         CAN_ProcessTxQueue();
-        
-        // Send heartbeat message at regular intervals
-        if ((current_tick - last_heartbeat_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
-            CAN_SendHeartbeat();
-            last_heartbeat_tick = current_tick;
-        }
-        
-        // Send statistics message at regular intervals (every 1 second)
-        if ((current_tick - last_stats_tick) >= 1000) {
-            CAN_SendStatistics();
-            last_stats_tick = current_tick;
-        }
-        
-        // Update uptime counter every second
-        if ((current_tick - last_uptime_tick) >= 1000) {
-            ErrorMgr_UpdateUptime();
-            last_uptime_tick = current_tick;
-        }
 
-        // Periodic CAN health monitor and automated fault recovery
-        if ((current_tick - last_can_health_tick) >= CAN_HEALTH_CHECK_INTERVAL_MS) {
-            uint32_t can_error = HAL_CAN_GetError(&hcan1);
+        /* --- Periodic ticks --- */
+        CAN_TickHeartbeat(now, &last_heartbeat_tick);
+        CAN_TickStats(now, &last_stats_tick);
+        CAN_TickUptime(now, &last_uptime_tick);
+        CAN_TickHealth(now, &last_can_health_tick);
+        CAN_TickBalance(now, &last_balance_status_tick);
 
-            CAN_ProcessPendingErrors();
-
-            if (((can_error & HAL_CAN_ERROR_BOF) != 0U) ||
-                ((g_can_last_hal_error & HAL_CAN_ERROR_BOF) != 0U)) {
-                g_can_pending_error_flags |= ERROR_CAN_BUS_OFF;
-                CAN_RequestRecoveryFromISR();
-            }
-
-            if ((g_can_recovery_requested != 0U) &&
-                ((current_tick - g_last_can_recovery_tick) >= CAN_RECOVERY_COOLDOWN_MS)) {
-                (void)CAN_PerformRecovery();
-            }
-
-            last_can_health_tick = current_tick;
-        }
-        
-        // Send balance status every 1 second during balancing
-        if (BalanceMgr_IsBalancing()) {
-            if ((current_tick - last_balance_status_tick) >= BALANCE_STATUS_INTERVAL_MS) {
-                BalanceMgr_SendStatus();
-                BalanceMgr_SendDetailedStatus();  // Also send detailed readback from each chip
-                last_balance_status_tick = current_tick;
-            }
-        } else {
-            // Keep timer aligned while idle to avoid stale interval accumulation
-            last_balance_status_tick = current_tick;
-        }
-
-        // Run balance manager periodic logic every loop iteration.
-        // Internal timers gate refresh (5s) and re-evaluation (40s).
-        BalanceMgr_Execute();
-        
-        // Check balance timeout (runs every 10ms loop iteration)
-        BalanceMgr_CheckTimeout();
-        
-        // Small delay to prevent task from hogging CPU (10ms)
-        // The task will wake up on new messages or periodically
+        // 10ms cadence keeps CPU low while leaving room for ISRs
+        // to wake the queue. Periodic ticks above are timer-gated.
         osDelay(10);
     }
+}
+
+/* Periodic tick helpers ---------------------------------------------------- */
+
+static void CAN_TickHeartbeat(uint32_t now, uint32_t *last_tick)
+{
+    if ((now - *last_tick) >= CAN_HEARTBEAT_INTERVAL_MS) {
+        CAN_SendHeartbeat();
+        *last_tick = now;
+    }
+}
+
+static void CAN_TickStats(uint32_t now, uint32_t *last_tick)
+{
+    if ((now - *last_tick) >= 1000U) {
+        CAN_SendStatistics();
+        *last_tick = now;
+    }
+}
+
+static void CAN_TickUptime(uint32_t now, uint32_t *last_tick)
+{
+    if ((now - *last_tick) >= 1000U) {
+        ErrorMgr_UpdateUptime();
+        *last_tick = now;
+    }
+}
+
+static void CAN_TickHealth(uint32_t now, uint32_t *last_tick)
+{
+    if ((now - *last_tick) < CAN_HEALTH_CHECK_INTERVAL_MS) {
+        return;
+    }
+    *last_tick = now;
+
+    uint32_t can_error = HAL_CAN_GetError(&hcan1);
+
+    CAN_ProcessPendingErrors();
+
+    if (((can_error & HAL_CAN_ERROR_BOF) != 0U) ||
+        ((g_can_last_hal_error & HAL_CAN_ERROR_BOF) != 0U)) {
+        g_can_pending_error_flags |= ERROR_CAN_BUS_OFF;
+        CAN_RequestRecoveryFromISR();
+    }
+
+    if ((g_can_recovery_requested != 0U) &&
+        ((now - g_last_can_recovery_tick) >= CAN_RECOVERY_COOLDOWN_MS)) {
+        (void)CAN_PerformRecovery();
+    }
+}
+
+static void CAN_TickBalance(uint32_t now, uint32_t *last_status_tick)
+{
+    if (BalanceMgr_IsBalancing()) {
+        if ((now - *last_status_tick) >= BALANCE_STATUS_INTERVAL_MS) {
+            BalanceMgr_SendStatus();
+            BalanceMgr_SendDetailedStatus();
+            *last_status_tick = now;
+        }
+    } else {
+        // Keep timer aligned while idle to avoid stale interval accumulation
+        *last_status_tick = now;
+    }
+
+    // Run balance manager periodic logic every loop iteration.
+    // Internal timers gate refresh (5s) and re-evaluation (40s).
+    BalanceMgr_Execute();
+    BalanceMgr_CheckTimeout();
 }
 
 /**

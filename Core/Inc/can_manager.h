@@ -53,6 +53,30 @@ typedef struct {
     uint32_t timestamp;             // Timestamp when message was queued
 } CAN_Message_t;
 
+/* CAN Dispatch ABI ---------------------------------------------------------*/
+/* Each module that owns a CAN message exports a {match, handle} pair.       */
+/* The CAN manager iterates a static dispatch table on every received frame; */
+/* the first matcher that returns true gets its handler invoked.             */
+typedef bool (*CAN_MatchFunc_t)(const CAN_Message_t *msg);
+typedef void (*CAN_HandleFunc_t)(const CAN_Message_t *msg);
+
+typedef struct {
+    CAN_MatchFunc_t  match;     /**< Returns true when this entry claims the message */
+    CAN_HandleFunc_t handle;    /**< Called when match returns true */
+    const char      *name;      /**< Human-readable name for debug/log */
+} CAN_DispatchEntry_t;
+
+/**
+  * @brief  Compare a received CAN ID against a base ID, ignoring the module-ID nibble
+  * @param  id:   Received message ID
+  * @param  base: Base ID from can_ids.h (without module offset)
+  * @retval true if message matches base ID (module nibble is masked out)
+  */
+static inline bool CAN_BaseIdMatches(uint32_t id, uint32_t base)
+{
+    return (id & ~CAN_MODULE_ID_MASK) == (base & ~CAN_MODULE_ID_MASK);
+}
+
 /* CAN Statistics Structure */
 typedef struct {
     uint32_t tx_success_count;      // Successfully transmitted messages

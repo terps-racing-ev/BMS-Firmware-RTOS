@@ -23,6 +23,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "bq_handler.h"
 #include "can_manager.h"
+#include "can_ids.h"
 #include "error_manager.h"
 #include <string.h>
 
@@ -1940,6 +1941,41 @@ HAL_StatusTypeDef BQ_IsBalancingActive(I2C_HandleTypeDef *hi2c, uint8_t device_a
     }
     
     return status;
+}
+
+/* CAN dispatch entries -----------------------------------------------------*/
+
+extern uint32_t CAN_BMS_RESET_ACK_ID;
+
+/**
+  * @brief  CAN dispatch matcher for the BQ76952 reset command message
+  */
+bool BQ_MatchResetCommand(const CAN_Message_t *msg)
+{
+    return (msg != NULL) && CAN_BaseIdMatches(msg->id, CAN_BMS_RESET_CMD_BASE);
+}
+
+/**
+  * @brief  CAN dispatch handler for the BQ76952 reset command message
+  */
+void BQ_HandleResetCommand(const CAN_Message_t *msg)
+{
+    uint8_t ack_data[8] = {0};
+    osStatus_t sem_result = osError;
+
+    (void)msg;
+
+    // Signal the BMS reset handler task (non-blocking).
+    // The actual reset sequence runs there to avoid blocking CAN manager
+    // during the 600 ms reset.
+    if (BMSResetSemHandle != NULL) {
+        sem_result = osSemaphoreRelease(BMSResetSemHandle);
+    }
+
+    // Byte 0: 0x00 = success/queued, 0x01 = fail/already pending
+    ack_data[0] = (sem_result == osOK) ? 0x00 : 0x01;
+
+    CAN_SendMessage(CAN_BMS_RESET_ACK_ID, ack_data, 8, CAN_PRIORITY_HIGH);
 }
 
 /**

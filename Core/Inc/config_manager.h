@@ -30,6 +30,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "can_manager.h"
 #include <stdint.h>
 
 /* Defines -------------------------------------------------------------------*/
@@ -131,6 +132,20 @@ void Config_InitCANIDs(void);
   * @retval None
   */
 void Config_ProcessCANCommand(uint8_t *data, uint8_t length);
+
+/**
+  * @brief  CAN dispatch matcher for the configuration command message
+  * @param  msg: Received CAN message
+  * @retval true if msg is a config command for this module
+  */
+bool Config_MatchCANCommand(const CAN_Message_t *msg);
+
+/**
+  * @brief  CAN dispatch handler for the configuration command message
+  * @param  msg: Received CAN message (already matched)
+  * @retval None
+  */
+void Config_HandleCANCommand(const CAN_Message_t *msg);
 
 #ifdef __cplusplus
 }

@@ -813,3 +813,63 @@ HAL_StatusTypeDef BalanceMgr_SendDetailedStatus(void)
     
     return HAL_OK;
 }
+
+/* CAN dispatch entries -----------------------------------------------------*/
+
+/**
+  * @brief  CAN dispatch matcher for the balance command message
+  */
+bool BalanceMgr_MatchCommand(const CAN_Message_t *msg)
+{
+    return (msg != NULL) && CAN_BaseIdMatches(msg->id, CAN_BALANCE_CMD_BASE);
+}
+
+/**
+  * @brief  CAN dispatch handler for the balance command message
+  */
+void BalanceMgr_HandleCommand(const CAN_Message_t *msg)
+{
+    if (msg == NULL || msg->length < 2) {
+        return;
+    }
+
+    uint8_t bms1_enable = msg->data[0];
+    uint8_t bms2_enable = msg->data[1];
+
+    uint8_t balance_status = BalanceMgr_ProcessCommand(bms1_enable, bms2_enable);
+    uint32_t time_remaining = BalanceMgr_GetTimeRemaining();
+
+    uint8_t ack_data[8] = {0};
+    ack_data[0] = balance_status;
+    ack_data[1] = (uint8_t)(time_remaining & 0xFF);
+    ack_data[2] = (uint8_t)((time_remaining >> 8) & 0xFF);
+
+    CAN_SendMessage(CAN_BALANCE_ACK_ID, ack_data, 8, CAN_PRIORITY_HIGH);
+}
+
+/**
+  * @brief  CAN dispatch matcher for the balance configuration message
+  */
+bool BalanceMgr_MatchConfig(const CAN_Message_t *msg)
+{
+    return (msg != NULL) && CAN_BaseIdMatches(msg->id, CAN_BALANCE_CFG_BASE);
+}
+
+/**
+  * @brief  CAN dispatch handler for the balance configuration message
+  */
+void BalanceMgr_HandleConfig(const CAN_Message_t *msg)
+{
+    if (msg == NULL || msg->length < 3) {
+        return;
+    }
+
+    uint16_t target_voltage =
+        (uint16_t)msg->data[0] | ((uint16_t)msg->data[1] << 8);
+    uint8_t max_cells = msg->data[2];
+
+    BalanceMgr_ProcessConfig(target_voltage, max_cells);
+
+    // Trigger execution immediately after config update
+    BalanceMgr_Execute();
+}

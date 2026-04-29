@@ -636,3 +636,22 @@ void Config_ProcessCANCommand(uint8_t *data, uint8_t length)
             break;
     }
 }
+
+/**
+  * @brief  CAN dispatch matcher for the configuration command message
+  */
+bool Config_MatchCANCommand(const CAN_Message_t *msg)
+{
+    return (msg != NULL) && CAN_BaseIdMatches(msg->id, CAN_CONFIG_CMD_BASE);
+}
+
+/**
+  * @brief  CAN dispatch handler for the configuration command message
+  */
+void Config_HandleCANCommand(const CAN_Message_t *msg)
+{
+    if (msg == NULL) {
+        return;
+    }
+    Config_ProcessCANCommand((uint8_t *)msg->data, msg->length);
+}

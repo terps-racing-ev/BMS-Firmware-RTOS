@@ -39,6 +39,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "can_manager.h"
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -162,6 +163,34 @@ void BalanceMgr_GetStatus(Balance_Status_t *status);
   * @retval None
   */
 void BalanceMgr_StopBalancing(void);
+
+/**
+  * @brief  CAN dispatch matcher for the balance command message
+  * @param  msg: Received CAN message
+  * @retval true if msg is a balance command for this module
+  */
+bool BalanceMgr_MatchCommand(const CAN_Message_t *msg);
+
+/**
+  * @brief  CAN dispatch handler for the balance command message
+  * @param  msg: Received CAN message (already matched)
+  * @retval None
+  */
+void BalanceMgr_HandleCommand(const CAN_Message_t *msg);
+
+/**
+  * @brief  CAN dispatch matcher for the balance configuration message
+  * @param  msg: Received CAN message
+  * @retval true if msg is a balance configuration for this module
+  */
+bool BalanceMgr_MatchConfig(const CAN_Message_t *msg);
+
+/**
+  * @brief  CAN dispatch handler for the balance configuration message
+  * @param  msg: Received CAN message (already matched)
+  * @retval None
+  */
+void BalanceMgr_HandleConfig(const CAN_Message_t *msg);
 
 #ifdef __cplusplus
 }
