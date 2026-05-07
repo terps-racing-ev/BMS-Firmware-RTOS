@@ -78,6 +78,7 @@ extern "C" {
 
 // Temperature summary message timing
 #define TEMP_SUMMARY_INTERVAL_MS 5000    // Send summary message every 5 seconds
+#define TEMP_ROLLING_AVG_WINDOW 5        // Rolling average window in full scan cycles (~5 seconds)
 
 // Task timing - Oversampling configuration
 #define TEMP_OVERSAMPLE_PERIOD_MS 125    // Oversample each MUX channel for 125ms
@@ -104,6 +105,10 @@ typedef struct {
     uint32_t last_read_time;  // Last reading timestamp
     uint32_t adc_accumulator; // Accumulator for oversampling
     uint16_t sample_count;    // Number of samples accumulated
+  uint16_t rolling_raw_history[TEMP_ROLLING_AVG_WINDOW]; // Recent per-cycle ADC averages
+  uint32_t rolling_raw_sum;  // Sum of ADC averages in rolling window
+  uint8_t rolling_index;     // Next history slot to overwrite
+  uint8_t rolling_count;     // Number of valid entries in rolling window
 } thermistor_data_t;
 
 typedef struct {

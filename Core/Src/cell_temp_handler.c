@@ -22,6 +22,7 @@
 #include "can_manager.h"
 #include "error_manager.h"
 #include "bq_handler.h"
+#include "watchdog.h"
 #include <string.h>
 
 /* Private variables ---------------------------------------------------------*/
@@ -44,6 +45,8 @@ static HAL_StatusTypeDef CellTemp_ConfigureADCChannel(uint32_t channel);
 static HAL_StatusTypeDef CellTemp_SendTemperatureMessage(uint8_t msg_index, uint8_t start_therm_idx);
 static uint8_t CellTemp_IsADCEnabled(uint8_t adc_index);
 static uint8_t CellTemp_IsFaultDetectionEnabled(uint8_t thermistor_index);
+static void CellTemp_ResetRollingAverage(thermistor_data_t *therm);
+static void CellTemp_UpdateRollingAverage(thermistor_data_t *therm, uint16_t raw_adc, uint32_t current_time);
 
 /* Function Implementations --------------------------------------------------*/
 
@@ -75,6 +78,43 @@ HAL_StatusTypeDef CellTemp_Init(void)
     HAL_GPIO_WritePin(MUX_SIG3_PORT, MUX_SIG3_PIN, GPIO_PIN_RESET);
 
     return HAL_OK;
+}
+
+/**
+    * @brief  Reset rolling average state for a thermistor
+    * @param  therm: Thermistor state to reset
+    * @retval None
+    */
+static void CellTemp_ResetRollingAverage(thermistor_data_t *therm)
+{
+        memset(therm->rolling_raw_history, 0, sizeof(therm->rolling_raw_history));
+        therm->rolling_raw_sum = 0;
+        therm->rolling_index = 0;
+        therm->rolling_count = 0;
+}
+
+/**
+    * @brief  Update rolling average state and published temperature
+    * @param  therm: Thermistor state to update
+    * @param  raw_adc: New per-cycle averaged ADC reading
+    * @param  current_time: Current RTOS tick count
+    * @retval None
+    */
+static void CellTemp_UpdateRollingAverage(thermistor_data_t *therm, uint16_t raw_adc, uint32_t current_time)
+{
+        if (therm->rolling_count >= TEMP_ROLLING_AVG_WINDOW) {
+                therm->rolling_raw_sum -= therm->rolling_raw_history[therm->rolling_index];
+        } else {
+                therm->rolling_count++;
+        }
+
+        therm->rolling_raw_history[therm->rolling_index] = raw_adc;
+        therm->rolling_raw_sum += raw_adc;
+        therm->rolling_index = (therm->rolling_index + 1U) % TEMP_ROLLING_AVG_WINDOW;
+
+        therm->raw_adc = (uint16_t)(therm->rolling_raw_sum / therm->rolling_count);
+        therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
+        therm->last_read_time = current_time;
 }
 
 /**
@@ -315,12 +355,11 @@ void CellTemp_MonitorTask(void *argument)
                 
                 // Calculate average ADC value
                 if (therm->sample_count > 0) {
-                    therm->raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
-                    therm->temperature = CellTemp_CalculateTemperature(therm->raw_adc);
-                    therm->last_read_time = current_time;
+                    uint16_t averaged_raw_adc = (uint16_t)(therm->adc_accumulator / therm->sample_count);
+                    CellTemp_UpdateRollingAverage(therm, averaged_raw_adc, current_time);
                     
-                    // Check over-temperature immediately (only if fault detection is enabled for this thermistor)
-                    // Sensor faults and under-temp are counted and checked at end of cycle against MAX_THERM_FAULT_ALLOWED
+                    // Check over-temperature on the smoothed temperature.
+                    // Sensor faults and under-temp are counted and checked at end of cycle against MAX_THERM_FAULT_ALLOWED.
                     if (CellTemp_IsFaultDetectionEnabled(therm_idx)) {
                         if (therm->temperature > -126.0f) {  // Valid temperature reading
                             if (therm->temperature > temp_max_threshold) {
@@ -332,15 +371,19 @@ void CellTemp_MonitorTask(void *argument)
                     }
                 } else {
                     // No valid samples collected - sensor fault
+                    CellTemp_ResetRollingAverage(therm);
                     therm->raw_adc = 0;
                     therm->temperature = -127.0f;
+                    therm->last_read_time = current_time;
                     // Sensor fault checked at end of cycle with fault count threshold
                 }
             } else {
                 // ADC disabled - mark thermistor as invalid
                 uint8_t therm_idx = adc * MUX_CHANNELS + temp_state.current_mux;
+                CellTemp_ResetRollingAverage(&temp_state.thermistors[therm_idx]);
                 temp_state.thermistors[therm_idx].temperature = -127.0f;
                 temp_state.thermistors[therm_idx].raw_adc = 0;
+                temp_state.thermistors[therm_idx].last_read_time = current_time;
             }
         }
         
@@ -372,6 +415,9 @@ void CellTemp_MonitorTask(void *argument)
         
         // Move to next MUX channel
         temp_state.current_mux++;
+
+        // Watchdog heartbeat (per ~125 ms MUX iteration)
+        Watchdog_Heartbeat(WD_TASK_CELLTEMP);
         
         // Check if we completed full cycle of all MUX channels
         if (temp_state.current_mux >= MUX_CHANNELS) {

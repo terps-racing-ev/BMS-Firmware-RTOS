@@ -25,6 +25,7 @@
 #include "can_manager.h"
 #include "can_ids.h"
 #include "error_manager.h"
+#include "watchdog.h"
 #include <string.h>
 
 /* External variables --------------------------------------------------------*/
@@ -248,7 +249,10 @@ void BQ_MonitorTask(void *argument)
     for(;;)
     {
         current_tick = osKernelGetTickCount();
-        
+
+        // Watchdog heartbeat
+        Watchdog_Heartbeat(WD_TASK_BMS1);
+
         // Select intervals based on current power mode
         BQ_PowerMode_t current_mode = BQ_GetPowerMode();
         uint32_t read_interval = (current_mode == BQ_MODE_SLEEP) ? BQ_SLEEP_READ_INTERVAL_MS : BQ_NORMAL_READ_INTERVAL_MS;
@@ -776,7 +780,10 @@ void BQ_MonitorTask_BMS2(void *argument)
     for(;;)
     {
         current_tick = osKernelGetTickCount();
-        
+
+        // Watchdog heartbeat
+        Watchdog_Heartbeat(WD_TASK_BMS2);
+
         // Select intervals based on current power mode
         BQ_PowerMode_t current_mode = BQ_GetPowerMode();
         uint32_t read_interval = (current_mode == BQ_MODE_SLEEP) ? BQ_SLEEP_READ_INTERVAL_MS : BQ_NORMAL_READ_INTERVAL_MS;

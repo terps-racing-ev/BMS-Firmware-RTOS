@@ -29,6 +29,7 @@
 #include "error_manager.h"
 #include "state_machine.h"
 #include "balance_manager.h"
+#include "watchdog.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -252,6 +253,14 @@ int main(void)
   {
     Error_Handler();
   }
+
+  // Initialize Independent Watchdog (IWDG ~2s) and capture previous reset
+  // cause. Once started the IWDG cannot be disabled; the supervisor task
+  // (created below) is responsible for refreshing it.
+  if (Watchdog_Init() != HAL_OK)
+  {
+    Error_Handler();
+  }
   
   // Initialize CAN Manager (creates TX and RX message queues)
   if (CAN_Manager_Init() != HAL_OK)
@@ -285,6 +294,12 @@ int main(void)
 
   /* creation of BMSResetHandler */
   BMSResetHandlerHandle = osThreadNew(BMSResetHandlerTask, NULL, &BMSResetHandler_attributes);
+
+  /* creation of Watchdog supervisor */
+  if (Watchdog_StartSupervisor() != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */

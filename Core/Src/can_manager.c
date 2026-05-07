@@ -23,6 +23,7 @@
 #include "error_manager.h"
 #include "state_machine.h"
 #include "config_manager.h"
+#include "watchdog.h"
 #include "bq_handler.h"
 #include "balance_manager.h"
 
@@ -473,6 +474,9 @@ void CAN_ManagerTask(void *argument)
     for (;;)
     {
         now = osKernelGetTickCount();
+
+        /* --- Watchdog heartbeat --- */
+        Watchdog_Heartbeat(WD_TASK_CAN);
 
         /* --- Drain RX queue --- */
         while (osMessageQueueGet(CANRxQueueHandle, &rx_msg, NULL, 0) == osOK) {
