@@ -42,6 +42,7 @@ static osMutexId_t config_mutex = NULL;
 uint32_t CAN_TEMP_ID = 0;
 uint32_t CAN_TEMP_RAW_ID = 0;
 uint32_t CAN_TEMP_SUMMARY_ID = 0;
+uint32_t CAN_DS18B20_TEMP_ID = 0;
 uint32_t CAN_VOLTAGE_0_ID = 0;
 uint32_t CAN_VOLTAGE_1_ID = 0;
 uint32_t CAN_VOLTAGE_2_ID = 0;
@@ -224,6 +225,7 @@ void Config_InitCANIDs(void)
     CAN_TEMP_ID = CAN_ID(CAN_TEMP_BASE, mod_id);
     CAN_TEMP_RAW_ID = CAN_ID(CAN_TEMP_RAW_BASE, mod_id);
     CAN_TEMP_SUMMARY_ID = CAN_ID(CAN_TEMP_SUMMARY_BASE, mod_id);
+    CAN_DS18B20_TEMP_ID = CAN_ID(CAN_DS18B20_TEMP_BASE, mod_id);
     CAN_VOLTAGE_0_ID = CAN_ID(CAN_VOLTAGE_0_BASE, mod_id);
     CAN_VOLTAGE_1_ID = CAN_ID(CAN_VOLTAGE_1_BASE, mod_id);
     CAN_VOLTAGE_2_ID = CAN_ID(CAN_VOLTAGE_2_BASE, mod_id);

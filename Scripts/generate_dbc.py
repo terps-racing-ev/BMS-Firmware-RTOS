@@ -5,6 +5,7 @@ Each module has:
 - 14 temperature messages (56 thermistors total per module)
 - Thermistors 54 and 55 (per module) are ambient sensors
 - 1 temperature summary message (min/max/avg cell temp, min/max thermistor IDs)
+- 1 E-meter thermistor message
 - 6 voltage messages (18 cells total per module, 3 cells per message)
 - 2 voltage summary messages (BMS1/BMS2 avg, min, max, min/max cell IDs)
 - 1 heartbeat message
@@ -332,6 +333,20 @@ def generate_dbc():
         lines.append(' SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host')
         lines.append('')
         
+        # E-meter thermistor temperatures: base 0x08F00102 + module_offset
+        # Bytes 0-5: Thermistor 1..6 integer temperature (degC), bytes 6-7 reserved
+        can_id = 0x08F00102 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} E_Meter_Thermistors_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ E_Meter_Thermistor_1 : 0|8@1- (1,0) [-55|125] "degC" CAN_Host')
+        lines.append(' SG_ E_Meter_Thermistor_2 : 8|8@1- (1,0) [-55|125] "degC" CAN_Host')
+        lines.append(' SG_ E_Meter_Thermistor_3 : 16|8@1- (1,0) [-55|125] "degC" CAN_Host')
+        lines.append(' SG_ E_Meter_Thermistor_4 : 24|8@1- (1,0) [-55|125] "degC" CAN_Host')
+        lines.append(' SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host')
+        lines.append(' SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host')
+        lines.append('')
+        
         # 6 Voltage messages (0x08F00200 through 0x08F00205 + module_offset)
         # Each message contains 3 cell voltages (6 bytes)
         for msg_idx in range(6):
@@ -434,6 +449,8 @@ def generate_dbc():
         elif msg_base >= 0x8000 and msg_base <= 0x800D:  # Temperature messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 1000;')
         elif msg_base == 0x8101:  # Temperature summary message
+            lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
+        elif msg_base == 0x8102:  # E-meter thermistor message
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
         elif msg_base >= 0x8200 and msg_base <= 0x8205:  # Voltage messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')

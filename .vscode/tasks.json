@@ -64,6 +64,21 @@
             "problemMatcher": [
                 "$gcc"
             ]
+        },
+        {
+            "label": "Build App A+B and Upload zfpi",
+            "type": "shell",
+            "command": "make -f dual_build.mk; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; scp build/bank_a/debug/BMS-Firmware-RTOS_a.bin build/bank_a/debug/BMS-Firmware-RTOS_a.hex build/bank_b/debug/BMS-Firmware-RTOS_b.bin build/bank_b/debug/BMS-Firmware-RTOS_b.hex ali@zfpi.local:/home/ali/",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }

@@ -30,6 +30,7 @@
 #include "state_machine.h"
 #include "balance_manager.h"
 #include "watchdog.h"
+#include "ds18b20_handler.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -114,6 +115,15 @@ const osThreadAttr_t BMSResetHandler_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+#if DS18B20_FEATURE_ENABLED
+/* Definitions for DS18B20Monitor task */
+osThreadId_t DS18B20MonitorHandle;
+const osThreadAttr_t DS18B20Monitor_attributes = {
+  .name = "DS18B20Monitor",
+  .stack_size = 128 * 4,
+  .priority = (osPriority_t) osPriorityNormal,
+};
+#endif
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -130,6 +140,9 @@ void ReadBQBMS1(void *argument);
 void ReadBQBMS2(void *argument);
 void ReadCellTemps(void *argument);
 void BMSResetHandlerTask(void *argument);
+#if DS18B20_FEATURE_ENABLED
+void DS18B20_MonitorTask(void *argument);
+#endif
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -267,6 +280,14 @@ int main(void)
   {
     Error_Handler();
   }
+
+#if DS18B20_FEATURE_ENABLED
+  // Initialize DS18B20 1-Wire thermometer on PB7 with internal pull-up
+  if (DS18B20_Init() != HAL_OK)
+  {
+    Error_Handler();
+  }
+#endif
   
   // Initialize Balance Manager
   if (BalanceMgr_Init() != HAL_OK)
@@ -288,6 +309,11 @@ int main(void)
 
   /* creation of CellTemperature */
   CellTemperatureHandle = osThreadNew(ReadCellTemps, NULL, &CellTemperature_attributes);
+
+#if DS18B20_FEATURE_ENABLED
+  /* creation of DS18B20Monitor */
+  DS18B20MonitorHandle = osThreadNew(DS18B20_MonitorTask, NULL, &DS18B20Monitor_attributes);
+#endif
 
   /* creation of CANManager */
   CANManagerHandle = osThreadNew(CAN_ManagerTask, NULL, &CANManager_attributes);
