@@ -85,6 +85,9 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
+/* DS18B20 single-wire thermometer feature toggle (1 = enabled, 0 = disabled) */
+#define DS18B20_FEATURE_ENABLED 0U
+
 /**
   * @brief  MUX_SIG output mode selection
   * 

@@ -701,7 +701,8 @@ int8_t CellTemp_GetMinTemp(void)
   *         Bytes 2-3: Max cell temperature (0.1°C units, signed 16-bit)
   *         Bytes 4-5: BMS1 internal die temperature (0.1°C units, signed 16-bit)
   *         Bytes 6-7: BMS2 internal die temperature (0.1°C units, signed 16-bit)
-  *         Excludes ambient thermistors (54, 55) from min/max calculation
+    *         Excludes ambient thermistors (54, 55) from min/max calculation.
+    *         Thermistors below -20C are ignored for min/min-ID selection.
   */
 HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
 {
@@ -709,8 +710,9 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
     float max_temp = -200.0f;  // Start with low value
     float avg_temp = 0.0f;
     uint8_t valid_count = 0;
-    uint8_t min_temp_id;
-    uint8_t max_temp_id;
+    uint8_t min_temp_id = 0U;
+    uint8_t max_temp_id = 0U;
+    uint8_t min_temp_valid = 0U;
     
     // Find min/max cell temperatures (excluding ambient thermistors 54 and 55)
     for (uint8_t i = 0; i < TOTAL_THERMISTORS; i++) {
@@ -726,17 +728,22 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
             
             // Only consider valid temperatures (not sensor fault markers)
             if (temp > -126.0f) {
-                if (temp < min_temp) {
-                    min_temp = temp;
-                    min_temp_id = i + 1;
+                // Ignore broken thermistors (< -20C) for min/min-ID reporting.
+                if (temp >= TEMP_MIN_CELSIUS) {
+                    if ((min_temp_valid == 0U) || (temp < min_temp)) {
+                        min_temp = temp;
+                        min_temp_id = i + 1;
+                        min_temp_valid = 1U;
+                    }
 
+                    // Exclude broken thermistors from average calculation.
+                    avg_temp += temp;
+                    valid_count++;
                 }
                 if (temp > max_temp) {
                     max_temp = temp;
                     max_temp_id = i + 1;
                 }
-                avg_temp += temp;
-                valid_count++;
             }
         }
     }
@@ -745,8 +752,16 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
     if (valid_count == 0) {
         min_temp = -127.0f;
         max_temp = -127.0f;
+        avg_temp = -127.0f;
+        min_temp_id = 0U;
+        max_temp_id = 0U;
     } else {
         avg_temp = avg_temp / valid_count;
+
+        if (min_temp_valid == 0U) {
+            min_temp = -127.0f;
+            min_temp_id = 0U;
+        }
     }
 
     

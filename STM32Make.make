@@ -80,6 +80,7 @@ Core/Src/bq_handler.c \
 Core/Src/can_manager.c \
 Core/Src/cell_temp_handler.c \
 Core/Src/config_manager.c \
+Core/Src/ds18b20_handler.c \
 Core/Src/error_manager.c \
 Core/Src/freertos.c \
 Core/Src/main.c \

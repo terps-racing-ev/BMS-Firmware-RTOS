@@ -240,6 +240,24 @@ BO_ 2297430273 Cell_Temp_Summary_0: 8 BMS_Module_0
  SG_ Min_Cell_Temp_ID : 48|8@1+ (1,0) [1|54] "" CAN_Host
  SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host
 
+BO_ 2297430274 E_Meter_Thermistors_0: 8 BMS_Module_0
+ SG_ E_Meter_Thermistor_1 : 0|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_2 : 8|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_3 : 16|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_4 : 24|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host
+
+BO_ 2297430275 E_Meter_Thermistor_Debug_0: 8 BMS_Module_0
+ SG_ Sensor_Count : 0|8@1+ (1,0) [0|6] "" CAN_Host
+ SG_ Overall_Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Present_Mask : 16|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Success_Mask : 24|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ No_Presence_Mask : 32|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ CRC_Error_Mask : 40|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Search_Passes : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Discovery_Error_Packed : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297430528 Cell_Voltage_1_3: 6 BMS_Module_0
  SG_ Cell_001_Voltage : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_002_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -498,6 +516,24 @@ BO_ 2297434369 Cell_Temp_Summary_1: 8 BMS_Module_1
  SG_ Avg_Cell_Temp : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Min_Cell_Temp_ID : 48|8@1+ (1,0) [1|54] "" CAN_Host
  SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host
+
+BO_ 2297434370 E_Meter_Thermistors_1: 8 BMS_Module_1
+ SG_ E_Meter_Thermistor_1 : 0|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_2 : 8|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_3 : 16|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_4 : 24|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host
+
+BO_ 2297434371 E_Meter_Thermistor_Debug_1: 8 BMS_Module_1
+ SG_ Sensor_Count : 0|8@1+ (1,0) [0|6] "" CAN_Host
+ SG_ Overall_Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Present_Mask : 16|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Success_Mask : 24|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ No_Presence_Mask : 32|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ CRC_Error_Mask : 40|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Search_Passes : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Discovery_Error_Packed : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297434624 Cell_Voltage_19_21: 6 BMS_Module_1
  SG_ Cell_019_Voltage : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -758,6 +794,24 @@ BO_ 2297438465 Cell_Temp_Summary_2: 8 BMS_Module_2
  SG_ Min_Cell_Temp_ID : 48|8@1+ (1,0) [1|54] "" CAN_Host
  SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host
 
+BO_ 2297438466 E_Meter_Thermistors_2: 8 BMS_Module_2
+ SG_ E_Meter_Thermistor_1 : 0|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_2 : 8|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_3 : 16|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_4 : 24|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host
+
+BO_ 2297438467 E_Meter_Thermistor_Debug_2: 8 BMS_Module_2
+ SG_ Sensor_Count : 0|8@1+ (1,0) [0|6] "" CAN_Host
+ SG_ Overall_Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Present_Mask : 16|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Success_Mask : 24|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ No_Presence_Mask : 32|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ CRC_Error_Mask : 40|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Search_Passes : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Discovery_Error_Packed : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297438720 Cell_Voltage_37_39: 6 BMS_Module_2
  SG_ Cell_037_Voltage : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_038_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1016,6 +1070,24 @@ BO_ 2297442561 Cell_Temp_Summary_3: 8 BMS_Module_3
  SG_ Avg_Cell_Temp : 32|16@1- (0.1,0) [-40|125] "degC" CAN_Host
  SG_ Min_Cell_Temp_ID : 48|8@1+ (1,0) [1|54] "" CAN_Host
  SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host
+
+BO_ 2297442562 E_Meter_Thermistors_3: 8 BMS_Module_3
+ SG_ E_Meter_Thermistor_1 : 0|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_2 : 8|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_3 : 16|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_4 : 24|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host
+
+BO_ 2297442563 E_Meter_Thermistor_Debug_3: 8 BMS_Module_3
+ SG_ Sensor_Count : 0|8@1+ (1,0) [0|6] "" CAN_Host
+ SG_ Overall_Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Present_Mask : 16|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Success_Mask : 24|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ No_Presence_Mask : 32|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ CRC_Error_Mask : 40|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Search_Passes : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Discovery_Error_Packed : 56|8@1+ (1,0) [0|255] "" CAN_Host
 
 BO_ 2297442816 Cell_Voltage_55_57: 6 BMS_Module_3
  SG_ Cell_055_Voltage : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1276,6 +1348,24 @@ BO_ 2297446657 Cell_Temp_Summary_4: 8 BMS_Module_4
  SG_ Min_Cell_Temp_ID : 48|8@1+ (1,0) [1|54] "" CAN_Host
  SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host
 
+BO_ 2297446658 E_Meter_Thermistors_4: 8 BMS_Module_4
+ SG_ E_Meter_Thermistor_1 : 0|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_2 : 8|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_3 : 16|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_4 : 24|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host
+
+BO_ 2297446659 E_Meter_Thermistor_Debug_4: 8 BMS_Module_4
+ SG_ Sensor_Count : 0|8@1+ (1,0) [0|6] "" CAN_Host
+ SG_ Overall_Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Present_Mask : 16|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Success_Mask : 24|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ No_Presence_Mask : 32|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ CRC_Error_Mask : 40|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Search_Passes : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Discovery_Error_Packed : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297446912 Cell_Voltage_73_75: 6 BMS_Module_4
  SG_ Cell_073_Voltage : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_074_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1535,6 +1625,24 @@ BO_ 2297450753 Cell_Temp_Summary_5: 8 BMS_Module_5
  SG_ Min_Cell_Temp_ID : 48|8@1+ (1,0) [1|54] "" CAN_Host
  SG_ Max_Cell_Temp_ID : 56|8@1+ (1,0) [1|54] "" CAN_Host
 
+BO_ 2297450754 E_Meter_Thermistors_5: 8 BMS_Module_5
+ SG_ E_Meter_Thermistor_1 : 0|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_2 : 8|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_3 : 16|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_4 : 24|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host
+ SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host
+
+BO_ 2297450755 E_Meter_Thermistor_Debug_5: 8 BMS_Module_5
+ SG_ Sensor_Count : 0|8@1+ (1,0) [0|6] "" CAN_Host
+ SG_ Overall_Status : 8|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Present_Mask : 16|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Success_Mask : 24|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ No_Presence_Mask : 32|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ CRC_Error_Mask : 40|8@1+ (1,0) [0|63] "" CAN_Host
+ SG_ Search_Passes : 48|8@1+ (1,0) [0|255] "" CAN_Host
+ SG_ Discovery_Error_Packed : 56|8@1+ (1,0) [0|255] "" CAN_Host
+
 BO_ 2297451008 Cell_Voltage_91_93: 6 BMS_Module_5
  SG_ Cell_091_Voltage : 0|16@1+ (1,0) [0|5000] "mV" CAN_Host
  SG_ Cell_092_Voltage : 16|16@1+ (1,0) [0|5000] "mV" CAN_Host
@@ -1637,6 +1745,8 @@ BA_ "VFrameFormat" BO_ 2297430027 1;
 BA_ "VFrameFormat" BO_ 2297430028 1;
 BA_ "VFrameFormat" BO_ 2297430029 1;
 BA_ "VFrameFormat" BO_ 2297430273 1;
+BA_ "VFrameFormat" BO_ 2297430274 1;
+BA_ "VFrameFormat" BO_ 2297430275 1;
 BA_ "VFrameFormat" BO_ 2297430528 1;
 BA_ "VFrameFormat" BO_ 2297430529 1;
 BA_ "VFrameFormat" BO_ 2297430530 1;
@@ -1676,6 +1786,8 @@ BA_ "VFrameFormat" BO_ 2297434123 1;
 BA_ "VFrameFormat" BO_ 2297434124 1;
 BA_ "VFrameFormat" BO_ 2297434125 1;
 BA_ "VFrameFormat" BO_ 2297434369 1;
+BA_ "VFrameFormat" BO_ 2297434370 1;
+BA_ "VFrameFormat" BO_ 2297434371 1;
 BA_ "VFrameFormat" BO_ 2297434624 1;
 BA_ "VFrameFormat" BO_ 2297434625 1;
 BA_ "VFrameFormat" BO_ 2297434626 1;
@@ -1715,6 +1827,8 @@ BA_ "VFrameFormat" BO_ 2297438219 1;
 BA_ "VFrameFormat" BO_ 2297438220 1;
 BA_ "VFrameFormat" BO_ 2297438221 1;
 BA_ "VFrameFormat" BO_ 2297438465 1;
+BA_ "VFrameFormat" BO_ 2297438466 1;
+BA_ "VFrameFormat" BO_ 2297438467 1;
 BA_ "VFrameFormat" BO_ 2297438720 1;
 BA_ "VFrameFormat" BO_ 2297438721 1;
 BA_ "VFrameFormat" BO_ 2297438722 1;
@@ -1754,6 +1868,8 @@ BA_ "VFrameFormat" BO_ 2297442315 1;
 BA_ "VFrameFormat" BO_ 2297442316 1;
 BA_ "VFrameFormat" BO_ 2297442317 1;
 BA_ "VFrameFormat" BO_ 2297442561 1;
+BA_ "VFrameFormat" BO_ 2297442562 1;
+BA_ "VFrameFormat" BO_ 2297442563 1;
 BA_ "VFrameFormat" BO_ 2297442816 1;
 BA_ "VFrameFormat" BO_ 2297442817 1;
 BA_ "VFrameFormat" BO_ 2297442818 1;
@@ -1793,6 +1909,8 @@ BA_ "VFrameFormat" BO_ 2297446411 1;
 BA_ "VFrameFormat" BO_ 2297446412 1;
 BA_ "VFrameFormat" BO_ 2297446413 1;
 BA_ "VFrameFormat" BO_ 2297446657 1;
+BA_ "VFrameFormat" BO_ 2297446658 1;
+BA_ "VFrameFormat" BO_ 2297446659 1;
 BA_ "VFrameFormat" BO_ 2297446912 1;
 BA_ "VFrameFormat" BO_ 2297446913 1;
 BA_ "VFrameFormat" BO_ 2297446914 1;
@@ -1832,6 +1950,8 @@ BA_ "VFrameFormat" BO_ 2297450507 1;
 BA_ "VFrameFormat" BO_ 2297450508 1;
 BA_ "VFrameFormat" BO_ 2297450509 1;
 BA_ "VFrameFormat" BO_ 2297450753 1;
+BA_ "VFrameFormat" BO_ 2297450754 1;
+BA_ "VFrameFormat" BO_ 2297450755 1;
 BA_ "VFrameFormat" BO_ 2297451008 1;
 BA_ "VFrameFormat" BO_ 2297451009 1;
 BA_ "VFrameFormat" BO_ 2297451010 1;
@@ -1881,6 +2001,12 @@ VAL_ 2297438976 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALA
 VAL_ 2297443072 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";
 VAL_ 2297447168 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";
 VAL_ 2297451264 BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";
+VAL_ 2297430275 Overall_Status 0 "OK" 1 "NO_PRESENCE" 2 "CRC_ERROR" 3 "INVALID_PARAM" 4 "NOT_INITIALIZED" 5 "DISABLED";
+VAL_ 2297434371 Overall_Status 0 "OK" 1 "NO_PRESENCE" 2 "CRC_ERROR" 3 "INVALID_PARAM" 4 "NOT_INITIALIZED" 5 "DISABLED";
+VAL_ 2297438467 Overall_Status 0 "OK" 1 "NO_PRESENCE" 2 "CRC_ERROR" 3 "INVALID_PARAM" 4 "NOT_INITIALIZED" 5 "DISABLED";
+VAL_ 2297442563 Overall_Status 0 "OK" 1 "NO_PRESENCE" 2 "CRC_ERROR" 3 "INVALID_PARAM" 4 "NOT_INITIALIZED" 5 "DISABLED";
+VAL_ 2297446659 Overall_Status 0 "OK" 1 "NO_PRESENCE" 2 "CRC_ERROR" 3 "INVALID_PARAM" 4 "NOT_INITIALIZED" 5 "DISABLED";
+VAL_ 2297450755 Overall_Status 0 "OK" 1 "NO_PRESENCE" 2 "CRC_ERROR" 3 "INVALID_PARAM" 4 "NOT_INITIALIZED" 5 "DISABLED";
 
 // Error Flags Byte 0 - Temperature Errors (bit flags)
 VAL_ 2297430784 Error_Flags_Byte0 1 "OVER_TEMP" 2 "UNDER_TEMP" 4 "TEMP_SENSOR_FAULT" 8 "TEMP_GRADIENT" 16 "RESERVED_4" 32 "RESERVED_5" 64 "RESERVED_6" 128 "RESERVED_7";

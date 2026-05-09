@@ -51,6 +51,8 @@ extern "C" {
 #define CAN_TEMP_BASE           0x08F00000  /**< Base for temperature messages */
 #define CAN_TEMP_RAW_BASE       0x08F00100  /**< Base for raw ADC diagnostic messages */
 #define CAN_TEMP_SUMMARY_BASE   0x08F00101  /**< Base for cell temp summary (min, max, BMS1/BMS2 IC temps) */
+#define CAN_DS18B20_TEMP_BASE   0x08F00102  /**< Base for E-meter thermistor temperatures message */
+#define CAN_DS18B20_DEBUG_BASE  0x08F00103  /**< Base for E-meter thermistor debug message */
 
 /* Cell Voltage Messages */
 #define CAN_VOLTAGE_0_BASE      0x08F00200  /**< Base for voltage message 0 (cells 1-3) */
@@ -105,6 +107,8 @@ extern "C" {
 extern uint32_t CAN_TEMP_ID;         /**< Temperature message ID (with module offset) */
 extern uint32_t CAN_TEMP_RAW_ID;     /**< Raw ADC diagnostic message ID (with module offset) */
 extern uint32_t CAN_TEMP_SUMMARY_ID; /**< Cell temp summary ID (with module offset) */
+extern uint32_t CAN_DS18B20_TEMP_ID; /**< E-meter thermistor temperatures message ID (with module offset) */
+extern uint32_t CAN_DS18B20_DEBUG_ID; /**< E-meter thermistor debug message ID (with module offset) */
 extern uint32_t CAN_VOLTAGE_0_ID;    /**< Voltage message 0 ID (cells 1-3, with module offset) */
 extern uint32_t CAN_VOLTAGE_1_ID;    /**< Voltage message 1 ID (cells 4-6, with module offset) */
 extern uint32_t CAN_VOLTAGE_2_ID;    /**< Voltage message 2 ID (cells 7-9, with module offset) */
