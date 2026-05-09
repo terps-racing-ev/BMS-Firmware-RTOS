@@ -6,6 +6,7 @@ Each module has:
 - Thermistors 54 and 55 (per module) are ambient sensors
 - 1 temperature summary message (min/max/avg cell temp, min/max thermistor IDs)
 - 1 E-meter thermistor message
+- 1 E-meter thermistor debug message
 - 6 voltage messages (18 cells total per module, 3 cells per message)
 - 2 voltage summary messages (BMS1/BMS2 avg, min, max, min/max cell IDs)
 - 1 heartbeat message
@@ -346,6 +347,25 @@ def generate_dbc():
         lines.append(' SG_ E_Meter_Thermistor_5 : 32|8@1- (1,0) [-55|125] "degC" CAN_Host')
         lines.append(' SG_ E_Meter_Thermistor_6 : 40|8@1- (1,0) [-55|125] "degC" CAN_Host')
         lines.append('')
+
+        # E-meter thermistor debug: base 0x08F00103 + module_offset
+        # Bytes: 0=Sensor_Count, 1=Overall_Status, 2=Present_Mask,
+        # 3=Success_Mask, 4=No_Presence_Mask, 5=CRC_Error_Mask,
+        # 6=Search_Passes, 7=Packed_Discovery_Errors.
+        # Packed_Discovery_Errors low nibble = ROM CRC error count, high nibble = family mismatch count.
+        can_id = 0x08F00103 + module_offset
+        dbc_id = can_id | 0x80000000
+        message_ids.append(dbc_id)
+        lines.append(f'BO_ {dbc_id} E_Meter_Thermistor_Debug_{module}: 8 BMS_Module_{module}')
+        lines.append(' SG_ Sensor_Count : 0|8@1+ (1,0) [0|6] "" CAN_Host')
+        lines.append(' SG_ Overall_Status : 8|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append(' SG_ Present_Mask : 16|8@1+ (1,0) [0|63] "" CAN_Host')
+        lines.append(' SG_ Success_Mask : 24|8@1+ (1,0) [0|63] "" CAN_Host')
+        lines.append(' SG_ No_Presence_Mask : 32|8@1+ (1,0) [0|63] "" CAN_Host')
+        lines.append(' SG_ CRC_Error_Mask : 40|8@1+ (1,0) [0|63] "" CAN_Host')
+        lines.append(' SG_ Search_Passes : 48|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append(' SG_ Discovery_Error_Packed : 56|8@1+ (1,0) [0|255] "" CAN_Host')
+        lines.append('')
         
         # 6 Voltage messages (0x08F00200 through 0x08F00205 + module_offset)
         # Each message contains 3 cell voltages (6 bytes)
@@ -452,6 +472,8 @@ def generate_dbc():
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
         elif msg_base == 0x8102:  # E-meter thermistor message
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
+        elif msg_base == 0x8103:  # E-meter thermistor debug message
+            lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 5000;')
         elif msg_base >= 0x8200 and msg_base <= 0x8205:  # Voltage messages
             lines.append(f'BA_ "GenMsgCycleTime" BO_ {msg_id} 500;')
         elif msg_base == 0x8208 or msg_base == 0x8209:  # BMS voltage summary messages
@@ -486,6 +508,12 @@ def generate_dbc():
         can_id = 0x08F00300 + (module << 12)
         dbc_id = can_id | 0x80000000
         lines.append(f'VAL_ {dbc_id} BMS_State 0 "INIT" 1 "IDLE" 2 "CHARGING" 3 "DISCHARGING" 4 "BALANCING" 5 "FAULT" 6 "RESERVED";')
+
+    # DS18B20 debug status values
+    for module in range(6):
+        can_id = 0x08F00103 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Overall_Status 0 "OK" 1 "NO_PRESENCE" 2 "CRC_ERROR" 3 "INVALID_PARAM" 4 "NOT_INITIALIZED" 5 "DISABLED";')
     
     lines.append('')
     

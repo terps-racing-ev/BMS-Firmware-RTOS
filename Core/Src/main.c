@@ -710,6 +710,10 @@ static void MX_GPIO_Init(void)
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
+#if !DS18B20_FEATURE_ENABLED
+  HAL_GPIO_DeInit(ALERT_IN_GPIO_Port, ALERT_IN_Pin);
+#endif
+
   /* USER CODE END MX_GPIO_Init_2 */
 }
 

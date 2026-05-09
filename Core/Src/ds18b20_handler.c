@@ -17,11 +17,15 @@
 #define DS18B20_DQ_GPIO_PORT           GPIOB
 #define DS18B20_DQ_PIN                 GPIO_PIN_7
 
+#define DS18B20_CMD_SEARCH_ROM         0xF0U
+#define DS18B20_CMD_MATCH_ROM          0x55U
 #define DS18B20_CMD_SKIP_ROM           0xCCU
 #define DS18B20_CMD_CONVERT_T          0x44U
 #define DS18B20_CMD_READ_SCRATCHPAD    0xBEU
 #define DS18B20_SCRATCHPAD_SIZE        9U
 #define DS18B20_SCRATCHPAD_CRC_INDEX   8U
+#define DS18B20_FAMILY_CODE            0x28U
+#define DS18B20_DEBUG_INVALID_RAW      DS18B20_INVALID_TEMP_C
 
 #define OW_RESET_LOW_US                480U
 #define OW_PRESENCE_SAMPLE_US          70U
@@ -34,15 +38,39 @@
 #define OW_READ_SAMPLE_US              12U
 #define OW_READ_RECOVERY_US            55U
 
+/* Private types -------------------------------------------------------------*/
+typedef struct {
+    uint8_t discovery_attempts;
+    uint8_t search_passes;
+    uint8_t rom_crc_errors;
+    uint8_t family_mismatch_errors;
+    uint8_t present_mask;
+    uint8_t successful_read_mask;
+    uint8_t no_presence_mask;
+    uint8_t crc_error_mask;
+    uint8_t last_overall_status;
+} DS18B20_DebugState_t;
+
 /* Private variables ---------------------------------------------------------*/
 static osMutexId_t ds18b20_mutex = NULL;
+static DS18B20_Sensor_t ds18b20_sensors[DS18B20_MAX_SENSORS] = {0};
+static uint8_t ds18b20_sensor_count = 0U;
+static DS18B20_DebugState_t ds18b20_debug_state = {0};
 
 /* Private function prototypes -----------------------------------------------*/
 static HAL_StatusTypeDef DS18B20_InitGPIO(void);
 static HAL_StatusTypeDef DS18B20_InitDWT(void);
-static DS18B20_Status_t DS18B20_ReadTemperatureAttempt(int16_t *temperature_c);
+static HAL_StatusTypeDef DS18B20_DiscoverSensorsUnlocked(void);
+static DS18B20_Status_t DS18B20_ReadAllTemperaturesLocked(int16_t *temperatures_c, uint8_t max_count, uint8_t *sensor_count);
+static DS18B20_Status_t DS18B20_ReadSensorScratchpad(DS18B20_Sensor_t *sensor);
+static void DS18B20_ClearSensors(void);
+static void DS18B20_SortSensors(void);
+static void DS18B20_SwapSensors(DS18B20_Sensor_t *sensor_a, DS18B20_Sensor_t *sensor_b);
 static int16_t DS18B20_RawToIntegerCelsius(int16_t raw_temperature);
 static void DS18B20_SendCANMessage(const int16_t *thermistor_temps_c);
+static void DS18B20_SendDebugCANMessage(DS18B20_Status_t overall_status, uint8_t sensor_count);
+static bool OW_Search(uint8_t *rom, uint8_t *last_discrepancy, bool *last_device_flag);
+static void OW_MatchROM(const uint8_t *rom);
 static void OW_DelayUs(uint32_t delay_us);
 static void OW_DriveLow(void);
 static void OW_Release(void);
@@ -82,6 +110,10 @@ HAL_StatusTypeDef DS18B20_Init(void)
         return HAL_ERROR;
     }
 
+    if (DS18B20_DiscoverSensorsUnlocked() != HAL_OK) {
+        return HAL_ERROR;
+    }
+
     return HAL_OK;
 }
 
@@ -92,7 +124,9 @@ HAL_StatusTypeDef DS18B20_Init(void)
   */
 DS18B20_Status_t DS18B20_ReadTemperatureC(int16_t *temperature_c)
 {
-    DS18B20_Status_t status = DS18B20_STATUS_NO_PRESENCE;
+    int16_t temperatures_c[DS18B20_MAX_SENSORS] = {0};
+    uint8_t sensor_count = 0U;
+    DS18B20_Status_t status;
 
     if (temperature_c == NULL) {
         return DS18B20_STATUS_INVALID_PARAM;
@@ -100,14 +134,48 @@ DS18B20_Status_t DS18B20_ReadTemperatureC(int16_t *temperature_c)
 
     *temperature_c = DS18B20_INVALID_TEMP_C;
 
+    status = DS18B20_ReadAllTemperaturesC(temperatures_c, DS18B20_MAX_SENSORS, &sensor_count);
+    if (sensor_count > 0U) {
+        *temperature_c = temperatures_c[0];
+        return ds18b20_sensors[0].last_status;
+    }
+
+    return status;
+}
+
+/**
+  * @brief  Read all discovered DS18B20 temperatures with integer degree Celsius resolution
+  * @param  temperatures_c: Array to store signed integer Celsius readings
+  * @param  max_count: Maximum number of readings the array can store
+  * @param  sensor_count: Pointer to store number of discovered sensors
+  * @retval DS18B20_Status_t
+  */
+DS18B20_Status_t DS18B20_ReadAllTemperaturesC(int16_t *temperatures_c, uint8_t max_count, uint8_t *sensor_count)
+{
+    DS18B20_Status_t status = DS18B20_STATUS_NO_PRESENCE;
+
+    if ((temperatures_c == NULL) || (sensor_count == NULL) || (max_count == 0U)) {
+        return DS18B20_STATUS_INVALID_PARAM;
+    }
+
+    *sensor_count = 0U;
+
+    for (uint8_t slot = 0U; slot < max_count; slot++) {
+        temperatures_c[slot] = DS18B20_INVALID_TEMP_C;
+    }
+
     if (ds18b20_mutex == NULL) {
         return DS18B20_STATUS_NOT_INITIALIZED;
     }
 
     osMutexAcquire(ds18b20_mutex, osWaitForever);
 
+    if (ds18b20_sensor_count == 0U) {
+        (void)DS18B20_DiscoverSensorsUnlocked();
+    }
+
     for (uint8_t attempt = 0U; attempt < DS18B20_MAX_READ_RETRIES; attempt++) {
-        status = DS18B20_ReadTemperatureAttempt(temperature_c);
+        status = DS18B20_ReadAllTemperaturesLocked(temperatures_c, max_count, sensor_count);
         if (status == DS18B20_STATUS_OK) {
             break;
         }
@@ -121,13 +189,41 @@ DS18B20_Status_t DS18B20_ReadTemperatureC(int16_t *temperature_c)
 }
 
 /**
+    * @brief  Get number of DS18B20 sensors discovered at initialization
+    * @retval Number of discovered sensors, capped at DS18B20_MAX_SENSORS
+    */
+uint8_t DS18B20_GetSensorCount(void)
+{
+        return ds18b20_sensor_count;
+}
+
+/**
+    * @brief  Rediscover DS18B20 sensors on the 1-Wire bus
+    * @retval HAL_StatusTypeDef
+    */
+HAL_StatusTypeDef DS18B20_DiscoverSensors(void)
+{
+        HAL_StatusTypeDef status;
+
+        if (ds18b20_mutex == NULL) {
+                return HAL_ERROR;
+        }
+
+        osMutexAcquire(ds18b20_mutex, osWaitForever);
+        status = DS18B20_DiscoverSensorsUnlocked();
+        osMutexRelease(ds18b20_mutex);
+
+    return status;
+}
+
+/**
   * @brief  Main DS18B20 monitoring task
   * @param  argument: Not used
   * @retval None
   */
 void DS18B20_MonitorTask(void *argument)
 {
-    int16_t temperature_c = DS18B20_INVALID_TEMP_C;
+    uint8_t sensor_count = 0U;
     DS18B20_Status_t status = DS18B20_STATUS_NOT_INITIALIZED;
     int16_t thermistor_temps_c[DS18B20_CAN_THERMISTOR_SLOTS] = {
         DS18B20_INVALID_TEMP_C,
@@ -143,17 +239,14 @@ void DS18B20_MonitorTask(void *argument)
     osDelay(DS18B20_STARTUP_DELAY_MS);
 
     for (;;) {
-        status = DS18B20_ReadTemperatureC(&temperature_c);
-
         for (uint8_t slot = 0U; slot < DS18B20_CAN_THERMISTOR_SLOTS; slot++) {
             thermistor_temps_c[slot] = DS18B20_INVALID_TEMP_C;
         }
 
-        if (status == DS18B20_STATUS_OK) {
-            thermistor_temps_c[0] = temperature_c;
-        }
+        status = DS18B20_ReadAllTemperaturesC(thermistor_temps_c, DS18B20_CAN_THERMISTOR_SLOTS, &sensor_count);
 
         DS18B20_SendCANMessage(thermistor_temps_c);
+        DS18B20_SendDebugCANMessage(status, sensor_count);
         osDelay(DS18B20_READ_INTERVAL_MS);
     }
 }
@@ -195,16 +288,97 @@ static HAL_StatusTypeDef DS18B20_InitDWT(void)
 }
 
 /**
-  * @brief  Perform one complete DS18B20 conversion and scratchpad read
-  * @param  temperature_c: Pointer to store signed integer Celsius reading
+  * @brief  Discover DS18B20 sensors on the bus without taking the mutex
+  * @retval HAL_StatusTypeDef
+  */
+static HAL_StatusTypeDef DS18B20_DiscoverSensorsUnlocked(void)
+{
+    uint8_t rom[DS18B20_ROM_SIZE] = {0};
+    uint8_t last_discrepancy = 0U;
+    bool last_device_flag = false;
+
+    DS18B20_ClearSensors();
+    if (ds18b20_debug_state.discovery_attempts < UINT8_MAX) {
+        ds18b20_debug_state.discovery_attempts++;
+    }
+    ds18b20_debug_state.search_passes = 0U;
+    ds18b20_debug_state.rom_crc_errors = 0U;
+    ds18b20_debug_state.family_mismatch_errors = 0U;
+    ds18b20_debug_state.present_mask = 0U;
+
+    while ((ds18b20_sensor_count < DS18B20_MAX_SENSORS) &&
+           OW_Search(rom, &last_discrepancy, &last_device_flag)) {
+        uint8_t calculated_rom_crc = OW_ComputeCRC8(rom, DS18B20_ROM_SIZE - 1U);
+
+        if (ds18b20_debug_state.search_passes < UINT8_MAX) {
+            ds18b20_debug_state.search_passes++;
+        }
+
+        if ((rom[0] == DS18B20_FAMILY_CODE) &&
+            (calculated_rom_crc == rom[DS18B20_ROM_SIZE - 1U])) {
+            memcpy(ds18b20_sensors[ds18b20_sensor_count].rom, rom, DS18B20_ROM_SIZE);
+            ds18b20_sensors[ds18b20_sensor_count].temperature_c = DS18B20_INVALID_TEMP_C;
+            ds18b20_sensors[ds18b20_sensor_count].raw_temperature = DS18B20_DEBUG_INVALID_RAW;
+            ds18b20_sensors[ds18b20_sensor_count].last_status = DS18B20_STATUS_NOT_INITIALIZED;
+            ds18b20_sensors[ds18b20_sensor_count].scratchpad_crc_read = 0U;
+            ds18b20_sensors[ds18b20_sensor_count].scratchpad_crc_calculated = 0U;
+            ds18b20_sensors[ds18b20_sensor_count].rom_crc = rom[DS18B20_ROM_SIZE - 1U];
+            ds18b20_sensors[ds18b20_sensor_count].consecutive_errors = 0U;
+            ds18b20_sensors[ds18b20_sensor_count].present = 1U;
+            ds18b20_debug_state.present_mask |= (uint8_t)(1U << ds18b20_sensor_count);
+            ds18b20_sensor_count++;
+        } else if (rom[0] != DS18B20_FAMILY_CODE) {
+            if (ds18b20_debug_state.family_mismatch_errors < UINT8_MAX) {
+                ds18b20_debug_state.family_mismatch_errors++;
+            }
+        } else {
+            if (ds18b20_debug_state.rom_crc_errors < UINT8_MAX) {
+                ds18b20_debug_state.rom_crc_errors++;
+            }
+        }
+    }
+
+    DS18B20_SortSensors();
+
+    return HAL_OK;
+}
+
+/**
+  * @brief  Read all discovered DS18B20 sensors while the mutex is held
+  * @param  temperatures_c: Array to store signed integer Celsius readings
+  * @param  max_count: Maximum number of readings the array can store
+  * @param  sensor_count: Pointer to store number of discovered sensors
   * @retval DS18B20_Status_t
   */
-static DS18B20_Status_t DS18B20_ReadTemperatureAttempt(int16_t *temperature_c)
+static DS18B20_Status_t DS18B20_ReadAllTemperaturesLocked(int16_t *temperatures_c, uint8_t max_count, uint8_t *sensor_count)
 {
-    uint8_t scratchpad[DS18B20_SCRATCHPAD_SIZE] = {0};
-    int16_t raw_temperature;
+    DS18B20_Status_t last_status = DS18B20_STATUS_NO_PRESENCE;
+    uint8_t successful_reads = 0U;
+
+    *sensor_count = ds18b20_sensor_count;
+    ds18b20_debug_state.successful_read_mask = 0U;
+    ds18b20_debug_state.no_presence_mask = 0U;
+    ds18b20_debug_state.crc_error_mask = 0U;
+
+    if (ds18b20_sensor_count == 0U) {
+        ds18b20_debug_state.last_overall_status = DS18B20_STATUS_NO_PRESENCE;
+        return DS18B20_STATUS_NO_PRESENCE;
+    }
 
     if (!OW_Reset()) {
+        for (uint8_t sensor_index = 0U; sensor_index < ds18b20_sensor_count; sensor_index++) {
+            ds18b20_sensors[sensor_index].temperature_c = DS18B20_INVALID_TEMP_C;
+            ds18b20_sensors[sensor_index].raw_temperature = DS18B20_DEBUG_INVALID_RAW;
+            ds18b20_sensors[sensor_index].last_status = DS18B20_STATUS_NO_PRESENCE;
+            ds18b20_sensors[sensor_index].scratchpad_crc_read = 0U;
+            ds18b20_sensors[sensor_index].scratchpad_crc_calculated = 0U;
+            if (ds18b20_sensors[sensor_index].consecutive_errors < UINT8_MAX) {
+                ds18b20_sensors[sensor_index].consecutive_errors++;
+            }
+            ds18b20_debug_state.no_presence_mask |= (uint8_t)(1U << sensor_index);
+        }
+
+        ds18b20_debug_state.last_overall_status = DS18B20_STATUS_NO_PRESENCE;
         return DS18B20_STATUS_NO_PRESENCE;
     }
 
@@ -213,25 +387,121 @@ static DS18B20_Status_t DS18B20_ReadTemperatureAttempt(int16_t *temperature_c)
 
     osDelay(DS18B20_CONVERT_TIME_MS);
 
-    if (!OW_Reset()) {
-        return DS18B20_STATUS_NO_PRESENCE;
+    for (uint8_t sensor_index = 0U;
+         (sensor_index < ds18b20_sensor_count) && (sensor_index < max_count);
+         sensor_index++) {
+        last_status = DS18B20_ReadSensorScratchpad(&ds18b20_sensors[sensor_index]);
+        temperatures_c[sensor_index] = ds18b20_sensors[sensor_index].temperature_c;
+
+        if (last_status == DS18B20_STATUS_OK) {
+            successful_reads++;
+            ds18b20_debug_state.successful_read_mask |= (uint8_t)(1U << sensor_index);
+        } else if (last_status == DS18B20_STATUS_NO_PRESENCE) {
+            ds18b20_debug_state.no_presence_mask |= (uint8_t)(1U << sensor_index);
+        } else if (last_status == DS18B20_STATUS_CRC_ERROR) {
+            ds18b20_debug_state.crc_error_mask |= (uint8_t)(1U << sensor_index);
+        }
     }
 
-    OW_WriteByte(DS18B20_CMD_SKIP_ROM);
+    ds18b20_debug_state.last_overall_status = (successful_reads > 0U) ? DS18B20_STATUS_OK : last_status;
+
+    return (DS18B20_Status_t)ds18b20_debug_state.last_overall_status;
+}
+
+/**
+  * @brief  Read scratchpad from one addressed DS18B20 sensor
+  * @param  sensor: Sensor record containing ROM code and state
+  * @retval DS18B20_Status_t
+  */
+static DS18B20_Status_t DS18B20_ReadSensorScratchpad(DS18B20_Sensor_t *sensor)
+{
+    uint8_t scratchpad[DS18B20_SCRATCHPAD_SIZE] = {0};
+    int16_t raw_temperature;
+    uint8_t calculated_crc;
+
+    if ((sensor == NULL) || (sensor->present == 0U)) {
+        return DS18B20_STATUS_INVALID_PARAM;
+    }
+
+    sensor->temperature_c = DS18B20_INVALID_TEMP_C;
+    sensor->raw_temperature = DS18B20_DEBUG_INVALID_RAW;
+    sensor->scratchpad_crc_read = 0U;
+    sensor->scratchpad_crc_calculated = 0U;
+
+    if (!OW_Reset()) {
+        sensor->last_status = DS18B20_STATUS_NO_PRESENCE;
+        if (sensor->consecutive_errors < UINT8_MAX) {
+            sensor->consecutive_errors++;
+        }
+        return sensor->last_status;
+    }
+
+    OW_MatchROM(sensor->rom);
     OW_WriteByte(DS18B20_CMD_READ_SCRATCHPAD);
 
     for (uint8_t index = 0U; index < DS18B20_SCRATCHPAD_SIZE; index++) {
         scratchpad[index] = OW_ReadByte();
     }
 
-    if (OW_ComputeCRC8(scratchpad, DS18B20_SCRATCHPAD_CRC_INDEX) != scratchpad[DS18B20_SCRATCHPAD_CRC_INDEX]) {
-        return DS18B20_STATUS_CRC_ERROR;
+    raw_temperature = (int16_t)(((uint16_t)scratchpad[1] << 8U) | scratchpad[0]);
+    calculated_crc = OW_ComputeCRC8(scratchpad, DS18B20_SCRATCHPAD_CRC_INDEX);
+    sensor->raw_temperature = raw_temperature;
+    sensor->scratchpad_crc_read = scratchpad[DS18B20_SCRATCHPAD_CRC_INDEX];
+    sensor->scratchpad_crc_calculated = calculated_crc;
+
+    if (calculated_crc != scratchpad[DS18B20_SCRATCHPAD_CRC_INDEX]) {
+        sensor->last_status = DS18B20_STATUS_CRC_ERROR;
+        if (sensor->consecutive_errors < UINT8_MAX) {
+            sensor->consecutive_errors++;
+        }
+        return sensor->last_status;
     }
 
-    raw_temperature = (int16_t)(((uint16_t)scratchpad[1] << 8U) | scratchpad[0]);
-    *temperature_c = DS18B20_RawToIntegerCelsius(raw_temperature);
+    sensor->temperature_c = DS18B20_RawToIntegerCelsius(raw_temperature);
+    sensor->last_status = DS18B20_STATUS_OK;
+    sensor->consecutive_errors = 0U;
 
-    return DS18B20_STATUS_OK;
+    return sensor->last_status;
+}
+
+/**
+  * @brief  Clear discovered sensor state
+  * @retval None
+  */
+static void DS18B20_ClearSensors(void)
+{
+    memset(ds18b20_sensors, 0, sizeof(ds18b20_sensors));
+    ds18b20_sensor_count = 0U;
+    ds18b20_debug_state.present_mask = 0U;
+}
+
+/**
+  * @brief  Sort discovered sensors by ROM code for stable CAN slot mapping
+  * @retval None
+  */
+static void DS18B20_SortSensors(void)
+{
+    for (uint8_t outer_index = 0U; outer_index < ds18b20_sensor_count; outer_index++) {
+        for (uint8_t inner_index = (uint8_t)(outer_index + 1U); inner_index < ds18b20_sensor_count; inner_index++) {
+            if (memcmp(ds18b20_sensors[outer_index].rom, ds18b20_sensors[inner_index].rom, DS18B20_ROM_SIZE) > 0) {
+                DS18B20_SwapSensors(&ds18b20_sensors[outer_index], &ds18b20_sensors[inner_index]);
+            }
+        }
+    }
+}
+
+/**
+  * @brief  Swap two sensor records
+  * @param  sensor_a: First sensor record
+  * @param  sensor_b: Second sensor record
+  * @retval None
+  */
+static void DS18B20_SwapSensors(DS18B20_Sensor_t *sensor_a, DS18B20_Sensor_t *sensor_b)
+{
+    DS18B20_Sensor_t temp_sensor = *sensor_a;
+
+    *sensor_a = *sensor_b;
+    *sensor_b = temp_sensor;
 }
 
 /**
@@ -254,8 +524,8 @@ static int16_t DS18B20_RawToIntegerCelsius(int16_t raw_temperature)
 }
 
 /**
- * @brief  Send up to six E-meter thermistor temperatures over CAN
- * @param  thermistor_temps_c: Array of integer Celsius values for six slots
+    * @brief  Send up to six E-meter thermistor temperatures over CAN
+    * @param  thermistor_temps_c: Array of integer Celsius values for six slots
   * @retval None
   */
 static void DS18B20_SendCANMessage(const int16_t *thermistor_temps_c)
@@ -283,6 +553,127 @@ static void DS18B20_SendCANMessage(const int16_t *thermistor_temps_c)
     tx_data[7] = 0U;
 
     (void)CAN_SendMessage(CAN_DS18B20_TEMP_ID, tx_data, 8U, CAN_PRIORITY_NORMAL);
+}
+
+/**
+    * @brief  Send one DS18B20 debug summary frame over CAN
+    * @param  overall_status: Status from the most recent read cycle
+    * @param  sensor_count: Number of discovered sensors reported by the read cycle
+    * @retval None
+    */
+static void DS18B20_SendDebugCANMessage(DS18B20_Status_t overall_status, uint8_t sensor_count)
+{
+        uint8_t tx_data[8] = {0};
+
+        tx_data[0] = sensor_count;
+        tx_data[1] = (uint8_t)overall_status;
+        tx_data[2] = ds18b20_debug_state.present_mask;
+        tx_data[3] = ds18b20_debug_state.successful_read_mask;
+        tx_data[4] = ds18b20_debug_state.no_presence_mask;
+        tx_data[5] = ds18b20_debug_state.crc_error_mask;
+        tx_data[6] = ds18b20_debug_state.search_passes;
+        tx_data[7] = (uint8_t)((ds18b20_debug_state.rom_crc_errors & 0x0FU) |
+                                                     ((ds18b20_debug_state.family_mismatch_errors & 0x0FU) << 4U));
+
+        (void)CAN_SendMessage(CAN_DS18B20_DEBUG_ID, tx_data, 8U, CAN_PRIORITY_LOW);
+}
+
+/**
+  * @brief  Execute one Maxim 1-Wire Search ROM pass
+  * @param  rom: ROM buffer; must retain previous search result between calls
+  * @param  last_discrepancy: Search discrepancy state
+  * @param  last_device_flag: Set true when the last device has been found
+  * @retval true if a ROM code was found, false otherwise
+  */
+static bool OW_Search(uint8_t *rom, uint8_t *last_discrepancy, bool *last_device_flag)
+{
+    uint8_t id_bit_number = 1U;
+    uint8_t last_zero = 0U;
+    uint8_t rom_byte_number = 0U;
+    uint8_t rom_byte_mask = 1U;
+    uint8_t search_direction;
+    bool id_bit;
+    bool complement_id_bit;
+
+    if ((rom == NULL) || (last_discrepancy == NULL) || (last_device_flag == NULL)) {
+        return false;
+    }
+
+    if (*last_device_flag) {
+        return false;
+    }
+
+    if (!OW_Reset()) {
+        *last_discrepancy = 0U;
+        *last_device_flag = false;
+        return false;
+    }
+
+    OW_WriteByte(DS18B20_CMD_SEARCH_ROM);
+
+    while (rom_byte_number < DS18B20_ROM_SIZE) {
+        id_bit = OW_ReadBit();
+        complement_id_bit = OW_ReadBit();
+
+        if (id_bit && complement_id_bit) {
+            break;
+        }
+
+        if (id_bit != complement_id_bit) {
+            search_direction = id_bit ? 1U : 0U;
+        } else {
+            if (id_bit_number < *last_discrepancy) {
+                search_direction = ((rom[rom_byte_number] & rom_byte_mask) != 0U) ? 1U : 0U;
+            } else {
+                search_direction = (id_bit_number == *last_discrepancy) ? 1U : 0U;
+            }
+
+            if (search_direction == 0U) {
+                last_zero = id_bit_number;
+            }
+        }
+
+        if (search_direction != 0U) {
+            rom[rom_byte_number] |= rom_byte_mask;
+        } else {
+            rom[rom_byte_number] &= (uint8_t)~rom_byte_mask;
+        }
+
+        OW_WriteBit(search_direction != 0U);
+
+        id_bit_number++;
+        rom_byte_mask <<= 1U;
+
+        if (rom_byte_mask == 0U) {
+            rom_byte_number++;
+            rom_byte_mask = 1U;
+        }
+    }
+
+    if (id_bit_number < 65U) {
+        return false;
+    }
+
+    *last_discrepancy = last_zero;
+    if (last_zero == 0U) {
+        *last_device_flag = true;
+    }
+
+    return true;
+}
+
+/**
+  * @brief  Select one DS18B20 sensor by ROM code
+  * @param  rom: 8-byte sensor ROM code
+  * @retval None
+  */
+static void OW_MatchROM(const uint8_t *rom)
+{
+    OW_WriteByte(DS18B20_CMD_MATCH_ROM);
+
+    for (uint8_t index = 0U; index < DS18B20_ROM_SIZE; index++) {
+        OW_WriteByte(rom[index]);
+    }
 }
 
 /**
@@ -466,6 +857,46 @@ DS18B20_Status_t DS18B20_ReadTemperatureC(int16_t *temperature_c)
     }
 
     return DS18B20_STATUS_DISABLED;
+}
+
+/**
+  * @brief  Disabled DS18B20 all-temperature read stub
+  * @param  temperatures_c: Array to store invalid markers
+  * @param  max_count: Maximum number of readings the array can store
+  * @param  sensor_count: Pointer to store zero discovered sensors
+  * @retval DS18B20_Status_t
+  */
+DS18B20_Status_t DS18B20_ReadAllTemperaturesC(int16_t *temperatures_c, uint8_t max_count, uint8_t *sensor_count)
+{
+    if (temperatures_c != NULL) {
+        for (uint8_t slot = 0U; slot < max_count; slot++) {
+            temperatures_c[slot] = DS18B20_INVALID_TEMP_C;
+        }
+    }
+
+    if (sensor_count != NULL) {
+        *sensor_count = 0U;
+    }
+
+    return DS18B20_STATUS_DISABLED;
+}
+
+/**
+  * @brief  Disabled DS18B20 sensor count stub
+  * @retval Zero discovered sensors
+  */
+uint8_t DS18B20_GetSensorCount(void)
+{
+    return 0U;
+}
+
+/**
+  * @brief  Disabled DS18B20 rediscovery stub
+  * @retval HAL_StatusTypeDef
+  */
+HAL_StatusTypeDef DS18B20_DiscoverSensors(void)
+{
+    return HAL_OK;
 }
 
 /**
