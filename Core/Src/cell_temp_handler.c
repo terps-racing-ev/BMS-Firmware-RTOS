@@ -735,13 +735,15 @@ HAL_StatusTypeDef CellTemp_SendSummaryMessage(void)
                         min_temp_id = i + 1;
                         min_temp_valid = 1U;
                     }
+
+                    // Exclude broken thermistors from average calculation.
+                    avg_temp += temp;
+                    valid_count++;
                 }
                 if (temp > max_temp) {
                     max_temp = temp;
                     max_temp_id = i + 1;
                 }
-                avg_temp += temp;
-                valid_count++;
             }
         }
     }
