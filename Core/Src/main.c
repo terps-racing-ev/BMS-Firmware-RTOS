@@ -62,6 +62,7 @@ I2C_HandleTypeDef hi2c3;
 
 /* Bootloader application validity status (1 = valid, 0 = invalid) */
 uint8_t g_bootloader_app_valid = 0;
+uint8_t g_bootloader_status_flags = 0;
 
 /* Definitions for CellVoltageBMS1 */
 osThreadId_t CellVoltageBMS1Handle;
@@ -143,10 +144,201 @@ void BMSResetHandlerTask(void *argument);
 #if DS18B20_FEATURE_ENABLED
 void DS18B20_MonitorTask(void *argument);
 #endif
+static void Bootloader_UpdateApplicationStatus(void);
+static uint8_t Bootloader_IsMetadataValid(const BootMetadata_t *metadata);
+static uint8_t Bootloader_IsBankMarkedValid(const BootMetadata_t *metadata, uint8_t bank);
+static uint8_t Bootloader_IsBankCrcValid(const BootMetadata_t *metadata, uint8_t bank);
+static uint8_t Bootloader_IsBankVectorValid(uint8_t bank);
+static uint32_t Bootloader_GetBankStartAddress(uint8_t bank);
+static uint32_t Bootloader_GetBankSize(const BootMetadata_t *metadata, uint8_t bank);
+static uint32_t Bootloader_GetBankCrc(const BootMetadata_t *metadata, uint8_t bank);
+static uint32_t Bootloader_ComputeCRC32(uint32_t start_address, uint32_t size);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+static uint32_t Bootloader_GetBankStartAddress(uint8_t bank)
+{
+  return (bank == BOOT_BANK_B) ? BOOT_BANK_B_ADDRESS : BOOT_BANK_A_ADDRESS;
+}
+
+static uint32_t Bootloader_GetBankSize(const BootMetadata_t *metadata, uint8_t bank)
+{
+  return (bank == BOOT_BANK_B) ? metadata->bank_b_size : metadata->bank_a_size;
+}
+
+static uint32_t Bootloader_GetBankCrc(const BootMetadata_t *metadata, uint8_t bank)
+{
+  return (bank == BOOT_BANK_B) ? metadata->bank_b_crc : metadata->bank_a_crc;
+}
+
+static uint8_t Bootloader_IsMetadataValid(const BootMetadata_t *metadata)
+{
+  if (metadata->magic != BOOT_METADATA_MAGIC)
+  {
+    return 0;
+  }
+
+  if (metadata->complement != ~BOOT_METADATA_MAGIC)
+  {
+    return 0;
+  }
+
+  if (metadata->active_bank != BOOT_BANK_A && metadata->active_bank != BOOT_BANK_B)
+  {
+    return 0;
+  }
+
+  if (metadata->bank_a_size > BOOT_BANK_SIZE || metadata->bank_b_size > BOOT_BANK_SIZE)
+  {
+    return 0;
+  }
+
+  return 1;
+}
+
+static uint8_t Bootloader_IsBankMarkedValid(const BootMetadata_t *metadata, uint8_t bank)
+{
+  uint32_t image_size = Bootloader_GetBankSize(metadata, bank);
+
+  if (image_size == 0U || image_size > BOOT_BANK_SIZE)
+  {
+    return 0;
+  }
+
+  if (bank == BOOT_BANK_A)
+  {
+    return metadata->bank_a_valid ? 1U : 0U;
+  }
+
+  if (bank == BOOT_BANK_B)
+  {
+    return metadata->bank_b_valid ? 1U : 0U;
+  }
+
+  return 0;
+}
+
+static uint8_t Bootloader_IsBankVectorValid(uint8_t bank)
+{
+  uint32_t app_base = Bootloader_GetBankStartAddress(bank);
+  uint32_t stack_pointer = *(__IO uint32_t *)app_base;
+  uint32_t reset_handler = *(__IO uint32_t *)(app_base + 4U);
+
+  if ((stack_pointer & 0xFFF00000U) != 0x20000000U)
+  {
+    return 0;
+  }
+
+  if ((reset_handler & 0xFF000000U) != 0x08000000U || (reset_handler & 0x01U) == 0U)
+  {
+    return 0;
+  }
+
+  return 1;
+}
+
+static uint32_t Bootloader_ComputeCRC32(uint32_t start_address, uint32_t size)
+{
+  uint32_t crc = 0xFFFFFFFFU;
+  const uint8_t *data = (const uint8_t *)start_address;
+
+  for (uint32_t i = 0; i < size; i++)
+  {
+    crc ^= data[i];
+    for (uint8_t bit = 0; bit < 8U; bit++)
+    {
+      if ((crc & 1U) != 0U)
+      {
+        crc = (crc >> 1U) ^ 0xEDB88320U;
+      }
+      else
+      {
+        crc >>= 1U;
+      }
+    }
+  }
+
+  return ~crc;
+}
+
+static uint8_t Bootloader_IsBankCrcValid(const BootMetadata_t *metadata, uint8_t bank)
+{
+  uint32_t image_size = Bootloader_GetBankSize(metadata, bank);
+  uint32_t expected_crc = Bootloader_GetBankCrc(metadata, bank);
+  uint32_t bank_start = Bootloader_GetBankStartAddress(bank);
+  uint32_t computed_crc;
+
+  if (image_size == 0U || image_size > BOOT_BANK_SIZE)
+  {
+    return 0;
+  }
+
+  computed_crc = Bootloader_ComputeCRC32(bank_start, image_size);
+
+  return (computed_crc == expected_crc) ? 1U : 0U;
+}
+
+static void Bootloader_UpdateApplicationStatus(void)
+{
+  const BootMetadata_t *metadata = (const BootMetadata_t *)BOOT_METADATA_ADDRESS;
+  uint8_t flags = 0;
+  uint8_t bank_a_crc_ok = 0;
+  uint8_t bank_b_crc_ok = 0;
+  uint8_t active_crc_ok = 0;
+  uint8_t active_bank;
+
+  if (Bootloader_IsMetadataValid(metadata))
+  {
+    flags |= BOOT_STATUS_FLAG_METADATA_VALID;
+
+    if (metadata->active_bank == BOOT_BANK_B)
+    {
+      flags |= BOOT_STATUS_FLAG_ACTIVE_BANK_B;
+    }
+
+    if (Bootloader_IsBankMarkedValid(metadata, BOOT_BANK_A))
+    {
+      flags |= BOOT_STATUS_FLAG_BANK_A_MARKED_VALID;
+    }
+
+    if (Bootloader_IsBankMarkedValid(metadata, BOOT_BANK_B))
+    {
+      flags |= BOOT_STATUS_FLAG_BANK_B_MARKED_VALID;
+    }
+
+    bank_a_crc_ok = Bootloader_IsBankCrcValid(metadata, BOOT_BANK_A);
+    bank_b_crc_ok = Bootloader_IsBankCrcValid(metadata, BOOT_BANK_B);
+
+    if (bank_a_crc_ok)
+    {
+      flags |= BOOT_STATUS_FLAG_BANK_A_CRC_OK;
+    }
+
+    if (bank_b_crc_ok)
+    {
+      flags |= BOOT_STATUS_FLAG_BANK_B_CRC_OK;
+    }
+
+    if (metadata->reserved0 == BOOT_METADATA_UPDATE_IN_PROGRESS)
+    {
+      flags |= BOOT_STATUS_FLAG_UPDATE_IN_PROGRESS;
+    }
+
+    active_bank = metadata->active_bank;
+    active_crc_ok = (active_bank == BOOT_BANK_B) ? bank_b_crc_ok : bank_a_crc_ok;
+    if (Bootloader_IsBankMarkedValid(metadata, active_bank) &&
+        active_crc_ok &&
+        Bootloader_IsBankVectorValid(active_bank))
+    {
+      flags |= BOOT_STATUS_FLAG_ACTIVE_APP_VALID;
+    }
+  }
+
+  g_bootloader_status_flags = flags;
+  g_bootloader_app_valid = ((flags & BOOT_STATUS_FLAG_ACTIVE_APP_VALID) != 0U) ? 1U : 0U;
+}
 
 /* USER CODE END 0 */
 
@@ -197,19 +389,7 @@ int main(void)
   // Continue startup even on failure; monitor tasks will report communication faults
   (void)BQ_WakeChips();
   
-  // Check bootloader application validity flag at startup
-  {
-    uint32_t *flag_ptr = (uint32_t *)APP_VALID_FLAG_ADDRESS;
-    if (flag_ptr[0] == APP_VALID_MAGIC_NUMBER && 
-        flag_ptr[1] == APP_VALID_FLAG_COMPLEMENT)
-    {
-      g_bootloader_app_valid = 1;  // Valid flag found
-    }
-    else
-    {
-      g_bootloader_app_valid = 0;  // No valid flag
-    }
-  }
+  Bootloader_UpdateApplicationStatus();
   
   // Calibrate ADC
   if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)

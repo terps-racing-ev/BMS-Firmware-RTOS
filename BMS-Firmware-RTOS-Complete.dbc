@@ -73,7 +73,14 @@ BO_ 2297433873 BMS_Debug_Response_0: 8 BMS_Module_0
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
  SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
- SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_App_Valid : 24|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Metadata_Valid : 25|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_Bank : 26|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_Marked_Valid : 27|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_Marked_Valid : 28|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_CRC_OK : 29|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_CRC_OK : 30|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Update_In_Progress : 31|1@1+ (1,0) [0|1] "" CAN_Host
  SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host
 
 BO_ 2297433874 BMS_I2C_Diagnostics_0: 8 BMS_Module_0
@@ -350,7 +357,14 @@ BO_ 2297437969 BMS_Debug_Response_1: 8 BMS_Module_1
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
  SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
- SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_App_Valid : 24|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Metadata_Valid : 25|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_Bank : 26|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_Marked_Valid : 27|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_Marked_Valid : 28|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_CRC_OK : 29|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_CRC_OK : 30|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Update_In_Progress : 31|1@1+ (1,0) [0|1] "" CAN_Host
  SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host
 
 BO_ 2297437970 BMS_I2C_Diagnostics_1: 8 BMS_Module_1
@@ -627,7 +641,14 @@ BO_ 2297442065 BMS_Debug_Response_2: 8 BMS_Module_2
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
  SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
- SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_App_Valid : 24|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Metadata_Valid : 25|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_Bank : 26|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_Marked_Valid : 27|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_Marked_Valid : 28|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_CRC_OK : 29|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_CRC_OK : 30|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Update_In_Progress : 31|1@1+ (1,0) [0|1] "" CAN_Host
  SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host
 
 BO_ 2297442066 BMS_I2C_Diagnostics_2: 8 BMS_Module_2
@@ -904,7 +925,14 @@ BO_ 2297446161 BMS_Debug_Response_3: 8 BMS_Module_3
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
  SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
- SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_App_Valid : 24|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Metadata_Valid : 25|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_Bank : 26|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_Marked_Valid : 27|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_Marked_Valid : 28|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_CRC_OK : 29|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_CRC_OK : 30|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Update_In_Progress : 31|1@1+ (1,0) [0|1] "" CAN_Host
  SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host
 
 BO_ 2297446162 BMS_I2C_Diagnostics_3: 8 BMS_Module_3
@@ -1181,7 +1209,14 @@ BO_ 2297450257 BMS_Debug_Response_4: 8 BMS_Module_4
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
  SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
- SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_App_Valid : 24|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Metadata_Valid : 25|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_Bank : 26|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_Marked_Valid : 27|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_Marked_Valid : 28|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_CRC_OK : 29|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_CRC_OK : 30|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Update_In_Progress : 31|1@1+ (1,0) [0|1] "" CAN_Host
  SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host
 
 BO_ 2297450258 BMS_I2C_Diagnostics_4: 8 BMS_Module_4
@@ -1458,7 +1493,14 @@ BO_ 2297454353 BMS_Debug_Response_5: 8 BMS_Module_5
  SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host
  SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
  SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host
- SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_App_Valid : 24|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Metadata_Valid : 25|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Active_Bank : 26|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_Marked_Valid : 27|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_Marked_Valid : 28|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_A_CRC_OK : 29|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Bank_B_CRC_OK : 30|1@1+ (1,0) [0|1] "" CAN_Host
+ SG_ Boot_Update_In_Progress : 31|1@1+ (1,0) [0|1] "" CAN_Host
  SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host
 
 BO_ 2297454354 BMS_I2C_Diagnostics_5: 8 BMS_Module_5
@@ -2067,6 +2109,56 @@ VAL_ 2297450258 I2C1_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_
 VAL_ 2297450258 I2C3_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";
 VAL_ 2297454354 I2C1_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";
 VAL_ 2297454354 I2C3_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";
+
+// Bootloader debug status bits
+VAL_ 2297433873 Boot_Active_Bank 0 "Bank_A" 1 "Bank_B";
+VAL_ 2297433873 Boot_Active_App_Valid 0 "No" 1 "Yes";
+VAL_ 2297433873 Boot_Metadata_Valid 0 "No" 1 "Yes";
+VAL_ 2297433873 Boot_Bank_A_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297433873 Boot_Bank_B_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297433873 Boot_Bank_A_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297433873 Boot_Bank_B_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297433873 Boot_Update_In_Progress 0 "No" 1 "Yes";
+VAL_ 2297437969 Boot_Active_Bank 0 "Bank_A" 1 "Bank_B";
+VAL_ 2297437969 Boot_Active_App_Valid 0 "No" 1 "Yes";
+VAL_ 2297437969 Boot_Metadata_Valid 0 "No" 1 "Yes";
+VAL_ 2297437969 Boot_Bank_A_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297437969 Boot_Bank_B_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297437969 Boot_Bank_A_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297437969 Boot_Bank_B_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297437969 Boot_Update_In_Progress 0 "No" 1 "Yes";
+VAL_ 2297442065 Boot_Active_Bank 0 "Bank_A" 1 "Bank_B";
+VAL_ 2297442065 Boot_Active_App_Valid 0 "No" 1 "Yes";
+VAL_ 2297442065 Boot_Metadata_Valid 0 "No" 1 "Yes";
+VAL_ 2297442065 Boot_Bank_A_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297442065 Boot_Bank_B_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297442065 Boot_Bank_A_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297442065 Boot_Bank_B_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297442065 Boot_Update_In_Progress 0 "No" 1 "Yes";
+VAL_ 2297446161 Boot_Active_Bank 0 "Bank_A" 1 "Bank_B";
+VAL_ 2297446161 Boot_Active_App_Valid 0 "No" 1 "Yes";
+VAL_ 2297446161 Boot_Metadata_Valid 0 "No" 1 "Yes";
+VAL_ 2297446161 Boot_Bank_A_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297446161 Boot_Bank_B_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297446161 Boot_Bank_A_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297446161 Boot_Bank_B_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297446161 Boot_Update_In_Progress 0 "No" 1 "Yes";
+VAL_ 2297450257 Boot_Active_Bank 0 "Bank_A" 1 "Bank_B";
+VAL_ 2297450257 Boot_Active_App_Valid 0 "No" 1 "Yes";
+VAL_ 2297450257 Boot_Metadata_Valid 0 "No" 1 "Yes";
+VAL_ 2297450257 Boot_Bank_A_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297450257 Boot_Bank_B_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297450257 Boot_Bank_A_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297450257 Boot_Bank_B_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297450257 Boot_Update_In_Progress 0 "No" 1 "Yes";
+VAL_ 2297454353 Boot_Active_Bank 0 "Bank_A" 1 "Bank_B";
+VAL_ 2297454353 Boot_Active_App_Valid 0 "No" 1 "Yes";
+VAL_ 2297454353 Boot_Metadata_Valid 0 "No" 1 "Yes";
+VAL_ 2297454353 Boot_Bank_A_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297454353 Boot_Bank_B_Marked_Valid 0 "No" 1 "Yes";
+VAL_ 2297454353 Boot_Bank_A_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297454353 Boot_Bank_B_CRC_OK 0 "No" 1 "Yes";
+VAL_ 2297454353 Boot_Update_In_Progress 0 "No" 1 "Yes";
 
 // Config Command values
 VAL_ 2297433856 Command 1 "SET_MODULE_ID" 2 "SET_MAX_TEMP" 3 "SET_MIN_TEMP" 4 "SET_MIN_VOLTAGE" 5 "SET_MAX_VOLTAGE" 6 "GET_VALUE" 7 "SET_BQ_MODE";
