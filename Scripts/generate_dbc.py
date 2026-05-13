@@ -156,7 +156,14 @@ def generate_dbc():
         lines.append(' SG_ Module_ID : 0|8@1+ (1,0) [0|15] "" CAN_Host')
         lines.append(' SG_ Free_Heap_KB : 8|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host')
         lines.append(' SG_ Min_Free_Heap_KB : 16|8@1+ (0.25,0) [0|63.75] "KB" CAN_Host')
-        lines.append(' SG_ Boot_Valid : 24|8@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Active_App_Valid : 24|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Metadata_Valid : 25|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Active_Bank : 26|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Bank_A_Marked_Valid : 27|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Bank_B_Marked_Valid : 28|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Bank_A_CRC_OK : 29|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Bank_B_CRC_OK : 30|1@1+ (1,0) [0|1] "" CAN_Host')
+        lines.append(' SG_ Boot_Update_In_Progress : 31|1@1+ (1,0) [0|1] "" CAN_Host')
         lines.append(' SG_ Uptime_Seconds : 32|32@1+ (1,0) [0|4294967295] "s" CAN_Host')
         lines.append('')
         
@@ -571,6 +578,22 @@ def generate_dbc():
         lines.append(f'VAL_ {dbc_id} I2C1_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";')
         lines.append(f'VAL_ {dbc_id} I2C3_State 0 "RESET" 32 "READY" 36 "BUSY" 33 "BUSY_TX" 34 "BUSY_RX" 40 "LISTEN" 41 "BUSY_TX_LISTEN" 42 "BUSY_RX_LISTEN" 96 "ABORT";')
     
+    lines.append('')
+
+    # Bootloader debug status bit values
+    lines.append('// Bootloader debug status bits')
+    boot_status_signals = [
+        'Boot_Active_App_Valid', 'Boot_Metadata_Valid',
+        'Boot_Bank_A_Marked_Valid', 'Boot_Bank_B_Marked_Valid',
+        'Boot_Bank_A_CRC_OK', 'Boot_Bank_B_CRC_OK', 'Boot_Update_In_Progress'
+    ]
+    for module in range(6):
+        can_id = 0x08F00F11 + (module << 12)
+        dbc_id = can_id | 0x80000000
+        lines.append(f'VAL_ {dbc_id} Boot_Active_Bank 0 "Bank_A" 1 "Bank_B";')
+        for sig in boot_status_signals:
+            lines.append(f'VAL_ {dbc_id} {sig} 0 "No" 1 "Yes";')
+
     lines.append('')
     
     # Config Command values

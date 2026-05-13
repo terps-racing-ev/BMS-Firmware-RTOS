@@ -224,8 +224,10 @@ static void CAN_PackExtFilter(uint32_t id, uint32_t id_mask,
   * @brief  Configure CAN filters to accept messages for current module ID
   * @retval None
   * @note   Two banks:
-  *           Bank 0 → FIFO0: mask filter on bits [15:12] = current module ID.
-  *                            Accepts every per-module message addressed to us.
+  *           Bank 0 → FIFO0: mask filter requiring the BMS prefix
+  *                            (bits [28:16] = 0x08F0) AND module-ID bits
+  *                            [15:12] == our module ID. This rejects any
+  *                            traffic that is not 0x08F0XYYY for our X.
   *           Bank 1 → FIFO1: mask filter requiring exact match against
   *                            CAN_DEBUG_REQUEST_ID (broadcast).
   *         Module-specific filtering is now done in hardware; the software
@@ -246,9 +248,11 @@ static void CAN_ConfigureFilters(void)
     filterConfig.FilterActivation = ENABLE;
     filterConfig.SlaveStartFilterBank = 14;
 
-    CAN_PackExtFilter(((uint32_t)module_id) << CAN_MODULE_ID_SHIFT,
-                      CAN_MODULE_ID_MASK,
-                      &filterConfig);
+    /* Match BMS prefix (bits 28:16 = 0x08F0) AND module ID (bits 15:12). */
+    uint32_t accept_id   = CAN_BMS_BASE_ID |
+                           (((uint32_t)module_id) << CAN_MODULE_ID_SHIFT);
+    uint32_t accept_mask = CAN_BMS_BASE_MASK | CAN_MODULE_ID_MASK;
+    CAN_PackExtFilter(accept_id, accept_mask, &filterConfig);
     HAL_CAN_ConfigFilter(&hcan1, &filterConfig);
 
     /* --- Bank 1: broadcast (debug request) -> FIFO1 --- */
@@ -812,7 +816,10 @@ HAL_StatusTypeDef CAN_SendStatistics(void)
   *         Byte 0: Module ID (0-15)
   *         Byte 1: Free heap MSB (in 256-byte units)
   *         Byte 2: Min free heap MSB (in 256-byte units)
-  *         Byte 3: Reserved (CPU usage if implemented)
+    *         Byte 3: Bootloader status flags
+    *                 bit0 active app valid, bit1 metadata valid, bit2 active bank B,
+    *                 bit3 bank A marked valid, bit4 bank B marked valid,
+    *                 bit5 bank A CRC OK, bit6 bank B CRC OK, bit7 update in progress
   *         Bytes 4-7: Uptime in seconds (32-bit)
   * @retval HAL_StatusTypeDef
   */
@@ -831,14 +838,14 @@ HAL_StatusTypeDef CAN_SendDebugInfo(void)
     // Get uptime in seconds (convert from milliseconds)
     uint32_t uptime_sec = osKernelGetTickCount() / 1000;
 
-    // Get bootloader validity flag
-    extern uint8_t g_bootloader_app_valid;
+    // Get bootloader status flags captured at startup
+    extern uint8_t g_bootloader_status_flags;
     
     // Pack debug information message
     debug_data[0] = module_id;                              // Byte 0: Module ID
     debug_data[1] = (uint8_t)((free_heap >> 8) & 0xFF);     // Byte 1: Free heap MSB (in 256-byte units)
     debug_data[2] = (uint8_t)((min_free_heap >> 8) & 0xFF); // Byte 2: Min free heap MSB (in 256-byte units)
-    debug_data[3] = g_bootloader_app_valid;                 // Byte 3: Bootloader validity (1=valid, 0=invalid)
+    debug_data[3] = g_bootloader_status_flags;              // Byte 3: Bootloader status flags
     debug_data[4] = (uint8_t)(uptime_sec & 0xFF);           // Byte 4: Uptime LSB
     debug_data[5] = (uint8_t)((uptime_sec >> 8) & 0xFF);    // Byte 5: Uptime
     debug_data[6] = (uint8_t)((uptime_sec >> 16) & 0xFF);   // Byte 6: Uptime

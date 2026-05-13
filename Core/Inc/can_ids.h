@@ -44,6 +44,10 @@ extern "C" {
 #define CAN_MODULE_ID_SHIFT     12
 #define CAN_MODULE_ID_MASK      0x0000F000
 
+/* BMS message prefix (bits 28:16 of the 29-bit extended ID) */
+#define CAN_BMS_BASE_ID         0x08F00000  /**< All BMS frames are 0x08F0XYYY */
+#define CAN_BMS_BASE_MASK       0x1FFF0000  /**< Mask covering bits [28:16] */
+
 /* Helper macro to create CAN ID with module number */
 #define CAN_ID(base, module)    ((base) | ((module) << CAN_MODULE_ID_SHIFT))
 

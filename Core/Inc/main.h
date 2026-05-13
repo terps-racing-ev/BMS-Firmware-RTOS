@@ -106,17 +106,45 @@ void Error_Handler(void);
 //#define MUX_SIG_USE_OPEN_DRAIN
 
 /**
-  * @brief  Bootloader application validity flag defines
-  * 
-  * These match the bootloader's flash flag location and magic numbers.
-  * The bootloader writes these values when a valid application is flashed.
+  * @brief  Dual-bank bootloader metadata layout
+  *
+  * These definitions mirror STM32-CAN-Bootloader/Core/Inc/bootloader.h.
   */
-#define APP_VALID_FLAG_ADDRESS      ((uint32_t)0x08007FF8)
-#define APP_VALID_MAGIC_NUMBER      ((uint32_t)0xDEADBEEF)
-#define APP_VALID_FLAG_COMPLEMENT   ((uint32_t)0x21524110)
+#define BOOT_METADATA_ADDRESS                 ((uint32_t)0x08007800)
+#define BOOT_METADATA_MAGIC                   ((uint32_t)0xAB12AB12)
+#define BOOT_METADATA_UPDATE_IN_PROGRESS      ((uint8_t)0xA5)
+#define BOOT_BANK_A                           ((uint8_t)0U)
+#define BOOT_BANK_B                           ((uint8_t)1U)
+#define BOOT_BANK_A_ADDRESS                   ((uint32_t)0x08008000)
+#define BOOT_BANK_B_ADDRESS                   ((uint32_t)0x08022000)
+#define BOOT_BANK_SIZE                        ((uint32_t)0x1A000)
 
-/* Bootloader validity status flag - set at startup, 1 = valid, 0 = invalid */
+#define BOOT_STATUS_FLAG_ACTIVE_APP_VALID     ((uint8_t)(1U << 0))
+#define BOOT_STATUS_FLAG_METADATA_VALID       ((uint8_t)(1U << 1))
+#define BOOT_STATUS_FLAG_ACTIVE_BANK_B        ((uint8_t)(1U << 2))
+#define BOOT_STATUS_FLAG_BANK_A_MARKED_VALID  ((uint8_t)(1U << 3))
+#define BOOT_STATUS_FLAG_BANK_B_MARKED_VALID  ((uint8_t)(1U << 4))
+#define BOOT_STATUS_FLAG_BANK_A_CRC_OK        ((uint8_t)(1U << 5))
+#define BOOT_STATUS_FLAG_BANK_B_CRC_OK        ((uint8_t)(1U << 6))
+#define BOOT_STATUS_FLAG_UPDATE_IN_PROGRESS   ((uint8_t)(1U << 7))
+
+typedef struct {
+  uint32_t magic;        /**< Metadata magic marker */
+  uint8_t active_bank;   /**< Active application bank */
+  uint8_t bank_a_valid;  /**< Bank A host-authoritative valid flag */
+  uint8_t bank_b_valid;  /**< Bank B host-authoritative valid flag */
+  uint8_t reserved0;     /**< Update transaction marker */
+  uint32_t bank_a_crc;   /**< Expected reflected CRC32 for bank A */
+  uint32_t bank_b_crc;   /**< Expected reflected CRC32 for bank B */
+  uint32_t bank_a_size;  /**< Programmed image size for bank A */
+  uint32_t bank_b_size;  /**< Programmed image size for bank B */
+  uint32_t complement;   /**< Bitwise complement of BOOT_METADATA_MAGIC */
+  uint32_t reserved1;    /**< Reserved for future metadata */
+} BootMetadata_t;
+
+/* Bootloader status flags - set at startup from boot metadata */
 extern uint8_t g_bootloader_app_valid;
+extern uint8_t g_bootloader_status_flags;
 
 /* USER CODE END Private defines */
 
