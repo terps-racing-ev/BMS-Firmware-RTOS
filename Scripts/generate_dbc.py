@@ -95,7 +95,6 @@ def generate_dbc():
     for module in range(6):
         module_offset = module << 12  # module_id << 12
         therm_base = module * 56  # Base thermistor number for this module
-        cell_base = module * 18   # Base cell number for this module (18 cells per module)
         
         lines.append(f'// ============== Module {module} (Thermistors {therm_base}-{therm_base+55}) ==============')
         lines.append('')
@@ -299,30 +298,42 @@ def generate_dbc():
         lines.append('')
         
         # 14 Temperature messages (0x08F00000 through 0x08F0000D + module_offset)
+        # Each message carries four thermistor values. Thermistors 0-53 map to
+        # module-local cell groups 1-18 with three sensors per group; 54-55 are ambient.
         for msg_idx in range(14):
             can_id = 0x08F00000 + msg_idx + module_offset
             dbc_id = can_id | 0x80000000
             message_ids.append(dbc_id)
             
-            # Calculate thermistor numbers for this message (4 per message)
-            therm_start = therm_base + (msg_idx * 4)
-            therm_end = therm_start + 3  # 4 thermistors total (start to start+3)
+            # Calculate module-local thermistor numbers for this message (4 per message)
+            local_therm_start = msg_idx * 4
+            local_therm_end = local_therm_start + 3
+            first_cell_group = (local_therm_start // 3) + 1
+            last_cell_group = (min(local_therm_end, 53) // 3) + 1
             
-            # Message name indicates thermistor range (e.g., Cell_Temp_0_3 for thermistors 0-3)
-            # Note: DBC format only allows alphanumeric and underscore in names, no hyphens
-            lines.append(f'BO_ {dbc_id} Cell_Temp_{therm_start}_{therm_end}: 8 BMS_Module_{module}')
+            # Message name indicates module-local cell group range carried by the frame.
+            # Note: DBC format only allows alphanumeric and underscore in names, no hyphens.
+            if local_therm_start >= 54:
+                message_name = f'Temp_m{module}_ambient'
+            elif first_cell_group == last_cell_group:
+                message_name = f'Temp_m{module}_cellgrp{first_cell_group}'
+            else:
+                message_name = f'Temp_m{module}_cellgrp{first_cell_group}_to_cellgrp{last_cell_group}'
+
+            lines.append(f'BO_ {dbc_id} {message_name}: 8 BMS_Module_{module}')
             for i in range(4):
-                therm_num = therm_start + i
-                local_therm_num = therm_num - therm_base
+                local_therm_num = local_therm_start + i
                 bit_start = i * 16
 
                 # Last two thermistors per module are ambient sensors
                 if local_therm_num == 54:
-                    signal_name = f'Ambient_Temp_1_{therm_num:03d}'
+                    signal_name = f'AmbientTemp_m{module}_1'
                 elif local_therm_num == 55:
-                    signal_name = f'Ambient_Temp_2_{therm_num:03d}'
+                    signal_name = f'AmbientTemp_m{module}_2'
                 else:
-                    signal_name = f'Temp_{therm_num:03d}'
+                    cell_group = (local_therm_num // 3) + 1
+                    sensor_in_group = (local_therm_num % 3) + 1
+                    signal_name = f'Temp_m{module}_cellgrp{cell_group}_{sensor_in_group}'
 
                 lines.append(f' SG_ {signal_name} : {bit_start}|16@1- (0.1,0) [-40|125] "degC" CAN_Host')
             lines.append('')
@@ -381,17 +392,17 @@ def generate_dbc():
             dbc_id = can_id | 0x80000000
             message_ids.append(dbc_id)
             
-            # Calculate cell numbers for this message (3 per message)
-            cell_start = cell_base + (msg_idx * 3) + 1  # +1 because cells are 1-indexed
-            cell_end = cell_start + 2  # 3 cells total
+            # Calculate module-local cell group numbers for this message (3 per message)
+            cell_group_start = (msg_idx * 3) + 1
+            cell_group_end = cell_group_start + 2
             
-            # Message name indicates cell range (e.g., Cell_Voltage_1_3 for cells 1-3)
-            # Note: DBC format only allows alphanumeric and underscore in names, no hyphens
-            lines.append(f'BO_ {dbc_id} Cell_Voltage_{cell_start}_{cell_end}: 6 BMS_Module_{module}')
+            # Message name indicates module-local cell group range carried by the frame.
+            # Note: DBC format only allows alphanumeric and underscore in names, no hyphens.
+            lines.append(f'BO_ {dbc_id} CellVoltage_m{module}_cellgrp{cell_group_start}_to_cellgrp{cell_group_end}: 6 BMS_Module_{module}')
             for i in range(3):
-                cell_num = cell_start + i
+                cell_group = cell_group_start + i
                 bit_start = i * 16
-                lines.append(f' SG_ Cell_{cell_num:03d}_Voltage : {bit_start}|16@1+ (1,0) [0|5000] "mV" CAN_Host')
+                lines.append(f' SG_ CellVoltage_m{module}_cellgrp{cell_group} : {bit_start}|16@1+ (1,0) [0|5000] "mV" CAN_Host')
             lines.append('')
         
         # Combined Chip Status: base 0x08F00206 + module_offset
